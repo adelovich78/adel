@@ -1,5 +1,6 @@
 <?php
-// /api/import_espo.php — reprise des données EspoCRM dans le CRM Webina (admin uniquement)
+// /api/import_espo.php — reprise des contacts EspoCRM dans le CRM Webina (admin uniquement)
+// Ventes et paiements ne sont pas repris : le CRM repart de zéro sur ces deux points.
 //   GET  → vérifie la connexion à la base EspoCRM et compte ce qui sera importé
 //   POST → importe (peut être relancé sans créer de doublons : chaque fiche garde son identifiant Espo)
 // config.php : 'espo_db_name' => 'webe5acomtr_webina'
@@ -35,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     json_out(['ok' => true, 'counts' => [
         'accounts' => $count('account'), 'contacts' => $count('contact'),
         'leads' => $count('lead', "deleted = 0 AND (status IS NULL OR status <> 'Converted')"),
-        'opportunities' => $count('opportunity'), 'tasks' => $count('task'),
+        'tasks' => $count('task'),
         'meetings' => $count('meeting'), 'calls' => $count('call'),
         'notes' => $count('note', "deleted = 0 AND type = 'Post'"),
         'users' => $count('user', "deleted = 0 AND type IN ('admin', 'regular')"),
@@ -67,7 +68,7 @@ $ins = $crm->prepare('INSERT IGNORE INTO crm_clients (id, kind, parent_id, name,
     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, COALESCE(?, NOW()), COALESCE(?, NOW()), ?)');
 $map = []; // identifiant Espo (Type:id) → identifiant CRM
 $existing = $crm->query("SELECT espo_id, id FROM crm_clients WHERE espo_id IS NOT NULL")->fetchAll(PDO::FETCH_KEY_PAIR);
-$done = ['clients' => 0, 'deals' => 0, 'tasks' => 0, 'notes' => 0];
+$done = ['clients' => 0, 'tasks' => 0, 'notes' => 0];
 $add = function (string $key, array $row) use ($ins, &$map, $existing, &$done) {
     if (isset($existing[$key])) { $map[$key] = $existing[$key]; return; }
     $id = uuid4();
@@ -99,59 +100,34 @@ try {
     }
     // Prospects non convertis
     $info = espo_contacts($espo, 'Lead');
-    $leadDeals = [];
     foreach ($espo->query("SELECT * FROM lead WHERE deleted = 0 AND (status IS NULL OR status <> 'Converted')") as $l) {
         $add('Lead:' . $l['id'], ['kind' => 'person', 'name' => full_name($l), 'company' => $l['account_name'], 'email' => $info[$l['id']]['email'] ?? null,
             'phone' => $info[$l['id']]['phone'] ?? null, 'sector' => $l['industry'], 'city' => $l['address_city'], 'website' => $l['website'],
             'source' => $l['source'] ? 'EspoCRM · ' . $l['source'] : 'EspoCRM', 'notes' => $l['description'],
             'status' => $l['status'] === 'Dead' ? 'archived' : 'lead', 'created' => $l['created_at'], 'modified' => $l['modified_at']]);
-        if ((float)$l['opportunity_amount'] > 0) $leadDeals[] = $l;
     }
 
-    // Ventes (Opportunity)
-    $stage = function (?string $s): string {
-        if ($s === 'Closed Won') return 'won';
-        if ($s === 'Closed Lost') return 'lost';
-        if ($s === 'Prospecting' || !$s) return 'new';
-        if ($s === 'Qualification') return 'contacted';
-        return 'proposal';
-    };
-    $dIns = $crm->prepare('INSERT IGNORE INTO crm_deals (id, client_id, title, amount, currency, stage, close_date, notes, espo_id, created_at, updated_at, stage_changed_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
-    $dealMap = $crm->query("SELECT espo_id, id FROM crm_deals WHERE espo_id IS NOT NULL")->fetchAll(PDO::FETCH_KEY_PAIR);
-    foreach ($espo->query('SELECT * FROM opportunity WHERE deleted = 0') as $o) {
-        $key = 'Opportunity:' . $o['id'];
-        $client = ($o['account_id'] ? ($map['Account:' . $o['account_id']] ?? null) : null) ?? ($o['contact_id'] ? ($map['Contact:' . $o['contact_id']] ?? null) : null);
-        if (!$client) {
-            // Vente sans société : fiche créée à son nom
-            $add('OppClient:' . $o['id'], ['kind' => 'company', 'name' => $o['name'] ?: '(sans nom)', 'status' => 'lead', 'created' => $o['created_at']]);
-            $client = $map['OppClient:' . $o['id']];
-        }
-        if (isset($dealMap[$key])) continue;
-        $id = uuid4();
-        $dIns->execute([$id, $client, mb_substr($o['name'] ?: 'Vente', 0, 200), (float)$o['amount'], in_array($o['amount_currency'], ['TRY', 'USD', 'EUR'], true) ? $o['amount_currency'] : 'TRY',
-            $stage($o['stage']), $o['close_date'], $o['description'], $key, dt($o['created_at']) ?? date('Y-m-d H:i:s'), dt($o['modified_at']) ?? date('Y-m-d H:i:s'), dt($o['modified_at']) ?? date('Y-m-d H:i:s')]);
-        $dealMap[$key] = $id;
-        $done['deals']++;
-        if ($stage($o['stage']) === 'won') {
-            $crm->prepare("UPDATE crm_clients SET status = 'client' WHERE id = ?")->execute([$client]);
-            // Les paiements ne sont pas dans EspoCRM : le projet est marqué « à vérifier » et n'entre pas dans les relances de solde
-            $crm->prepare("INSERT IGNORE INTO crm_projects (id, client_id, deal_id, name, status, start_date, delivery_date, amount, currency, notes) VALUES (?, ?, ?, ?, 'delivered', ?, ?, ?, ?, 'Repris d''EspoCRM : paiements à vérifier')")
-                ->execute([uuid4(), $client, $id, mb_substr($o['name'] ?: 'Projet', 0, 200), $o['close_date'], $o['close_date'], (float)$o['amount'], in_array($o['amount_currency'], ['TRY', 'USD', 'EUR'], true) ? $o['amount_currency'] : 'TRY']);
-        }
+    // Ventes et paiements : on repart de zéro (aucune vente, aucun projet repris d'EspoCRM).
+    // Un ancien import éventuel est retiré.
+    $old = $crm->query("SELECT id FROM crm_deals WHERE espo_id IS NOT NULL")->fetchAll(PDO::FETCH_COLUMN);
+    if ($old) {
+        $ph = implode(',', array_fill(0, count($old), '?'));
+        $crm->prepare("DELETE pay FROM crm_payments pay JOIN crm_projects p ON p.id = pay.project_id WHERE p.deal_id IN ($ph)")->execute($old);
+        $crm->prepare("DELETE FROM crm_projects WHERE deal_id IN ($ph)")->execute($old);
+        $crm->prepare("UPDATE crm_tasks SET deal_id = NULL WHERE deal_id IN ($ph)")->execute($old);
+        $crm->prepare("UPDATE crm_activity SET deal_id = NULL WHERE deal_id IN ($ph)")->execute($old);
+        $crm->prepare("DELETE FROM crm_deals WHERE id IN ($ph)")->execute($old);
     }
-    foreach ($leadDeals as $l) {
-        $key = 'LeadDeal:' . $l['id'];
-        if (isset($dealMap[$key]) || !isset($map['Lead:' . $l['id']])) continue;
-        $dIns->execute([uuid4(), $map['Lead:' . $l['id']], 'Opportunité (prospect EspoCRM)', (float)$l['opportunity_amount'],
-            in_array($l['opportunity_amount_currency'], ['TRY', 'USD', 'EUR'], true) ? $l['opportunity_amount_currency'] : 'TRY', 'new', null, null, $key,
-            dt($l['created_at']) ?? date('Y-m-d H:i:s'), dt($l['modified_at']) ?? date('Y-m-d H:i:s'), dt($l['modified_at']) ?? date('Y-m-d H:i:s')]);
-        $done['deals']++;
+    // Les tâches liées à une ancienne vente sont rattachées au client de cette vente
+    $oppClient = [];
+    foreach ($espo->query('SELECT id, account_id, contact_id FROM opportunity WHERE deleted = 0') as $o) {
+        $oppClient[$o['id']] = ($o['account_id'] ? ($map['Account:' . $o['account_id']] ?? null) : null) ?? ($o['contact_id'] ? ($map['Contact:' . $o['contact_id']] ?? null) : null);
     }
 
     // Tâches, réunions et appels
-    $parent = function (?string $type, ?string $pid, ?string $accountId = null) use ($map, $dealMap): array {
+    $parent = function (?string $type, ?string $pid, ?string $accountId = null) use ($map, $oppClient): array {
         $client = null; $deal = null;
-        if ($type === 'Opportunity' && $pid) { $deal = $dealMap['Opportunity:' . $pid] ?? null; }
+        if ($type === 'Opportunity' && $pid) { $client = $oppClient[$pid] ?? null; }
         if ($type && $pid && isset($map[$type . ':' . $pid])) $client = $map[$type . ':' . $pid];
         if (!$client && $accountId) $client = $map['Account:' . $accountId] ?? null;
         return [$client, $deal];

@@ -581,7 +581,7 @@
     b.disabled = true; b.textContent = 'Import en cours…';
     api('import_espo.php', { method: 'POST' }).then(function (x) {
       var i = x.imported;
-      result.innerHTML = '<p class="crm_ok">' + icon('i-check') + 'Import terminé : ' + i.clients + ' fiches, ' + i.deals + ' ventes, ' + i.tasks + ' tâches et ' + i.notes + ' notes.</p>';
+      result.innerHTML = '<p class="crm_ok">' + icon('i-check') + 'Import terminé : ' + i.clients + ' fiches, ' + i.tasks + ' tâches et ' + i.notes + ' notes. Ventes et paiements repartent de zéro.</p>';
       toast('Import terminé'); load();
     }).catch(function (ex) { result.innerHTML = '<p class="form_error">' + esc(ex.message) + '</p>'; })
       .then(function () { b.disabled = false; b.textContent = 'Importer'; });
