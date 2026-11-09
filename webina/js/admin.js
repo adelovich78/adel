@@ -53,6 +53,8 @@
     return new Intl.NumberFormat('fr-FR', { style: 'currency', currency: cur, maximumFractionDigits: 0 }).format(n);
   }
   function confirmAction(msg) { return window.confirm(msg); }
+  // Outils partagés avec le module CRM (crm.js)
+  window.WebinaAdmin = { api: api, toast: toast, esc: esc, money: money, date: date, copy: copy, confirm: confirmAction };
 
   /* ---------- Thème ---------- */
   $('[data-theme-toggle]').addEventListener('click', function () {
@@ -118,6 +120,7 @@
     t.addEventListener('click', function () {
       $$('.admin_tab').forEach(function (x) { x.setAttribute('aria-selected', String(x === t)); });
       $$('[data-panel]').forEach(function (p) { p.hidden = p.dataset.panel !== t.dataset.tab; });
+      document.dispatchEvent(new CustomEvent('admin:tab', { detail: t.dataset.tab }));
     });
   });
 
@@ -129,7 +132,11 @@
       api('pricing.php').then(function (d) { state.pricing = d.pricing; }).catch(function () {})
     ]).then(renderAll);
   }
-  function renderAll() { renderStats(); renderSubmissions(); renderCodes(); renderSubscribers(); fillCodeSelect(); fillPricing(); }
+  function renderAll() {
+    var subCount = state.submissions.filter(function (x) { return x.status === 'new'; }).length;
+    var badge = $('[data-count="submissions"]'); if (badge) badge.textContent = subCount || '';
+    if (window.CRM) window.CRM.load();
+    renderStats(); renderSubmissions(); renderCodes(); renderSubscribers(); fillCodeSelect(); fillPricing(); }
 
   /* ---------- Chiffres clés ---------- */
   function renderStats() {

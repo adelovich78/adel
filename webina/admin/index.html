@@ -30,6 +30,18 @@
     <symbol id="i-link" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></symbol>
     <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></symbol>
     <symbol id="i-moon" viewBox="0 0 24 24"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></symbol>
+    <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></symbol>
+    <symbol id="i-users" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
+    <symbol id="i-columns" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18M15 3v18"/></symbol>
+    <symbol id="i-check-square" viewBox="0 0 24 24"><path d="m9 11 3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></symbol>
+    <symbol id="i-folder" viewBox="0 0 24 24"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></symbol>
+    <symbol id="i-inbox" viewBox="0 0 24 24"><path d="M22 12h-6l-2 3h-4l-2-3H2"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/></symbol>
+    <symbol id="i-tag" viewBox="0 0 24 24"><path d="M12.59 2.59A2 2 0 0 0 11.17 2H4a2 2 0 0 0-2 2v7.17a2 2 0 0 0 .59 1.42l8.7 8.7a2.43 2.43 0 0 0 3.42 0l6.58-6.58a2.43 2.43 0 0 0 0-3.42z"/><circle cx="7.5" cy="7.5" r=".5"/></symbol>
+    <symbol id="i-coins" viewBox="0 0 24 24"><circle cx="8" cy="8" r="6"/><path d="M18.09 10.37A6 6 0 1 1 10.34 18M7 6h1v4M16.71 13.88l.7.71-2.82 2.82"/></symbol>
+    <symbol id="i-phone" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></symbol>
+    <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></symbol>
+    <symbol id="i-edit" viewBox="0 0 24 24"><path d="M12 20h9M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></symbol>
   </svg>
 
   <header class="admin_header">
@@ -71,18 +83,118 @@
 
     <!-- Tableau de bord -->
     <section class="admin_app" data-view="app" hidden>
-      <div class="admin_stats" data-stats></div>
+      <div class="admin_layout">
+        <nav class="admin_side" aria-label="Sections">
+          <p class="admin_side-label">CRM</p>
+          <button type="button" class="admin_tab" aria-selected="true" data-tab="dashboard"><svg class="icon" aria-hidden="true"><use href="#i-home"/></svg>Tableau de bord</button>
+          <button type="button" class="admin_tab" aria-selected="false" data-tab="clients"><svg class="icon" aria-hidden="true"><use href="#i-users"/></svg>Clients</button>
+          <button type="button" class="admin_tab" aria-selected="false" data-tab="deals"><svg class="icon" aria-hidden="true"><use href="#i-columns"/></svg>Ventes</button>
+          <button type="button" class="admin_tab" aria-selected="false" data-tab="tasks"><svg class="icon" aria-hidden="true"><use href="#i-check-square"/></svg>Tâches<span class="admin_count" data-count="tasks"></span></button>
+          <button type="button" class="admin_tab" aria-selected="false" data-tab="projects"><svg class="icon" aria-hidden="true"><use href="#i-folder"/></svg>Projets</button>
+          <p class="admin_side-label">Site</p>
+          <button type="button" class="admin_tab" aria-selected="false" data-tab="submissions"><svg class="icon" aria-hidden="true"><use href="#i-inbox"/></svg>Demandes<span class="admin_count" data-count="submissions"></span></button>
+          <button type="button" class="admin_tab" aria-selected="false" data-tab="promo"><svg class="icon" aria-hidden="true"><use href="#i-tag"/></svg>Codes de réduction</button>
+          <button type="button" class="admin_tab" aria-selected="false" data-tab="pricing"><svg class="icon" aria-hidden="true"><use href="#i-coins"/></svg>Tarifs</button>
+          <button type="button" class="admin_tab" aria-selected="false" data-tab="link"><svg class="icon" aria-hidden="true"><use href="#i-link"/></svg>Lien de devis</button>
+          <button type="button" class="admin_tab" aria-selected="false" data-tab="newsletter"><svg class="icon" aria-hidden="true"><use href="#i-mail"/></svg>Newsletter</button>
+          <p class="admin_side-label">Outils</p>
+          <button type="button" class="admin_tab" aria-selected="false" data-tab="import"><svg class="icon" aria-hidden="true"><use href="#i-download"/></svg>Import EspoCRM</button>
+        </nav>
+        <div class="admin_content">
 
-      <div class="admin_tabs" role="tablist" aria-label="Sections">
-        <button type="button" role="tab" class="admin_tab" aria-selected="true" data-tab="submissions">Demandes</button>
-        <button type="button" role="tab" class="admin_tab" aria-selected="false" data-tab="promo">Codes de réduction</button>
-        <button type="button" role="tab" class="admin_tab" aria-selected="false" data-tab="pricing">Tarifs</button>
-        <button type="button" role="tab" class="admin_tab" aria-selected="false" data-tab="link">Lien de devis</button>
-        <button type="button" role="tab" class="admin_tab" aria-selected="false" data-tab="newsletter">Newsletter</button>
+      <!-- CRM : tableau de bord -->
+      <div class="admin_panel" data-panel="dashboard">
+        <div class="crm_head">
+          <h1 class="crm_title">Tableau de bord</h1>
+          <div class="button-group">
+            <button type="button" class="button is-small is-secondary" data-crm-new="task"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg>Tâche</button>
+            <button type="button" class="button is-small" data-crm-new="client"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg>Client</button>
+          </div>
+        </div>
+        <div data-crm-dashboard></div>
+      </div>
+
+      <!-- CRM : clients -->
+      <div class="admin_panel" data-panel="clients" hidden>
+        <div class="crm_head">
+          <h1 class="crm_title">Clients</h1>
+          <button type="button" class="button is-small" data-crm-new="client"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg>Nouveau client</button>
+        </div>
+        <div class="admin_toolbar">
+          <input class="form_input crm_search" type="search" placeholder="Rechercher un nom, une société, un e-mail…" data-client-search aria-label="Rechercher">
+          <div class="choice_group" data-client-filter>
+            <label class="choice_chip"><input type="radio" name="cf" value="" checked><span>Tous</span></label>
+            <label class="choice_chip"><input type="radio" name="cf" value="lead"><span>Prospects</span></label>
+            <label class="choice_chip"><input type="radio" name="cf" value="client"><span>Clients</span></label>
+            <label class="choice_chip"><input type="radio" name="cf" value="archived"><span>Archivés</span></label>
+          </div>
+        </div>
+        <div class="admin_table-wrap">
+          <table class="admin_table crm_clients">
+            <thead><tr><th>Nom</th><th>Contact</th><th>Statut</th><th>En cours</th><th>Dernière activité</th></tr></thead>
+            <tbody data-client-rows></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- CRM : ventes -->
+      <div class="admin_panel" data-panel="deals" hidden>
+        <div class="crm_head">
+          <h1 class="crm_title">Ventes</h1>
+          <button type="button" class="button is-small" data-crm-new="deal"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg>Nouvelle vente</button>
+        </div>
+        <p class="text-size-small text-color-secondary crm_hint">Faites glisser une carte d'une colonne à l'autre. « Gagné » crée le projet automatiquement.</p>
+        <div class="crm_board" data-board></div>
+      </div>
+
+      <!-- CRM : tâches -->
+      <div class="admin_panel" data-panel="tasks" hidden>
+        <div class="crm_head">
+          <h1 class="crm_title">Tâches</h1>
+          <label class="crm_toggle"><input type="checkbox" data-show-done> Voir les tâches terminées</label>
+        </div>
+        <form class="crm_quick" data-quick-task>
+          <input class="form_input" name="title" placeholder="Nouvelle tâche, ex. Envoyer la maquette à Ayşe" aria-label="Nouvelle tâche" required>
+          <input class="form_input" name="due_at" type="datetime-local" aria-label="Échéance">
+          <button type="submit" class="button"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg>Ajouter</button>
+        </form>
+        <div data-task-groups></div>
+      </div>
+
+      <!-- CRM : projets -->
+      <div class="admin_panel" data-panel="projects" hidden>
+        <div class="crm_head">
+          <h1 class="crm_title">Projets</h1>
+          <button type="button" class="button is-small" data-crm-new="project"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg>Nouveau projet</button>
+        </div>
+        <div class="admin_table-wrap">
+          <table class="admin_table">
+            <thead><tr><th>Projet</th><th>Client</th><th>Statut</th><th>Montant</th><th>Reste à encaisser</th><th>Hébergement</th></tr></thead>
+            <tbody data-project-rows></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Outils : import EspoCRM -->
+      <div class="admin_panel" data-panel="import" hidden>
+        <div class="crm_head"><h1 class="crm_title">Import EspoCRM</h1></div>
+        <div class="admin_card">
+          <div>
+            <h2 class="heading-style-h5">Reprendre les données de l'ancien CRM</h2>
+            <p class="text-size-small text-color-secondary">Sociétés, contacts, prospects, ventes, tâches, réunions, appels et notes. L'import peut être relancé : rien n'est créé deux fois. EspoCRM n'est pas modifié.</p>
+          </div>
+          <div class="button-group">
+            <button type="button" class="button is-secondary" data-espo-check>Vérifier la connexion</button>
+            <button type="button" class="button" data-espo-run disabled>Importer</button>
+          </div>
+          <div class="crm_import-result" data-espo-result></div>
+        </div>
       </div>
 
       <!-- Demandes -->
-      <div class="admin_panel" data-panel="submissions">
+      <div class="admin_panel" data-panel="submissions" hidden>
+        <div class="crm_head"><h1 class="crm_title">Demandes du site</h1></div>
+        <div class="admin_stats" data-stats></div>
         <div class="admin_toolbar">
           <div class="choice_group" data-status-filter>
             <label class="choice_chip"><input type="radio" name="sf" value="all" checked><span>Toutes</span></label>
@@ -235,12 +347,35 @@
           </table>
         </div>
       </div>
+        </div>
+      </div>
     </section>
   </main>
+
+  <!-- Fiche client (panneau latéral) -->
+  <div class="crm_sheet" data-sheet hidden>
+    <div class="crm_sheet-backdrop" data-sheet-close></div>
+    <aside class="crm_sheet-panel" role="dialog" aria-modal="true" aria-label="Fiche client" tabindex="-1" data-sheet-panel></aside>
+  </div>
+
+  <!-- Fenêtre de création / modification -->
+  <div class="crm_modal" data-modal hidden>
+    <div class="crm_modal-backdrop" data-modal-close></div>
+    <form class="crm_modal-panel" role="dialog" aria-modal="true" aria-labelledby="crm-modal-title" data-modal-form novalidate>
+      <h2 class="heading-style-h5" id="crm-modal-title" data-modal-title></h2>
+      <div class="crm_modal-fields" data-modal-fields></div>
+      <p class="form_error text-size-small" role="alert" data-modal-error></p>
+      <div class="crm_modal-actions">
+        <button type="button" class="button is-secondary" data-modal-close>Annuler</button>
+        <button type="submit" class="button" data-modal-submit>Enregistrer</button>
+      </div>
+    </form>
+  </div>
 
   <div class="admin_toast" role="status" aria-live="polite" data-toast></div>
 
   <script src="/js/i18n.js" defer></script>
   <script src="/js/admin.js" defer></script>
+  <script src="/js/crm.js" defer></script>
 </body>
 </html>

@@ -4,6 +4,7 @@
 require __DIR__ . '/_bootstrap.php';
 require __DIR__ . '/_quote.php';
 require __DIR__ . '/_promo.php';
+require __DIR__ . '/_crm.php';
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') fail('Méthode non autorisée.', 405);
 
@@ -51,16 +52,24 @@ if ($kind === 'quote') {
 
 // 1) Enregistrement en base (si disponible)
 $saved = false;
+$sid = uuid4();
 if ($pdo = db_or_null()) {
     try {
         $pdo->prepare('INSERT INTO contact_submissions (id, kind, name, email, phone, company, sector, service, budget, message, details, status, ip)
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, \'new\', ?)')
-            ->execute([uuid4(), $kind, $name, $email, $phone, $company,
+            ->execute([$sid, $kind, $name, $email, $phone, $company,
                 str_field($d, 'sector', 60), str_field($d, 'service', 60), str_field($d, 'budget', 60), $message, $details, $ip]);
         $saved = true;
     } catch (Throwable $e) {
         error_log('[webina] INSERT: ' . $e->getMessage());
     }
+    // Automatisation CRM : fiche client + vente + tâche « Rappeler »
+    crm_ingest_submission($pdo, [
+        'kind' => $kind, 'name' => $name, 'email' => $email, 'phone' => $phone, 'company' => $company,
+        'sector' => str_field($d, 'sector', 60), 'service' => str_field($d, 'service', 60), 'budget' => str_field($d, 'budget', 60),
+        'city' => $clean['city'] ?? null, 'message' => $message, 'submission_id' => $saved ? $sid : null,
+        'amount' => $quote['total'] ?? 0, 'currency' => $quote['currency'] ?? 'TRY', 'promo' => $promo,
+    ]);
 }
 
 // 2) E-mail interne détaillé (FR) vers info@
