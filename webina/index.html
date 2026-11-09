@@ -56,6 +56,10 @@
     <symbol id="i-shield" viewBox="0 0 24 24"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></symbol>
     <symbol id="i-chevron" viewBox="0 0 24 24"><path d="m18 15-6-6-6 6"/></symbol>
     <symbol id="i-lock" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></symbol>
+    <symbol id="i-chevron-left" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></symbol>
+    <symbol id="i-chevron-right" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></symbol>
+    <symbol id="i-whatsapp" viewBox="0 0 24 24"><path fill="currentColor" stroke="none" d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.08c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.22 1.36.19 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.69.25-1.29.17-1.41-.07-.12-.27-.2-.57-.35M12.05 21.5h-.01a9.4 9.4 0 0 1-4.8-1.32l-.34-.2-3.57.94.95-3.48-.22-.36a9.4 9.4 0 0 1-1.44-5.02c0-5.2 4.23-9.43 9.44-9.43 2.52 0 4.89.98 6.67 2.77a9.37 9.37 0 0 1 2.76 6.67c0 5.2-4.23 9.43-9.44 9.43m8.03-17.46A11.27 11.27 0 0 0 12.05.7C5.79.7.7 5.8.7 12.05c0 2 .52 3.95 1.52 5.67L.6 23.3l5.7-1.5a11.33 11.33 0 0 0 5.74 1.47h.01c6.25 0 11.34-5.09 11.35-11.35 0-3.03-1.18-5.88-3.32-8.02"/></symbol>
   </svg>
 
   <a href="#main" class="skip-link"><span data-i18n="ui.skip">İçeriğe geç</span></a>
@@ -180,34 +184,40 @@
                   <a href="/services" class="text-link" data-reveal style="--d:1"><span data-i18n="ui.more">Tüm hizmetler</span><svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
                 </div>
                 <ol class="services_list" role="list">
-            <li class="services_item" data-reveal style="--d:0">
+            <li class="services_item has-detail" data-reveal style="--d:0">
+              <button type="button" class="detail_cover" data-detail="services" data-index="0" aria-haspopup="dialog" aria-labelledby="svc-t-0"></button><span class="detail_plus" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg></span>
               <span class="services_index text-style-mono">01</span>
-              <h3 class="services_title heading-style-h4" data-i18n="services.0.title">Web sitesi tasarımı</h3>
+              <h3 class="services_title heading-style-h4" id="svc-t-0" data-i18n="services.0.title">Web sitesi tasarımı</h3>
               <p class="services_text text-color-secondary" data-i18n="services.0.text">Dönüşüm odaklı, hızlı ve şık kurumsal siteler, e-ticaret ve özel platformlar.</p>
             </li>
-            <li class="services_item" data-reveal style="--d:1">
+            <li class="services_item has-detail" data-reveal style="--d:1">
+              <button type="button" class="detail_cover" data-detail="services" data-index="1" aria-haspopup="dialog" aria-labelledby="svc-t-1"></button><span class="detail_plus" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg></span>
               <span class="services_index text-style-mono">02</span>
-              <h3 class="services_title heading-style-h4" data-i18n="services.1.title">Özel yazılımlar</h3>
+              <h3 class="services_title heading-style-h4" id="svc-t-1" data-i18n="services.1.title">Özel yazılımlar</h3>
               <p class="services_text text-color-secondary" data-i18n="services.1.text">İşinize uygun iş yazılımları: yönetim, rezervasyon, faturalama, müşteri dosyaları.</p>
             </li>
-            <li class="services_item" data-reveal style="--d:2">
+            <li class="services_item has-detail" data-reveal style="--d:2">
+              <button type="button" class="detail_cover" data-detail="services" data-index="2" aria-haspopup="dialog" aria-labelledby="svc-t-2"></button><span class="detail_plus" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg></span>
               <span class="services_index text-style-mono">03</span>
-              <h3 class="services_title heading-style-h4" data-i18n="services.2.title">CRM &amp; otomasyon</h3>
+              <h3 class="services_title heading-style-h4" id="svc-t-2" data-i18n="services.2.title">CRM &amp; otomasyon</h3>
               <p class="services_text text-color-secondary" data-i18n="services.2.text">Müşterilerinizi, satışlarınızı ve takiplerinizi ekibinize özel bir araçta toplayın.</p>
             </li>
-            <li class="services_item" data-reveal style="--d:3">
+            <li class="services_item has-detail" data-reveal style="--d:3">
+              <button type="button" class="detail_cover" data-detail="services" data-index="3" aria-haspopup="dialog" aria-labelledby="svc-t-3"></button><span class="detail_plus" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg></span>
               <span class="services_index text-style-mono">04</span>
-              <h3 class="services_title heading-style-h4" data-i18n="services.3.title">SEO &amp; görünürlük</h3>
+              <h3 class="services_title heading-style-h4" id="svc-t-3" data-i18n="services.3.title">SEO &amp; görünürlük</h3>
               <p class="services_text text-color-secondary" data-i18n="services.3.text">Organik arama, Google İşletme, optimize içerik: doğru müşteriler sizi bulsun.</p>
             </li>
-            <li class="services_item" data-reveal style="--d:4">
+            <li class="services_item has-detail" data-reveal style="--d:4">
+              <button type="button" class="detail_cover" data-detail="services" data-index="4" aria-haspopup="dialog" aria-labelledby="svc-t-4"></button><span class="detail_plus" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg></span>
               <span class="services_index text-style-mono">05</span>
-              <h3 class="services_title heading-style-h4" data-i18n="services.4.title">Yönetim paneli &amp; formlar</h3>
+              <h3 class="services_title heading-style-h4" id="svc-t-4" data-i18n="services.4.title">Yönetim paneli &amp; formlar</h3>
               <p class="services_text text-color-secondary" data-i18n="services.4.text">Taleplerinizi, formlarınızı, içeriklerinizi ve istatistiklerinizi anlık kontrol edin.</p>
             </li>
-            <li class="services_item" data-reveal style="--d:5">
+            <li class="services_item has-detail" data-reveal style="--d:5">
+              <button type="button" class="detail_cover" data-detail="services" data-index="5" aria-haspopup="dialog" aria-labelledby="svc-t-5"></button><span class="detail_plus" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg></span>
               <span class="services_index text-style-mono">06</span>
-              <h3 class="services_title heading-style-h4" data-i18n="services.5.title">Kimlik &amp; dijital tasarım</h3>
+              <h3 class="services_title heading-style-h4" id="svc-t-5" data-i18n="services.5.title">Kimlik &amp; dijital tasarım</h3>
               <p class="services_text text-color-secondary" data-i18n="services.5.text">Logo, kurumsal kimlik, UI/UX tasarım ve görsel içerikler.</p>
             </li>
                 </ol>
@@ -329,38 +339,38 @@
             <div class="team_dept" data-reveal style="--d:0">
               <p class="team_dept-name text-style-mono"><span data-i18n="team.depts.strategy">Strateji &amp; Satış</span><span class="text-color-muted">02</span></p>
               <ul class="team_roles" role="list">
-                <li class="team_role"><h4 class="team_role-title" data-i18n="team.roles.0.title">Proje yöneticisi</h4><p class="text-size-small text-color-secondary" data-i18n="team.roles.0.text">Planlama, takvim ve tek muhatap: projeniz her adımda kontrol altında.</p></li>
-                <li class="team_role"><h4 class="team_role-title" data-i18n="team.roles.1.title">Satış &amp; müşteri temsilcisi</h4><p class="text-size-small text-color-secondary" data-i18n="team.roles.1.text">İhtiyacınızı dinler, en doğru çözümü ve teklifi hazırlar.</p></li>
+                <li class="team_role has-detail"><button type="button" class="detail_cover" data-detail="roles" data-index="0" aria-haspopup="dialog" aria-labelledby="role-t-0"></button><span class="detail_plus" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg></span><h4 class="team_role-title" id="role-t-0" data-i18n="team.roles.0.title">Proje yöneticisi</h4><p class="text-size-small text-color-secondary" data-i18n="team.roles.0.text">Planlama, takvim ve tek muhatap: projeniz her adımda kontrol altında.</p></li>
+                <li class="team_role has-detail"><button type="button" class="detail_cover" data-detail="roles" data-index="1" aria-haspopup="dialog" aria-labelledby="role-t-1"></button><span class="detail_plus" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg></span><h4 class="team_role-title" id="role-t-1" data-i18n="team.roles.1.title">Satış &amp; müşteri temsilcisi</h4><p class="text-size-small text-color-secondary" data-i18n="team.roles.1.text">İhtiyacınızı dinler, en doğru çözümü ve teklifi hazırlar.</p></li>
               </ul>
             </div>
             <div class="team_dept" data-reveal style="--d:1">
               <p class="team_dept-name text-style-mono"><span data-i18n="team.depts.design">Tasarım</span><span class="text-color-muted">02</span></p>
               <ul class="team_roles" role="list">
-                <li class="team_role"><h4 class="team_role-title" data-i18n="team.roles.2.title">Grafik tasarımcı</h4><p class="text-size-small text-color-secondary" data-i18n="team.roles.2.text">Logo, kurumsal kimlik ve markanıza özel görseller.</p></li>
-                <li class="team_role"><h4 class="team_role-title" data-i18n="team.roles.3.title">UI/UX tasarımcı</h4><p class="text-size-small text-color-secondary" data-i18n="team.roles.3.text">Kullanımı kolay, dönüşüm odaklı ekran ve kullanıcı deneyimi.</p></li>
+                <li class="team_role has-detail"><button type="button" class="detail_cover" data-detail="roles" data-index="2" aria-haspopup="dialog" aria-labelledby="role-t-2"></button><span class="detail_plus" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg></span><h4 class="team_role-title" id="role-t-2" data-i18n="team.roles.2.title">Grafik tasarımcı</h4><p class="text-size-small text-color-secondary" data-i18n="team.roles.2.text">Logo, kurumsal kimlik ve markanıza özel görseller.</p></li>
+                <li class="team_role has-detail"><button type="button" class="detail_cover" data-detail="roles" data-index="3" aria-haspopup="dialog" aria-labelledby="role-t-3"></button><span class="detail_plus" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg></span><h4 class="team_role-title" id="role-t-3" data-i18n="team.roles.3.title">UI/UX tasarımcı</h4><p class="text-size-small text-color-secondary" data-i18n="team.roles.3.text">Kullanımı kolay, dönüşüm odaklı ekran ve kullanıcı deneyimi.</p></li>
               </ul>
             </div>
             <div class="team_dept" data-reveal style="--d:2">
               <p class="team_dept-name text-style-mono"><span data-i18n="team.depts.dev">Yazılım</span><span class="text-color-muted">03</span></p>
               <ul class="team_roles" role="list">
-                <li class="team_role"><h4 class="team_role-title" data-i18n="team.roles.4.title">Front-end geliştirici</h4><p class="text-size-small text-color-secondary" data-i18n="team.roles.4.text">Hızlı, mobil uyumlu ve animasyonlu arayüzler.</p></li>
-                <li class="team_role"><h4 class="team_role-title" data-i18n="team.roles.5.title">Back-end geliştirici</h4><p class="text-size-small text-color-secondary" data-i18n="team.roles.5.text">Yönetim panelleri, veritabanları, randevu ve ödeme sistemleri.</p></li>
-                <li class="team_role"><h4 class="team_role-title" data-i18n="team.roles.6.title">Mobil uygulama geliştirici</h4><p class="text-size-small text-color-secondary" data-i18n="team.roles.6.text">iOS ve Android uygulamaları.</p></li>
+                <li class="team_role has-detail"><button type="button" class="detail_cover" data-detail="roles" data-index="4" aria-haspopup="dialog" aria-labelledby="role-t-4"></button><span class="detail_plus" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg></span><h4 class="team_role-title" id="role-t-4" data-i18n="team.roles.4.title">Front-end geliştirici</h4><p class="text-size-small text-color-secondary" data-i18n="team.roles.4.text">Hızlı, mobil uyumlu ve animasyonlu arayüzler.</p></li>
+                <li class="team_role has-detail"><button type="button" class="detail_cover" data-detail="roles" data-index="5" aria-haspopup="dialog" aria-labelledby="role-t-5"></button><span class="detail_plus" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg></span><h4 class="team_role-title" id="role-t-5" data-i18n="team.roles.5.title">Back-end geliştirici</h4><p class="text-size-small text-color-secondary" data-i18n="team.roles.5.text">Yönetim panelleri, veritabanları, randevu ve ödeme sistemleri.</p></li>
+                <li class="team_role has-detail"><button type="button" class="detail_cover" data-detail="roles" data-index="6" aria-haspopup="dialog" aria-labelledby="role-t-6"></button><span class="detail_plus" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg></span><h4 class="team_role-title" id="role-t-6" data-i18n="team.roles.6.title">Mobil uygulama geliştirici</h4><p class="text-size-small text-color-secondary" data-i18n="team.roles.6.text">iOS ve Android uygulamaları.</p></li>
               </ul>
             </div>
             <div class="team_dept" data-reveal style="--d:3">
               <p class="team_dept-name text-style-mono"><span data-i18n="team.depts.marketing">Pazarlama &amp; İçerik</span><span class="text-color-muted">04</span></p>
               <ul class="team_roles" role="list">
-                <li class="team_role"><h4 class="team_role-title" data-i18n="team.roles.7.title">SEO uzmanı</h4><p class="text-size-small text-color-secondary" data-i18n="team.roles.7.text">Google&#x27;da üst sıralar, teknik SEO ve Google İşletme profili.</p></li>
-                <li class="team_role"><h4 class="team_role-title" data-i18n="team.roles.8.title">Sosyal medya &amp; reklam uzmanı</h4><p class="text-size-small text-color-secondary" data-i18n="team.roles.8.text">Instagram, Meta ve Google Ads kampanyaları.</p></li>
-                <li class="team_role"><h4 class="team_role-title" data-i18n="team.roles.9.title">İçerik &amp; metin yazarı</h4><p class="text-size-small text-color-secondary" data-i18n="team.roles.9.text">Çok dilli, mesleğinize uygun ve SEO uyumlu metinler.</p></li>
-                <li class="team_role"><h4 class="team_role-title" data-i18n="team.roles.10.title">Fotoğraf &amp; video prodüksiyon</h4><p class="text-size-small text-color-secondary" data-i18n="team.roles.10.text">Tanıtım filmleri, ürün ve profesyonel çekimler.</p></li>
+                <li class="team_role has-detail"><button type="button" class="detail_cover" data-detail="roles" data-index="7" aria-haspopup="dialog" aria-labelledby="role-t-7"></button><span class="detail_plus" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg></span><h4 class="team_role-title" id="role-t-7" data-i18n="team.roles.7.title">SEO uzmanı</h4><p class="text-size-small text-color-secondary" data-i18n="team.roles.7.text">Google&#x27;da üst sıralar, teknik SEO ve Google İşletme profili.</p></li>
+                <li class="team_role has-detail"><button type="button" class="detail_cover" data-detail="roles" data-index="8" aria-haspopup="dialog" aria-labelledby="role-t-8"></button><span class="detail_plus" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg></span><h4 class="team_role-title" id="role-t-8" data-i18n="team.roles.8.title">Sosyal medya &amp; reklam uzmanı</h4><p class="text-size-small text-color-secondary" data-i18n="team.roles.8.text">Instagram, Meta ve Google Ads kampanyaları.</p></li>
+                <li class="team_role has-detail"><button type="button" class="detail_cover" data-detail="roles" data-index="9" aria-haspopup="dialog" aria-labelledby="role-t-9"></button><span class="detail_plus" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg></span><h4 class="team_role-title" id="role-t-9" data-i18n="team.roles.9.title">İçerik &amp; metin yazarı</h4><p class="text-size-small text-color-secondary" data-i18n="team.roles.9.text">Çok dilli, mesleğinize uygun ve SEO uyumlu metinler.</p></li>
+                <li class="team_role has-detail"><button type="button" class="detail_cover" data-detail="roles" data-index="10" aria-haspopup="dialog" aria-labelledby="role-t-10"></button><span class="detail_plus" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg></span><h4 class="team_role-title" id="role-t-10" data-i18n="team.roles.10.title">Fotoğraf &amp; video prodüksiyon</h4><p class="text-size-small text-color-secondary" data-i18n="team.roles.10.text">Tanıtım filmleri, ürün ve profesyonel çekimler.</p></li>
               </ul>
             </div>
             <div class="team_dept" data-reveal style="--d:4">
               <p class="team_dept-name text-style-mono"><span data-i18n="team.depts.support">Destek</span><span class="text-color-muted">01</span></p>
               <ul class="team_roles" role="list">
-                <li class="team_role"><h4 class="team_role-title" data-i18n="team.roles.11.title">Teknik destek &amp; hosting</h4><p class="text-size-small text-color-secondary" data-i18n="team.roles.11.text">Güvenli barındırma, yedekleme, güncelleme ve bakım.</p></li>
+                <li class="team_role has-detail"><button type="button" class="detail_cover" data-detail="roles" data-index="11" aria-haspopup="dialog" aria-labelledby="role-t-11"></button><span class="detail_plus" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg></span><h4 class="team_role-title" id="role-t-11" data-i18n="team.roles.11.title">Teknik destek &amp; hosting</h4><p class="text-size-small text-color-secondary" data-i18n="team.roles.11.text">Güvenli barındırma, yedekleme, güncelleme ve bakım.</p></li>
               </ul>
             </div>
               </div>
@@ -443,34 +453,40 @@
                 <a href="/secteurs" class="text-link" data-reveal style="--d:1"><span data-i18n="nav.sectors">Sektörler</span><svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
               </div>
               <ul class="sectors_component" role="list">
-            <li class="sectors_item" data-reveal style="--d:0">
+            <li class="sectors_item has-detail" data-reveal style="--d:0">
+              <button type="button" class="detail_cover" data-detail="sectors" data-index="0" aria-haspopup="dialog" aria-labelledby="sec-t-0"></button><span class="detail_plus" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg></span>
               <span class="text-style-mono text-color-muted">01</span>
-              <h3 class="heading-style-h5" data-i18n="sectors.0.title">Haber ajansları</h3>
+              <h3 class="heading-style-h5" id="sec-t-0" data-i18n="sectors.0.title">Haber ajansları</h3>
               <p class="text-size-small text-color-secondary" data-i18n="sectors.0.text">Editoryal platformlar, çok yazarlı CMS, bültenler ve hızlı yayın.</p>
             </li>
-            <li class="sectors_item" data-reveal style="--d:1">
+            <li class="sectors_item has-detail" data-reveal style="--d:1">
+              <button type="button" class="detail_cover" data-detail="sectors" data-index="1" aria-haspopup="dialog" aria-labelledby="sec-t-1"></button><span class="detail_plus" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg></span>
               <span class="text-style-mono text-color-muted">02</span>
-              <h3 class="heading-style-h5" data-i18n="sectors.1.title">Doktorlar &amp; klinikler</h3>
+              <h3 class="heading-style-h5" id="sec-t-1" data-i18n="sectors.1.title">Doktorlar &amp; klinikler</h3>
               <p class="text-size-small text-color-secondary" data-i18n="sectors.1.text">Online randevu, hekim profilleri, güvenli hasta yönetimi.</p>
             </li>
-            <li class="sectors_item" data-reveal style="--d:2">
+            <li class="sectors_item has-detail" data-reveal style="--d:2">
+              <button type="button" class="detail_cover" data-detail="sectors" data-index="2" aria-haspopup="dialog" aria-labelledby="sec-t-2"></button><span class="detail_plus" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg></span>
               <span class="text-style-mono text-color-muted">03</span>
-              <h3 class="heading-style-h5" data-i18n="sectors.2.title">Mimarlar</h3>
+              <h3 class="heading-style-h5" id="sec-t-2" data-i18n="sectors.2.title">Mimarlar</h3>
               <p class="text-size-small text-color-secondary" data-i18n="sectors.2.text">Projelerinizi öne çıkaran etkileyici portfolyolar.</p>
             </li>
-            <li class="sectors_item" data-reveal style="--d:0">
+            <li class="sectors_item has-detail" data-reveal style="--d:0">
+              <button type="button" class="detail_cover" data-detail="sectors" data-index="3" aria-haspopup="dialog" aria-labelledby="sec-t-3"></button><span class="detail_plus" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg></span>
               <span class="text-style-mono text-color-muted">04</span>
-              <h3 class="heading-style-h5" data-i18n="sectors.3.title">Avukatlar</h3>
+              <h3 class="heading-style-h5" id="sec-t-3" data-i18n="sectors.3.title">Avukatlar</h3>
               <p class="text-size-small text-color-secondary" data-i18n="sectors.3.text">Güven veren siteler, nitelikli iletişim, dosya yönetimi.</p>
             </li>
-            <li class="sectors_item" data-reveal style="--d:1">
+            <li class="sectors_item has-detail" data-reveal style="--d:1">
+              <button type="button" class="detail_cover" data-detail="sectors" data-index="4" aria-haspopup="dialog" aria-labelledby="sec-t-4"></button><span class="detail_plus" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg></span>
               <span class="text-style-mono text-color-muted">05</span>
-              <h3 class="heading-style-h5" data-i18n="sectors.4.title">Muhasebeciler</h3>
+              <h3 class="heading-style-h5" id="sec-t-4" data-i18n="sectors.4.title">Muhasebeciler</h3>
               <p class="text-size-small text-color-secondary" data-i18n="sectors.4.text">Müşteri alanları, belge yükleme, takip ve faturalama araçları.</p>
             </li>
-            <li class="sectors_item" data-reveal style="--d:2">
+            <li class="sectors_item has-detail" data-reveal style="--d:2">
+              <button type="button" class="detail_cover" data-detail="sectors" data-index="5" aria-haspopup="dialog" aria-labelledby="sec-t-5"></button><span class="detail_plus" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg></span>
               <span class="text-style-mono text-color-muted">06</span>
-              <h3 class="heading-style-h5" data-i18n="sectors.5.title">Esnaf &amp; mağazalar</h3>
+              <h3 class="heading-style-h5" id="sec-t-5" data-i18n="sectors.5.title">Esnaf &amp; mağazalar</h3>
               <p class="text-size-small text-color-secondary" data-i18n="sectors.5.text">Online mağazalar, gel-al, sadakat ve stok yönetimi.</p>
             </li>
               </ul>
@@ -529,6 +545,39 @@
       </div>
     </footer>
   </div>
+
+  <!-- Panneau détaillé (services, équipe, secteurs) -->
+  <div class="drawer_component" data-drawer hidden>
+    <div class="drawer_backdrop" data-drawer-close></div>
+    <aside class="drawer_panel" role="dialog" aria-modal="true" aria-labelledby="drawer-title" tabindex="-1">
+      <div class="drawer_handle" aria-hidden="true"></div>
+      <div class="drawer_head">
+        <p class="drawer_eyebrow text-style-mono" data-drawer-eyebrow></p>
+        <div class="drawer_nav">
+          <button type="button" class="icon-button" data-drawer-step="-1" aria-label="‹"><svg class="icon drawer_chev is-prev" aria-hidden="true"><use href="#i-chevron-left"/></svg></button>
+          <button type="button" class="icon-button" data-drawer-step="1" aria-label="›"><svg class="icon drawer_chev" aria-hidden="true"><use href="#i-chevron-right"/></svg></button>
+          <button type="button" class="icon-button" data-drawer-close data-i18n-aria="details.ui.close" aria-label="Kapat"><svg class="icon" aria-hidden="true"><use href="#i-x"/></svg></button>
+        </div>
+      </div>
+      <div class="drawer_body" data-drawer-body>
+        <span class="drawer_number" data-drawer-number></span>
+        <h2 class="drawer_title" id="drawer-title" data-drawer-title></h2>
+        <p class="drawer_intro" data-drawer-intro></p>
+        <p class="drawer_label text-style-mono" data-drawer-label></p>
+        <ul class="drawer_points" role="list" data-drawer-points></ul>
+      </div>
+      <div class="drawer_foot">
+        <a href="/teklif" class="button is-large" data-drawer-quote><span data-i18n="details.ui.quote">Teklif al</span><svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+        <a href="https://wa.me/905399662557" target="_blank" rel="noopener" class="button is-large is-secondary" data-drawer-wa><svg class="icon" aria-hidden="true"><use href="#i-whatsapp"/></svg><span data-i18n="details.ui.whatsapp">WhatsApp ile sorun</span></a>
+      </div>
+    </aside>
+  </div>
+
+  <!-- WhatsApp toujours visible -->
+  <a href="https://wa.me/905399662557" target="_blank" rel="noopener" class="wa_float" data-i18n-aria="details.ui.wa" aria-label="WhatsApp ile yazın">
+    <svg class="wa_float-icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-whatsapp"/></svg>
+    <span class="wa_float-label" data-i18n="details.ui.wa">WhatsApp ile yazın</span>
+  </a>
 
   <!-- Consentement cookies -->
   <div class="cookie_component" data-cookie hidden>

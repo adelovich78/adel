@@ -586,6 +586,390 @@ window.WEBINA_I18N = {
    "analyticsText": "Hangi sayfaların ziyaret edildiğini anonim olarak ölçmemize yardımcı olur.",
    "marketing": "Pazarlama",
    "marketingText": "İlgi alanlarınıza uygun içerik ve reklam gösterilmesine izin verir."
+  },
+  "details": {
+   "ui": {
+    "included": "Neler dahil",
+    "role": "Projenizdeki rolü",
+    "forYou": "Sizin için neler yapıyoruz",
+    "quote": "Teklif al",
+    "whatsapp": "WhatsApp ile sorun",
+    "close": "Kapat",
+    "more": "Detaylar",
+    "wa": "WhatsApp ile yazın"
+   },
+   "services": [
+    {
+     "intro": "Markanıza özel tasarlanmış, hızlı açılan ve her ekranda düzgün görünen bir site. Ziyaretçiyi doğru sayfaya ve iletişime yönlendirecek şekilde kurgulanır.",
+     "points": [
+      "Size özel tasarım, hazır şablon yok",
+      "Mobil uyum, SSL ve hız optimizasyonu",
+      "Temel SEO ayarları ve Google Analytics kurulumu",
+      "Kendi içeriğinizi düzenleyebileceğiniz yönetim paneli"
+     ]
+    },
+    {
+     "intro": "İşinizin akışına göre yazılan, Excel tablolarının ve dağınık araçların yerini alan web tabanlı yazılımlar.",
+     "points": [
+      "İhtiyaç analizi ve süreç haritası",
+      "Kullanıcı rolleri ve yetkilendirme",
+      "Rezervasyon, faturalama, müşteri dosyası gibi modüller",
+      "Eğitim ve kullanım sonrası destek"
+     ]
+    },
+    {
+     "intro": "Müşterilerinizi, teklif ve satışlarınızı tek bir yerde toplayan, ekibinize göre şekillenen bir CRM.",
+     "points": [
+      "Müşteri kartları ve tüm geçmiş",
+      "Teklif, satış ve takip hatırlatmaları",
+      "E-posta ve WhatsApp bildirimleri",
+      "Satış ve performans raporları"
+     ]
+    },
+    {
+     "intro": "Doğru aramalarda görünmeniz için teknik altyapıdan içeriğe kadar düzenli bir çalışma.",
+     "points": [
+      "Teknik SEO denetimi ve düzeltmeler",
+      "Anahtar kelime ve rakip analizi",
+      "Google İşletme profili optimizasyonu",
+      "Aylık sıralama ve trafik raporu"
+     ]
+    },
+    {
+     "intro": "Sitenizden gelen talepleri, formları ve içerikleri tek ekrandan yönetmeniz için.",
+     "points": [
+      "Gelen talepler ve durum takibi",
+      "Özel formlar ve otomatik e-posta bildirimleri",
+      "İçerik, görsel ve sayfa düzenleme",
+      "Anlık istatistikler"
+     ]
+    },
+    {
+     "intro": "Markanızın her yerde aynı şekilde tanınması için görsel kimlik.",
+     "points": [
+      "Logo ve varyasyonları",
+      "Renk, yazı tipi ve kullanım kılavuzu",
+      "Kartvizit ve kurumsal belgeler",
+      "Sosyal medya şablonları"
+     ]
+    },
+    {
+     "intro": "Ürününüzü görmekten satın almaya kadar akıcı ilerleyen bir online mağaza.",
+     "points": [
+      "Ürün, varyant ve stok yönetimi",
+      "Online ödeme entegrasyonu",
+      "Kargo entegrasyonu ve sipariş takibi",
+      "Kampanya ve indirim kodları"
+     ]
+    },
+    {
+     "intro": "Müşterilerinizin cebinde duran, hızlı ve kullanımı kolay uygulamalar.",
+     "points": [
+      "iOS ve Android için uygulama",
+      "Anlık bildirimler",
+      "Mevcut sitenize veya panelinize bağlantı",
+      "App Store ve Google Play yayını"
+     ]
+    },
+    {
+     "intro": "Hesaplarınızın düzenli, tutarlı ve markanıza uygun paylaşımlarla yönetilmesi.",
+     "points": [
+      "Aylık içerik planı",
+      "Gönderi ve hikâye tasarımları",
+      "Paylaşım takvimi ve yayın",
+      "Aylık performans raporu"
+     ]
+    },
+    {
+     "intro": "Bütçenizi doğru kişilere ulaştırmak için ölçülebilir reklam kampanyaları.",
+     "points": [
+      "Google Ads, Meta ve TikTok kampanyaları",
+      "Hedef kitle ve bütçe planlaması",
+      "Dönüşüm takibi kurulumu",
+      "Düzenli optimizasyon ve rapor"
+     ]
+    },
+    {
+     "intro": "Satış, satın alma, stok ve muhasebeyi tek sistemde birleştirerek çift girişi ortadan kaldırır.",
+     "points": [
+      "Stok ve depo takibi",
+      "Satın alma ve tedarikçi yönetimi",
+      "Fatura ve cari hesaplar",
+      "Yönetici raporları"
+     ]
+    },
+    {
+     "intro": "Randevu, masa veya oda rezervasyonunu 7/24 online alın, telefon trafiğini azaltın.",
+     "points": [
+      "Online takvim ve uygun saatler",
+      "Otomatik onay ve hatırlatma mesajları",
+      "Personel ve hizmet bazlı planlama",
+      "İsteğe bağlı online ödeme"
+     ]
+    },
+    {
+     "intro": "Sitenizin güvenli, hızlı ve sürekli açık kalması için arka planda çalışıyoruz.",
+     "points": [
+      "Hızlı ve güvenli barındırma",
+      "Düzenli yedekleme",
+      "Güncellemeler ve güvenlik takibi",
+      "Teknik destek"
+     ]
+    },
+    {
+     "intro": "Sitenizi ve sosyal medyanızı besleyecek gerçek görseller ve videolar.",
+     "points": [
+      "Kurumsal ve ürün fotoğrafçılığı",
+      "Tanıtım ve sosyal medya videoları",
+      "Kurgu ve renk düzenleme",
+      "Web için optimize teslim"
+     ]
+    }
+   ],
+   "roles": [
+    {
+     "intro": "Projenizdeki tek muhatabınız: takvimi kurar, ekibi koordine eder ve her adımda sizi bilgilendirir.",
+     "points": [
+      "Başlangıç toplantısı ve proje planı",
+      "Haftalık ilerleme bilgisi",
+      "Teslim ve yayın koordinasyonu"
+     ]
+    },
+    {
+     "intro": "İhtiyacınızı dinler, size uygun çözümü ve net bir teklifi hazırlar.",
+     "points": [
+      "İlk görüşme ve ihtiyaç analizi",
+      "Size özel teklif",
+      "Sözleşme ve başlangıç süreci"
+     ]
+    },
+    {
+     "intro": "Markanızın görsel dilini oluşturur ve tüm materyallere taşır.",
+     "points": [
+      "Logo ve kurumsal kimlik",
+      "Site ve sosyal medya görselleri",
+      "Basılı materyaller"
+     ]
+    },
+    {
+     "intro": "Ziyaretçinin siteyi kolayca kullanması ve harekete geçmesi için ekranları tasarlar.",
+     "points": [
+      "Kullanıcı yolculuğu ve sayfa yapısı",
+      "Masaüstü ve mobil ekran tasarımları",
+      "Tıklanabilir prototip"
+     ]
+    },
+    {
+     "intro": "Tasarımı hızlı, mobil uyumlu ve animasyonlu bir arayüze dönüştürür.",
+     "points": [
+      "Hızlı ve erişilebilir kodlama",
+      "Her ekrana uyum",
+      "Akıcı animasyonlar"
+     ]
+    },
+    {
+     "intro": "Sitenin arkasındaki sistemleri kurar: veritabanı, yönetim paneli, ödeme ve randevu.",
+     "points": [
+      "Yönetim paneli ve veritabanı",
+      "Ödeme ve randevu entegrasyonları",
+      "Güvenlik ve yedekleme"
+     ]
+    },
+    {
+     "intro": "iOS ve Android için uygulamalarınızı geliştirir ve mağazalarda yayınlar.",
+     "points": [
+      "Uygulama geliştirme",
+      "Bildirimler ve hesap sistemi",
+      "Mağaza yayını ve güncellemeler"
+     ]
+    },
+    {
+     "intro": "Google'da doğru aramalarda görünmeniz için siteyi teknik ve içerik olarak hazırlar.",
+     "points": [
+      "Teknik SEO",
+      "Anahtar kelime stratejisi",
+      "Google İşletme profili"
+     ]
+    },
+    {
+     "intro": "Reklam bütçenizi ve sosyal medya hesaplarınızı ölçülebilir sonuçlarla yönetir.",
+     "points": [
+      "Kampanya kurulumu",
+      "Hedefleme ve bütçe",
+      "Raporlama"
+     ]
+    },
+    {
+     "intro": "Mesleğinize uygun, SEO uyumlu ve çok dilli metinler yazar.",
+     "points": [
+      "Sayfa metinleri",
+      "Blog ve makaleler",
+      "Çeviri ve yerelleştirme"
+     ]
+    },
+    {
+     "intro": "Siteniz ve sosyal medyanız için fotoğraf ve video çekimlerini yapar.",
+     "points": [
+      "Çekim planı",
+      "Fotoğraf ve video çekimi",
+      "Kurgu ve teslim"
+     ]
+    },
+    {
+     "intro": "Yayından sonra sitenizin güvenli ve çalışır durumda kalmasını sağlar.",
+     "points": [
+      "Hosting ve alan adı",
+      "Yedekleme ve güncellemeler",
+      "Teknik destek"
+     ]
+    }
+   ],
+   "sectors": [
+    {
+     "intro": "Haberin hızına yetişen, çok yazarlı ve çok dilli yayın platformları.",
+     "points": [
+      "Çok yazarlı içerik yönetimi",
+      "Son dakika ve kategori sayfaları",
+      "Bülten ve sosyal medya paylaşımı",
+      "Yüksek trafiğe dayanıklı altyapı"
+     ]
+    },
+    {
+     "intro": "Hastalarınıza güven veren ve randevuyu kolaylaştıran siteler.",
+     "points": [
+      "Online randevu talebi",
+      "Hekim profilleri ve tedaviler",
+      "Foto ve video galerisi, blog",
+      "Çok dilli yapı"
+     ]
+    },
+    {
+     "intro": "Projelerinizi büyük görsellerle öne çıkaran portfolyo siteleri.",
+     "points": [
+      "Proje galerileri",
+      "Yüksek kaliteli görsel sunumu",
+      "Ofis ve ekip sayfası",
+      "Teklif formu"
+     ]
+    },
+    {
+     "intro": "Güven veren, sade ve prestijli hukuk bürosu siteleri.",
+     "points": [
+      "Uzmanlık alanları",
+      "Online danışmanlık randevusu",
+      "Makale ve duyurular",
+      "WhatsApp ile hızlı iletişim"
+     ]
+    },
+    {
+     "intro": "Müşterilerinizle belge alışverişini kolaylaştıran siteler ve araçlar.",
+     "points": [
+      "Müşteri alanı",
+      "Belge yükleme",
+      "Takip ve faturalama araçları",
+      "Mevzuat duyuruları"
+     ]
+    },
+    {
+     "intro": "Mahallenizin müşterilerini sitenize ve dükkânınıza getiren çözümler.",
+     "points": [
+      "Online mağaza veya ürün kataloğu",
+      "Gel-al ve sipariş",
+      "Sadakat ve kampanyalar",
+      "Harita ve çalışma saatleri"
+     ]
+    },
+    {
+     "intro": "Menüden rezervasyona, misafiri kapıdan önce karşılayan siteler.",
+     "points": [
+      "Online ve QR menü",
+      "Masa rezervasyonu",
+      "Paket sipariş",
+      "Google haritada görünürlük"
+     ]
+    },
+    {
+     "intro": "Doğrudan rezervasyon alan, çok dilli otel ve turizm siteleri.",
+     "points": [
+      "Online rezervasyon motoru",
+      "Oda ve tesis galerileri",
+      "Çok dilli içerik",
+      "Yorumlar ve konum"
+     ]
+    },
+    {
+     "intro": "İlanlarınızı kolayca bulunur hale getiren emlak portalları.",
+     "points": [
+      "İlan yönetimi",
+      "Gelişmiş arama ve filtreler",
+      "Sanal tur ve galeri",
+      "Müşteri talebi takibi"
+     ]
+    },
+    {
+     "intro": "Okul ve kurs siteleri, öğrenci portalları ve online eğitim.",
+     "points": [
+      "Okul ve program sayfaları",
+      "Öğrenci ve veli portalı",
+      "Online kurs (LMS)",
+      "Kayıt formları"
+     ]
+    },
+    {
+     "intro": "Randevu defterini dolduran salon ve spa siteleri.",
+     "points": [
+      "Online randevu",
+      "Hizmet menüsü ve fiyatlar",
+      "Sadakat programı",
+      "Öncesi / sonrası galerisi"
+     ]
+    },
+    {
+     "intro": "Üyelikten ders programına, salonunuzu online yönetin.",
+     "points": [
+      "Üyelik yönetimi",
+      "Ders programı ve rezervasyon",
+      "Online ödeme",
+      "Eğitmen profilleri"
+     ]
+    },
+    {
+     "intro": "Referanslarınızı ve kapasitenizi gösteren kurumsal siteler.",
+     "points": [
+      "Proje referansları",
+      "Ürün ve hizmet katalogları",
+      "Teklif formları",
+      "Çok dilli yapı"
+     ]
+    },
+    {
+     "intro": "Galeriden servise, müşteriyi doğrudan size getiren siteler.",
+     "points": [
+      "Araç galerisi ve stok",
+      "Servis randevusu",
+      "Parça veya akü bulucu",
+      "WhatsApp ve telefonla hızlı iletişim"
+     ]
+    },
+    {
+     "intro": "Bağışçılar ve gönüllülerle bağ kuran dernek siteleri.",
+     "points": [
+      "Online bağış sistemi",
+      "Etkinlik yönetimi",
+      "Gönüllü kaydı",
+      "Faaliyet raporları"
+     ]
+    },
+    {
+     "intro": "Gönderilerinizi ve tekliflerinizi dijitalleştiren çözümler.",
+     "points": [
+      "Gönderi takibi",
+      "Teklif hesaplama",
+      "Müşteri paneli",
+      "Filo ve operasyon raporları"
+     ]
+    }
+   ]
   }
  },
  "en": {
@@ -1174,6 +1558,390 @@ window.WEBINA_I18N = {
    "analyticsText": "Helps us measure, anonymously, which pages are visited.",
    "marketing": "Marketing",
    "marketingText": "Allows content and ads tailored to your interests."
+  },
+  "details": {
+   "ui": {
+    "included": "What's included",
+    "role": "Their role on your project",
+    "forYou": "What we build for you",
+    "quote": "Get a quote",
+    "whatsapp": "Ask on WhatsApp",
+    "close": "Close",
+    "more": "Details",
+    "wa": "Message us on WhatsApp"
+   },
+   "services": [
+    {
+     "intro": "A site designed for your brand that loads fast and looks right on every screen, built to lead visitors to the right page and to contact you.",
+     "points": [
+      "Custom design, no off-the-shelf template",
+      "Mobile-ready, SSL and speed optimisation",
+      "Basic SEO setup and Google Analytics",
+      "Admin panel to edit your own content"
+     ]
+    },
+    {
+     "intro": "Web-based software written around how your business works, replacing spreadsheets and scattered tools.",
+     "points": [
+      "Needs analysis and process mapping",
+      "User roles and permissions",
+      "Modules such as booking, invoicing or client files",
+      "Training and support after launch"
+     ]
+    },
+    {
+     "intro": "A CRM shaped around your team that brings clients, quotes and sales into one place.",
+     "points": [
+      "Client records with full history",
+      "Quotes, sales and follow-up reminders",
+      "Email and WhatsApp notifications",
+      "Sales and performance reports"
+     ]
+    },
+    {
+     "intro": "Steady work, from technical foundations to content, so you show up for the right searches.",
+     "points": [
+      "Technical SEO audit and fixes",
+      "Keyword and competitor research",
+      "Google Business Profile optimisation",
+      "Monthly ranking and traffic report"
+     ]
+    },
+    {
+     "intro": "Manage the requests, forms and content coming from your site from a single screen.",
+     "points": [
+      "Incoming requests with status tracking",
+      "Custom forms and automatic email alerts",
+      "Edit content, images and pages",
+      "Real-time statistics"
+     ]
+    },
+    {
+     "intro": "A visual identity so your brand is recognised the same way everywhere.",
+     "points": [
+      "Logo and its variations",
+      "Colours, typefaces and usage guide",
+      "Business cards and company documents",
+      "Social media templates"
+     ]
+    },
+    {
+     "intro": "An online shop where going from seeing a product to buying it feels effortless.",
+     "points": [
+      "Products, variants and stock",
+      "Online payment integration",
+      "Shipping integration and order tracking",
+      "Promotions and discount codes"
+     ]
+    },
+    {
+     "intro": "Fast, easy-to-use apps that sit in your clients' pockets.",
+     "points": [
+      "Apps for iOS and Android",
+      "Push notifications",
+      "Connection to your existing site or admin",
+      "Publishing on the App Store and Google Play"
+     ]
+    },
+    {
+     "intro": "Your accounts run with regular, consistent posts that fit your brand.",
+     "points": [
+      "Monthly content plan",
+      "Post and story designs",
+      "Publishing calendar",
+      "Monthly performance report"
+     ]
+    },
+    {
+     "intro": "Measurable ad campaigns that put your budget in front of the right people.",
+     "points": [
+      "Google Ads, Meta and TikTok campaigns",
+      "Audience and budget planning",
+      "Conversion tracking setup",
+      "Regular optimisation and reporting"
+     ]
+    },
+    {
+     "intro": "Sales, purchasing, stock and accounting in one system, with no double entry.",
+     "points": [
+      "Stock and warehouse tracking",
+      "Purchasing and supplier management",
+      "Invoices and accounts",
+      "Management reports"
+     ]
+    },
+    {
+     "intro": "Take appointments, tables or rooms online around the clock and spend less time on the phone.",
+     "points": [
+      "Online calendar with available slots",
+      "Automatic confirmations and reminders",
+      "Planning by staff and service",
+      "Optional online payment"
+     ]
+    },
+    {
+     "intro": "We work in the background so your site stays secure, fast and online.",
+     "points": [
+      "Fast, secure hosting",
+      "Regular backups",
+      "Updates and security monitoring",
+      "Technical support"
+     ]
+    },
+    {
+     "intro": "Real photos and videos to feed your website and social media.",
+     "points": [
+      "Corporate and product photography",
+      "Promotional and social media videos",
+      "Editing and colour grading",
+      "Web-optimised delivery"
+     ]
+    }
+   ],
+   "roles": [
+    {
+     "intro": "Your single point of contact: sets the schedule, coordinates the team and keeps you informed at every step.",
+     "points": [
+      "Kick-off meeting and project plan",
+      "Weekly progress updates",
+      "Delivery and launch coordination"
+     ]
+    },
+    {
+     "intro": "Listens to your needs and prepares the right solution with a clear quote.",
+     "points": [
+      "First call and needs analysis",
+      "Tailored quote",
+      "Contract and kick-off"
+     ]
+    },
+    {
+     "intro": "Creates your brand's visual language and carries it across every material.",
+     "points": [
+      "Logo and brand identity",
+      "Website and social media visuals",
+      "Print materials"
+     ]
+    },
+    {
+     "intro": "Designs screens that are easy to use and lead visitors to act.",
+     "points": [
+      "User journey and page structure",
+      "Desktop and mobile designs",
+      "Clickable prototype"
+     ]
+    },
+    {
+     "intro": "Turns the design into a fast, mobile-friendly, animated interface.",
+     "points": [
+      "Fast, accessible code",
+      "Works on every screen",
+      "Smooth animations"
+     ]
+    },
+    {
+     "intro": "Builds the systems behind the site: database, admin panel, payments and booking.",
+     "points": [
+      "Admin panel and database",
+      "Payment and booking integrations",
+      "Security and backups"
+     ]
+    },
+    {
+     "intro": "Develops your iOS and Android apps and publishes them on the stores.",
+     "points": [
+      "App development",
+      "Notifications and accounts",
+      "Store publishing and updates"
+     ]
+    },
+    {
+     "intro": "Prepares the site, technically and in content, to appear for the right Google searches.",
+     "points": [
+      "Technical SEO",
+      "Keyword strategy",
+      "Google Business Profile"
+     ]
+    },
+    {
+     "intro": "Runs your ad budget and social accounts with measurable results.",
+     "points": [
+      "Campaign setup",
+      "Targeting and budget",
+      "Reporting"
+     ]
+    },
+    {
+     "intro": "Writes multilingual, SEO-friendly copy suited to your profession.",
+     "points": [
+      "Page copy",
+      "Blog posts and articles",
+      "Translation and localisation"
+     ]
+    },
+    {
+     "intro": "Shoots photos and videos for your website and social media.",
+     "points": [
+      "Shoot planning",
+      "Photo and video shoot",
+      "Editing and delivery"
+     ]
+    },
+    {
+     "intro": "Keeps your site secure and running after launch.",
+     "points": [
+      "Hosting and domain",
+      "Backups and updates",
+      "Technical support"
+     ]
+    }
+   ],
+   "sectors": [
+    {
+     "intro": "Multi-author, multilingual publishing platforms that keep up with the news.",
+     "points": [
+      "Multi-author content management",
+      "Breaking news and category pages",
+      "Newsletter and social sharing",
+      "Infrastructure built for high traffic"
+     ]
+    },
+    {
+     "intro": "Sites that reassure patients and make booking easy.",
+     "points": [
+      "Online appointment requests",
+      "Doctor profiles and treatments",
+      "Photo and video gallery, blog",
+      "Multilingual setup"
+     ]
+    },
+    {
+     "intro": "Portfolio sites that put your projects forward with large imagery.",
+     "points": [
+      "Project galleries",
+      "High-quality image presentation",
+      "Studio and team page",
+      "Quote request form"
+     ]
+    },
+    {
+     "intro": "Reassuring, clean and prestigious law firm websites.",
+     "points": [
+      "Practice areas",
+      "Online consultation booking",
+      "Articles and news",
+      "Quick contact via WhatsApp"
+     ]
+    },
+    {
+     "intro": "Sites and tools that make exchanging documents with clients easy.",
+     "points": [
+      "Client area",
+      "Document upload",
+      "Tracking and invoicing tools",
+      "Regulatory news"
+     ]
+    },
+    {
+     "intro": "Solutions that bring local customers to your site and your shop.",
+     "points": [
+      "Online shop or product catalogue",
+      "Click & collect and orders",
+      "Loyalty and promotions",
+      "Map and opening hours"
+     ]
+    },
+    {
+     "intro": "From menu to booking, sites that welcome guests before they arrive.",
+     "points": [
+      "Online and QR menu",
+      "Table booking",
+      "Takeaway orders",
+      "Visibility on Google Maps"
+     ]
+    },
+    {
+     "intro": "Multilingual hotel and tourism sites that take direct bookings.",
+     "points": [
+      "Online booking engine",
+      "Room and facility galleries",
+      "Multilingual content",
+      "Reviews and location"
+     ]
+    },
+    {
+     "intro": "Real estate portals that make your listings easy to find.",
+     "points": [
+      "Listing management",
+      "Advanced search and filters",
+      "Virtual tour and gallery",
+      "Lead tracking"
+     ]
+    },
+    {
+     "intro": "School and course sites, student portals and online learning.",
+     "points": [
+      "School and programme pages",
+      "Student and parent portal",
+      "Online courses (LMS)",
+      "Enrolment forms"
+     ]
+    },
+    {
+     "intro": "Salon and spa sites that fill your appointment book.",
+     "points": [
+      "Online booking",
+      "Service menu and prices",
+      "Loyalty programme",
+      "Before / after gallery"
+     ]
+    },
+    {
+     "intro": "Run your gym online, from memberships to class schedules.",
+     "points": [
+      "Membership management",
+      "Class schedule and booking",
+      "Online payment",
+      "Trainer profiles"
+     ]
+    },
+    {
+     "intro": "Corporate sites that show your references and capacity.",
+     "points": [
+      "Project references",
+      "Product and service catalogues",
+      "Quote request forms",
+      "Multilingual setup"
+     ]
+    },
+    {
+     "intro": "From showroom to service, sites that bring customers straight to you.",
+     "points": [
+      "Vehicle gallery and stock",
+      "Service booking",
+      "Part or battery finder",
+      "Quick contact by WhatsApp and phone"
+     ]
+    },
+    {
+     "intro": "Association sites that connect you with donors and volunteers.",
+     "points": [
+      "Online donations",
+      "Event management",
+      "Volunteer sign-up",
+      "Activity reports"
+     ]
+    },
+    {
+     "intro": "Solutions that digitise your shipments and quotes.",
+     "points": [
+      "Shipment tracking",
+      "Quote calculator",
+      "Client portal",
+      "Fleet and operations reports"
+     ]
+    }
+   ]
   }
  },
  "fr": {
@@ -1762,6 +2530,390 @@ window.WEBINA_I18N = {
    "analyticsText": "Nous aide à mesurer, de façon anonyme, les pages visitées.",
    "marketing": "Marketing",
    "marketingText": "Permet de vous proposer des contenus et publicités adaptés à vos centres d’intérêt."
+  },
+  "details": {
+   "ui": {
+    "included": "Ce qui est inclus",
+    "role": "Son rôle sur votre projet",
+    "forYou": "Ce que nous réalisons pour vous",
+    "quote": "Obtenir un devis",
+    "whatsapp": "Demander sur WhatsApp",
+    "close": "Fermer",
+    "more": "Détails",
+    "wa": "Écrivez-nous sur WhatsApp"
+   },
+   "services": [
+    {
+     "intro": "Un site conçu pour votre marque, rapide et impeccable sur tous les écrans, pensé pour mener le visiteur vers la bonne page et vers votre contact.",
+     "points": [
+      "Design sur mesure, pas de modèle tout fait",
+      "Responsive, SSL et optimisation de la vitesse",
+      "Réglages SEO de base et Google Analytics",
+      "Espace admin pour modifier vos contenus"
+     ]
+    },
+    {
+     "intro": "Des logiciels web écrits selon le fonctionnement de votre activité, qui remplacent tableurs et outils dispersés.",
+     "points": [
+      "Analyse des besoins et cartographie des processus",
+      "Rôles utilisateurs et droits d'accès",
+      "Modules réservation, facturation, dossiers clients…",
+      "Formation et suivi après la mise en ligne"
+     ]
+    },
+    {
+     "intro": "Un CRM adapté à votre équipe, qui réunit clients, devis et ventes au même endroit.",
+     "points": [
+      "Fiches clients avec tout l'historique",
+      "Devis, ventes et relances",
+      "Notifications e-mail et WhatsApp",
+      "Rapports de ventes et de performance"
+     ]
+    },
+    {
+     "intro": "Un travail régulier, de la technique au contenu, pour apparaître sur les bonnes recherches.",
+     "points": [
+      "Audit SEO technique et corrections",
+      "Étude des mots-clés et des concurrents",
+      "Optimisation de la fiche Google Business",
+      "Rapport mensuel de positions et de trafic"
+     ]
+    },
+    {
+     "intro": "Gérez depuis un seul écran les demandes, formulaires et contenus de votre site.",
+     "points": [
+      "Demandes reçues et suivi de leur statut",
+      "Formulaires sur mesure et alertes e-mail",
+      "Modification des textes, images et pages",
+      "Statistiques en temps réel"
+     ]
+    },
+    {
+     "intro": "Une identité visuelle pour que votre marque soit reconnue partout de la même façon.",
+     "points": [
+      "Logo et ses déclinaisons",
+      "Couleurs, typographies et charte d'utilisation",
+      "Cartes de visite et documents",
+      "Modèles pour les réseaux sociaux"
+     ]
+    },
+    {
+     "intro": "Une boutique en ligne où l'on passe naturellement de la découverte à l'achat.",
+     "points": [
+      "Produits, variantes et stock",
+      "Paiement en ligne intégré",
+      "Intégration transporteur et suivi des commandes",
+      "Promotions et codes de réduction"
+     ]
+    },
+    {
+     "intro": "Des applications rapides et simples, dans la poche de vos clients.",
+     "points": [
+      "Application iOS et Android",
+      "Notifications push",
+      "Connexion à votre site ou votre espace admin",
+      "Publication sur l'App Store et Google Play"
+     ]
+    },
+    {
+     "intro": "Vos comptes animés avec des publications régulières, cohérentes et fidèles à votre marque.",
+     "points": [
+      "Planning éditorial mensuel",
+      "Visuels de posts et de stories",
+      "Calendrier et publication",
+      "Rapport mensuel de performance"
+     ]
+    },
+    {
+     "intro": "Des campagnes mesurables pour que votre budget touche les bonnes personnes.",
+     "points": [
+      "Campagnes Google Ads, Meta et TikTok",
+      "Ciblage et répartition du budget",
+      "Suivi des conversions",
+      "Optimisation et rapports réguliers"
+     ]
+    },
+    {
+     "intro": "Ventes, achats, stock et comptabilité dans un seul système, sans double saisie.",
+     "points": [
+      "Suivi du stock et des entrepôts",
+      "Achats et fournisseurs",
+      "Factures et comptes clients",
+      "Tableaux de bord de direction"
+     ]
+    },
+    {
+     "intro": "Prenez rendez-vous, tables ou chambres en ligne 24 h/24 et passez moins de temps au téléphone.",
+     "points": [
+      "Agenda en ligne et créneaux libres",
+      "Confirmations et rappels automatiques",
+      "Planning par collaborateur et prestation",
+      "Paiement en ligne en option"
+     ]
+    },
+    {
+     "intro": "Nous travaillons en coulisses pour que votre site reste sûr, rapide et en ligne.",
+     "points": [
+      "Hébergement rapide et sécurisé",
+      "Sauvegardes régulières",
+      "Mises à jour et surveillance de sécurité",
+      "Support technique"
+     ]
+    },
+    {
+     "intro": "De vraies photos et vidéos pour alimenter votre site et vos réseaux.",
+     "points": [
+      "Photos d'entreprise et de produits",
+      "Vidéos de présentation et pour les réseaux",
+      "Montage et étalonnage",
+      "Livraison optimisée pour le web"
+     ]
+    }
+   ],
+   "roles": [
+    {
+     "intro": "Votre interlocuteur unique : il fixe le planning, coordonne l'équipe et vous tient informé à chaque étape.",
+     "points": [
+      "Réunion de lancement et planning",
+      "Point d'avancement chaque semaine",
+      "Coordination de la livraison et de la mise en ligne"
+     ]
+    },
+    {
+     "intro": "Écoute votre besoin et prépare la solution adaptée avec un devis clair.",
+     "points": [
+      "Premier échange et analyse du besoin",
+      "Devis sur mesure",
+      "Contrat et lancement"
+     ]
+    },
+    {
+     "intro": "Crée le langage visuel de votre marque et le décline sur tous les supports.",
+     "points": [
+      "Logo et identité visuelle",
+      "Visuels du site et des réseaux",
+      "Supports imprimés"
+     ]
+    },
+    {
+     "intro": "Conçoit des écrans simples à utiliser, qui poussent le visiteur à agir.",
+     "points": [
+      "Parcours utilisateur et arborescence",
+      "Maquettes ordinateur et mobile",
+      "Prototype cliquable"
+     ]
+    },
+    {
+     "intro": "Transforme la maquette en interface rapide, responsive et animée.",
+     "points": [
+      "Code rapide et accessible",
+      "Adapté à tous les écrans",
+      "Animations fluides"
+     ]
+    },
+    {
+     "intro": "Construit les systèmes derrière le site : base de données, espace admin, paiement, réservation.",
+     "points": [
+      "Espace admin et base de données",
+      "Intégrations paiement et réservation",
+      "Sécurité et sauvegardes"
+     ]
+    },
+    {
+     "intro": "Développe vos applications iOS et Android et les publie sur les stores.",
+     "points": [
+      "Développement de l'application",
+      "Notifications et comptes",
+      "Publication et mises à jour"
+     ]
+    },
+    {
+     "intro": "Prépare le site, techniquement et éditorialement, pour les bonnes recherches Google.",
+     "points": [
+      "SEO technique",
+      "Stratégie de mots-clés",
+      "Fiche Google Business"
+     ]
+    },
+    {
+     "intro": "Pilote votre budget publicitaire et vos réseaux avec des résultats mesurables.",
+     "points": [
+      "Mise en place des campagnes",
+      "Ciblage et budget",
+      "Rapports"
+     ]
+    },
+    {
+     "intro": "Rédige des textes multilingues, optimisés SEO et adaptés à votre métier.",
+     "points": [
+      "Textes des pages",
+      "Articles de blog",
+      "Traduction et adaptation"
+     ]
+    },
+    {
+     "intro": "Réalise les photos et vidéos de votre site et de vos réseaux.",
+     "points": [
+      "Préparation du tournage",
+      "Prises de vue photo et vidéo",
+      "Montage et livraison"
+     ]
+    },
+    {
+     "intro": "Garde votre site sûr et opérationnel après la mise en ligne.",
+     "points": [
+      "Hébergement et nom de domaine",
+      "Sauvegardes et mises à jour",
+      "Support technique"
+     ]
+    }
+   ],
+   "sectors": [
+    {
+     "intro": "Des plateformes éditoriales multi-auteurs et multilingues qui suivent le rythme de l'actualité.",
+     "points": [
+      "Gestion de contenu multi-rédacteurs",
+      "Pages dernière minute et rubriques",
+      "Newsletter et partage sur les réseaux",
+      "Infrastructure pensée pour un fort trafic"
+     ]
+    },
+    {
+     "intro": "Des sites qui rassurent les patients et facilitent la prise de rendez-vous.",
+     "points": [
+      "Demande de rendez-vous en ligne",
+      "Fiches praticiens et traitements",
+      "Galerie photo et vidéo, blog",
+      "Version multilingue"
+     ]
+    },
+    {
+     "intro": "Des portfolios qui mettent vos réalisations en avant avec de grandes images.",
+     "points": [
+      "Galeries de projets",
+      "Présentation d'images en haute qualité",
+      "Page agence et équipe",
+      "Formulaire de demande de devis"
+     ]
+    },
+    {
+     "intro": "Des sites de cabinet sobres, rassurants et prestigieux.",
+     "points": [
+      "Domaines d'expertise",
+      "Prise de rendez-vous de consultation",
+      "Articles et actualités",
+      "Contact rapide par WhatsApp"
+     ]
+    },
+    {
+     "intro": "Des sites et outils qui simplifient l'échange de documents avec vos clients.",
+     "points": [
+      "Espace client",
+      "Dépôt de documents",
+      "Outils de suivi et de facturation",
+      "Actualités réglementaires"
+     ]
+    },
+    {
+     "intro": "Des solutions qui amènent les clients du quartier sur votre site et dans votre boutique.",
+     "points": [
+      "Boutique en ligne ou catalogue",
+      "Click & collect et commandes",
+      "Fidélité et promotions",
+      "Plan d'accès et horaires"
+     ]
+    },
+    {
+     "intro": "Du menu à la réservation, des sites qui accueillent vos clients avant leur arrivée.",
+     "points": [
+      "Menu en ligne et QR",
+      "Réservation de table",
+      "Vente à emporter",
+      "Visibilité sur Google Maps"
+     ]
+    },
+    {
+     "intro": "Des sites d'hôtel et de tourisme multilingues qui prennent les réservations en direct.",
+     "points": [
+      "Moteur de réservation",
+      "Galeries des chambres et services",
+      "Contenu multilingue",
+      "Avis et accès"
+     ]
+    },
+    {
+     "intro": "Des portails immobiliers où vos annonces se trouvent facilement.",
+     "points": [
+      "Gestion des annonces",
+      "Recherche avancée et filtres",
+      "Visite virtuelle et galerie",
+      "Suivi des demandes"
+     ]
+    },
+    {
+     "intro": "Sites d'écoles et de formations, portails élèves et cours en ligne.",
+     "points": [
+      "Pages école et programmes",
+      "Portail élèves et parents",
+      "Cours en ligne (LMS)",
+      "Formulaires d'inscription"
+     ]
+    },
+    {
+     "intro": "Des sites de salons et spas qui remplissent votre agenda.",
+     "points": [
+      "Réservation en ligne",
+      "Carte des prestations et tarifs",
+      "Programme de fidélité",
+      "Galerie avant / après"
+     ]
+    },
+    {
+     "intro": "Gérez votre salle en ligne, des abonnements au planning des cours.",
+     "points": [
+      "Gestion des abonnements",
+      "Planning et réservation des cours",
+      "Paiement en ligne",
+      "Profils des coachs"
+     ]
+    },
+    {
+     "intro": "Des sites corporate qui montrent vos références et votre capacité.",
+     "points": [
+      "Références de chantiers",
+      "Catalogues produits et services",
+      "Formulaires de devis",
+      "Version multilingue"
+     ]
+    },
+    {
+     "intro": "Du showroom à l'atelier, des sites qui amènent les clients directement chez vous.",
+     "points": [
+      "Galerie et stock de véhicules",
+      "Rendez-vous atelier",
+      "Recherche de pièce ou de batterie",
+      "Contact rapide WhatsApp et téléphone"
+     ]
+    },
+    {
+     "intro": "Des sites d'association qui vous relient aux donateurs et bénévoles.",
+     "points": [
+      "Dons en ligne",
+      "Gestion des événements",
+      "Inscription des bénévoles",
+      "Rapports d'activité"
+     ]
+    },
+    {
+     "intro": "Des solutions qui numérisent vos envois et vos devis.",
+     "points": [
+      "Suivi des envois",
+      "Calcul de devis",
+      "Espace client",
+      "Rapports de flotte et d'exploitation"
+     ]
+    }
+   ]
   }
  },
  "ar": {
@@ -2350,6 +3502,390 @@ window.WEBINA_I18N = {
    "analyticsText": "تساعدنا على قياس الصفحات التي تتم زيارتها بشكل مجهول.",
    "marketing": "التسويق",
    "marketingText": "تسمح بعرض محتوى وإعلانات تناسب اهتماماتكم."
+  },
+  "details": {
+   "ui": {
+    "included": "ما الذي يشمله",
+    "role": "دوره في مشروعكم",
+    "forYou": "ما نقدمه لكم",
+    "quote": "اطلب عرض سعر",
+    "whatsapp": "اسأل عبر واتساب",
+    "close": "إغلاق",
+    "more": "التفاصيل",
+    "wa": "راسلونا عبر واتساب"
+   },
+   "services": [
+    {
+     "intro": "موقع مصمم لعلامتكم، سريع التحميل ويظهر بشكل صحيح على كل الشاشات، ومبني ليقود الزائر إلى الصفحة المناسبة وإلى التواصل معكم.",
+     "points": [
+      "تصميم خاص بكم دون قوالب جاهزة",
+      "توافق مع الجوال وشهادة SSL وتحسين السرعة",
+      "إعدادات SEO أساسية وGoogle Analytics",
+      "لوحة تحكم لتعديل محتواكم بأنفسكم"
+     ]
+    },
+    {
+     "intro": "برمجيات ويب مكتوبة حسب سير عملكم، تحل محل جداول Excel والأدوات المتفرقة.",
+     "points": [
+      "تحليل الاحتياجات ورسم العمليات",
+      "أدوار المستخدمين والصلاحيات",
+      "وحدات مثل الحجز والفوترة وملفات العملاء",
+      "تدريب ودعم بعد الإطلاق"
+     ]
+    },
+    {
+     "intro": "نظام CRM مصمم حسب فريقكم يجمع العملاء والعروض والمبيعات في مكان واحد.",
+     "points": [
+      "بطاقات العملاء مع السجل الكامل",
+      "العروض والمبيعات وتذكيرات المتابعة",
+      "إشعارات البريد وواتساب",
+      "تقارير المبيعات والأداء"
+     ]
+    },
+    {
+     "intro": "عمل منتظم من البنية التقنية إلى المحتوى لتظهروا في عمليات البحث المناسبة.",
+     "points": [
+      "تدقيق SEO تقني وإصلاحات",
+      "تحليل الكلمات المفتاحية والمنافسين",
+      "تحسين ملف Google التجاري",
+      "تقرير شهري للترتيب والزيارات"
+     ]
+    },
+    {
+     "intro": "لإدارة الطلبات والنماذج والمحتوى القادم من موقعكم من شاشة واحدة.",
+     "points": [
+      "الطلبات الواردة ومتابعة حالتها",
+      "نماذج مخصصة وتنبيهات بريد تلقائية",
+      "تعديل النصوص والصور والصفحات",
+      "إحصائيات فورية"
+     ]
+    },
+    {
+     "intro": "هوية بصرية لتُعرف علامتكم بالشكل نفسه في كل مكان.",
+     "points": [
+      "الشعار ونسخه المختلفة",
+      "الألوان والخطوط ودليل الاستخدام",
+      "بطاقات العمل والمستندات",
+      "قوالب لوسائل التواصل"
+     ]
+    },
+    {
+     "intro": "متجر إلكتروني ينتقل فيه العميل من رؤية المنتج إلى شرائه بسلاسة.",
+     "points": [
+      "المنتجات والخيارات والمخزون",
+      "ربط الدفع الإلكتروني",
+      "ربط الشحن وتتبع الطلبات",
+      "العروض ورموز الخصم"
+     ]
+    },
+    {
+     "intro": "تطبيقات سريعة وسهلة الاستخدام في جيب عملائكم.",
+     "points": [
+      "تطبيق لـ iOS وAndroid",
+      "إشعارات فورية",
+      "ربط بموقعكم أو لوحة التحكم",
+      "النشر على App Store وGoogle Play"
+     ]
+    },
+    {
+     "intro": "إدارة حساباتكم بمنشورات منتظمة ومتسقة تناسب علامتكم.",
+     "points": [
+      "خطة محتوى شهرية",
+      "تصاميم المنشورات والقصص",
+      "تقويم النشر",
+      "تقرير أداء شهري"
+     ]
+    },
+    {
+     "intro": "حملات إعلانية قابلة للقياس لتصل ميزانيتكم إلى الأشخاص المناسبين.",
+     "points": [
+      "حملات Google Ads وMeta وTikTok",
+      "تخطيط الجمهور والميزانية",
+      "إعداد تتبع التحويلات",
+      "تحسين وتقارير منتظمة"
+     ]
+    },
+    {
+     "intro": "المبيعات والمشتريات والمخزون والمحاسبة في نظام واحد دون إدخال مزدوج.",
+     "points": [
+      "تتبع المخزون والمستودعات",
+      "المشتريات والموردون",
+      "الفواتير والحسابات",
+      "تقارير للإدارة"
+     ]
+    },
+    {
+     "intro": "استقبلوا حجوزات المواعيد أو الطاولات أو الغرف عبر الإنترنت على مدار الساعة.",
+     "points": [
+      "تقويم إلكتروني بالأوقات المتاحة",
+      "تأكيدات وتذكيرات تلقائية",
+      "تخطيط حسب الموظف والخدمة",
+      "دفع إلكتروني اختياري"
+     ]
+    },
+    {
+     "intro": "نعمل في الخلفية ليبقى موقعكم آمناً وسريعاً ومتاحاً دائماً.",
+     "points": [
+      "استضافة سريعة وآمنة",
+      "نسخ احتياطي منتظم",
+      "تحديثات ومراقبة أمنية",
+      "دعم تقني"
+     ]
+    },
+    {
+     "intro": "صور وفيديوهات حقيقية لموقعكم وحساباتكم على وسائل التواصل.",
+     "points": [
+      "تصوير مؤسسي وتصوير منتجات",
+      "فيديوهات تعريفية ولوسائل التواصل",
+      "المونتاج وتصحيح الألوان",
+      "تسليم محسّن للويب"
+     ]
+    }
+   ],
+   "roles": [
+    {
+     "intro": "جهة التواصل الوحيدة معكم: يضع الجدول الزمني وينسق الفريق ويطلعكم على كل خطوة.",
+     "points": [
+      "اجتماع الانطلاق وخطة المشروع",
+      "تحديث أسبوعي للتقدم",
+      "تنسيق التسليم والإطلاق"
+     ]
+    },
+    {
+     "intro": "يستمع إلى احتياجكم ويعدّ الحل المناسب مع عرض سعر واضح.",
+     "points": [
+      "المكالمة الأولى وتحليل الاحتياج",
+      "عرض سعر مخصص",
+      "العقد وبدء العمل"
+     ]
+    },
+    {
+     "intro": "يصنع اللغة البصرية لعلامتكم ويطبقها على كل المواد.",
+     "points": [
+      "الشعار والهوية",
+      "صور الموقع ووسائل التواصل",
+      "المطبوعات"
+     ]
+    },
+    {
+     "intro": "يصمم شاشات سهلة الاستخدام تدفع الزائر إلى التصرف.",
+     "points": [
+      "رحلة المستخدم وهيكل الصفحات",
+      "تصاميم للحاسوب والجوال",
+      "نموذج أولي تفاعلي"
+     ]
+    },
+    {
+     "intro": "يحوّل التصميم إلى واجهة سريعة ومتجاوبة ومتحركة.",
+     "points": [
+      "برمجة سريعة وسهلة الوصول",
+      "تتوافق مع كل الشاشات",
+      "حركات سلسة"
+     ]
+    },
+    {
+     "intro": "يبني الأنظمة خلف الموقع: قاعدة البيانات ولوحة التحكم والدفع والحجز.",
+     "points": [
+      "لوحة التحكم وقاعدة البيانات",
+      "ربط الدفع والحجز",
+      "الأمان والنسخ الاحتياطي"
+     ]
+    },
+    {
+     "intro": "يطوّر تطبيقاتكم لـ iOS وAndroid وينشرها في المتاجر.",
+     "points": [
+      "تطوير التطبيق",
+      "الإشعارات والحسابات",
+      "النشر والتحديثات"
+     ]
+    },
+    {
+     "intro": "يجهّز الموقع تقنياً ومن حيث المحتوى للظهور في عمليات البحث المناسبة.",
+     "points": [
+      "SEO تقني",
+      "استراتيجية الكلمات المفتاحية",
+      "ملف Google التجاري"
+     ]
+    },
+    {
+     "intro": "يدير ميزانية إعلاناتكم وحساباتكم بنتائج قابلة للقياس.",
+     "points": [
+      "إعداد الحملات",
+      "الاستهداف والميزانية",
+      "التقارير"
+     ]
+    },
+    {
+     "intro": "يكتب نصوصاً متعددة اللغات ومتوافقة مع SEO تناسب مهنتكم.",
+     "points": [
+      "نصوص الصفحات",
+      "مقالات المدونة",
+      "الترجمة والتكييف"
+     ]
+    },
+    {
+     "intro": "يصوّر الصور والفيديوهات لموقعكم ووسائل التواصل.",
+     "points": [
+      "التخطيط للتصوير",
+      "تصوير الصور والفيديو",
+      "المونتاج والتسليم"
+     ]
+    },
+    {
+     "intro": "يحافظ على أمان موقعكم وعمله بعد الإطلاق.",
+     "points": [
+      "الاستضافة والنطاق",
+      "النسخ الاحتياطي والتحديثات",
+      "الدعم التقني"
+     ]
+    }
+   ],
+   "sectors": [
+    {
+     "intro": "منصات نشر متعددة الكتّاب واللغات تواكب سرعة الأخبار.",
+     "points": [
+      "إدارة محتوى متعددة الكتّاب",
+      "صفحات الأخبار العاجلة والأقسام",
+      "النشرة البريدية والمشاركة",
+      "بنية تتحمل الزيارات الكبيرة"
+     ]
+    },
+    {
+     "intro": "مواقع تبني ثقة المرضى وتسهّل حجز المواعيد.",
+     "points": [
+      "طلب موعد عبر الإنترنت",
+      "ملفات الأطباء والعلاجات",
+      "معرض صور وفيديو ومدونة",
+      "دعم عدة لغات"
+     ]
+    },
+    {
+     "intro": "مواقع أعمال تبرز مشاريعكم بصور كبيرة.",
+     "points": [
+      "معارض المشاريع",
+      "عرض صور عالي الجودة",
+      "صفحة المكتب والفريق",
+      "نموذج طلب عرض سعر"
+     ]
+    },
+    {
+     "intro": "مواقع مكاتب محاماة أنيقة وموثوقة.",
+     "points": [
+      "مجالات الاختصاص",
+      "حجز استشارة عبر الإنترنت",
+      "مقالات وأخبار",
+      "تواصل سريع عبر واتساب"
+     ]
+    },
+    {
+     "intro": "مواقع وأدوات تسهّل تبادل المستندات مع عملائكم.",
+     "points": [
+      "مساحة للعملاء",
+      "رفع المستندات",
+      "أدوات المتابعة والفوترة",
+      "أخبار الأنظمة واللوائح"
+     ]
+    },
+    {
+     "intro": "حلول تجلب عملاء الحي إلى موقعكم ومتجركم.",
+     "points": [
+      "متجر إلكتروني أو كتالوج",
+      "الطلب والاستلام من المتجر",
+      "الولاء والعروض",
+      "الخريطة وساعات العمل"
+     ]
+    },
+    {
+     "intro": "من القائمة إلى الحجز، مواقع تستقبل الضيوف قبل وصولهم.",
+     "points": [
+      "قائمة إلكترونية وQR",
+      "حجز الطاولات",
+      "الطلبات الخارجية",
+      "الظهور على خرائط Google"
+     ]
+    },
+    {
+     "intro": "مواقع فنادق وسياحة متعددة اللغات تستقبل الحجز المباشر.",
+     "points": [
+      "محرك حجز إلكتروني",
+      "معارض الغرف والمرافق",
+      "محتوى بعدة لغات",
+      "التقييمات والموقع"
+     ]
+    },
+    {
+     "intro": "بوابات عقارية تجعل إعلاناتكم سهلة الوصول.",
+     "points": [
+      "إدارة الإعلانات",
+      "بحث متقدم وفلاتر",
+      "جولة افتراضية ومعرض",
+      "متابعة طلبات العملاء"
+     ]
+    },
+    {
+     "intro": "مواقع المدارس والدورات وبوابات الطلاب والتعليم الإلكتروني.",
+     "points": [
+      "صفحات المدرسة والبرامج",
+      "بوابة الطلاب وأولياء الأمور",
+      "دورات عبر الإنترنت (LMS)",
+      "نماذج التسجيل"
+     ]
+    },
+    {
+     "intro": "مواقع صالونات وسبا تملأ جدول مواعيدكم.",
+     "points": [
+      "حجز عبر الإنترنت",
+      "قائمة الخدمات والأسعار",
+      "برنامج ولاء",
+      "معرض قبل / بعد"
+     ]
+    },
+    {
+     "intro": "أديروا ناديكم عبر الإنترنت من الاشتراكات إلى جدول الحصص.",
+     "points": [
+      "إدارة الاشتراكات",
+      "جدول الحصص والحجز",
+      "دفع إلكتروني",
+      "ملفات المدربين"
+     ]
+    },
+    {
+     "intro": "مواقع مؤسسية تعرض مراجعكم وقدراتكم.",
+     "points": [
+      "مراجع المشاريع",
+      "كتالوجات المنتجات والخدمات",
+      "نماذج طلب العروض",
+      "دعم عدة لغات"
+     ]
+    },
+    {
+     "intro": "من صالة العرض إلى الصيانة، مواقع تجلب العملاء إليكم مباشرة.",
+     "points": [
+      "معرض السيارات والمخزون",
+      "حجز موعد صيانة",
+      "البحث عن قطعة أو بطارية",
+      "تواصل سريع عبر واتساب والهاتف"
+     ]
+    },
+    {
+     "intro": "مواقع جمعيات تربطكم بالمتبرعين والمتطوعين.",
+     "points": [
+      "التبرع عبر الإنترنت",
+      "إدارة الفعاليات",
+      "تسجيل المتطوعين",
+      "تقارير الأنشطة"
+     ]
+    },
+    {
+     "intro": "حلول ترقمن شحناتكم وعروض أسعاركم.",
+     "points": [
+      "تتبع الشحنات",
+      "حساب عروض الأسعار",
+      "لوحة للعملاء",
+      "تقارير الأسطول والتشغيل"
+     ]
+    }
+   ]
   }
  }
 };

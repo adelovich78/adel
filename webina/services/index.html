@@ -56,6 +56,10 @@
     <symbol id="i-shield" viewBox="0 0 24 24"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></symbol>
     <symbol id="i-chevron" viewBox="0 0 24 24"><path d="m18 15-6-6-6 6"/></symbol>
     <symbol id="i-lock" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></symbol>
+    <symbol id="i-chevron-left" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></symbol>
+    <symbol id="i-chevron-right" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></symbol>
+    <symbol id="i-whatsapp" viewBox="0 0 24 24"><path fill="currentColor" stroke="none" d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.08c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.22 1.36.19 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.69.25-1.29.17-1.41-.07-.12-.27-.2-.57-.35M12.05 21.5h-.01a9.4 9.4 0 0 1-4.8-1.32l-.34-.2-3.57.94.95-3.48-.22-.36a9.4 9.4 0 0 1-1.44-5.02c0-5.2 4.23-9.43 9.44-9.43 2.52 0 4.89.98 6.67 2.77a9.37 9.37 0 0 1 2.76 6.67c0 5.2-4.23 9.43-9.44 9.43m8.03-17.46A11.27 11.27 0 0 0 12.05.7C5.79.7.7 5.8.7 12.05c0 2 .52 3.95 1.52 5.67L.6 23.3l5.7-1.5a11.33 11.33 0 0 0 5.74 1.47h.01c6.25 0 11.34-5.09 11.35-11.35 0-3.03-1.18-5.88-3.32-8.02"/></symbol>
   </svg>
 
   <a href="#main" class="skip-link"><span data-i18n="ui.skip">İçeriğe geç</span></a>
@@ -139,74 +143,88 @@
           <div class="container-large">
             <div class="padding-section-medium">
               <ol class="service-index_list" role="list">
-                <li class="service-index_item" data-reveal>
+                <li class="service-index_item has-detail" data-reveal>
+                  <button type="button" class="detail_cover" data-detail="services" data-index="0" aria-haspopup="dialog" aria-labelledby="svc-t-0"></button><span class="detail_plus" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg></span>
                   <span class="service-index_number text-style-mono">01</span>
-                  <h2 class="service-index_title heading-style-h3" data-i18n="services.0.title">Web sitesi tasarımı</h2>
+                  <h2 class="service-index_title heading-style-h3" id="svc-t-0" data-i18n="services.0.title">Web sitesi tasarımı</h2>
                   <p class="service-index_text text-color-secondary" data-i18n="services.0.text">Dönüşüm odaklı, hızlı ve şık kurumsal siteler, e-ticaret ve özel platformlar.</p>
                 </li>
-                <li class="service-index_item" data-reveal>
+                <li class="service-index_item has-detail" data-reveal>
+                  <button type="button" class="detail_cover" data-detail="services" data-index="1" aria-haspopup="dialog" aria-labelledby="svc-t-1"></button><span class="detail_plus" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg></span>
                   <span class="service-index_number text-style-mono">02</span>
-                  <h2 class="service-index_title heading-style-h3" data-i18n="services.1.title">Özel yazılımlar</h2>
+                  <h2 class="service-index_title heading-style-h3" id="svc-t-1" data-i18n="services.1.title">Özel yazılımlar</h2>
                   <p class="service-index_text text-color-secondary" data-i18n="services.1.text">İşinize uygun iş yazılımları: yönetim, rezervasyon, faturalama, müşteri dosyaları.</p>
                 </li>
-                <li class="service-index_item" data-reveal>
+                <li class="service-index_item has-detail" data-reveal>
+                  <button type="button" class="detail_cover" data-detail="services" data-index="2" aria-haspopup="dialog" aria-labelledby="svc-t-2"></button><span class="detail_plus" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg></span>
                   <span class="service-index_number text-style-mono">03</span>
-                  <h2 class="service-index_title heading-style-h3" data-i18n="services.2.title">CRM &amp; otomasyon</h2>
+                  <h2 class="service-index_title heading-style-h3" id="svc-t-2" data-i18n="services.2.title">CRM &amp; otomasyon</h2>
                   <p class="service-index_text text-color-secondary" data-i18n="services.2.text">Müşterilerinizi, satışlarınızı ve takiplerinizi ekibinize özel bir araçta toplayın.</p>
                 </li>
-                <li class="service-index_item" data-reveal>
+                <li class="service-index_item has-detail" data-reveal>
+                  <button type="button" class="detail_cover" data-detail="services" data-index="3" aria-haspopup="dialog" aria-labelledby="svc-t-3"></button><span class="detail_plus" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg></span>
                   <span class="service-index_number text-style-mono">04</span>
-                  <h2 class="service-index_title heading-style-h3" data-i18n="services.3.title">SEO &amp; görünürlük</h2>
+                  <h2 class="service-index_title heading-style-h3" id="svc-t-3" data-i18n="services.3.title">SEO &amp; görünürlük</h2>
                   <p class="service-index_text text-color-secondary" data-i18n="services.3.text">Organik arama, Google İşletme, optimize içerik: doğru müşteriler sizi bulsun.</p>
                 </li>
-                <li class="service-index_item" data-reveal>
+                <li class="service-index_item has-detail" data-reveal>
+                  <button type="button" class="detail_cover" data-detail="services" data-index="4" aria-haspopup="dialog" aria-labelledby="svc-t-4"></button><span class="detail_plus" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg></span>
                   <span class="service-index_number text-style-mono">05</span>
-                  <h2 class="service-index_title heading-style-h3" data-i18n="services.4.title">Yönetim paneli &amp; formlar</h2>
+                  <h2 class="service-index_title heading-style-h3" id="svc-t-4" data-i18n="services.4.title">Yönetim paneli &amp; formlar</h2>
                   <p class="service-index_text text-color-secondary" data-i18n="services.4.text">Taleplerinizi, formlarınızı, içeriklerinizi ve istatistiklerinizi anlık kontrol edin.</p>
                 </li>
-                <li class="service-index_item" data-reveal>
+                <li class="service-index_item has-detail" data-reveal>
+                  <button type="button" class="detail_cover" data-detail="services" data-index="5" aria-haspopup="dialog" aria-labelledby="svc-t-5"></button><span class="detail_plus" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg></span>
                   <span class="service-index_number text-style-mono">06</span>
-                  <h2 class="service-index_title heading-style-h3" data-i18n="services.5.title">Kimlik &amp; dijital tasarım</h2>
+                  <h2 class="service-index_title heading-style-h3" id="svc-t-5" data-i18n="services.5.title">Kimlik &amp; dijital tasarım</h2>
                   <p class="service-index_text text-color-secondary" data-i18n="services.5.text">Logo, kurumsal kimlik, UI/UX tasarım ve görsel içerikler.</p>
                 </li>
-                <li class="service-index_item" data-reveal>
+                <li class="service-index_item has-detail" data-reveal>
+                  <button type="button" class="detail_cover" data-detail="services" data-index="6" aria-haspopup="dialog" aria-labelledby="svc-t-6"></button><span class="detail_plus" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg></span>
                   <span class="service-index_number text-style-mono">07</span>
-                  <h2 class="service-index_title heading-style-h3" data-i18n="services.6.title">E-ticaret</h2>
+                  <h2 class="service-index_title heading-style-h3" id="svc-t-6" data-i18n="services.6.title">E-ticaret</h2>
                   <p class="service-index_text text-color-secondary" data-i18n="services.6.text">Ödeme, kargo ve stok entegrasyonlu satışa hazır online mağazalar.</p>
                 </li>
-                <li class="service-index_item" data-reveal>
+                <li class="service-index_item has-detail" data-reveal>
+                  <button type="button" class="detail_cover" data-detail="services" data-index="7" aria-haspopup="dialog" aria-labelledby="svc-t-7"></button><span class="detail_plus" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg></span>
                   <span class="service-index_number text-style-mono">08</span>
-                  <h2 class="service-index_title heading-style-h3" data-i18n="services.7.title">Mobil uygulamalar</h2>
+                  <h2 class="service-index_title heading-style-h3" id="svc-t-7" data-i18n="services.7.title">Mobil uygulamalar</h2>
                   <p class="service-index_text text-color-secondary" data-i18n="services.7.text">iOS ve Android için hızlı ve kullanıcı dostu uygulamalar.</p>
                 </li>
-                <li class="service-index_item" data-reveal>
+                <li class="service-index_item has-detail" data-reveal>
+                  <button type="button" class="detail_cover" data-detail="services" data-index="8" aria-haspopup="dialog" aria-labelledby="svc-t-8"></button><span class="detail_plus" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg></span>
                   <span class="service-index_number text-style-mono">09</span>
-                  <h2 class="service-index_title heading-style-h3" data-i18n="services.8.title">Sosyal medya yönetimi</h2>
+                  <h2 class="service-index_title heading-style-h3" id="svc-t-8" data-i18n="services.8.title">Sosyal medya yönetimi</h2>
                   <p class="service-index_text text-color-secondary" data-i18n="services.8.text">İçerik planı, tasarım ve topluluk yönetimi.</p>
                 </li>
-                <li class="service-index_item" data-reveal>
+                <li class="service-index_item has-detail" data-reveal>
+                  <button type="button" class="detail_cover" data-detail="services" data-index="9" aria-haspopup="dialog" aria-labelledby="svc-t-9"></button><span class="detail_plus" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg></span>
                   <span class="service-index_number text-style-mono">10</span>
-                  <h2 class="service-index_title heading-style-h3" data-i18n="services.9.title">Dijital reklam</h2>
+                  <h2 class="service-index_title heading-style-h3" id="svc-t-9" data-i18n="services.9.title">Dijital reklam</h2>
                   <p class="service-index_text text-color-secondary" data-i18n="services.9.text">Google Ads, Meta ve TikTok kampanyaları ile hedefli müşteri kazanımı.</p>
                 </li>
-                <li class="service-index_item" data-reveal>
+                <li class="service-index_item has-detail" data-reveal>
+                  <button type="button" class="detail_cover" data-detail="services" data-index="10" aria-haspopup="dialog" aria-labelledby="svc-t-10"></button><span class="detail_plus" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg></span>
                   <span class="service-index_number text-style-mono">11</span>
-                  <h2 class="service-index_title heading-style-h3" data-i18n="services.10.title">ERP &amp; stok yönetimi</h2>
+                  <h2 class="service-index_title heading-style-h3" id="svc-t-10" data-i18n="services.10.title">ERP &amp; stok yönetimi</h2>
                   <p class="service-index_text text-color-secondary" data-i18n="services.10.text">Satış, satın alma, stok ve muhasebeyi tek sistemde birleştirin.</p>
                 </li>
-                <li class="service-index_item" data-reveal>
+                <li class="service-index_item has-detail" data-reveal>
+                  <button type="button" class="detail_cover" data-detail="services" data-index="11" aria-haspopup="dialog" aria-labelledby="svc-t-11"></button><span class="detail_plus" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg></span>
                   <span class="service-index_number text-style-mono">12</span>
-                  <h2 class="service-index_title heading-style-h3" data-i18n="services.11.title">Rezervasyon sistemleri</h2>
+                  <h2 class="service-index_title heading-style-h3" id="svc-t-11" data-i18n="services.11.title">Rezervasyon sistemleri</h2>
                   <p class="service-index_text text-color-secondary" data-i18n="services.11.text">Randevu, masa veya oda rezervasyonu, otomatik hatırlatmalar.</p>
                 </li>
-                <li class="service-index_item" data-reveal>
+                <li class="service-index_item has-detail" data-reveal>
+                  <button type="button" class="detail_cover" data-detail="services" data-index="12" aria-haspopup="dialog" aria-labelledby="svc-t-12"></button><span class="detail_plus" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg></span>
                   <span class="service-index_number text-style-mono">13</span>
-                  <h2 class="service-index_title heading-style-h3" data-i18n="services.12.title">Hosting &amp; bakım</h2>
+                  <h2 class="service-index_title heading-style-h3" id="svc-t-12" data-i18n="services.12.title">Hosting &amp; bakım</h2>
                   <p class="service-index_text text-color-secondary" data-i18n="services.12.text">Güvenli barındırma, yedekleme, güncelleme ve teknik destek.</p>
                 </li>
-                <li class="service-index_item" data-reveal>
+                <li class="service-index_item has-detail" data-reveal>
+                  <button type="button" class="detail_cover" data-detail="services" data-index="13" aria-haspopup="dialog" aria-labelledby="svc-t-13"></button><span class="detail_plus" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg></span>
                   <span class="service-index_number text-style-mono">14</span>
-                  <h2 class="service-index_title heading-style-h3" data-i18n="services.13.title">Video &amp; fotoğraf prodüksiyonu</h2>
+                  <h2 class="service-index_title heading-style-h3" id="svc-t-13" data-i18n="services.13.title">Video &amp; fotoğraf prodüksiyonu</h2>
                   <p class="service-index_text text-color-secondary" data-i18n="services.13.text">Tanıtım filmleri, ürün çekimleri ve sosyal medya içerikleri.</p>
                 </li>
               </ol>
@@ -296,6 +314,39 @@
       </div>
     </footer>
   </div>
+
+  <!-- Panneau détaillé (services, équipe, secteurs) -->
+  <div class="drawer_component" data-drawer hidden>
+    <div class="drawer_backdrop" data-drawer-close></div>
+    <aside class="drawer_panel" role="dialog" aria-modal="true" aria-labelledby="drawer-title" tabindex="-1">
+      <div class="drawer_handle" aria-hidden="true"></div>
+      <div class="drawer_head">
+        <p class="drawer_eyebrow text-style-mono" data-drawer-eyebrow></p>
+        <div class="drawer_nav">
+          <button type="button" class="icon-button" data-drawer-step="-1" aria-label="‹"><svg class="icon drawer_chev is-prev" aria-hidden="true"><use href="#i-chevron-left"/></svg></button>
+          <button type="button" class="icon-button" data-drawer-step="1" aria-label="›"><svg class="icon drawer_chev" aria-hidden="true"><use href="#i-chevron-right"/></svg></button>
+          <button type="button" class="icon-button" data-drawer-close data-i18n-aria="details.ui.close" aria-label="Kapat"><svg class="icon" aria-hidden="true"><use href="#i-x"/></svg></button>
+        </div>
+      </div>
+      <div class="drawer_body" data-drawer-body>
+        <span class="drawer_number" data-drawer-number></span>
+        <h2 class="drawer_title" id="drawer-title" data-drawer-title></h2>
+        <p class="drawer_intro" data-drawer-intro></p>
+        <p class="drawer_label text-style-mono" data-drawer-label></p>
+        <ul class="drawer_points" role="list" data-drawer-points></ul>
+      </div>
+      <div class="drawer_foot">
+        <a href="/teklif" class="button is-large" data-drawer-quote><span data-i18n="details.ui.quote">Teklif al</span><svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+        <a href="https://wa.me/905399662557" target="_blank" rel="noopener" class="button is-large is-secondary" data-drawer-wa><svg class="icon" aria-hidden="true"><use href="#i-whatsapp"/></svg><span data-i18n="details.ui.whatsapp">WhatsApp ile sorun</span></a>
+      </div>
+    </aside>
+  </div>
+
+  <!-- WhatsApp toujours visible -->
+  <a href="https://wa.me/905399662557" target="_blank" rel="noopener" class="wa_float" data-i18n-aria="details.ui.wa" aria-label="WhatsApp ile yazın">
+    <svg class="wa_float-icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-whatsapp"/></svg>
+    <span class="wa_float-label" data-i18n="details.ui.wa">WhatsApp ile yazın</span>
+  </a>
 
   <!-- Consentement cookies -->
   <div class="cookie_component" data-cookie hidden>

@@ -1453,3 +1453,137 @@ html[lang="ar"] .summary_amount { font-family: var(--font-mono); font-size: 2.5r
 .summary_line.is-promo .summary_line-label,
 .summary_line.is-promo .summary_line-value { color: var(--color-accent-ink); }
 @media (prefers-reduced-motion: reduce) { .promo_field.is-shake { animation: none; } }
+
+/* ==========================================================================
+   Éléments cliquables → panneau détaillé
+   ========================================================================== */
+.has-detail { position: relative; }
+.detail_cover {
+  position: absolute; inset: 0; z-index: 1; width: 100%;
+  border-radius: 8px; cursor: pointer;
+}
+.detail_cover:focus-visible { outline-offset: -2px; }
+.detail_plus {
+  position: absolute; top: 50%; inset-inline-end: 0;
+  display: grid; place-items: center; width: 32px; height: 32px; border-radius: 50%;
+  color: var(--color-text-muted);
+  box-shadow: inset 0 0 0 1px var(--color-hairline-strong);
+  transform: translateY(-50%);
+  transition: transform 300ms var(--ease-out), background-color var(--dur-hover) ease, color var(--dur-hover) ease, box-shadow var(--dur-hover) ease;
+  pointer-events: none;
+}
+.detail_plus .icon { width: 16px; height: 16px; }
+.services_item.has-detail, .service-index_item.has-detail { padding-inline-end: 48px; }
+.team_role.has-detail { padding-inline-end: 32px; }
+.team_role .detail_plus, .sectors_item .detail_plus { top: 0; width: 24px; height: 24px; transform: none; }
+.team_role .detail_plus .icon, .sectors_item .detail_plus .icon { width: 14px; height: 14px; }
+.sectors_item .detail_plus { top: 32px; inset-inline-end: 24px; }
+.services_item, .service-index_item, .team_role, .sectors_item { transition: background-color var(--dur-hover) ease; }
+@media (hover: hover) and (pointer: fine) {
+  .has-detail:hover .detail_plus { background-color: var(--color-ink); color: var(--color-bg); box-shadow: none; }
+  .services_item.has-detail:hover .detail_plus, .service-index_item.has-detail:hover .detail_plus { transform: translateY(-50%) rotate(90deg); }
+  .team_role.has-detail:hover .detail_plus, .sectors_item.has-detail:hover .detail_plus { transform: rotate(90deg); }
+  .has-detail:hover .services_title, .has-detail:hover .team_role-title, .sectors_item.has-detail:hover h3 { color: var(--color-accent-ink); }
+}
+.services_title, .team_role-title, .sectors_item h3 { transition: color var(--dur-hover) ease; }
+.has-detail:active .detail_plus { transform: translateY(-50%) scale(0.92); }
+.team_role.has-detail:active .detail_plus, .sectors_item.has-detail:active .detail_plus { transform: scale(0.92); }
+@media (max-width: 479px) {
+  .sectors_item .detail_plus { top: 24px; inset-inline-end: 0; }
+}
+
+/* ==========================================================================
+   Panneau glissant (latéral sur ordinateur, depuis le bas sur mobile)
+   ========================================================================== */
+.drawer_component { position: fixed; inset: 0; z-index: 150; }
+.drawer_component[hidden] { display: none; }
+.drawer_backdrop { position: absolute; inset: 0; background-color: rgba(10, 12, 11, 0.4); transition: opacity 320ms ease; }
+.drawer_panel {
+  --drawer-ease: cubic-bezier(0.32, 0.72, 0, 1);
+  position: absolute; top: 8px; bottom: 8px; inset-inline-end: 8px;
+  display: flex; flex-direction: column;
+  width: min(520px, calc(100vw - 16px));
+  border-radius: var(--radius-panel);
+  background-color: var(--color-bg);
+  box-shadow: 0 0 0 1px var(--color-hairline), 0 24px 64px -16px rgba(0, 0, 0, 0.35);
+  transform: translateX(0);
+  transition: transform 460ms var(--drawer-ease);
+  outline: none;
+}
+.drawer_component.is-closed .drawer_backdrop { opacity: 0; }
+.drawer_component.is-closed .drawer_panel { transform: translateX(calc(100% + 16px)); }
+[dir="rtl"] .drawer_component.is-closed .drawer_panel { transform: translateX(calc(-100% - 16px)); }
+.drawer_component.is-leaving .drawer_panel { transition-duration: 280ms; }
+.drawer_handle { display: none; }
+.drawer_head { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 16px 16px 0 28px; }
+[dir="rtl"] .drawer_head { padding: 16px 28px 0 16px; }
+.drawer_eyebrow { color: var(--color-accent-ink); }
+.drawer_nav { display: flex; gap: 2px; }
+[dir="rtl"] .drawer_chev { transform: scaleX(-1); }
+.drawer_body { flex: 1; overflow-y: auto; overscroll-behavior: contain; padding: 24px 28px 32px; }
+/* Changement d'élément : le contenu glisse légèrement et se fond */
+.drawer_body > * { transition: opacity 220ms ease, transform 320ms var(--ease-out), filter 220ms ease; }
+.drawer_body.is-swapping > * { opacity: 0; transform: translateX(calc(var(--swap-dir, 1) * 12px)); filter: blur(2px); }
+.drawer_number { display: block; font-size: 4.5rem; font-weight: 500; line-height: 1; letter-spacing: -0.05em; color: var(--color-hairline-strong); font-variant-numeric: tabular-nums; margin-bottom: 24px; }
+.drawer_title { font-size: clamp(1.75rem, 3vw, 2.25rem); font-weight: 500; letter-spacing: -0.035em; line-height: 1.1; }
+.drawer_intro { margin-top: 16px; font-size: 1.0625rem; line-height: 1.6; color: var(--color-text-secondary); }
+.drawer_label { margin-top: 32px; margin-bottom: 12px; color: var(--color-text-muted); }
+.drawer_points { border-top: 1px solid var(--color-hairline); }
+.drawer_point { display: flex; align-items: flex-start; gap: 12px; padding: 14px 0; border-bottom: 1px solid var(--color-hairline); font-size: 0.9375rem; }
+.drawer_point .icon { width: 18px; height: 18px; margin-top: 1px; color: var(--color-accent-ink); stroke-width: 2; }
+.drawer_foot { display: flex; flex-wrap: wrap; gap: 8px; padding: 16px 28px 24px; border-top: 1px solid var(--color-hairline); }
+.drawer_foot .button { flex: 1 1 auto; }
+html[lang="ar"] .drawer_title { font-weight: 600; letter-spacing: 0; line-height: 1.3; }
+
+@media (max-width: 767px) {
+  .drawer_panel {
+    top: auto; bottom: 0; inset-inline: 0; width: 100%;
+    max-height: 88svh; border-radius: var(--radius-panel) var(--radius-panel) 0 0;
+    padding-bottom: env(safe-area-inset-bottom);
+    touch-action: pan-y;
+  }
+  .drawer_component.is-closed .drawer_panel,
+  [dir="rtl"] .drawer_component.is-closed .drawer_panel { transform: translateY(100%); }
+  .drawer_component.is-dragging .drawer_panel { transition: none; }
+  .drawer_handle { display: block; width: 40px; height: 4px; margin: 10px auto 0; border-radius: 2px; background-color: var(--color-hairline-strong); }
+  .drawer_head { padding: 8px 12px 0 20px; }
+  [dir="rtl"] .drawer_head { padding: 8px 20px 0 12px; }
+  .drawer_body { padding: 16px 20px 24px; }
+  .drawer_number { font-size: 3rem; margin-bottom: 16px; }
+  .drawer_foot { padding: 12px 20px 16px; }
+}
+
+/* ==========================================================================
+   Bouton WhatsApp toujours visible
+   ========================================================================== */
+.wa_float {
+  position: fixed; bottom: 24px; inset-inline-end: 24px; z-index: 90;
+  display: flex; align-items: center; gap: 0;
+  height: 56px; padding: 0 16px; border-radius: 28px;
+  background-color: #25d366; color: #fff;
+  box-shadow: 0 8px 24px -6px rgba(37, 211, 102, 0.55), 0 2px 6px rgba(0, 0, 0, 0.15);
+  transition: transform var(--dur-press) var(--ease-out), box-shadow var(--dur-hover) ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.wa_float-icon { width: 24px; height: 24px; flex: none; fill: currentColor; }
+/* Le libellé s'ouvre au survol (ordinateur) */
+.wa_float-label {
+  max-width: 0; overflow: hidden; white-space: nowrap; font-size: 0.9375rem; font-weight: 600;
+  opacity: 0; transition: max-width 360ms var(--ease-out), opacity 200ms ease, margin 360ms var(--ease-out);
+}
+.wa_float:active { transform: scale(0.94); }
+@media (hover: hover) and (pointer: fine) {
+  .wa_float:hover .wa_float-label { max-width: 240px; opacity: 1; margin-inline-start: 10px; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .js .wa_float { animation: wa-in 520ms var(--ease-out) 1.2s both; }
+}
+@keyframes wa-in { from { opacity: 0; transform: translateY(16px) scale(0.9); } }
+@media (max-width: 767px) {
+  .wa_float { bottom: 16px; inset-inline-end: 16px; width: 56px; padding: 0; justify-content: center; }
+  .wa_float-label { display: none; }
+}
+/* Sur le devis mobile, au-dessus de la barre du total */
+@media (max-width: 991px) {
+  html[data-page="quote.eyebrow"] .wa_float { bottom: 92px; }
+}
