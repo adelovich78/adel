@@ -96,7 +96,16 @@
     var f = e.target, err = $('[data-auth-error]');
     err.textContent = '';
     var body = { email: f.email.value.trim(), password: f.password.value };
-    api('auth.php?action=' + (needsSetup ? 'setup' : 'login'), { method: 'POST', body: body })
+    // Revérifie l'état : si la base répondait mal au chargement, la création du compte reste possible
+    api('auth.php?action=me').then(function (d) {
+      if (d.needsSetup !== needsSetup) {
+        needsSetup = !!d.needsSetup;
+        $('[data-auth-title]').textContent = needsSetup ? 'Créer le compte administrateur' : 'Connexion';
+        $('[data-auth-hint]').hidden = !needsSetup;
+        $('[data-auth-submit]').textContent = needsSetup ? 'Créer le compte' : 'Se connecter';
+      }
+      return api('auth.php?action=' + (needsSetup ? 'setup' : 'login'), { method: 'POST', body: body });
+    })
       .then(function (d) { f.reset(); setUser(d.user); showView('app'); loadAll(); })
       .catch(function (ex) { err.textContent = ex.message; });
   });
