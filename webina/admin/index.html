@@ -41,6 +41,8 @@
     <symbol id="i-phone" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></symbol>
     <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></symbol>
     <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></symbol>
+    <symbol id="i-wallet" viewBox="0 0 24 24"><path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1"/><path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"/></symbol>
+    <symbol id="i-repeat" viewBox="0 0 24 24"><path d="m17 2 4 4-4 4"/><path d="M3 11v-1a4 4 0 0 1 4-4h14M7 22l-4-4 4-4"/><path d="M21 13v1a4 4 0 0 1-4 4H3"/></symbol>
     <symbol id="i-edit" viewBox="0 0 24 24"><path d="M12 20h9M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></symbol>
   </svg>
 
@@ -91,6 +93,7 @@
           <button type="button" class="admin_tab" aria-selected="false" data-tab="deals"><svg class="icon" aria-hidden="true"><use href="#i-columns"/></svg>Ventes</button>
           <button type="button" class="admin_tab" aria-selected="false" data-tab="tasks"><svg class="icon" aria-hidden="true"><use href="#i-check-square"/></svg>Tâches<span class="admin_count" data-count="tasks"></span></button>
           <button type="button" class="admin_tab" aria-selected="false" data-tab="projects"><svg class="icon" aria-hidden="true"><use href="#i-folder"/></svg>Projets</button>
+          <button type="button" class="admin_tab" aria-selected="false" data-tab="expenses"><svg class="icon" aria-hidden="true"><use href="#i-wallet"/></svg>Dépenses</button>
           <p class="admin_side-label">Site</p>
           <button type="button" class="admin_tab" aria-selected="false" data-tab="submissions"><svg class="icon" aria-hidden="true"><use href="#i-inbox"/></svg>Demandes<span class="admin_count" data-count="submissions"></span></button>
           <button type="button" class="admin_tab" aria-selected="false" data-tab="promo"><svg class="icon" aria-hidden="true"><use href="#i-tag"/></svg>Codes de réduction</button>
@@ -173,6 +176,16 @@
             <tbody data-project-rows></tbody>
           </table>
         </div>
+      </div>
+
+      <!-- CRM : dépenses -->
+      <div class="admin_panel" data-panel="expenses" hidden>
+        <div class="crm_head">
+          <h1 class="crm_title">Dépenses</h1>
+          <button type="button" class="button is-small" data-crm-new="expense"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg>Ajouter une dépense</button>
+        </div>
+        <p class="text-size-small text-color-secondary crm_hint">Publicité (Instagram, Facebook, YouTube…), domaines, hébergement, logiciels, sous-traitance… Les montants en $ ou en € sont convertis en TL avec les taux de l'onglet Tarifs. Un abonnement s'ajoute tout seul à chaque échéance.</p>
+        <div data-expenses></div>
       </div>
 
       <!-- Outils : import EspoCRM -->

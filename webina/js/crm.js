@@ -17,12 +17,22 @@
   var PSTATUS = { in_progress: 'En cours', delivered: 'Livré', paused: 'En pause', cancelled: 'Annulé' };
   var KIND = { todo: 'À faire', call: 'Appel', meeting: 'Réunion', email: 'E-mail' };
   var KIND_ICON = { todo: 'i-check-square', call: 'i-phone', meeting: 'i-calendar', email: 'i-mail' };
+  var CAT = {
+    ads: 'Publicité', domain: 'Noms de domaine', hosting: 'Hébergement & serveurs', software: 'Logiciels & abonnements',
+    freelance: 'Sous-traitance', salary: 'Salaires', office: 'Bureau & loyer', equipment: 'Matériel', travel: 'Déplacements',
+    bank: 'Banque & frais', tax: 'Impôts & taxes', other: 'Autre'
+  };
+  var PLATFORM = { instagram: 'Instagram', facebook: 'Facebook', youtube: 'YouTube', google: 'Google Ads', tiktok: 'TikTok', linkedin: 'LinkedIn' };
+  var RECUR = { none: 'Une seule fois', monthly: 'Chaque mois', quarterly: 'Chaque trimestre', yearly: 'Chaque année' };
+  var CAT_COLOR = { ads: '#2563eb', domain: '#0891b2', hosting: '#7c3aed', software: '#db2777', freelance: '#ea580c', salary: '#16a34a',
+    office: '#ca8a04', equipment: '#4b5563', travel: '#0d9488', bank: '#64748b', tax: '#b91c1c', other: '#9ca3af' };
 
-  var state = { clients: [], deals: [], tasks: [], projects: [], dash: null, filter: '', search: '', showDone: false, sheetId: null };
+  var state = { clients: [], deals: [], tasks: [], projects: [], dash: null, filter: '', search: '', showDone: false, sheetId: null, exp: null, expCat: '' };
 
   function money(n, cur) {
     n = Number(n) || 0;
     if (!cur || cur === 'TRY') return Math.round(n).toLocaleString('tr-TR') + ' TL';
+    if (cur === 'USD') return (n < 0 ? '−$' : '$') + Math.abs(Math.round(n)).toLocaleString('en-US');
     return new Intl.NumberFormat('fr-FR', { style: 'currency', currency: cur, maximumFractionDigits: 0 }).format(n);
   }
   function d(s) { return s ? new Date(String(s).replace(' ', 'T')) : null; }
@@ -59,6 +69,7 @@
       crm('r=deals').then(function (x) { state.deals = x.items; }),
       crm('r=tasks&done=' + (state.showDone ? 1 : 0)).then(function (x) { state.tasks = x.items; }),
       crm('r=projects').then(function (x) { state.projects = x.items; }),
+      crm('r=expenses&months=6').then(function (x) { state.exp = x; }),
       loadClients()
     ]).then(renderAll).catch(function (e) { toast(e.message); });
   }
@@ -66,7 +77,7 @@
     return crm('r=clients&status=' + encodeURIComponent(state.filter) + '&q=' + encodeURIComponent(state.search))
       .then(function (x) { state.clients = x.items; });
   }
-  function renderAll() { renderDashboard(); renderClients(); renderBoard(); renderTasks(); renderProjects(); renderBadge(); }
+  function renderAll() { renderDashboard(); renderClients(); renderBoard(); renderTasks(); renderProjects(); renderExpenses(); renderBadge(); }
   function renderBadge() {
     var n = state.tasks.filter(function (t) { return !t.done_at && t.due_at && d(t.due_at) < new Date(new Date().setHours(24, 0, 0, 0)); }).length;
     var b = $('[data-count="tasks"]'); if (b) b.textContent = n || '';
@@ -86,9 +97,9 @@
     var stats = [
       ['Ventes en cours', open.n, money(open.total)],
       ['Tâches en retard', late, late ? 'à traiter' : 'rien en retard', late ? 'is-warn' : ''],
-      ['Encaissé ce mois', money(x.paidThisMonth), ''],
+      ['Encaissé ce mois', money(x.paidThisMonth), 'dépensé ' + money(x.spentThisMonth || 0)],
       ['Reste à encaisser', money(x.toCollect), 'projets en cours et livrés'],
-      ['Prospects / clients', (x.counts.leads || 0) + ' / ' + (x.counts.clients || 0), '']
+      ['Résultat du mois', money(x.paidThisMonth - (x.spentThisMonth || 0)), 'encaissé − dépenses', x.paidThisMonth - (x.spentThisMonth || 0) < 0 ? 'is-warn' : '']
     ];
     var html = '<div class="admin_stats">' + stats.map(function (s) {
       return '<div class="admin_stat ' + (s[3] || '') + '"><p class="admin_stat-value">' + esc(s[1]) + '</p><p class="admin_stat-label">' + esc(s[0]) + (s[2] ? ' · <span class="text-color-muted">' + esc(s[2]) + '</span>' : '') + '</p></div>';
@@ -269,6 +280,115 @@
     }).join('');
   }
 
+  /* ---------- Dépenses ---------- */
+  function monthLabel(m) { var p = m.split('-'); return new Date(+p[0], +p[1] - 1, 1).toLocaleDateString('fr-FR', { month: 'short' }); }
+  function renderExpenses() {
+    var box = $('[data-expenses]'), x = state.exp;
+    if (!box || !x) return;
+    var keys = Object.keys(x.months), cur = x.months[keys[keys.length - 1]], prev = x.months[keys[keys.length - 2]] || { total: 0 };
+    var adsCur = Object.keys(cur.ads).reduce(function (a, k) { return a + cur.ads[k]; }, 0);
+    // Coût par prospect : prospects déclarés par les plateformes, sinon ceux arrivés par le site
+    var leadsN = cur.leads || cur.siteLeads;
+    var cpl = leadsN ? adsCur / leadsN : 0;
+    var leadsTxt = (cur.leads ? cur.leads + ' déclaré' + (cur.leads > 1 ? 's' : '') + ' par les plateformes · ' : '') + cur.siteLeads + ' arrivé' + (cur.siteLeads > 1 ? 's' : '') + ' par le site';
+    var trend = prev.total ? Math.round((cur.total - prev.total) / prev.total * 100) : null;
+    var stats = [
+      ['Dépensé ce mois', money(cur.total), trend === null ? '' : (trend >= 0 ? '+' : '') + trend + ' % vs mois dernier'],
+      ['Publicité ce mois', money(adsCur), Object.keys(cur.ads).map(function (k) { return (PLATFORM[k] || k) + ' ' + money(cur.ads[k]); }).join(' · ')],
+      ['Coût par prospect', cpl ? money(cpl) : '—', leadsTxt],
+      ['Résultat du mois', money(cur.revenue - cur.total), 'encaissé ' + money(cur.revenue), cur.revenue - cur.total < 0 ? 'is-warn' : '']
+    ];
+    var html = '<div class="admin_stats is-4">' + stats.map(function (st) {
+      return '<div class="admin_stat ' + (st[3] || '') + '"><p class="admin_stat-value">' + esc(st[1]) + '</p><p class="admin_stat-label">' + esc(st[0]) + (st[2] ? '<span class="crm_sub">' + esc(st[2]) + '</span>' : '') + '</p></div>';
+    }).join('') + '</div>';
+
+    // 6 derniers mois : dépenses empilées par catégorie, encaissé en regard
+    var max = Math.max.apply(null, keys.map(function (k) { return Math.max(x.months[k].total, x.months[k].revenue); }).concat([1]));
+    var cats = Object.keys(CAT).filter(function (c) { return keys.some(function (k) { return x.months[k].byCat[c]; }); });
+    html += '<div class="crm_grid"><section class="admin_card"><h2 class="heading-style-h5">Dépenses et encaissements (6 mois)</h2><div class="crm_chart">' + keys.map(function (k) {
+      var m = x.months[k];
+      return '<div class="crm_chart-col" title="' + esc(monthLabel(k)) + ' : dépensé ' + esc(money(m.total)) + ', encaissé ' + esc(money(m.revenue)) + '">' +
+        '<div class="crm_chart-bars"><span class="crm_chart-stack" style="--h:' + (m.total / max * 100) + '%">' +
+        cats.map(function (c) { return m.byCat[c] ? '<i style="flex:' + m.byCat[c] + ';background:' + CAT_COLOR[c] + '"></i>' : ''; }).join('') + '</span>' +
+        '<span class="crm_chart-rev" style="--h:' + (m.revenue / max * 100) + '%"></span></div><span class="crm_chart-label">' + esc(monthLabel(k)) + '</span></div>';
+    }).join('') + '</div><ul class="crm_legend" role="list">' + cats.map(function (c) { return '<li><i style="background:' + CAT_COLOR[c] + '"></i>' + esc(CAT[c]) + '</li>'; }).join('') +
+      '<li><i class="is-rev"></i>Encaissé</li></ul></section>';
+
+    // Répartition du mois
+    var byCat = Object.keys(cur.byCat).sort(function (a, b) { return cur.byCat[b] - cur.byCat[a]; });
+    html += '<section class="admin_card"><h2 class="heading-style-h5">Ce mois par catégorie</h2>' + (byCat.length ? '<ul class="crm_split" role="list">' + byCat.map(function (c) {
+      return '<li><span><i style="background:' + CAT_COLOR[c] + '"></i>' + esc(CAT[c]) + '</span><span class="crm_split-bar"><span style="--w:' + (cur.byCat[c] / cur.total * 100) + '%;background:' + CAT_COLOR[c] + '"></span></span><b>' + money(cur.byCat[c]) + '</b></li>';
+    }).join('') + '</ul>' : '<p class="crm_empty">Aucune dépense ce mois-ci.</p>') + '</section></div>';
+
+    // Abonnements récurrents
+    html += '<section class="admin_card"><div class="crm_card-head"><h2 class="heading-style-h5">Abonnements et renouvellements</h2><span class="text-size-small text-color-secondary">' +
+      money(x.subscriptions.reduce(function (a, e) { return a + e.amount_try * ({ monthly: 12, quarterly: 4, yearly: 1 }[e.recurrence] || 0); }, 0)) + ' / an</span></div>' +
+      (x.subscriptions.length ? '<ul class="crm_list" role="list">' + x.subscriptions.map(function (e) {
+        return '<li class="crm_sub-line" data-expense="' + esc(e.id) + '"><span>' + icon('i-repeat') + '<b>' + esc(e.label) + '</b><span class="text-color-muted"> · ' + esc(CAT[e.category]) + (e.supplier ? ' · ' + esc(e.supplier) : '') + '</span></span>' +
+          '<span class="crm_inline"><span class="' + (isOverdue(e.next_due) ? 'crm_late' : 'text-color-secondary') + '">' + esc(RECUR[e.recurrence]) + ' · prochain ' + fmtDate(e.next_due) + '</span><b>' + money(e.amount, e.currency) + '</b>' +
+          '<button type="button" class="button is-small is-secondary" data-stop-sub>Arrêter</button></span></li>';
+      }).join('') + '</ul>' : '<p class="crm_empty">Aucun abonnement. Choisissez « Chaque mois » ou « Chaque année » en ajoutant une dépense (domaine, hébergement, logiciel…).</p>') + '</section>';
+
+    // Liste des dépenses
+    var items = x.items.filter(function (e) { return !state.expCat || e.category === state.expCat; });
+    html += '<div class="admin_toolbar"><div class="choice_group" data-exp-filter><label class="choice_chip"><input type="radio" name="ef" value=""' + (state.expCat ? '' : ' checked') + '><span>Toutes</span></label>' +
+      Object.keys(CAT).filter(function (c) { return x.items.some(function (e) { return e.category === c; }); }).map(function (c) {
+        return '<label class="choice_chip"><input type="radio" name="ef" value="' + c + '"' + (state.expCat === c ? ' checked' : '') + '><span>' + esc(CAT[c]) + '</span></label>';
+      }).join('') + '</div><span class="text-size-small text-color-secondary">' + items.length + ' dépense' + (items.length > 1 ? 's' : '') + ' · ' + money(items.reduce(function (a, e) { return a + e.amount_try; }, 0)) + '</span></div>';
+    html += '<div class="admin_table-wrap"><table class="admin_table"><thead><tr><th>Date</th><th>Dépense</th><th>Catégorie</th><th>Résultats</th><th class="is-num">Montant</th><th class="is-actions"><span class="sr-only">Actions</span></th></tr></thead><tbody>' +
+      (items.length ? items.map(function (e) {
+        var res = [e.impressions ? Number(e.impressions).toLocaleString('fr-FR') + ' vues' : '', e.clicks ? Number(e.clicks).toLocaleString('fr-FR') + ' clics' : '', e.leads ? e.leads + ' prospects' : ''].filter(Boolean).join(' · ');
+        return '<tr data-expense="' + esc(e.id) + '"><td class="is-muted">' + fmtDate(e.spent_on) + '</td>' +
+          '<td><b>' + esc(e.label) + '</b>' + (e.parent_id ? ' ' + icon('i-repeat') : '') + '<span class="crm_sub">' + esc([e.supplier, e.client_name ? 'pour ' + e.client_name : '', e.note].filter(Boolean).join(' · ')) + '</span></td>' +
+          '<td><span class="crm_cat"><i style="background:' + CAT_COLOR[e.category] + '"></i>' + esc(CAT[e.category]) + (e.platform ? ' · ' + esc(PLATFORM[e.platform] || e.platform) : '') + '</span></td>' +
+          '<td class="is-muted">' + (res || '—') + '</td>' +
+          '<td class="is-num"><b>' + money(e.amount, e.currency) + '</b>' + (e.currency !== 'TRY' ? '<span class="crm_sub">≈ ' + money(e.amount_try) + '</span>' : '') + '</td>' +
+          '<td class="is-actions"><span class="admin_row-actions"><button type="button" class="icon-button" data-edit-expense aria-label="Modifier">' + icon('i-edit') + '</button>' +
+          '<button type="button" class="icon-button is-danger" data-delete-expense aria-label="Supprimer">' + icon('i-trash') + '</button></span></td></tr>';
+      }).join('') : '<tr><td colspan="6" class="is-muted">Aucune dépense sur cette période.</td></tr>') + '</tbody></table></div>';
+    box.innerHTML = html;
+  }
+  $('[data-expenses]').addEventListener('change', function (e) {
+    if (e.target.name === 'ef') { state.expCat = e.target.value; renderExpenses(); }
+  });
+  $('[data-expenses]').addEventListener('click', function (e) {
+    var row = e.target.closest('[data-expense]'); if (!row) return;
+    var id = row.dataset.expense;
+    var item = (state.exp.items.concat(state.exp.subscriptions)).filter(function (x) { return x.id === id; })[0];
+    if (e.target.closest('[data-delete-expense]')) {
+      if (!W.confirm('Supprimer cette dépense ?')) return;
+      crm('r=expenses&id=' + id, { method: 'DELETE' }).then(function () { toast('Dépense supprimée'); load(); });
+    } else if (e.target.closest('[data-stop-sub]')) {
+      if (!W.confirm('Arrêter cet abonnement ? Les dépenses déjà enregistrées restent.')) return;
+      crm('r=expenses&id=' + id + '&stop=1', { method: 'DELETE' }).then(function () { toast('Abonnement arrêté'); load(); });
+    } else if (e.target.closest('[data-edit-expense]') && item) {
+      expenseForm(item);
+    }
+  });
+  function expenseForm(e) {
+    e = e || {};
+    openModal(e.id ? 'Modifier la dépense' : 'Nouvelle dépense', [
+      { label: 'Catégorie', name: 'category', type: 'select', options: Object.keys(CAT).map(function (k) { return [k, CAT[k]]; }), value: e.category || 'ads' },
+      { label: 'Plateforme', name: 'platform', type: 'select', options: Object.keys(PLATFORM).map(function (k) { return [k, PLATFORM[k]]; }), value: e.platform || 'instagram', show: 'ads' },
+      { label: 'Libellé', name: 'label', value: e.label || '', full: true, placeholder: 'ex. Campagne Instagram novembre, webina.com.tr, Adobe…' },
+      { label: 'Montant', name: 'amount', type: 'number', step: '0.01', required: true, value: e.amount ? Number(e.amount) : '' },
+      { label: 'Devise', name: 'currency', type: 'select', options: [['TRY', 'TL'], ['USD', '$'], ['EUR', '€']], value: e.currency || 'TRY' },
+      { label: 'Date', name: 'spent_on', type: 'date', value: e.spent_on || new Date().toISOString().slice(0, 10) },
+      { label: 'Fréquence', name: 'recurrence', type: 'select', options: Object.keys(RECUR).map(function (k) { return [k, RECUR[k]]; }), value: e.recurrence || 'none', hide: !!e.parent_id },
+      { label: 'Fournisseur', name: 'supplier', value: e.supplier || '', placeholder: 'ex. Meta, Google, Hostinger, GoDaddy' },
+      { label: 'Vues (impressions)', name: 'impressions', type: 'number', value: e.impressions || '', show: 'ads' },
+      { label: 'Clics', name: 'clicks', type: 'number', value: e.clicks || '', show: 'ads' },
+      { label: 'Prospects obtenus', name: 'leads', type: 'number', value: e.leads || '', show: 'ads' },
+      { label: 'Pour un client (facultatif)', name: 'client_id', type: 'client', value: e.client_id || '', label2: e.client_name || '', full: true },
+      { label: 'Note', name: 'note', value: e.note || '', full: true }
+    ], function (data) {
+      if (!data.client_id) data.client_id = null;
+      if (data.category !== 'ads') { data.platform = null; delete data.impressions; delete data.clicks; delete data.leads; }
+      var req = e.id ? crm('r=expenses&id=' + e.id, { method: 'PATCH', body: data }) : crm('r=expenses', { method: 'POST', body: data });
+      return req.then(function () { toast(e.id ? 'Dépense mise à jour' : 'Dépense ajoutée'); load(); });
+    });
+  }
+
   /* ---------- Fiche client (panneau latéral) ---------- */
   var sheet = $('[data-sheet]'), sheetPanel = $('[data-sheet-panel]'), lastFocus = null;
   function openClient(id, refresh) {
@@ -426,20 +546,28 @@
       if (f.type === 'select') input = '<select class="form_input is-select" name="' + f.name + '">' + f.options.map(function (o) { return '<option value="' + esc(o[0]) + '"' + (String(o[0]) === String(v) ? ' selected' : '') + '>' + esc(o[1]) + '</option>'; }).join('') + '</select>';
       else if (f.type === 'textarea') input = '<textarea class="form_input is-area" name="' + f.name + '" rows="3">' + esc(v) + '</textarea>';
       else if (f.type === 'client') input = '<div class="crm_picker"><input class="form_input" type="search" placeholder="Rechercher un client…" data-picker-input autocomplete="off" value="' + esc(f.label2 || '') + '"><input type="hidden" name="' + f.name + '" value="' + esc(v) + '"><ul class="crm_picker-list" data-picker-list hidden></ul></div>';
-      else input = '<input class="form_input" name="' + f.name + '" type="' + (f.type || 'text') + '" value="' + esc(v) + '"' + (f.required ? ' required' : '') + (f.step ? ' step="' + f.step + '"' : '') + '>';
-      return '<label class="crm_field' + (f.full ? ' is-full' : '') + '"><span class="form_label">' + esc(f.label) + '</span>' + input + '</label>';
+      else input = '<input class="form_input" name="' + f.name + '" type="' + (f.type || 'text') + '" value="' + esc(v) + '"' + (f.required ? ' required' : '') + (f.step ? ' step="' + f.step + '"' : '') + (f.placeholder ? ' placeholder="' + esc(f.placeholder) + '"' : '') + '>';
+      if (f.hide) return '';
+      return '<label class="crm_field' + (f.full ? ' is-full' : '') + '"' + (f.show ? ' data-show-for="' + f.show + '"' : '') + '><span class="form_label">' + esc(f.label) + '</span>' + input + '</label>';
     }).join('');
     modalSubmit = onSubmit;
+    syncConditional();
     modal.hidden = false;
     modal.classList.add('is-closed');
     requestAnimationFrame(function () { requestAnimationFrame(function () { modal.classList.remove('is-closed'); }); });
     var first = modalForm.querySelector('input:not([type=hidden]), select, textarea'); if (first) first.focus();
   }
+  // Champs qui n'apparaissent que pour une catégorie (ex. plateforme et résultats pour la publicité)
+  function syncConditional() {
+    var cat = modalForm.querySelector('[name="category"]');
+    $$('[data-show-for]', modalForm).forEach(function (f) { f.hidden = !cat || cat.value !== f.dataset.showFor; });
+  }
+  modalForm.addEventListener('change', function (e) { if (e.target.name === 'category') syncConditional(); });
   function closeModal() { modal.classList.add('is-closed'); setTimeout(function () { modal.hidden = true; }, reduceMotion.matches ? 0 : 180); }
   modalForm.addEventListener('submit', function (e) {
     e.preventDefault();
     var data = {};
-    $$('[name]', modalForm).forEach(function (i) { data[i.name] = i.value; });
+    $$('[name]', modalForm).forEach(function (i) { if (!i.closest('[hidden]')) data[i.name] = i.value; });
     modalSubmit(data).then(function () { closeModal(); }).catch(function (ex) { $('[data-modal-error]').textContent = ex.message; });
   });
   // Recherche de client dans la fenêtre
@@ -547,6 +675,7 @@
       else if (k === 'project') newProject(nw.dataset.client);
       else if (k === 'payment') newPayment(nw.dataset.project);
       else if (k === 'task') newTask();
+      else if (k === 'expense') expenseForm();
       return;
     }
     var li = t.closest('[data-task]');

@@ -5,6 +5,9 @@
 const CRM_STAGES = ['new', 'contacted', 'proposal', 'won', 'lost'];
 const CRM_PROJECT_STATUS = ['in_progress', 'delivered', 'paused', 'cancelled'];
 const CRM_TASK_KINDS = ['todo', 'call', 'meeting', 'email'];
+const CRM_EXPENSE_CATEGORIES = ['ads', 'domain', 'hosting', 'software', 'freelance', 'salary', 'office', 'equipment', 'travel', 'bank', 'tax', 'other'];
+const CRM_AD_PLATFORMS = ['instagram', 'facebook', 'youtube', 'google', 'tiktok', 'linkedin'];
+const CRM_RECURRENCES = ['none', 'monthly', 'quarterly', 'yearly'];
 
 // Délais des relances automatiques (jours)
 const CRM_FOLLOWUP_DAYS = 5;      // vente sans nouvelle depuis X jours → tâche « Relancer »
@@ -93,6 +96,29 @@ function crm_schema(PDO $pdo): void {
         note VARCHAR(255) NULL,
         created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
         INDEX idx_project (project_id)
+    ) $o");
+    // Dépenses : une ligne par dépense. « recurrence » + « next_due » = modèle d'abonnement
+    // qui recrée la dépense à chaque échéance (cron quotidien).
+    $pdo->exec("CREATE TABLE IF NOT EXISTS crm_expenses (
+        id CHAR(36) NOT NULL PRIMARY KEY,
+        category VARCHAR(20) NOT NULL,
+        platform VARCHAR(12) NULL,
+        label VARCHAR(160) NOT NULL,
+        supplier VARCHAR(120) NULL,
+        client_id CHAR(36) NULL,
+        spent_on DATE NOT NULL,
+        amount DECIMAL(12,2) NOT NULL,
+        currency CHAR(3) NOT NULL DEFAULT 'TRY',
+        impressions INT NULL,
+        clicks INT NULL,
+        leads INT NULL,
+        recurrence VARCHAR(10) NOT NULL DEFAULT 'none',
+        next_due DATE NULL,
+        parent_id CHAR(36) NULL,
+        note VARCHAR(255) NULL,
+        created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        INDEX idx_date (spent_on), INDEX idx_cat (category), INDEX idx_due (recurrence, next_due),
+        UNIQUE KEY uq_occurrence (parent_id, spent_on)
     ) $o");
     $pdo->exec("CREATE TABLE IF NOT EXISTS crm_activity (
         id CHAR(36) NOT NULL PRIMARY KEY,
@@ -236,6 +262,29 @@ function crm_daily(PDO $pdo): array {
             $created['balance']++;
         }
     }
+    // Dépenses récurrentes : la dépense de l'échéance est ajoutée automatiquement
+    $created['expenses'] = 0;
+    $step = ['monthly' => '+1 month', 'quarterly' => '+3 month', 'yearly' => '+1 year'];
+    $due = $pdo->query("SELECT * FROM crm_expenses WHERE recurrence <> 'none' AND next_due IS NOT NULL AND next_due <= CURDATE()")->fetchAll();
+    $ins = $pdo->prepare("INSERT IGNORE INTO crm_expenses (id, category, platform, label, supplier, client_id, spent_on, amount, currency, parent_id, note)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'Ajoutée automatiquement (abonnement)')");
+    foreach ($due as $e) {
+        $next = $e['next_due'];
+        $guard = 0;
+        while ($next <= date('Y-m-d') && $guard++ < 36) {
+            $ins->execute([uuid4(), $e['category'], $e['platform'], $e['label'], $e['supplier'], $e['client_id'], $next, $e['amount'], $e['currency'], $e['id']]);
+            $created['expenses'] += $ins->rowCount();
+            $next = date('Y-m-d', strtotime($step[$e['recurrence']] ?? '+1 month', strtotime($next)));
+        }
+        $pdo->prepare('UPDATE crm_expenses SET next_due = ? WHERE id = ?')->execute([$next, $e['id']]);
+    }
+    // Domaines et hébergements annuels : rappel 14 jours avant le renouvellement
+    $soon = $pdo->query("SELECT * FROM crm_expenses WHERE recurrence = 'yearly' AND category IN ('domain', 'hosting')
+        AND next_due BETWEEN CURDATE() AND (CURDATE() + INTERVAL 14 DAY)")->fetchAll();
+    foreach ($soon as $e) {
+        crm_auto_task($pdo, 'expense:' . $e['id'] . ':' . $e['next_due'], 'Renouveler ' . $e['label'] . ' (' . date('d/m/Y', strtotime($e['next_due'])) . ', ' . money((int)$e['amount'], $e['currency']) . ')',
+            date('Y-m-d 10:00:00'), $e['client_id'], null, null, 'todo');
+    }
     return $created;
 }
 
@@ -266,4 +315,16 @@ function crm_digest_html(PDO $pdo): ?string {
     }
     $host = preg_replace('/[^a-z0-9.\-]/i', '', $_SERVER['HTTP_HOST'] ?? ($GLOBALS['CONFIG']['website'] ?? 'webina.com.tr'));
     return $html . '<p style="margin-top:24px"><a href="https://' . h($host) . '/admin" style="background:#23772a;color:#fff;padding:12px 20px;border-radius:10px;text-decoration:none;font-weight:700">Ouvrir le CRM</a></p>';
+}
+
+// Montant converti en TL avec les taux du barème (pricing.json), pour additionner $ / € / TL
+function crm_to_try(float $amount, string $currency): float {
+    if ($currency === 'TRY') return $amount;
+    static $rates = null;
+    if ($rates === null) {
+        $file = dirname(__DIR__) . '/pricing.json';
+        $p = is_file($file) ? json_decode((string)file_get_contents($file), true) : null;
+        $rates = is_array($p['tlPer'] ?? null) ? $p['tlPer'] : [];
+    }
+    return $amount * (float)($rates[$currency] ?? 1);
 }
