@@ -1,0 +1,36 @@
+{
+  "_aide": "Barème unique en TL — même prix pour tous. Converti selon la langue (tr=TRY, en=USD, fr=EUR, ar=USD) avec 'tlPer'. Pack standard (base) = 4 pages (Accueil, À propos, Services, Contact) + includedLanguages langues + formulaire de contact. Options : gallery, blog, shop, extraPage (page sur mesure), photographer (Istanbul). Modifiez puis enregistrez : effet immédiat. depositPercent : acompte à la commande en % (0 = 100 % payé à la livraison et validation).",
+  "currencyByLang": {
+    "tr": "TRY",
+    "en": "USD",
+    "fr": "EUR",
+    "ar": "USD"
+  },
+  "tlPer": {
+    "TRY": 1,
+    "USD": 42,
+    "EUR": 46
+  },
+  "rounding": {
+    "TRY": 100,
+    "USD": 5,
+    "EUR": 5
+  },
+  "includedPages": 4,
+  "includedLanguages": 2,
+  "depositPercent": 0,
+  "prices": {
+    "base": 15000,
+    "extraPage": 1000,
+    "extraLanguage": 1000,
+    "bookingCalendar": 5000,
+    "contentPartial": 2000,
+    "contentFull": 4000,
+    "shop": 15000,
+    "logoValue": 3000,
+    "renewalYearly": 4000,
+    "photographer": 7000,
+    "gallery": 1000,
+    "blog": 2000
+  }
+}

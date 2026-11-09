@@ -21,6 +21,7 @@
   }
 
   var currentLang = 'tr';
+  window.webinaLang = function () { return currentLang; };
 
   function setLang(lang, persist) {
     if (LANGS.indexOf(lang) === -1 || !I18N[lang]) lang = 'tr';
@@ -44,9 +45,12 @@
     document.querySelectorAll('.lang_button').forEach(function (b) {
       b.setAttribute('aria-pressed', String(b.dataset.lang === lang));
     });
-    document.title = 'Webina — ' + dict.footer.rights;
+    var pageKey = root.getAttribute('data-page');
+    var pageTitle = pageKey ? lookup(dict, pageKey) : null;
+    document.title = pageTitle ? pageTitle + ' — Webina' : 'Webina — ' + dict.footer.rights;
 
     if (persist) store('webina-lang', lang);
+    document.dispatchEvent(new CustomEvent('webina:lang', { detail: { lang: lang, dict: dict } }));
     // Les largeurs changent avec la langue : on recale les indicateurs
     requestAnimationFrame(function () {
       syncNavIndicator(activeNavLink(), false);
@@ -150,6 +154,178 @@
       if (m.matches) { toggle.setAttribute('aria-expanded', 'false'); mobile.hidden = true; }
     });
   }
+
+  /* ---------- Héro : pile d'épreuves qui défile ----------
+     Toutes les 4,8 s l'épreuve de devant glisse vers le bas et disparaît,
+     les autres avancent d'une place, puis elle revient au fond de la pile. */
+  var deck = (function () {
+    var wrap = document.querySelector('[data-hero-deck]');
+    if (!wrap) return null;
+    var cards = Array.prototype.slice.call(wrap.querySelectorAll('.hero_proof'));
+    var caption = wrap.querySelector('.hero_caption');
+    var idxEl = wrap.querySelector('[data-hero-index]');
+    var hostEl = wrap.querySelector('[data-hero-host]');
+    var DUR = 4800;
+    var timer = null, started = 0, remaining = DUR, paused = false, visible = true, front = 0;
+    wrap.style.setProperty('--deck-dur', DUR + 'ms');
+
+    function restartBar() {
+      caption.classList.remove('is-running');
+      caption.getBoundingClientRect();
+      caption.classList.add('is-running');
+    }
+    function updateCaption() {
+      var card = cards[front];
+      idxEl.textContent = String(front + 1).padStart(2, '0');
+      hostEl.classList.add('is-swapping');
+      setTimeout(function () {
+        hostEl.textContent = card.dataset.host;
+        hostEl.classList.remove('is-swapping');
+      }, 200);
+    }
+    function advance() {
+      cards.forEach(function (c) {
+        var pos = c.getAttribute('data-pos');
+        if (pos === '0') {
+          c.setAttribute('data-pos', 'out');
+          c.setAttribute('tabindex', '-1');
+          // Une fois sortie, elle reprend sa place au fond sans transition
+          setTimeout(function () {
+            c.classList.add('is-snap');
+            c.setAttribute('data-pos', '3');
+            c.getBoundingClientRect();
+            c.classList.remove('is-snap');
+          }, 820);
+        } else if (pos !== 'out') {
+          var next = String(Number(pos) - 1);
+          c.setAttribute('data-pos', next);
+          if (next === '0') { c.removeAttribute('tabindex'); front = cards.indexOf(c); }
+        }
+      });
+      updateCaption();
+      remaining = DUR;
+      restartBar();
+      schedule();
+    }
+    function schedule() {
+      clearTimeout(timer);
+      if (paused || !visible || document.hidden || reduceMotion.matches) {
+        caption.classList.add('is-paused');
+        return;
+      }
+      caption.classList.remove('is-paused');
+      started = Date.now();
+      timer = setTimeout(advance, remaining);
+    }
+    function pause() {
+      if (timer) remaining = Math.max(400, remaining - (Date.now() - started));
+      clearTimeout(timer); timer = null;
+      caption.classList.add('is-paused');
+    }
+    var stack = wrap.querySelector('.hero_stack');
+    stack.addEventListener('pointerenter', function () { if (finePointer.matches) { paused = true; pause(); } });
+    stack.addEventListener('pointerleave', function () { if (paused) { paused = false; schedule(); } });
+    stack.addEventListener('focusin', function () { paused = true; pause(); });
+    stack.addEventListener('focusout', function (e) { if (!stack.contains(e.relatedTarget)) { paused = false; schedule(); } });
+    document.addEventListener('visibilitychange', function () { document.hidden ? pause() : schedule(); });
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (en) {
+        visible = en[0].isIntersecting;
+        visible ? schedule() : pause();
+      }, { threshold: 0.25 }).observe(wrap);
+    }
+    return {
+      start: function () {
+        if (reduceMotion.matches) return;
+        // Démarre après l'entrée de la pile
+        setTimeout(function () { restartBar(); schedule(); }, 1400);
+      }
+    };
+  })();
+
+  /* ---------- Portfolyo : filtres ---------- */
+  (function () {
+    var buttons = document.querySelectorAll('.filter_button');
+    var cards = document.querySelectorAll('.portfolio_card');
+    if (!buttons.length) return;
+    buttons.forEach(function (b) {
+      b.addEventListener('click', function () {
+        var f = b.dataset.filter;
+        buttons.forEach(function (x) { x.setAttribute('aria-pressed', String(x === b)); });
+        var n = 0;
+        cards.forEach(function (c) {
+          var show = f === 'all' || c.dataset.cat === f;
+          c.classList.remove('is-filter-in');
+          c.hidden = !show;
+          if (show) {
+            c.classList.add('is-in');
+            if (!reduceMotion.matches) {
+              c.style.setProperty('--n', String(Math.min(n++, 6)));
+              c.getBoundingClientRect();
+              c.classList.add('is-filter-in');
+            }
+          }
+        });
+      });
+    });
+  })();
+
+  /* ---------- İletişim : formulaire ---------- */
+  (function () {
+    var form = document.querySelector('[data-contact-form]');
+    if (!form) return;
+    var err = form.querySelector('.form_error');
+    var btn = form.querySelector('button[type="submit"]');
+    var success = form.parentNode.querySelector('.form_success');
+    var budget = form.querySelector('input[name="budget"]');
+
+    form.querySelectorAll('input[name="budgetChoice"]').forEach(function (r) {
+      r.addEventListener('change', function () {
+        budget.value = I18N.tr.contact.budgetOpts[Number(r.value)] || '';
+      });
+    });
+    form.addEventListener('input', function (e) { e.target.removeAttribute('aria-invalid'); });
+
+    function fail(field, msg) {
+      err.textContent = msg;
+      if (field) { field.setAttribute('aria-invalid', 'true'); field.focus(); }
+    }
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var c = I18N[currentLang].contact;
+      err.textContent = '';
+      var data = {
+        name: form.name.value.trim(), email: form.email.value.trim(), phone: form.phone.value.trim(),
+        company: form.company.value.trim(), sector: form.sector.value, service: form.service.value,
+        budget: budget.value, message: form.message.value.trim(), website: form.website.value
+      };
+      if (!data.name) return fail(form.name, c.errName);
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) return fail(form.email, c.errEmail);
+      if (!data.message) return fail(form.message, c.errMsg);
+      Object.keys(data).forEach(function (k) { if (data[k] === '' && k !== 'website') delete data[k]; });
+
+      btn.disabled = true;
+      btn.querySelector('[data-i18n]').textContent = c.sending;
+      fetch('/api/contact.php', {
+        method: 'POST', credentials: 'same-origin',
+        headers: { 'Content-Type': 'application/json', 'X-Requested-With': 'webina' },
+        body: JSON.stringify(data)
+      })
+        .then(function (r) { return r.json().catch(function () { return {}; }).then(function (d) { if (!r.ok) throw d; return d; }); })
+        .then(function () {
+          form.hidden = true;
+          success.hidden = false;
+          success.focus({ preventScroll: true });
+          success.scrollIntoView({ behavior: reduceMotion.matches ? 'auto' : 'smooth', block: 'center' });
+        })
+        .catch(function () { fail(null, c.errSend); })
+        .then(function () {
+          btn.disabled = false;
+          btn.querySelector('[data-i18n]').textContent = I18N[currentLang].contact.send;
+        });
+    });
+  })();
 
   /* ---------- Démos : onglets ---------- */
   var demos = (function () {
@@ -316,6 +492,7 @@
     requestAnimationFrame(function () {
       root.classList.add('is-loaded');
       setTimeout(function () { root.classList.add('is-settled'); }, 1800);
+      if (deck) deck.start();
       syncNavIndicator(activeNavLink(), false);
       if (demos) demos.syncClip(false);
     });
