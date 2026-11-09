@@ -558,6 +558,23 @@ window.WEBINA_I18N = {
    "sentT": "Talebiniz alındı",
    "sentP": "Teklif özetiniz {e} adresine gönderildi. En kısa sürede sizinle iletişime geçeceğiz.",
    "whatsapp": "WhatsApp'tan yazın"
+  },
+  "cookie": {
+   "title": "Gizliliğinize saygı duyuyoruz",
+   "text": "Sitenin çalışması için gerekli çerezleri kullanıyoruz. İzin verirseniz, ziyaretleri ölçmek ve size uygun içerik göstermek için ek çerezler de kullanabiliriz.",
+   "text2": "Seçiminizi istediğiniz zaman sayfanın altındaki «Çerez ayarları» bağlantısından değiştirebilirsiniz.",
+   "settings": "Çerez ayarları",
+   "reject": "Reddet ve kapat",
+   "accept": "Kabul et ve kapat",
+   "save": "Seçimimi kaydet",
+   "back": "Geri",
+   "always": "Her zaman açık",
+   "necessary": "Gerekli",
+   "necessaryText": "Dil ve tema tercihleriniz, güvenlik ve formların çalışması için gereklidir.",
+   "analytics": "Ölçüm",
+   "analyticsText": "Hangi sayfaların ziyaret edildiğini anonim olarak ölçmemize yardımcı olur.",
+   "marketing": "Pazarlama",
+   "marketingText": "İlgi alanlarınıza uygun içerik ve reklam gösterilmesine izin verir."
   }
  },
  "en": {
@@ -1118,6 +1135,23 @@ window.WEBINA_I18N = {
    "sentT": "Request received",
    "sentP": "Your quote summary has been sent to {e}. We will contact you shortly.",
    "whatsapp": "Message us on WhatsApp"
+  },
+  "cookie": {
+   "title": "We respect your privacy",
+   "text": "We use the cookies the site needs to work. With your consent, we may also use additional cookies to measure visits and show you relevant content.",
+   "text2": "You can change your choice at any time from the “Cookie settings” link at the bottom of every page.",
+   "settings": "Cookie settings",
+   "reject": "Reject and close",
+   "accept": "Accept and close",
+   "save": "Save my choice",
+   "back": "Back",
+   "always": "Always on",
+   "necessary": "Necessary",
+   "necessaryText": "Needed for your language and theme preferences, security and forms.",
+   "analytics": "Measurement",
+   "analyticsText": "Helps us measure, anonymously, which pages are visited.",
+   "marketing": "Marketing",
+   "marketingText": "Allows content and ads tailored to your interests."
   }
  },
  "fr": {
@@ -1678,6 +1712,23 @@ window.WEBINA_I18N = {
    "sentT": "Demande envoyée",
    "sentP": "Le récapitulatif de votre devis a été envoyé à {e}. Nous revenons vers vous rapidement.",
    "whatsapp": "Écrire sur WhatsApp"
+  },
+  "cookie": {
+   "title": "Nous respectons votre vie privée",
+   "text": "Nous utilisons les cookies nécessaires au fonctionnement du site. Avec votre accord, nous pouvons aussi utiliser des cookies supplémentaires pour mesurer les visites et vous proposer des contenus adaptés.",
+   "text2": "Vous pouvez modifier votre choix à tout moment via le lien « Paramètres des cookies » en bas de chaque page.",
+   "settings": "Paramètres des cookies",
+   "reject": "Refuser et fermer",
+   "accept": "Accepter et fermer",
+   "save": "Enregistrer mon choix",
+   "back": "Retour",
+   "always": "Toujours actifs",
+   "necessary": "Nécessaires",
+   "necessaryText": "Indispensables pour vos préférences de langue et de thème, la sécurité et les formulaires.",
+   "analytics": "Mesure d’audience",
+   "analyticsText": "Nous aide à mesurer, de façon anonyme, les pages visitées.",
+   "marketing": "Marketing",
+   "marketingText": "Permet de vous proposer des contenus et publicités adaptés à vos centres d’intérêt."
   }
  },
  "ar": {
@@ -2238,6 +2289,23 @@ window.WEBINA_I18N = {
    "sentT": "تم إرسال طلبكم",
    "sentP": "تم إرسال ملخّص العرض إلى {e}. سنتواصل معكم قريباً.",
    "whatsapp": "راسلونا عبر واتساب"
+  },
+  "cookie": {
+   "title": "نحترم خصوصيتكم",
+   "text": "نستخدم ملفات تعريف الارتباط الضرورية لعمل الموقع. وبموافقتكم، قد نستخدم ملفات إضافية لقياس الزيارات وعرض محتوى يناسبكم.",
+   "text2": "يمكنكم تغيير اختياركم في أي وقت عبر رابط «إعدادات ملفات تعريف الارتباط» أسفل كل صفحة.",
+   "settings": "إعدادات ملفات تعريف الارتباط",
+   "reject": "رفض وإغلاق",
+   "accept": "قبول وإغلاق",
+   "save": "حفظ اختياري",
+   "back": "رجوع",
+   "always": "مفعّلة دائماً",
+   "necessary": "ضرورية",
+   "necessaryText": "لازمة لتفضيلات اللغة والمظهر والأمان وعمل النماذج.",
+   "analytics": "القياس",
+   "analyticsText": "تساعدنا على قياس الصفحات التي تتم زيارتها بشكل مجهول.",
+   "marketing": "التسويق",
+   "marketingText": "تسمح بعرض محتوى وإعلانات تناسب اهتماماتكم."
   }
  }
 };

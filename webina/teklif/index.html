@@ -339,7 +339,7 @@
             </div>
           </div>
           <div class="footer_bottom">
-            <p class="text-size-small text-color-muted">© <span data-year>2026</span> Webina — <span data-i18n="footer.rights">Dijital Kreasyon Ajansı</span></p>
+            <p class="text-size-small text-color-muted">© <span data-year>2026</span> Webina — <span data-i18n="footer.rights">Dijital Kreasyon Ajansı</span> · <button type="button" class="footer_cookie" data-cookie-open><span data-i18n="cookie.settings">Çerez ayarları</span></button></p>
             <nav class="footer_nav" aria-label="Footer"><a href="/" class="footer_nav-link" data-i18n="nav.home">Ana Sayfa</a>
 <a href="/services" class="footer_nav-link" data-i18n="nav.services">Hizmetler</a>
 <a href="/secteurs" class="footer_nav-link" data-i18n="nav.sectors">Sektörler</a>
@@ -350,6 +350,47 @@
         </div>
       </div>
     </footer>
+  </div>
+
+  <!-- Consentement cookies -->
+  <div class="cookie_component" data-cookie hidden>
+    <div class="cookie_backdrop" data-cookie-backdrop></div>
+    <div class="cookie_dialog" role="dialog" aria-modal="true" aria-labelledby="cookie-title" tabindex="-1">
+      <div class="cookie_view" data-cookie-view="main">
+        <img src="/images/webina-logo-light.png" alt="Webina" width="44" height="44" class="cookie_logo nav_logo is-light">
+        <img src="/images/webina-logo-dark.png" alt="Webina" width="44" height="44" class="cookie_logo nav_logo is-dark">
+        <h2 class="cookie_title" id="cookie-title"><span data-i18n="cookie.title">Gizliliğinize saygı duyuyoruz</span></h2>
+        <p class="cookie_text"><span data-i18n="cookie.text">Sitenin çalışması için gerekli çerezleri kullanıyoruz. İzin verirseniz, ziyaretleri ölçmek ve size uygun içerik göstermek için ek çerezler de kullanabiliriz.</span></p>
+        <p class="cookie_text text-color-muted"><span data-i18n="cookie.text2">Seçiminizi istediğiniz zaman sayfanın altındaki «Çerez ayarları» bağlantısından değiştirebilirsiniz.</span></p>
+        <div class="cookie_actions">
+          <button type="button" class="button is-secondary" data-cookie-settings><span data-i18n="cookie.settings">Çerez ayarları</span></button>
+          <button type="button" class="button is-secondary" data-cookie-reject><span data-i18n="cookie.reject">Reddet ve kapat</span></button>
+          <button type="button" class="button" data-cookie-accept><span data-i18n="cookie.accept">Kabul et ve kapat</span></button>
+        </div>
+      </div>
+      <div class="cookie_view" data-cookie-view="settings" hidden>
+        <h2 class="cookie_title"><span data-i18n="cookie.settings">Çerez ayarları</span></h2>
+        <ul class="cookie_list" role="list">
+          <li class="cookie_item">
+            <div><p class="cookie_item-title"><span data-i18n="cookie.necessary">Gerekli</span></p><p class="cookie_text"><span data-i18n="cookie.necessaryText">Dil ve tema tercihleriniz, güvenlik ve formların çalışması için gereklidir.</span></p></div>
+            <span class="cookie_always"><span data-i18n="cookie.always">Her zaman açık</span></span>
+          </li>
+          <li class="cookie_item">
+            <div><p class="cookie_item-title" id="ck-a"><span data-i18n="cookie.analytics">Ölçüm</span></p><p class="cookie_text"><span data-i18n="cookie.analyticsText">Hangi sayfaların ziyaret edildiğini anonim olarak ölçmemize yardımcı olur.</span></p></div>
+            <button type="button" role="switch" class="switch" aria-checked="false" aria-labelledby="ck-a" data-cookie-switch="analytics"><span class="switch_thumb"></span></button>
+          </li>
+          <li class="cookie_item">
+            <div><p class="cookie_item-title" id="ck-m"><span data-i18n="cookie.marketing">Pazarlama</span></p><p class="cookie_text"><span data-i18n="cookie.marketingText">İlgi alanlarınıza uygun içerik ve reklam gösterilmesine izin verir.</span></p></div>
+            <button type="button" role="switch" class="switch" aria-checked="false" aria-labelledby="ck-m" data-cookie-switch="marketing"><span class="switch_thumb"></span></button>
+          </li>
+        </ul>
+        <div class="cookie_actions">
+          <button type="button" class="button is-secondary" data-cookie-back><span data-i18n="cookie.back">Geri</span></button>
+          <button type="button" class="button is-secondary" data-cookie-reject><span data-i18n="cookie.reject">Reddet ve kapat</span></button>
+          <button type="button" class="button" data-cookie-save><span data-i18n="cookie.save">Seçimimi kaydet</span></button>
+        </div>
+      </div>
+    </div>
   </div>
 
   <script src="/js/i18n.js" defer></script>
