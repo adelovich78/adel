@@ -549,7 +549,8 @@ window.WEBINA_I18N = {
     "photos": "Profesyonel fotoğrafçı (1 gün, İstanbul)",
     "shop": "Online mağaza",
     "logo": "Logo tasarımı",
-    "domain": "Alan adı + hosting (1. yıl)"
+    "domain": "Alan adı + hosting (1. yıl)",
+    "promo": "İndirim kodu ({c})"
    },
    "errName": "Lütfen adınızı yazın",
    "errEmail": "Lütfen geçerli bir e-posta girin",
@@ -557,7 +558,16 @@ window.WEBINA_I18N = {
    "errSend": "Gönderilemedi, lütfen tekrar deneyin veya WhatsApp'tan yazın.",
    "sentT": "Talebiniz alındı",
    "sentP": "Teklif özetiniz {e} adresine gönderildi. En kısa sürede sizinle iletişime geçeceğiz.",
-   "whatsapp": "WhatsApp'tan yazın"
+   "whatsapp": "WhatsApp'tan yazın",
+   "promo": {
+    "label": "İndirim kodu",
+    "ph": "Kodunuz",
+    "apply": "Uygula",
+    "applied": "Kod uygulandı",
+    "invalid": "Bu kod geçerli değil",
+    "remove": "Kaldır",
+    "line": "İndirim kodu ({c})"
+   }
   },
   "cookie": {
    "title": "Gizliliğinize saygı duyuyoruz",
@@ -1126,7 +1136,8 @@ window.WEBINA_I18N = {
     "photos": "Professional photographer (1 day, Istanbul)",
     "shop": "Online shop",
     "logo": "Logo design",
-    "domain": "Domain + hosting (1st year)"
+    "domain": "Domain + hosting (1st year)",
+    "promo": "Discount code ({c})"
    },
    "errName": "Please enter your name",
    "errEmail": "Please enter a valid email",
@@ -1134,7 +1145,16 @@ window.WEBINA_I18N = {
    "errSend": "Could not send, please try again or message us on WhatsApp.",
    "sentT": "Request received",
    "sentP": "Your quote summary has been sent to {e}. We will contact you shortly.",
-   "whatsapp": "Message us on WhatsApp"
+   "whatsapp": "Message us on WhatsApp",
+   "promo": {
+    "label": "Discount code",
+    "ph": "Your code",
+    "apply": "Apply",
+    "applied": "Code applied",
+    "invalid": "This code is not valid",
+    "remove": "Remove",
+    "line": "Discount code ({c})"
+   }
   },
   "cookie": {
    "title": "We respect your privacy",
@@ -1703,7 +1723,8 @@ window.WEBINA_I18N = {
     "photos": "Photographe professionnel (1 journée, Istanbul)",
     "shop": "Boutique en ligne",
     "logo": "Création du logo",
-    "domain": "Domaine + hébergement (1re année)"
+    "domain": "Domaine + hébergement (1re année)",
+    "promo": "Code de réduction ({c})"
    },
    "errName": "Indiquez votre nom",
    "errEmail": "Indiquez un e-mail valide",
@@ -1711,7 +1732,16 @@ window.WEBINA_I18N = {
    "errSend": "Échec de l'envoi, réessayez ou écrivez-nous sur WhatsApp.",
    "sentT": "Demande envoyée",
    "sentP": "Le récapitulatif de votre devis a été envoyé à {e}. Nous revenons vers vous rapidement.",
-   "whatsapp": "Écrire sur WhatsApp"
+   "whatsapp": "Écrire sur WhatsApp",
+   "promo": {
+    "label": "Code de réduction",
+    "ph": "Votre code",
+    "apply": "Appliquer",
+    "applied": "Code appliqué",
+    "invalid": "Ce code n'est pas valide",
+    "remove": "Retirer",
+    "line": "Code de réduction ({c})"
+   }
   },
   "cookie": {
    "title": "Nous respectons votre vie privée",
@@ -2280,7 +2310,8 @@ window.WEBINA_I18N = {
     "photos": "مصوّر محترف (يوم واحد، إسطنبول)",
     "shop": "متجر إلكتروني",
     "logo": "تصميم الشعار",
-    "domain": "النطاق + الاستضافة (السنة الأولى)"
+    "domain": "النطاق + الاستضافة (السنة الأولى)",
+    "promo": "رمز الخصم ({c})"
    },
    "errName": "يرجى كتابة الاسم",
    "errEmail": "يرجى إدخال بريد إلكتروني صالح",
@@ -2288,7 +2319,16 @@ window.WEBINA_I18N = {
    "errSend": "تعذّر الإرسال، حاولوا مجدداً أو راسلونا عبر واتساب.",
    "sentT": "تم إرسال طلبكم",
    "sentP": "تم إرسال ملخّص العرض إلى {e}. سنتواصل معكم قريباً.",
-   "whatsapp": "راسلونا عبر واتساب"
+   "whatsapp": "راسلونا عبر واتساب",
+   "promo": {
+    "label": "رمز الخصم",
+    "ph": "رمزكم",
+    "apply": "تطبيق",
+    "applied": "تم تطبيق الرمز",
+    "invalid": "هذا الرمز غير صالح",
+    "remove": "إزالة",
+    "line": "رمز الخصم ({c})"
+   }
   },
   "cookie": {
    "title": "نحترم خصوصيتكم",

@@ -1,5 +1,5 @@
 {
-  "_aide": "Barème unique en TL — même prix pour tous. Converti selon la langue (tr=TRY, en=USD, fr=EUR, ar=USD) avec 'tlPer'. Pack standard (base) = 4 pages (Accueil, À propos, Services, Contact) + includedLanguages langues + formulaire de contact. Options : gallery, blog, shop, extraPage (page sur mesure), photographer (Istanbul). Modifiez puis enregistrez : effet immédiat. depositPercent : acompte à la commande en % (0 = 100 % payé à la livraison et validation).",
+  "_aide": "Barème unique en TL — même prix pour tous. Converti selon la langue (tr=TRY, en=USD, fr=EUR, ar=USD) avec 'tlPer'. Pack standard (base) = 4 pages (Accueil, À propos, Services, Contact) + includedLanguages langues + formulaire de contact. Options : gallery, blog, shop, extraPage (page sur mesure), photographer (Istanbul). Modifiez puis enregistrez : effet immédiat. depositPercent : acompte à la commande en % (0 = 100 % payé à la livraison et validation). Codes de réduction : 'promoCodes' contient l'empreinte SHA-256 de chaque code (en majuscules), jamais le code lui-même. Un code valide retire 'promoDiscount' du total.",
   "currencyByLang": {
     "tr": "TRY",
     "en": "USD",
@@ -20,7 +20,7 @@
   "includedLanguages": 2,
   "depositPercent": 0,
   "prices": {
-    "base": 15000,
+    "base": 17000,
     "extraPage": 1000,
     "extraLanguage": 1000,
     "bookingCalendar": 5000,
@@ -31,6 +31,19 @@
     "renewalYearly": 4000,
     "photographer": 7000,
     "gallery": 1000,
-    "blog": 2000
-  }
+    "blog": 2000,
+    "promoDiscount": 2000
+  },
+  "promoCodes": [
+    "638135380db15f28da8cb278708e6b0945ac4131a24531a011a791227ff72ee6",
+    "35f6e20765fe5dd6e017959a314bab796edf77c25643917e3c6a6a229491aab0",
+    "6b2da0d940ea16a6d20aa28181411db9ef8ca982facf8d78eaf07becbb778b24",
+    "62948c8e4d32e77d39b2330aef583e6643e5dee4846adb1c7d27df7ea8f82439",
+    "4c52229ba675f60fdcc10e9f7a15589d9d6c8c8a1857eb457bca2fcc4ba7b4ba",
+    "e4c10ba276a393034c851b432a4876b38d72dee7a1608f1f347717cc94cc6a70",
+    "9b0a9c3aa03fe1d8d0d65da2e300e14e112df6e669260abc0e9d8b0910bbeb9c",
+    "90c82abbaff2d130b0436e265e1c8556993ca098cc6a4a80961debc33fa69c68",
+    "533cae656d9e1ce4f56e501e79e4823dd9bd28beb41b061969274918a7cd8832",
+    "7f79f81e9d33e0e4e135ea4ab6987ed5f92df2b15bb031695f9a33981146c72b"
+  ]
 }

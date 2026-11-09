@@ -1413,3 +1413,43 @@ html[lang="ar"] .summary_amount { font-family: var(--font-mono); font-size: 2.5r
   .cookie_dialog { padding: 24px 20px; max-height: calc(100svh - 16px); }
   .cookie_actions { flex-direction: column-reverse; }
 }
+
+/* ---------- Code de réduction ---------- */
+.promo_component { display: flex; flex-direction: column; gap: 8px; margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--color-hairline); }
+.promo_field {
+  display: flex; align-items: center; gap: 4px; padding: 4px;
+  border-radius: 12px; background-color: var(--color-bg);
+  box-shadow: inset 0 0 0 1px var(--color-hairline-strong);
+  transition: box-shadow var(--dur-hover) ease;
+}
+.promo_field[hidden] { display: none; }
+.promo_field:focus-within { box-shadow: inset 0 0 0 1.5px var(--color-accent); }
+.promo_input {
+  flex: 1; min-width: 0; height: 36px; padding-inline: 10px;
+  border: 0; outline: 0; background: transparent;
+  font: inherit; font-size: 16px; font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase; color: var(--color-ink);
+}
+.promo_input::placeholder { text-transform: none; letter-spacing: 0; font-weight: 400; color: var(--color-text-muted); }
+.promo_field .button { border-radius: 8px; }
+/* Petit refus horizontal quand le code est faux */
+.promo_field.is-shake { animation: promo-shake 360ms var(--ease-out); }
+@keyframes promo-shake {
+  20% { transform: translateX(-4px); } 40% { transform: translateX(4px); }
+  60% { transform: translateX(-2px); } 80% { transform: translateX(2px); }
+}
+.promo_applied { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 10px; animation: line-in 260ms var(--ease-out) both; }
+.promo_applied[hidden] { display: none; }
+.promo_tag {
+  display: inline-flex; align-items: center; gap: 6px; padding: 6px 10px; border-radius: 8px;
+  background-color: color-mix(in srgb, var(--color-accent) 14%, transparent); color: var(--color-accent-ink);
+  font-size: 0.875rem; font-weight: 600; letter-spacing: 0.03em;
+}
+.promo_tag .icon { width: 14px; height: 14px; stroke-width: 2; }
+.promo_remove { margin-inline-start: auto; font-size: 0.8125rem; color: var(--color-text-muted); text-decoration: underline; text-underline-offset: 3px; }
+@media (hover: hover) and (pointer: fine) { .promo_remove:hover { color: var(--color-ink); } }
+.promo_error { min-height: 0; color: #b42318; }
+.promo_error:empty { display: none; }
+:root[data-theme="dark"] .promo_error { color: #f97066; }
+.summary_line.is-promo .summary_line-label,
+.summary_line.is-promo .summary_line-value { color: var(--color-accent-ink); }
+@media (prefers-reduced-motion: reduce) { .promo_field.is-shake { animation: none; } }

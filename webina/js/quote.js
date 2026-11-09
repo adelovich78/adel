@@ -28,7 +28,7 @@
 
   var state = {
     logo: '', domain: '', domainName: '', pages: [], customPages: 0, customDesc: '',
-    langs: [], booking: ['form'], content: 'ready', photos: 'own', example: ''
+    langs: [], booking: ['form'], content: 'ready', photos: 'own', example: '', promo: ''
   };
 
   function defaultLangs(l) { return l === 'en' ? ['en', 'tr'] : [l, 'en']; }
@@ -61,6 +61,7 @@
     if (state.photos === 'pro') lines.push({ key: 'photos', amount: t.photographer });
     if (state.logo !== 'yes') lines.push({ key: 'logo', amount: 0, free: true, was: t.logoValue });
     lines.push({ key: 'domain', amount: 0, free: true, was: t.renewalYearly });
+    if (state.promo && t.promoDiscount) lines.push({ key: 'promo', amount: -t.promoDiscount, code: state.promo });
     var total = lines.reduce(function (s, l) { return s + l.amount; }, 0);
     var deposit = Math.round(total * pricing.depositPercent / 100);
     return {
@@ -70,8 +71,14 @@
     };
   }
 
+  // Livre turque écrite « TL » : le symbole ₺ manque dans beaucoup de polices
   function money(v, cur) {
-    return new Intl.NumberFormat(LOCALES[lang()], { style: 'currency', currency: cur, maximumFractionDigits: 0 }).format(v);
+    if (cur === 'TRY') {
+      var n = new Intl.NumberFormat('tr-TR', { maximumFractionDigits: 0 }).format(Math.abs(v));
+      return (v < 0 ? '−' : '') + n + ' TL';
+    }
+    var s = new Intl.NumberFormat(LOCALES[lang()], { style: 'currency', currency: cur, maximumFractionDigits: 0 }).format(Math.abs(v));
+    return (v < 0 ? '−' : '') + s;
   }
 
   /* ---------- Affichage ---------- */
@@ -133,11 +140,12 @@
     list.innerHTML = '';
     res.lines.forEach(function (l) {
       var li = document.createElement('li');
-      li.className = 'summary_line';
+      li.className = 'summary_line' + (l.key === 'promo' ? ' is-promo' : '');
       if (old.indexOf(l.key + (l.qty || '')) > -1) li.style.animation = 'none';
       var label = q.lines[l.key]
         .replace('{n}', String(l.key === 'base' ? res.includedPages : (l.qty || '')))
-        .replace('{l}', String(res.includedLangs));
+        .replace('{l}', String(res.includedLangs))
+        .replace('{c}', l.code || '');
       var a = document.createElement('span'); a.className = 'summary_line-label'; a.textContent = label;
       var b = document.createElement('span'); b.className = 'summary_line-value'; b.dir = 'ltr';
       if (l.free) {
@@ -250,6 +258,7 @@
     delete details._langsTouched;
     details.customPages = String(state.customPages);
     details.city = c.city;
+    details.promo = state.promo;
     details.lang = lang();
     fetch('/api/contact.php', {
       method: 'POST', credentials: 'same-origin',
@@ -285,6 +294,57 @@
     aside.classList.contains('is-sheet') ? closeSheet() : openSheet();
   });
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeSheet(); });
+
+  /* ---------- Code de réduction ----------
+     pricing.json ne contient que l'empreinte SHA-256 de chaque code ;
+     le serveur refait la même vérification avant de calculer le prix. */
+  var promoBox = root.querySelector('[data-promo]');
+  var promoInput = promoBox.querySelector('input');
+  var promoField = promoBox.querySelector('[data-promo-field]');
+  var promoApplied = promoBox.querySelector('[data-promo-applied]');
+  var promoError = promoBox.querySelector('[data-promo-error]');
+
+  function sha256(text) {
+    if (!window.crypto || !crypto.subtle) return Promise.reject(new Error('crypto'));
+    return crypto.subtle.digest('SHA-256', new TextEncoder().encode(text)).then(function (buf) {
+      return Array.prototype.map.call(new Uint8Array(buf), function (b) { return ('0' + b.toString(16)).slice(-2); }).join('');
+    });
+  }
+  function normalise(v) { return v.trim().toUpperCase().replace(/\s+/g, ''); }
+  function showPromo() {
+    var on = !!state.promo;
+    promoField.hidden = on;
+    promoApplied.hidden = !on;
+    promoBox.querySelector('[data-promo-code]').textContent = state.promo;
+  }
+  function applyPromo(silent) {
+    var code = normalise(promoInput.value);
+    promoError.textContent = '';
+    if (!code || !pricing) return;
+    sha256(code).then(function (h) {
+      if ((pricing.promoCodes || []).indexOf(h) > -1) {
+        state.promo = code;
+        showPromo();
+        render();
+      } else if (!silent) {
+        promoError.textContent = Q().promo.invalid;
+        promoField.classList.remove('is-shake');
+        promoField.getBoundingClientRect();
+        promoField.classList.add('is-shake');
+        promoInput.focus();
+      }
+    }).catch(function () { if (!silent) promoError.textContent = Q().promo.invalid; });
+  }
+  promoBox.querySelector('[data-promo-apply]').addEventListener('click', function () { applyPromo(false); });
+  promoInput.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); applyPromo(false); } });
+  promoInput.addEventListener('input', function () { promoError.textContent = ''; });
+  promoBox.querySelector('[data-promo-remove]').addEventListener('click', function () {
+    state.promo = '';
+    promoInput.value = '';
+    showPromo();
+    render();
+    promoInput.focus();
+  });
 
   /* ---------- Titre personnalisé (?ad=) ---------- */
   function personalise() {
@@ -329,6 +389,12 @@
 
   fetch('/pricing.json?v=' + Date.now())
     .then(function (r) { if (!r.ok) throw new Error('pricing'); return r.json(); })
-    .then(function (p) { pricing = p; render(); })
+    .then(function (p) {
+      pricing = p;
+      render();
+      // Lien direct avec code : /teklif?kod=WB-XXXX-XXXX
+      var kod = params.get('kod') || params.get('code');
+      if (kod) { promoInput.value = kod; applyPromo(true); }
+    })
     .catch(function () { errorEl.textContent = Q().errSend; });
 })();
