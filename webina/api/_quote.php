@@ -8,7 +8,8 @@ function load_pricing(): array {
     return $p;
 }
 
-function compute_quote(array $p, string $lang, array $a): array {
+// $promo : code déjà validé et consommé (vide = pas de réduction)
+function compute_quote(array $p, string $lang, array $a, string $promo = ''): array {
     $currency = $p['currencyByLang'][$lang] ?? 'USD';
     $per  = (float)($p['tlPer'][$currency] ?? 1);
     $step = (float)($p['rounding'][$currency] ?? 1);
@@ -37,12 +38,9 @@ function compute_quote(array $p, string $lang, array $a): array {
     if (($a['logo'] ?? '') !== 'yes') $lines[] = ['key' => 'logo', 'amount' => 0, 'free' => true, 'was' => $t['logoValue']];
     $lines[] = ['key' => 'domain', 'amount' => 0, 'free' => true, 'was' => $t['renewalYearly']];
 
-    // Code de réduction : pricing.json ne garde que l'empreinte SHA-256 des codes valides
-    $code = strtoupper(preg_replace('/\s+/', '', (string)($a['promo'] ?? '')));
-    $promo = '';
-    if ($code !== '' && in_array(hash('sha256', $code), $p['promoCodes'] ?? [], true) && !empty($t['promoDiscount'])) {
-        $promo = $code;
-        $lines[] = ['key' => 'promo', 'amount' => -$t['promoDiscount'], 'c' => $code];
+    // Code de réduction (usage unique, vérifié et consommé par contact.php)
+    if ($promo !== '' && !empty($t['promoDiscount'])) {
+        $lines[] = ['key' => 'promo', 'amount' => -$t['promoDiscount'], 'c' => $promo];
     }
 
     $total = array_sum(array_column($lines, 'amount'));

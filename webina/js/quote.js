@@ -269,12 +269,14 @@
       })
     })
       .then(function (r) { return r.json().catch(function () { return {}; }).then(function (d) { if (!r.ok) throw d; return d; }); })
-      .then(function () {
+      .then(function (d) {
+        // Code déjà utilisé entre-temps : le total envoyé par le serveur fait foi
+        if (d && d.promoRejected) { state.promo = ''; showPromo(); res = compute(); }
         closeSheet();
         layout.hidden = true;
         bar.hidden = true;
         success.hidden = false;
-        fill('sentP', q.sentP.replace('{e}', c.email));
+        fill('sentP', q.sentP.replace('{e}', c.email) + (d && d.promoRejected ? ' ' + q.promo.used : ''));
         success.dataset.email = c.email;
         shownTotal = res.total;
         root.querySelectorAll('[data-total]').forEach(function (e) { e.textContent = money(res.total, res.currency); });
@@ -296,19 +298,17 @@
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeSheet(); });
 
   /* ---------- Code de réduction ----------
-     pricing.json ne contient que l'empreinte SHA-256 de chaque code ;
-     le serveur refait la même vérification avant de calculer le prix. */
+     Chaque code ne sert qu'une fois : le serveur le vérifie ici,
+     puis le consomme réellement à l'envoi du devis. */
   var promoBox = root.querySelector('[data-promo]');
   var promoInput = promoBox.querySelector('input');
   var promoField = promoBox.querySelector('[data-promo-field]');
   var promoApplied = promoBox.querySelector('[data-promo-applied]');
   var promoError = promoBox.querySelector('[data-promo-error]');
 
-  function sha256(text) {
-    if (!window.crypto || !crypto.subtle) return Promise.reject(new Error('crypto'));
-    return crypto.subtle.digest('SHA-256', new TextEncoder().encode(text)).then(function (buf) {
-      return Array.prototype.map.call(new Uint8Array(buf), function (b) { return ('0' + b.toString(16)).slice(-2); }).join('');
-    });
+  function checkCode(code) {
+    return fetch('/api/promo.php?action=check&code=' + encodeURIComponent(code), { credentials: 'same-origin' })
+      .then(function (r) { return r.json(); });
   }
   function normalise(v) { return v.trim().toUpperCase().replace(/\s+/g, ''); }
   function showPromo() {
@@ -321,13 +321,13 @@
     var code = normalise(promoInput.value);
     promoError.textContent = '';
     if (!code || !pricing) return;
-    sha256(code).then(function (h) {
-      if ((pricing.promoCodes || []).indexOf(h) > -1) {
+    checkCode(code).then(function (res) {
+      if (res && res.valid) {
         state.promo = code;
         showPromo();
         render();
       } else if (!silent) {
-        promoError.textContent = Q().promo.invalid;
+        promoError.textContent = res && res.used ? Q().promo.used : Q().promo.invalid;
         promoField.classList.remove('is-shake');
         promoField.getBoundingClientRect();
         promoField.classList.add('is-shake');

@@ -566,6 +566,7 @@ window.WEBINA_I18N = {
     "applied": "Kod uygulandı",
     "invalid": "Bu kod geçerli değil",
     "remove": "Kaldır",
+    "used": "Bu kod daha önce kullanılmış",
     "line": "İndirim kodu ({c})"
    }
   },
@@ -1153,6 +1154,7 @@ window.WEBINA_I18N = {
     "applied": "Code applied",
     "invalid": "This code is not valid",
     "remove": "Remove",
+    "used": "This code has already been used",
     "line": "Discount code ({c})"
    }
   },
@@ -1740,6 +1742,7 @@ window.WEBINA_I18N = {
     "applied": "Code appliqué",
     "invalid": "Ce code n'est pas valide",
     "remove": "Retirer",
+    "used": "Ce code a déjà été utilisé",
     "line": "Code de réduction ({c})"
    }
   },
@@ -2327,6 +2330,7 @@ window.WEBINA_I18N = {
     "applied": "تم تطبيق الرمز",
     "invalid": "هذا الرمز غير صالح",
     "remove": "إزالة",
+    "used": "تم استخدام هذا الرمز من قبل",
     "line": "رمز الخصم ({c})"
    }
   },

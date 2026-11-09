@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="fr" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Admin — Webina</title>
+  <link rel="icon" type="image/png" href="/images/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/webina.css">
+  <link rel="stylesheet" href="/css/admin.css">
+  <script>
+    (function () {
+      try { var th = localStorage.getItem('webina-theme'); if (th) document.documentElement.setAttribute('data-theme', th); } catch (e) {}
+    })();
+  </script>
+</head>
+<body class="admin-body">
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M7 17 17 7M7 7h10v10"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></symbol>
+    <symbol id="i-copy" viewBox="0 0 24 24"><rect x="8" y="8" width="14" height="14" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></symbol>
+    <symbol id="i-trash" viewBox="0 0 24 24"><path d="M3 6h18M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></symbol>
+    <symbol id="i-chevron" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+    <symbol id="i-download" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M5 12h14M12 5v14"/></symbol>
+    <symbol id="i-link" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></symbol>
+    <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></symbol>
+  </svg>
+
+  <header class="admin_header">
+    <div class="admin_header-inner">
+      <a href="/" class="nav_brand" aria-label="Webina">
+        <img src="/images/webina-logo-light.png" alt="" width="36" height="36" class="nav_logo is-light">
+        <img src="/images/webina-logo-dark.png" alt="" width="36" height="36" class="nav_logo is-dark">
+        <span class="nav_brand-name">Webina <span class="text-color-muted">· Admin</span></span>
+      </a>
+      <div class="admin_header-actions">
+        <button type="button" class="icon-button" data-theme-toggle aria-label="Changer de thème">
+          <svg class="icon is-sun" aria-hidden="true"><use href="#i-sun"/></svg>
+          <svg class="icon is-moon" aria-hidden="true"><use href="#i-moon"/></svg>
+        </button>
+        <span class="admin_user text-size-small text-color-secondary" data-user hidden></span>
+        <button type="button" class="button is-small is-secondary" data-logout hidden>Déconnexion</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="admin_main">
+    <!-- Connexion / création du premier compte -->
+    <section class="admin_auth" data-view="auth" hidden>
+      <form class="form_card admin_auth-card" data-auth-form novalidate>
+        <h1 class="heading-style-h5" data-auth-title>Connexion</h1>
+        <p class="text-size-small text-color-secondary" data-auth-hint hidden>Aucun administrateur n'existe encore : créez le premier compte.</p>
+        <div class="form_field">
+          <label class="form_label" for="a-email">E-mail</label>
+          <input class="form_input" id="a-email" name="email" type="email" autocomplete="username" required>
+        </div>
+        <div class="form_field">
+          <label class="form_label" for="a-pass">Mot de passe</label>
+          <input class="form_input" id="a-pass" name="password" type="password" autocomplete="current-password" minlength="8" required>
+        </div>
+        <p class="form_error text-size-small" role="alert" data-auth-error></p>
+        <button type="submit" class="button is-large is-block" data-auth-submit>Se connecter</button>
+      </form>
+    </section>
+
+    <!-- Tableau de bord -->
+    <section class="admin_app" data-view="app" hidden>
+      <div class="admin_stats" data-stats></div>
+
+      <div class="admin_tabs" role="tablist" aria-label="Sections">
+        <button type="button" role="tab" class="admin_tab" aria-selected="true" data-tab="submissions">Demandes</button>
+        <button type="button" role="tab" class="admin_tab" aria-selected="false" data-tab="promo">Codes de réduction</button>
+        <button type="button" role="tab" class="admin_tab" aria-selected="false" data-tab="link">Lien de devis</button>
+        <button type="button" role="tab" class="admin_tab" aria-selected="false" data-tab="newsletter">Newsletter</button>
+      </div>
+
+      <!-- Demandes -->
+      <div class="admin_panel" data-panel="submissions">
+        <div class="admin_toolbar">
+          <div class="choice_group" data-status-filter>
+            <label class="choice_chip"><input type="radio" name="sf" value="all" checked><span>Toutes</span></label>
+            <label class="choice_chip"><input type="radio" name="sf" value="new"><span>Nouvelles</span></label>
+            <label class="choice_chip"><input type="radio" name="sf" value="in_progress"><span>En cours</span></label>
+            <label class="choice_chip"><input type="radio" name="sf" value="done"><span>Traitées</span></label>
+          </div>
+        </div>
+        <ul class="admin_list" role="list" data-submissions></ul>
+      </div>
+
+      <!-- Codes de réduction -->
+      <div class="admin_panel" data-panel="promo" hidden>
+        <form class="admin_card admin_generate" data-generate>
+          <div>
+            <h2 class="heading-style-h5">Générer des codes</h2>
+            <p class="text-size-small text-color-secondary">Chaque code retire 2 000 TL du devis et ne fonctionne qu'une seule fois.</p>
+          </div>
+          <div class="admin_generate-fields">
+            <div class="form_field">
+              <label class="form_label" for="g-count">Nombre</label>
+              <input class="form_input" id="g-count" name="count" type="number" min="1" max="50" value="5" inputmode="numeric">
+            </div>
+            <div class="form_field is-grow">
+              <label class="form_label" for="g-note">Note (facultatif)</label>
+              <input class="form_input" id="g-note" name="note" maxlength="120" placeholder="ex. Salon de novembre, client Dr. Ayşe">
+            </div>
+            <button type="submit" class="button is-large"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg>Générer</button>
+          </div>
+          <div class="admin_new-codes" data-new-codes hidden></div>
+        </form>
+        <div class="admin_toolbar">
+          <div class="choice_group" data-promo-filter>
+            <label class="choice_chip"><input type="radio" name="pf" value="free" checked><span>Disponibles</span></label>
+            <label class="choice_chip"><input type="radio" name="pf" value="used"><span>Utilisés</span></label>
+            <label class="choice_chip"><input type="radio" name="pf" value="all"><span>Tous</span></label>
+          </div>
+        </div>
+        <div class="admin_table-wrap">
+          <table class="admin_table">
+            <thead><tr><th>Code</th><th>État</th><th>Note</th><th>Créé le</th><th class="is-actions"><span class="sr-only">Actions</span></th></tr></thead>
+            <tbody data-promo-rows></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Lien de devis personnalisé -->
+      <div class="admin_panel" data-panel="link" hidden>
+        <form class="admin_card admin_link" data-link-form>
+          <div>
+            <h2 class="heading-style-h5">Lien de devis personnalisé</h2>
+            <p class="text-size-small text-color-secondary">Le client arrive sur /teklif avec son nom en titre, ses informations déjà remplies et, si vous le choisissez, un code de réduction appliqué.</p>
+          </div>
+          <div class="form_grid">
+            <div class="form_field"><label class="form_label" for="l-name">Nom du client</label><input class="form_input" id="l-name" name="ad" placeholder="Dr. Ayşe Yılmaz"></div>
+            <div class="form_field"><label class="form_label" for="l-company">Entreprise</label><input class="form_input" id="l-company" name="firma"></div>
+            <div class="form_field"><label class="form_label" for="l-sector">Secteur</label><select class="form_input is-select" id="l-sector" name="sektor" data-sector-select><option value="">—</option></select></div>
+            <div class="form_field"><label class="form_label" for="l-city">Ville</label><input class="form_input" id="l-city" name="sehir" placeholder="İstanbul"></div>
+            <div class="form_field"><label class="form_label" for="l-lang">Langue</label>
+              <select class="form_input is-select" id="l-lang" name="lang"><option value="tr">Turc</option><option value="en">Anglais</option><option value="fr">Français</option><option value="ar">Arabe</option></select></div>
+            <div class="form_field"><label class="form_label" for="l-code">Code de réduction</label><select class="form_input is-select" id="l-code" name="kod" data-code-select><option value="">Aucun</option></select></div>
+          </div>
+          <div class="admin_link-out">
+            <input class="form_input" readonly data-link-out aria-label="Lien généré">
+            <button type="button" class="button is-large" data-copy-link><svg class="icon" aria-hidden="true"><use href="#i-copy"/></svg>Copier</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Newsletter -->
+      <div class="admin_panel" data-panel="newsletter" hidden>
+        <div class="admin_toolbar">
+          <p class="text-size-small text-color-secondary" data-sub-count></p>
+          <div class="button-group">
+            <button type="button" class="button is-small is-secondary" data-copy-emails><svg class="icon" aria-hidden="true"><use href="#i-copy"/></svg>Copier les e-mails</button>
+            <button type="button" class="button is-small is-secondary" data-export-csv><svg class="icon" aria-hidden="true"><use href="#i-download"/></svg>Export CSV</button>
+          </div>
+        </div>
+        <div class="admin_table-wrap">
+          <table class="admin_table">
+            <thead><tr><th>E-mail</th><th>Langue</th><th>Inscrit le</th><th class="is-actions"><span class="sr-only">Actions</span></th></tr></thead>
+            <tbody data-sub-rows></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="admin_toast" role="status" aria-live="polite" data-toast></div>
+
+  <script src="/js/i18n.js" defer></script>
+  <script src="/js/admin.js" defer></script>
+</body>
+</html>

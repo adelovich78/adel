@@ -3,6 +3,7 @@
 // Les e-mails partent même si la base de données est indisponible.
 require __DIR__ . '/_bootstrap.php';
 require __DIR__ . '/_quote.php';
+require __DIR__ . '/_promo.php';
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') fail('Méthode non autorisée.', 405);
 
@@ -20,7 +21,7 @@ $phone   = str_field($d, 'phone', 40);
 $company = str_field($d, 'company', 120);
 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) fail('Email invalide.', 422);
 
-$details = null; $quote = null; $lang = 'tr'; $clean = [];
+$details = null; $quote = null; $lang = 'tr'; $clean = []; $promo = ''; $promoRejected = false;
 if ($kind === 'quote') {
     $message = str_field($d, 'message', 4000) ?? '';
     $raw = is_array($d['details'] ?? null) ? $d['details'] : [];
@@ -31,8 +32,16 @@ if ($kind === 'quote') {
         elseif (is_array($v)) $clean[$k] = array_slice(array_values(array_filter($v, 'is_string')), 0, 20);
     }
     $lang = in_array($clean['lang'] ?? '', ['tr', 'en', 'fr', 'ar'], true) ? $clean['lang'] : 'tr';
+    // Code de réduction : consommé ici, une seule fois, avant le calcul du prix
+    $asked = promo_normalise((string)($clean['promo'] ?? ''));
+    if ($asked !== '') {
+        $pdo = db_or_null();
+        if ($pdo && promo_consume($pdo, $asked, $name, $email)) $promo = $asked;
+        else $promoRejected = true;
+    }
+    $clean['promo'] = $promo;
     // Prix recalculé côté serveur : le navigateur ne peut pas le falsifier
-    $quote = compute_quote(load_pricing(), $lang, $clean);
+    $quote = compute_quote(load_pricing(), $lang, $clean, $promo);
     $clean['price'] = (string)$quote['total'];
     $clean['currency'] = $quote['currency'];
     $details = json_encode($clean, JSON_UNESCAPED_UNICODE);
@@ -84,7 +93,7 @@ if ($to !== '') {
             ['Textes', $fr($clean['content'] ?? '')],
             ['Photos', $fr($clean['photos'] ?? '')],
             ['Site exemple', ($clean['example'] ?? '') ?: '—'],
-            ['Code de réduction', $quote['promo'] !== '' ? $quote['promo'] : '—'],
+            ['Code de réduction', $promo !== '' ? $promo : ($promoRejected ? 'refusé (déjà utilisé ou inconnu)' : '—')],
         ]);
     }
     $rows = '';
@@ -115,4 +124,4 @@ if ($kind === 'quote') {
 // Échec seulement si rien n'a pu être enregistré ni transmis
 if (!$saved && !$notified) fail('Envoi impossible pour le moment.', 503);
 
-json_out(['ok' => true, 'total' => $quote['total'] ?? null], 201);
+json_out(['ok' => true, 'total' => $quote['total'] ?? null, 'currency' => $quote['currency'] ?? null, 'promoRejected' => $promoRejected], 201);
