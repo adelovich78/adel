@@ -116,10 +116,11 @@
     return Promise.all([
       api('submissions.php').then(function (d) { state.submissions = d.items || []; }).catch(function () {}),
       api('subscribers.php').then(function (d) { state.subscribers = d.items || []; }).catch(function () {}),
-      api('promo.php').then(function (d) { state.codes = d.items || []; }).catch(function () {})
+      api('promo.php').then(function (d) { state.codes = d.items || []; }).catch(function () {}),
+      api('pricing.php').then(function (d) { state.pricing = d.pricing; }).catch(function () {})
     ]).then(renderAll);
   }
-  function renderAll() { renderStats(); renderSubmissions(); renderCodes(); renderSubscribers(); fillCodeSelect(); }
+  function renderAll() { renderStats(); renderSubmissions(); renderCodes(); renderSubscribers(); fillCodeSelect(); fillPricing(); }
 
   /* ---------- Chiffres clés ---------- */
   function renderStats() {
@@ -292,6 +293,52 @@
   });
   $('[data-new-codes]').addEventListener('click', function (e) {
     if (e.target.closest('[data-copy-new]')) copy(state.fresh.join('\n'), 'Codes copiés');
+  });
+
+  /* ---------- Tarifs (pricing.json) ---------- */
+  var pf = $('[data-pricing-form]');
+  function getPath(o, path) { return path.split('.').reduce(function (a, k) { return a == null ? a : a[k]; }, o); }
+  function setPath(o, path, v) {
+    var ks = path.split('.'), last = ks.pop();
+    ks.reduce(function (a, k) { return (a[k] = a[k] || {}); }, o)[last] = v;
+  }
+  function fillPricing() {
+    if (!state.pricing) return;
+    $$('input[name]', pf).forEach(function (i) {
+      var v = getPath(state.pricing, i.name);
+      i.value = v == null ? '' : v;
+      i.classList.remove('is-changed');
+    });
+    previewPricing();
+    $('[data-promo-amount]').textContent = Number(state.pricing.prices.promoDiscount || 0).toLocaleString('tr-TR');
+  }
+  // Aperçu du pack dans les trois devises, avec le même arrondi que le site
+  function previewPricing() {
+    var base = Number(pf['prices.base'].value) || 0, promo = Number(pf['prices.promoDiscount'].value) || 0;
+    var conv = function (tl, cur) {
+      var rate = Number(pf['tlPer.' + cur].value) || 1, step = Number(pf['rounding.' + cur].value) || 1;
+      return Math.round(tl / rate / step) * step;
+    };
+    var line = function (tl) {
+      return '<b>' + tl.toLocaleString('tr-TR') + ' TL</b> · ' + conv(tl, 'USD').toLocaleString('en-US') + ' $ · ' + conv(tl, 'EUR').toLocaleString('fr-FR') + ' €';
+    };
+    $('[data-pricing-preview]').innerHTML = 'Pack : ' + line(base) + (promo ? '<br>Avec un code : ' + line(base - promo) : '');
+  }
+  pf.addEventListener('input', function (e) {
+    var i = e.target;
+    if (state.pricing && i.name) i.classList.toggle('is-changed', String(getPath(state.pricing, i.name)) !== i.value);
+    previewPricing();
+  });
+  $('[data-pricing-reset]').addEventListener('click', fillPricing);
+  pf.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var body = {};
+    $$('input[name]', pf).forEach(function (i) { if (i.value !== '') setPath(body, i.name, Number(i.value)); });
+    api('pricing.php', { method: 'PUT', body: body }).then(function (d) {
+      state.pricing = d.pricing;
+      fillPricing();
+      toast('Tarifs enregistrés');
+    }).catch(function (ex) { toast(ex.message); });
   });
 
   /* ---------- Lien de devis personnalisé ---------- */

@@ -76,6 +76,7 @@
       <div class="admin_tabs" role="tablist" aria-label="Sections">
         <button type="button" role="tab" class="admin_tab" aria-selected="true" data-tab="submissions">Demandes</button>
         <button type="button" role="tab" class="admin_tab" aria-selected="false" data-tab="promo">Codes de réduction</button>
+        <button type="button" role="tab" class="admin_tab" aria-selected="false" data-tab="pricing">Tarifs</button>
         <button type="button" role="tab" class="admin_tab" aria-selected="false" data-tab="link">Lien de devis</button>
         <button type="button" role="tab" class="admin_tab" aria-selected="false" data-tab="newsletter">Newsletter</button>
       </div>
@@ -98,7 +99,7 @@
         <form class="admin_card admin_generate" data-generate>
           <div>
             <h2 class="heading-style-h5">Générer des codes</h2>
-            <p class="text-size-small text-color-secondary">Chaque code retire 2 000 TL du devis et ne fonctionne qu'une seule fois.</p>
+            <p class="text-size-small text-color-secondary">Chaque code retire <span data-promo-amount>2.000</span> TL du devis et ne fonctionne qu'une seule fois.</p>
           </div>
           <div class="admin_generate-fields">
             <div class="form_field">
@@ -126,6 +127,73 @@
             <tbody data-promo-rows></tbody>
           </table>
         </div>
+      </div>
+
+      <!-- Tarifs du calculateur -->
+      <div class="admin_panel" data-panel="pricing" hidden>
+        <form class="admin_pricing" data-pricing-form novalidate>
+          <div class="admin_card">
+            <div>
+              <h2 class="heading-style-h5">Pack standard</h2>
+              <p class="text-size-small text-color-secondary">Montants en TL. Les prix en $ et en € sont calculés à partir des taux en bas de page.</p>
+            </div>
+            <div class="admin_price-grid">
+              <div class="form_field"><label class="form_label" for="pr-base">Prix du pack</label><div class="admin_money"><input class="form_input" id="pr-base" name="prices.base" type="number" min="0" step="100" inputmode="numeric"><span>TL</span></div></div>
+              <div class="form_field"><label class="form_label" for="pr-pages">Pages incluses</label><input class="form_input" id="pr-pages" name="includedPages" type="number" min="1" max="50" inputmode="numeric"></div>
+              <div class="form_field"><label class="form_label" for="pr-langs">Langues incluses</label><input class="form_input" id="pr-langs" name="includedLanguages" type="number" min="1" max="9" inputmode="numeric"></div>
+              <div class="form_field"><label class="form_label" for="pr-promo">Réduction d'un code</label><div class="admin_money"><input class="form_input" id="pr-promo" name="prices.promoDiscount" type="number" min="0" step="100" inputmode="numeric"><span>TL</span></div></div>
+            </div>
+            <p class="admin_preview text-size-small" data-pricing-preview></p>
+          </div>
+
+          <div class="admin_card">
+            <h2 class="heading-style-h5">Options</h2>
+            <div class="admin_price-grid">
+              <div class="form_field"><label class="form_label" for="pr-extraPage">Page sur mesure (par page)</label><div class="admin_money"><input class="form_input" id="pr-extraPage" name="prices.extraPage" type="number" min="0" step="100"><span>TL</span></div></div>
+              <div class="form_field"><label class="form_label" for="pr-extraLanguage">Langue en plus (par langue)</label><div class="admin_money"><input class="form_input" id="pr-extraLanguage" name="prices.extraLanguage" type="number" min="0" step="100"><span>TL</span></div></div>
+              <div class="form_field"><label class="form_label" for="pr-gallery">Page galerie / vidéo</label><div class="admin_money"><input class="form_input" id="pr-gallery" name="prices.gallery" type="number" min="0" step="100"><span>TL</span></div></div>
+              <div class="form_field"><label class="form_label" for="pr-blog">Page blog</label><div class="admin_money"><input class="form_input" id="pr-blog" name="prices.blog" type="number" min="0" step="100"><span>TL</span></div></div>
+              <div class="form_field"><label class="form_label" for="pr-shop">Boutique en ligne</label><div class="admin_money"><input class="form_input" id="pr-shop" name="prices.shop" type="number" min="0" step="100"><span>TL</span></div></div>
+              <div class="form_field"><label class="form_label" for="pr-booking">Calendrier de RDV + gestion</label><div class="admin_money"><input class="form_input" id="pr-booking" name="prices.bookingCalendar" type="number" min="0" step="100"><span>TL</span></div></div>
+              <div class="form_field"><label class="form_label" for="pr-cp">Textes à compléter</label><div class="admin_money"><input class="form_input" id="pr-cp" name="prices.contentPartial" type="number" min="0" step="100"><span>TL</span></div></div>
+              <div class="form_field"><label class="form_label" for="pr-cf">Rédaction complète</label><div class="admin_money"><input class="form_input" id="pr-cf" name="prices.contentFull" type="number" min="0" step="100"><span>TL</span></div></div>
+              <div class="form_field"><label class="form_label" for="pr-photo">Photographe (1 jour, İstanbul)</label><div class="admin_money"><input class="form_input" id="pr-photo" name="prices.photographer" type="number" min="0" step="100"><span>TL</span></div></div>
+            </div>
+          </div>
+
+          <div class="admin_card">
+            <div>
+              <h2 class="heading-style-h5">Offerts et renouvellement</h2>
+              <p class="text-size-small text-color-secondary">Valeurs affichées barrées à côté de « Offert » dans le devis.</p>
+            </div>
+            <div class="admin_price-grid">
+              <div class="form_field"><label class="form_label" for="pr-logo">Valeur du logo offert</label><div class="admin_money"><input class="form_input" id="pr-logo" name="prices.logoValue" type="number" min="0" step="100"><span>TL</span></div></div>
+              <div class="form_field"><label class="form_label" for="pr-renew">Domaine + hébergement (par an)</label><div class="admin_money"><input class="form_input" id="pr-renew" name="prices.renewalYearly" type="number" min="0" step="100"><span>TL</span></div></div>
+              <div class="form_field"><label class="form_label" for="pr-deposit">Acompte à la commande</label><div class="admin_money"><input class="form_input" id="pr-deposit" name="depositPercent" type="number" min="0" max="100"><span>%</span></div></div>
+            </div>
+          </div>
+
+          <div class="admin_card">
+            <div>
+              <h2 class="heading-style-h5">Devises</h2>
+              <p class="text-size-small text-color-secondary">Combien de TL vaut 1 $ et 1 €. Les prix convertis sont arrondis au pas indiqué.</p>
+            </div>
+            <div class="admin_price-grid">
+              <div class="form_field"><label class="form_label" for="pr-usd">1 $ =</label><div class="admin_money"><input class="form_input" id="pr-usd" name="tlPer.USD" type="number" min="1" step="0.01"><span>TL</span></div></div>
+              <div class="form_field"><label class="form_label" for="pr-eur">1 € =</label><div class="admin_money"><input class="form_input" id="pr-eur" name="tlPer.EUR" type="number" min="1" step="0.01"><span>TL</span></div></div>
+              <div class="form_field"><label class="form_label" for="pr-rusd">Arrondi en $</label><input class="form_input" id="pr-rusd" name="rounding.USD" type="number" min="1"></div>
+              <div class="form_field"><label class="form_label" for="pr-reur">Arrondi en €</label><input class="form_input" id="pr-reur" name="rounding.EUR" type="number" min="1"></div>
+            </div>
+          </div>
+
+          <div class="admin_save-bar">
+            <p class="text-size-small text-color-secondary" data-pricing-status>Les changements s'appliquent immédiatement au calculateur de devis.</p>
+            <div class="button-group">
+              <button type="button" class="button is-large is-secondary" data-pricing-reset>Annuler</button>
+              <button type="submit" class="button is-large">Enregistrer les tarifs</button>
+            </div>
+          </div>
+        </form>
       </div>
 
       <!-- Lien de devis personnalisé -->
