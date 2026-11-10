@@ -268,7 +268,8 @@ window.WEBINA_I18N = {
    "accounting": "Mali müşavirlik",
    "auto": "Otomotiv & Oto elektrik",
    "health": "Sağlık & Doktor",
-   "beauty": "Kuaför & Güzellik"
+   "beauty": "Kuaför & Güzellik",
+   "ecommerce": "E-ticaret"
   },
   "tags": {
    "media": "Medya platformu",
@@ -283,13 +284,15 @@ window.WEBINA_I18N = {
    "uiux": "UI/UX",
    "live": "Canlı yayın",
    "demo": "Demo",
-   "finder": "Akü bulucu"
+   "finder": "Akü bulucu",
+   "shop": "Online mağaza",
+   "cart": "Sepet & sipariş"
   },
   "demo": {
    "eyebrow": "Canlı demolar",
    "t1": "Mesleğinize özel",
    "t2": "hazır siteler",
-   "text": "Sitenizin nasıl görüneceğini şimdi görün: avukatlar, doktorlar, kuaförler ve esnaf için hazırladığımız gerçek, çalışan demolar.",
+   "text": "Sitenizin nasıl görüneceğini şimdi görün: avukatlar, doktorlar, kuaförler, esnaf ve online mağazalar için hazırladığımız gerçek, çalışan demolar.",
    "live": "Canlı demoyu aç",
    "want": "Bu siteden istiyorum",
    "badge": "Canlı demo",
@@ -336,6 +339,17 @@ window.WEBINA_I18N = {
       "Boş saatleri anlık görme",
       "Hizmet ve fiyat listesi",
       "Türkçe & İngilizce, WhatsApp"
+     ]
+    },
+    "ecommerce": {
+     "tab": "E-ticaret",
+     "name": "Bio&Baio",
+     "desc": "Gurme ürünler ve el yapımı tekstil için satışa hazır online mağaza.",
+     "feats": [
+      "Kategoriler, filtreler ve sıralama",
+      "Sepet, ücretsiz kargo eşiği ve sipariş",
+      "Ürün sayfaları ve benzer ürünler",
+      "4 dil, Arapça dahil"
      ]
     }
    }
@@ -1247,7 +1261,8 @@ window.WEBINA_I18N = {
    "accounting": "Accounting firm",
    "auto": "Automotive & Auto electrics",
    "health": "Healthcare & Doctors",
-   "beauty": "Hair & Beauty"
+   "beauty": "Hair & Beauty",
+   "ecommerce": "E-commerce"
   },
   "tags": {
    "media": "Media platform",
@@ -1262,13 +1277,15 @@ window.WEBINA_I18N = {
    "uiux": "UI/UX",
    "live": "Live streaming",
    "demo": "Demo",
-   "finder": "Battery finder"
+   "finder": "Battery finder",
+   "shop": "Online store",
+   "cart": "Cart & checkout"
   },
   "demo": {
    "eyebrow": "Live demos",
    "t1": "Ready-made sites",
    "t2": "for your profession",
-   "text": "See how your site could look right now: real, working demos we built for lawyers, doctors, hair salons and local shops.",
+   "text": "See how your site could look right now: real, working demos we built for lawyers, doctors, hair salons, local shops and online stores.",
    "live": "Open live demo",
    "want": "I want this site",
    "badge": "Live demo",
@@ -1315,6 +1332,17 @@ window.WEBINA_I18N = {
       "Live free time slots",
       "Services and price list",
       "Turkish & English, WhatsApp"
+     ]
+    },
+    "ecommerce": {
+     "tab": "E-commerce",
+     "name": "Bio&Baio",
+     "desc": "A ready-to-sell online store for fine foods and artisan textiles.",
+     "feats": [
+      "Collections, filters and sorting",
+      "Cart, free-shipping threshold and checkout",
+      "Product pages with related items",
+      "4 languages, Arabic included"
      ]
     }
    }
@@ -2226,7 +2254,8 @@ window.WEBINA_I18N = {
    "accounting": "Expertise comptable",
    "auto": "Automobile & Électricité auto",
    "health": "Santé & Médecins",
-   "beauty": "Coiffure & Beauté"
+   "beauty": "Coiffure & Beauté",
+   "ecommerce": "E-commerce"
   },
   "tags": {
    "media": "Plateforme média",
@@ -2241,13 +2270,15 @@ window.WEBINA_I18N = {
    "uiux": "UI/UX",
    "live": "Live streaming",
    "demo": "Démo",
-   "finder": "Recherche de batterie"
+   "finder": "Recherche de batterie",
+   "shop": "Boutique en ligne",
+   "cart": "Panier & commande"
   },
   "demo": {
    "eyebrow": "Démos en ligne",
    "t1": "Des sites prêts",
    "t2": "pour votre métier",
-   "text": "Voyez dès maintenant à quoi ressemblera votre site : de vraies démos fonctionnelles pour avocats, médecins, coiffeurs et commerçants.",
+   "text": "Voyez dès maintenant à quoi ressemblera votre site : de vraies démos fonctionnelles pour avocats, médecins, coiffeurs, commerçants et boutiques en ligne.",
    "live": "Voir la démo en ligne",
    "want": "Je veux ce site",
    "badge": "Démo en ligne",
@@ -2294,6 +2325,17 @@ window.WEBINA_I18N = {
       "Créneaux libres en temps réel",
       "Prestations et tarifs",
       "Turc & anglais, WhatsApp"
+     ]
+    },
+    "ecommerce": {
+     "tab": "E-commerce",
+     "name": "Bio&Baio",
+     "desc": "Une boutique en ligne prête à vendre, pour l'épicerie fine et le textile artisanal.",
+     "feats": [
+      "Collections, filtres et tri",
+      "Panier, seuil de livraison offerte et commande",
+      "Fiches produit et suggestions",
+      "4 langues, arabe compris"
      ]
     }
    }
@@ -3204,7 +3246,8 @@ window.WEBINA_I18N = {
    "accounting": "خبرة محاسبية",
    "auto": "السيارات وكهرباء السيارات",
    "health": "الصحة والأطباء",
-   "beauty": "الحلاقة والتجميل"
+   "beauty": "الحلاقة والتجميل",
+   "ecommerce": "التجارة الإلكترونية"
   },
   "tags": {
    "media": "منصة إعلامية",
@@ -3219,13 +3262,15 @@ window.WEBINA_I18N = {
    "uiux": "UI/UX",
    "live": "بث مباشر",
    "demo": "نسخة تجريبية",
-   "finder": "باحث البطاريات"
+   "finder": "باحث البطاريات",
+   "shop": "متجر إلكتروني",
+   "cart": "السلة والطلب"
   },
   "demo": {
    "eyebrow": "عروض تجريبية مباشرة",
    "t1": "مواقع جاهزة",
    "t2": "لمهنتكم",
-   "text": "شاهدوا الآن كيف سيبدو موقعكم: عروض حقيقية تعمل، صمّمناها للمحامين والأطباء وصالونات الحلاقة والمحلات.",
+   "text": "شاهدوا الآن كيف سيبدو موقعكم: عروض حقيقية تعمل، صمّمناها للمحامين والأطباء وصالونات الحلاقة والمحلات والمتاجر الإلكترونية.",
    "live": "افتح العرض المباشر",
    "want": "أريد هذا الموقع",
    "badge": "عرض مباشر",
@@ -3272,6 +3317,17 @@ window.WEBINA_I18N = {
       "عرض الأوقات المتاحة مباشرة",
       "قائمة الخدمات والأسعار",
       "التركية والإنجليزية، واتساب"
+     ]
+    },
+    "ecommerce": {
+     "tab": "متجر إلكتروني",
+     "name": "Bio&Baio",
+     "desc": "متجر إلكتروني جاهز للبيع للمنتجات الفاخرة والمنسوجات الحرفية.",
+     "feats": [
+      "مجموعات وفلاتر وترتيب",
+      "سلة وحد الشحن المجاني وإتمام الطلب",
+      "صفحات منتجات واقتراحات",
+      "4 لغات بما فيها العربية"
      ]
     }
    }

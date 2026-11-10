@@ -47,6 +47,7 @@
     <symbol id="i-send" viewBox="0 0 24 24"><path d="M14.54 21.69a.5.5 0 0 0 .94-.03l6.5-19a.5.5 0 0 0-.64-.64l-19 6.5a.5.5 0 0 0-.03.94l7.93 3.18a2 2 0 0 1 1.11 1.11zM21.85 2.15 10.91 13.09"/></symbol>
     <symbol id="i-scale" viewBox="0 0 24 24"><path d="M12 3v18M19 8l3 8a5 5 0 0 1-6 0zV7M3 7h1a17 17 0 0 0 8-2 17 17 0 0 0 8 2h1M5 8l3 8a5 5 0 0 1-6 0zV7M7 21h10"/></symbol>
     <symbol id="i-stethoscope" viewBox="0 0 24 24"><path d="M11 2v2M5 2v2M5 3H4a2 2 0 0 0-2 2v4a6 6 0 0 0 12 0V5a2 2 0 0 0-2-2h-1M8 15a6 6 0 0 0 12 0v-3"/><circle cx="20" cy="10" r="2"/></symbol>
+    <symbol id="i-bag" viewBox="0 0 24 24"><path d="M6 8h12l-1 12H7L6 8Z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/></symbol>
     <symbol id="i-store" viewBox="0 0 24 24"><path d="M15 21v-5a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v5M4 10.95V19a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8.05M2 7l2.9-4.2A2 2 0 0 1 6.5 2h11a2 2 0 0 1 1.6.8L22 7v1a3 3 0 0 1-5 2.2 3 3 0 0 1-5 0 3 3 0 0 1-5 0A3 3 0 0 1 2 8z"/></symbol>
     <symbol id="i-scissors" viewBox="0 0 24 24"><circle cx="6" cy="6" r="3"/><path d="M8.12 8.12 12 12M20 4 8.12 15.88"/><circle cx="6" cy="18" r="3"/><path d="M14.8 14.8 20 20"/></symbol>
     <symbol id="i-minus" viewBox="0 0 24 24"><path d="M5 12h14"/></symbol>
@@ -308,7 +309,7 @@
               <div class="section-header">
                 <p class="text-style-mono text-color-accent" data-reveal><span data-i18n="demo.eyebrow">Canlı demolar</span></p>
                 <h2 class="heading-style-h2" data-reveal style="--d:1"><span data-i18n="demo.t1">Mesleğinize özel</span> <span data-i18n="demo.t2">hazır siteler</span></h2>
-                <p class="text-size-medium text-color-secondary max-width-medium" data-reveal style="--d:2"><span data-i18n="demo.text">Sitenizin nasıl görüneceğini şimdi görün: avukatlar, doktorlar, kuaförler ve esnaf için hazırladığımız gerçek, çalışan demolar.</span></p>
+                <p class="text-size-medium text-color-secondary max-width-medium" data-reveal style="--d:2"><span data-i18n="demo.text">Sitenizin nasıl görüneceğini şimdi görün: avukatlar, doktorlar, kuaförler, esnaf ve online mağazalar için hazırladığımız gerçek, çalışan demolar.</span></p>
               </div>
               <div class="demos_component" data-demos>
                 <div class="demos_tabs-wrapper" data-reveal style="--d:3">
@@ -317,6 +318,7 @@
 <button type="button" role="tab" class="demos_tab" id="tab-doctor" aria-controls="panel-doctor" aria-selected="true" tabindex="0"><svg class="icon" aria-hidden="true"><use href="#i-stethoscope"/></svg><span data-i18n="demo.items.doctor.tab">Doktor</span></button>
 <button type="button" role="tab" class="demos_tab" id="tab-shop" aria-controls="panel-shop" aria-selected="false" tabindex="-1"><svg class="icon" aria-hidden="true"><use href="#i-store"/></svg><span data-i18n="demo.items.shop.tab">Esnaf</span></button>
 <button type="button" role="tab" class="demos_tab" id="tab-barber" aria-controls="panel-barber" aria-selected="false" tabindex="-1"><svg class="icon" aria-hidden="true"><use href="#i-scissors"/></svg><span data-i18n="demo.items.barber.tab">Kuaför</span></button>
+<button type="button" role="tab" class="demos_tab" id="tab-ecommerce" aria-controls="panel-ecommerce" aria-selected="false" tabindex="-1"><svg class="icon" aria-hidden="true"><use href="#i-bag"/></svg><span data-i18n="demo.items.ecommerce.tab">E-ticaret</span></button>
                   </div>
                   <div class="demos_tabs is-overlay" aria-hidden="true"></div>
                 </div>
@@ -385,6 +387,23 @@
                 <div class="button-group">
                   <a href="/teklif" class="button"><span data-i18n="demo.want">Bu siteden istiyorum</span><svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
                   <a href="https://my.webina.com.tr/" target="_blank" rel="noopener" class="button is-secondary"><span data-i18n="demo.live">Canlı demoyu aç</span><svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+                </div>
+                <p class="demos_hint text-size-small text-color-muted" data-i18n="ui.demoHint">Sayfayı görmek için üzerine gelin</p>
+              </div>
+            </div>
+            <div class="demos_panel" role="tabpanel" id="panel-ecommerce" aria-labelledby="tab-ecommerce" hidden>
+              <div class="demos_frame">
+                <span class="crop-mark is-tl" aria-hidden="true"></span><span class="crop-mark is-tr" aria-hidden="true"></span><span class="crop-mark is-bl" aria-hidden="true"></span><span class="crop-mark is-br" aria-hidden="true"></span>
+                <div class="browser_bar"><span class="browser_dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="browser_url">eticaret.webina.com.tr</span><span class="browser_live text-style-mono"><span class="live-dot" aria-hidden="true"></span><span data-i18n="demo.badge">Canlı demo</span></span></div>
+                <div class="demos_screen" tabindex="0"><img src="/images/long-biobaio.webp" alt="" width="800" loading="lazy" decoding="async"></div>
+              </div>
+              <div class="demos_info">
+                <h3 class="heading-style-h3" data-i18n="demo.items.ecommerce.name">Bio&amp;Baio</h3>
+                <p class="text-size-medium text-color-secondary" data-i18n="demo.items.ecommerce.desc">Gurme ürünler ve el yapımı tekstil için satışa hazır online mağaza.</p>
+                <ul class="demos_feats" role="list"><li class="demos_feat"><svg class="icon is-accent" aria-hidden="true"><use href="#i-check"/></svg><span data-i18n="demo.items.ecommerce.feats.0">Kategoriler, filtreler ve sıralama</span></li><li class="demos_feat"><svg class="icon is-accent" aria-hidden="true"><use href="#i-check"/></svg><span data-i18n="demo.items.ecommerce.feats.1">Sepet, ücretsiz kargo eşiği ve sipariş</span></li><li class="demos_feat"><svg class="icon is-accent" aria-hidden="true"><use href="#i-check"/></svg><span data-i18n="demo.items.ecommerce.feats.2">Ürün sayfaları ve benzer ürünler</span></li><li class="demos_feat"><svg class="icon is-accent" aria-hidden="true"><use href="#i-check"/></svg><span data-i18n="demo.items.ecommerce.feats.3">4 dil, Arapça dahil</span></li></ul>
+                <div class="button-group">
+                  <a href="/teklif" class="button"><span data-i18n="demo.want">Bu siteden istiyorum</span><svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+                  <a href="https://eticaret.webina.com.tr/" target="_blank" rel="noopener" class="button is-secondary"><span data-i18n="demo.live">Canlı demoyu aç</span><svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
                 </div>
                 <p class="demos_hint text-size-small text-color-muted" data-i18n="ui.demoHint">Sayfayı görmek için üzerine gelin</p>
               </div>
