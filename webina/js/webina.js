@@ -156,6 +156,137 @@
     });
   }
 
+  /* ---------- Héro : titre animé ----------
+     1. À l'arrivée, les lettres montent une à une en sortant d'un léger flou.
+     2. Ensuite, le mot vert est remplacé toutes les 3 s par un autre métier
+        (site, logiciel, marque…) ; un trait vert se redessine dessous.
+     L'arabe est animé mot par mot : couper les lettres casserait leur liaison. */
+  var heroTitle = (function () {
+    var h1 = document.querySelector('[data-hero-title]');
+    if (!h1) return null;
+    var lines = h1.querySelectorAll('.line');
+    var rot = h1.querySelector('[data-rotator]');
+    var words = [], idx = 0, timer = null, visible = true, running = false;
+    var EVERY = 3000;
+
+    // Mot → <span class="word"> contenant une <span class="char"> par lettre
+    function makeWord(text, start) {
+      var w = document.createElement('span');
+      w.className = 'word';
+      var parts = currentLang === 'ar' ? [text] : Array.from(text);
+      parts.forEach(function (ch, i) {
+        var c = document.createElement('span');
+        c.className = 'char';
+        c.textContent = ch;
+        c.style.setProperty('--ci', String(start + i));
+        w.appendChild(c);
+      });
+      return { el: w, count: parts.length };
+    }
+    // Texte (plusieurs mots) ajouté dans un conteneur ; renvoie le prochain index de lettre
+    function fill(target, text, start) {
+      var n = start;
+      text.split(/(\s+)/).forEach(function (part) {
+        if (!part) return;
+        if (/^\s+$/.test(part)) { target.appendChild(document.createTextNode(' ')); return; }
+        var w = makeWord(part, n);
+        target.appendChild(w.el);
+        n += w.count;
+      });
+      return n;
+    }
+    function wordEl(text) {
+      var box = document.createElement('span');
+      box.className = 'hero_word';
+      fill(box, text, 0);
+      return box;
+    }
+
+    function render() {
+      var d = I18N[currentLang].home;
+      words = (d.rotate && d.rotate.length) ? d.rotate : [d.h1b];
+      idx = 0;
+      // Lecteurs d'écran : la phrase complète, sans les lettres découpées
+      h1.setAttribute('aria-label', [d.h1a, d.h1b, d.h1c, d.h1d].join(' '));
+      var n = 0;
+      lines[0].textContent = ''; lines[0].setAttribute('aria-hidden', 'true');
+      n = fill(lines[0], d.h1a, n);
+      lines[1].textContent = ''; lines[1].setAttribute('aria-hidden', 'true');
+      rot = document.createElement('span');
+      rot.className = 'hero_rotator text-color-accent';
+      var first = document.createElement('span');
+      first.className = 'hero_word';
+      n = fill(first, words[0], n);
+      rot.appendChild(first);
+      lines[1].appendChild(rot);
+      lines[1].appendChild(document.createTextNode(' '));
+      n = fill(lines[1], d.h1c, n);
+      lines[2].textContent = ''; lines[2].setAttribute('aria-hidden', 'true');
+      fill(lines[2], d.h1d, n);
+    }
+
+    function next() {
+      if (words.length < 2) return;
+      var old = rot.querySelector('.hero_word:not(.is-leaving)');
+      idx = (idx + 1) % words.length;
+      var from = rot.getBoundingClientRect().width;
+      var nw = wordEl(words[idx]);
+      nw.classList.add('is-entering');
+      // L'ancien mot sort par le haut, superposé ; le nouveau prend sa place
+      if (old) {
+        Array.prototype.forEach.call(old.querySelectorAll('.char'), function (c, i) { c.style.setProperty('--ci', String(i)); });
+        old.classList.add('is-leaving');
+      }
+      rot.appendChild(nw);
+      var to = nw.getBoundingClientRect().width;
+      // La largeur suit le nouveau mot : « biz » glisse au lieu de sauter
+      rot.style.width = from + 'px';
+      rot.getBoundingClientRect();
+      rot.style.width = to + 'px';
+      rot.classList.remove('is-drawn');
+      requestAnimationFrame(function () {
+        requestAnimationFrame(function () {
+          nw.classList.remove('is-entering');
+          rot.classList.add('is-drawn');
+        });
+      });
+      setTimeout(function () {
+        if (old && old.parentNode) old.parentNode.removeChild(old);
+        rot.style.width = '';
+      }, 700);
+    }
+
+    function schedule() {
+      clearTimeout(timer);
+      if (!running || !visible || document.hidden || reduceMotion.matches) return;
+      timer = setTimeout(function () { next(); schedule(); }, EVERY);
+    }
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (en) { visible = en[0].isIntersecting; schedule(); }, { threshold: 0.3 }).observe(h1);
+    }
+    document.addEventListener('visibilitychange', schedule);
+    document.addEventListener('webina:lang', function () {
+      render();
+      // Changement de langue après l'arrivée : la nouvelle phrase rejoue son entrée
+      if (root.classList.contains('is-loaded') && !reduceMotion.matches) {
+        h1.classList.add('is-replay');
+        h1.getBoundingClientRect();
+        requestAnimationFrame(function () { h1.classList.remove('is-replay'); });
+      }
+      setTimeout(function () { rot.classList.add('is-drawn'); }, reduceMotion.matches ? 0 : 900);
+      schedule();
+    });
+
+    render();
+    return {
+      start: function () {
+        // Les mots commencent à tourner une fois l'entrée terminée
+        setTimeout(function () { rot.classList.add('is-drawn'); }, reduceMotion.matches ? 0 : 900);
+        setTimeout(function () { running = true; schedule(); }, 1600);
+      }
+    };
+  })();
+
   /* ---------- Héro : pile d'épreuves qui défile ----------
      Toutes les 4,8 s l'épreuve de devant glisse vers le bas et disparaît,
      les autres avancent d'une place, puis elle revient au fond de la pile. */
@@ -669,6 +800,7 @@
       root.classList.add('is-loaded');
       setTimeout(function () { root.classList.add('is-settled'); }, 1800);
       if (deck) deck.start();
+      if (heroTitle) heroTitle.start();
       syncNavIndicator(activeNavLink(), false);
       if (demos) demos.syncClip(false);
     });

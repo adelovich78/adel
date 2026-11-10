@@ -1646,3 +1646,52 @@ html[lang="ar"] .drawer_title { font-weight: 600; letter-spacing: 0; line-height
 @media (prefers-reduced-motion: reduce) {
   .detail_panel, .detail_panel-body, .detail_points li { transition: none !important; }
 }
+
+/* ==========================================================================
+   Héro : titre animé
+   ========================================================================== */
+.hero_heading .word { display: inline-block; white-space: nowrap; }
+.hero_heading .char { display: inline-block; }
+.hero_rotator {
+  position: relative; display: inline-block; vertical-align: bottom;
+  /* Place pour les jambages (ç, ş, ğ) sous la ligne */
+  overflow: hidden; padding-bottom: 0.12em; margin-bottom: -0.12em;
+  transition: width 520ms var(--ease-out);
+  white-space: nowrap;
+}
+.hero_word { display: inline-block; white-space: nowrap; }
+/* Trait vert sous le mot : se redessine à chaque changement */
+.hero_rotator::after {
+  content: ""; position: absolute; inset-inline: 0; bottom: 0.06em; height: 0.06em; min-height: 2px;
+  border-radius: 1px; background-color: currentColor; opacity: 0.85;
+  transform: scaleX(0); transform-origin: 0 50%;
+  transition: transform 140ms ease;
+}
+[dir="rtl"] .hero_rotator::after { transform-origin: 100% 50%; }
+.hero_rotator.is-drawn::after { transform: scaleX(1); transition: transform 700ms var(--ease-out) 200ms; }
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Le titre du héro s'anime lettre par lettre (plus de montée de ligne entière) */
+  .js .hero_heading [data-enter-line] { transform: none; transition: none; }
+  .js .hero_heading .char {
+    opacity: 0; transform: translateY(0.55em); filter: blur(8px);
+    transition: opacity 520ms ease, transform 820ms var(--ease-out), filter 620ms ease;
+    transition-delay: calc(var(--ci, 0) * 26ms + 140ms);
+  }
+  .js.is-loaded .hero_heading .char { opacity: 1; transform: none; filter: none; }
+  .js.is-loaded .hero_heading.is-replay .char { opacity: 0; transform: translateY(0.55em); filter: blur(8px); transition: none; }
+  .js:not(.is-loaded) .hero_rotator::after { transform: scaleX(0); }
+
+  /* Mot qui part : monte et se floute vite ; mot qui arrive : sort du bas, lettre par lettre */
+  .hero_word.is-leaving { position: absolute; top: 0; inset-inline-start: 0; }
+  .js.is-loaded .hero_heading .hero_word.is-leaving .char {
+    opacity: 0; transform: translateY(-0.45em); filter: blur(6px);
+    transition: opacity 260ms ease, transform 380ms var(--ease-out), filter 300ms ease;
+    transition-delay: calc(var(--ci, 0) * 14ms);
+  }
+  .js.is-loaded .hero_word.is-entering .char { opacity: 0; transform: translateY(0.6em); filter: blur(6px); transition: none; }
+  .js.is-loaded .hero_word:not(.is-entering):not(.is-leaving) .char { transition-delay: calc(var(--ci, 0) * 28ms + 120ms); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero_rotator::after { transform: scaleX(1); }
+}

@@ -50,7 +50,14 @@ window.WEBINA_I18N = {
    "projB": "projeler",
    "seeAll": "Tümünü gör →",
    "sectorsA": "Her mesleğe",
-   "sectorsB": "uygun çözüm"
+   "sectorsB": "uygun çözüm",
+   "rotate": [
+    "dijitali",
+    "web sitesini",
+    "yazılımı",
+    "markayı",
+    "e-ticareti"
+   ]
   },
   "team": {
    "eyebrow": "Ekibimiz",
@@ -1022,7 +1029,14 @@ window.WEBINA_I18N = {
    "projB": "projects",
    "seeAll": "See all →",
    "sectorsA": "A solution for",
-   "sectorsB": "every profession"
+   "sectorsB": "every profession",
+   "rotate": [
+    "digital",
+    "website",
+    "software",
+    "brand",
+    "online store"
+   ]
   },
   "team": {
    "eyebrow": "Our team",
@@ -1994,7 +2008,14 @@ window.WEBINA_I18N = {
    "projB": "récents",
    "seeAll": "Voir tout →",
    "sectorsA": "Une solution adaptée à",
-   "sectorsB": "chaque métier"
+   "sectorsB": "chaque métier",
+   "rotate": [
+    "digital",
+    "site",
+    "logiciel",
+    "CRM",
+    "branding"
+   ]
   },
   "team": {
    "eyebrow": "Notre équipe",
@@ -2966,7 +2987,13 @@ window.WEBINA_I18N = {
    "projB": "المشاريع",
    "seeAll": "عرض الكل ←",
    "sectorsA": "حل مناسب",
-   "sectorsB": "لكل مهنة"
+   "sectorsB": "لكل مهنة",
+   "rotate": [
+    "عالماً رقمياً",
+    "موقعاً",
+    "برنامجاً",
+    "متجراً إلكترونياً"
+   ]
   },
   "team": {
    "eyebrow": "فريقنا",
