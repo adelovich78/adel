@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /admin/
+Disallow: /cgi-bin/
+
+Sitemap: https://webina.com.tr/sitemap.xml

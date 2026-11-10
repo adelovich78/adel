@@ -1,0 +1,9 @@
+Options -Indexes
+# Fichiers internes : jamais accessibles depuis le web
+<FilesMatch "^(config\.php|_.*\.php|.*\.(sql|log|bak|zip|json)|error_log|mail-test\.php)$">
+  Require all denied
+</FilesMatch>
+<IfModule mod_headers.c>
+  Header always set Cache-Control "no-store"
+  Header always set X-Robots-Tag "noindex, nofollow"
+</IfModule>
