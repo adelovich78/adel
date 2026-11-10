@@ -1,3 +1,10 @@
+/* Polices hébergées sur le site (plus de requête vers Google Fonts) */
+@font-face { font-family: "Schibsted Grotesk"; font-style: normal; font-weight: 400 900; font-display: swap; src: url(/fonts/schibsted-grotesk-latin-wght-normal.woff2) format("woff2"); unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+@font-face { font-family: "Schibsted Grotesk"; font-style: normal; font-weight: 400 900; font-display: swap; src: url(/fonts/schibsted-grotesk-latin-ext-wght-normal.woff2) format("woff2"); unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF; }
+@font-face { font-family: "Cairo"; font-style: normal; font-weight: 400; font-display: swap; src: url(/fonts/cairo-arabic-400-normal.woff2) format("woff2"); unicode-range: U+0600-06FF,U+0750-077F,U+0870-088E,U+0890-0891,U+0897-08E1,U+08E3-08FF,U+200C-200E,U+2010-2011,U+204F,U+2E41,U+FB50-FDFF,U+FE70-FE74,U+FE76-FEFC,U+102E0-102FB,U+10E60-10E7E,U+10EC2-10EC4,U+10EFC-10EFF,U+1EE00-1EEFF; }
+@font-face { font-family: "Cairo"; font-style: normal; font-weight: 500; font-display: swap; src: url(/fonts/cairo-arabic-500-normal.woff2) format("woff2"); unicode-range: U+0600-06FF,U+0750-077F,U+0870-088E,U+0890-0891,U+0897-08E1,U+08E3-08FF,U+200C-200E,U+2010-2011,U+204F,U+2E41,U+FB50-FDFF,U+FE70-FE74,U+FE76-FEFC,U+102E0-102FB,U+10E60-10E7E,U+10EC2-10EC4,U+10EFC-10EFF,U+1EE00-1EEFF; }
+@font-face { font-family: "Cairo"; font-style: normal; font-weight: 600; font-display: swap; src: url(/fonts/cairo-arabic-600-normal.woff2) format("woff2"); unicode-range: U+0600-06FF,U+0750-077F,U+0870-088E,U+0890-0891,U+0897-08E1,U+08E3-08FF,U+200C-200E,U+2010-2011,U+204F,U+2E41,U+FB50-FDFF,U+FE70-FE74,U+FE76-FEFC,U+102E0-102FB,U+10E60-10E7E,U+10EC2-10EC4,U+10EFC-10EFF,U+1EE00-1EEFF; }
+
 /* ==========================================================================
    Webina — refonte page d'accueil
    Structure Client-First (Finsweet) · direction « atelier / épreuve d'impression »
@@ -834,6 +841,7 @@ html[lang="ar"] .heading-style-h3 { font-weight: 600; letter-spacing: 0; line-he
   }
   .js.is-loaded [data-enter-line],
   .js.is-loaded [data-enter] { transform: none; opacity: 1; }
+  .js .hero_lead[data-enter] { opacity: 1; }
 
   /* Épreuves du héro : arrivent depuis la place « devant », puis se rangent en pile */
   .js:not(.is-loaded) .hero_proof { --o: 0; --x: 0cqw; --y: 40cqw; --r: 0deg; --s: 0.96; }
@@ -1383,7 +1391,7 @@ html[lang="ar"] .summary_amount { font-family: var(--font-mono); font-size: 2.5r
 .cookie_view { display: flex; flex-direction: column; gap: 12px; }
 .cookie_view[hidden] { display: none; }
 .cookie_view:not([hidden]) { animation: line-in 220ms var(--ease-out) both; }
-.cookie_logo { width: 44px; height: 44px; margin-bottom: 8px; }
+.cookie_logo { width: 36px; height: 36px; margin-bottom: 8px; }
 .cookie_title { font-size: 1.5rem; font-weight: 500; letter-spacing: -0.025em; line-height: 1.2; }
 .cookie_text { font-size: 0.9375rem; line-height: 1.6; color: var(--color-text-secondary); }
 .cookie_text.text-color-muted { font-size: 0.875rem; color: var(--color-text-muted); }
@@ -1752,3 +1760,7 @@ html[lang="ar"] .drawer_title { font-weight: 600; letter-spacing: 0; line-height
   .footer_cta { grid-template-columns: 1fr; gap: 40px; }
   .wb_logo { width: 180px; justify-self: start; }
 }
+
+/* Performance : les sections hors écran ne sont calculées qu'à l'approche du défilement */
+.main-wrapper > section:not(:first-child),
+.footer_component { content-visibility: auto; contain-intrinsic-size: auto 900px; }
