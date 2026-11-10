@@ -400,11 +400,6 @@
 .crm_picker-list button { display: flex; flex-direction: column; align-items: flex-start; width: 100%; padding: 8px 10px; border-radius: 6px; text-align: start; font-size: 0.875rem; }
 @media (hover: hover) and (pointer: fine) { .crm_picker-list button:hover { background-color: var(--color-raised); } }
 
-/* Import */
-.crm_counts { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 8px; margin-top: 12px; }
-.crm_counts li { padding: 10px 12px; border-radius: var(--radius-control); background-color: var(--color-surface); font-size: 0.875rem; }
-.crm_counts b { font-size: 1.125rem; font-weight: 500; margin-inline-end: 4px; }
-
 .admin_content { min-width: 0; }
 @media (max-width: 599px) { .crm_board { grid-template-columns: repeat(5, minmax(240px, 80vw)); scroll-snap-type: x mandatory; } .crm_col { scroll-snap-align: start; } }
 .crm_grid > * { min-width: 0; }

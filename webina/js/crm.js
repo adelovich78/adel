@@ -1,4 +1,4 @@
-/* Webina — CRM : tableau de bord, clients, ventes, tâches, projets, import EspoCRM */
+/* Webina — CRM : tableau de bord, clients, ventes, tâches, projets, dépenses */
 (function () {
   'use strict';
 
@@ -692,28 +692,6 @@
   document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape') { if (!modal.hidden) closeModal(); else closeSheet(); }
     if (e.key === 'Enter' && e.target.matches('.crm_row, .crm_card')) e.target.click();
-  });
-
-  /* ---------- Import EspoCRM ---------- */
-  var result = $('[data-espo-result]');
-  var LABELS = { accounts: 'Sociétés', contacts: 'Contacts', leads: 'Prospects', opportunities: 'Ventes', tasks: 'Tâches', meetings: 'Réunions', calls: 'Appels', notes: 'Notes', users: 'Utilisateurs EspoCRM (non importés)' };
-  $('[data-espo-check]').addEventListener('click', function () {
-    result.innerHTML = '<p class="text-color-secondary">Connexion…</p>';
-    api('import_espo.php').then(function (x) {
-      result.innerHTML = '<p class="crm_ok">' + icon('i-check') + 'Base EspoCRM trouvée. Voici ce qui sera repris :</p><ul class="crm_counts">' +
-        Object.keys(x.counts).map(function (k) { return '<li><b>' + x.counts[k] + '</b> ' + esc(LABELS[k] || k) + '</li>'; }).join('') + '</ul>';
-      $('[data-espo-run]').disabled = false;
-    }).catch(function (e) { result.innerHTML = '<p class="form_error">' + esc(e.message) + '</p>'; });
-  });
-  $('[data-espo-run]').addEventListener('click', function (e) {
-    var b = e.currentTarget;
-    b.disabled = true; b.textContent = 'Import en cours…';
-    api('import_espo.php', { method: 'POST' }).then(function (x) {
-      var i = x.imported;
-      result.innerHTML = '<p class="crm_ok">' + icon('i-check') + 'Import terminé : ' + i.clients + ' fiches, ' + i.tasks + ' tâches et ' + i.notes + ' notes. Ventes et paiements repartent de zéro.</p>';
-      toast('Import terminé'); load();
-    }).catch(function (ex) { result.innerHTML = '<p class="form_error">' + esc(ex.message) + '</p>'; })
-      .then(function () { b.disabled = false; b.textContent = 'Importer'; });
   });
 
   window.CRM = { load: load, open: openClient };
