@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /commande/
+
+Sitemap: https://eticaret.webina.com.tr/sitemap.xml

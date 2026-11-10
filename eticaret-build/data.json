@@ -1,0 +1,293 @@
+{
+ "categories": [
+  {
+   "key": "jam",
+   "slug": "confitures",
+   "tone": 0
+  },
+  {
+   "key": "oil",
+   "slug": "huiles",
+   "tone": 1
+  },
+  {
+   "key": "coffee",
+   "slug": "cafes",
+   "tone": 2
+  },
+  {
+   "key": "textile",
+   "slug": "textile",
+   "tone": 3
+  },
+  {
+   "key": "gifts",
+   "slug": "coffrets-cadeaux",
+   "tone": 0
+  },
+  {
+   "key": "spices",
+   "slug": "epices",
+   "tone": 4
+  }
+ ],
+ "products": [
+  {
+   "id": "p1",
+   "slug": "confiture-figues-istanbul",
+   "name": {
+    "fr": "Confiture de Figues d'Istanbul",
+    "tr": "İstanbul İncir Reçeli",
+    "en": "Istanbul Fig Jam",
+    "ar": "مربى تين إسطنبول"
+   },
+   "description": {
+    "fr": "Confiture artisanale de figues fraîches cueillies dans les vergers d'Istanbul. Texture onctueuse, parfum intense.",
+    "tr": "İstanbul bahçelerinden taze incirlerle yapılmış el yapımı reçel. Kremsi doku, yoğun aroma.",
+    "en": "Artisan jam made from fresh figs harvested in Istanbul orchards. Smooth texture, intense aroma.",
+    "ar": "مربى حرفي من التين الطازج المقطوف من بساتين إسطنبول. قوام ناعم ورائحة مكثفة."
+   },
+   "category": "jam",
+   "weight": "380g",
+   "origin": "Türkiye",
+   "price": 890,
+   "badge": "best",
+   "rating": 4.9,
+   "reviews": 87,
+   "tone": 0,
+   "inStock": true,
+   "featured": true
+  },
+  {
+   "id": "p2",
+   "slug": "huile-olive-extra-vierge",
+   "name": {
+    "fr": "Huile d'Olive Extra Vierge",
+    "tr": "Sızma Zeytinyağı",
+    "en": "Extra Virgin Olive Oil",
+    "ar": "زيت زيتون بكر ممتاز"
+   },
+   "description": {
+    "fr": "Première pression à froid, olives de la région égéenne. Notes herbacées et poivrées.",
+    "tr": "Ege bölgesi zeytinlerinden soğuk sıkım. Otsu ve biberli notalar.",
+    "en": "Cold-pressed from Aegean olives. Herbaceous and peppery notes.",
+    "ar": "عصرة أولى باردة من زيتون منطقة بحر إيجه. نكهات عشبية وحارة."
+   },
+   "category": "oil",
+   "weight": "750ml",
+   "origin": "Türkiye",
+   "price": 1490,
+   "badge": null,
+   "rating": 4.8,
+   "reviews": 124,
+   "tone": 1,
+   "inStock": true,
+   "featured": true
+  },
+  {
+   "id": "p3",
+   "slug": "cafe-turc-moulu",
+   "name": {
+    "fr": "Café Turc Moulu Premium",
+    "tr": "Premium Türk Kahvesi",
+    "en": "Premium Turkish Coffee",
+    "ar": "قهوة تركية مطحونة فاخرة"
+   },
+   "description": {
+    "fr": "Café finement moulu, torréfaction traditionnelle. L'authentique saveur du café turc.",
+    "tr": "İnce öğütülmüş, geleneksel kavurma. Otantik Türk kahvesi lezzeti.",
+    "en": "Finely ground, traditionally roasted. The authentic taste of Turkish coffee.",
+    "ar": "مطحونة بنعومة، تحميص تقليدي. المذاق الأصيل للقهوة التركية."
+   },
+   "category": "coffee",
+   "weight": "250g",
+   "origin": "Türkiye",
+   "price": 690,
+   "badge": "new",
+   "rating": 4.7,
+   "reviews": 203,
+   "tone": 2,
+   "inStock": true,
+   "featured": true
+  },
+  {
+   "id": "p4",
+   "slug": "serviette-hammam-coton",
+   "name": {
+    "fr": "Serviette de Hammam en Coton",
+    "tr": "Pamuklu Hamam Havlusu",
+    "en": "Cotton Hammam Towel",
+    "ar": "منشفة حمام قطنية"
+   },
+   "description": {
+    "fr": "Tissée à la main en coton naturel. Légère, absorbante et élégante.",
+    "tr": "Doğal pamuktan el dokuması. Hafif, emici ve zarif.",
+    "en": "Hand-woven in natural cotton. Light, absorbent and elegant.",
+    "ar": "منسوجة يدوياً من القطن الطبيعي. خفيفة، ماصة وأنيقة."
+   },
+   "category": "textile",
+   "weight": "320g",
+   "origin": "Türkiye",
+   "price": 2490,
+   "badge": null,
+   "rating": 4.9,
+   "reviews": 56,
+   "tone": 3,
+   "inStock": true,
+   "featured": true
+  },
+  {
+   "id": "p5",
+   "slug": "coffret-decouverte-turquie",
+   "name": {
+    "fr": "Coffret Découverte Turquie",
+    "tr": "Türkiye Keşif Seti",
+    "en": "Turkey Discovery Box",
+    "ar": "صندوق اكتشاف تركيا"
+   },
+   "description": {
+    "fr": "Coffret cadeau avec confiture, huile d'olive, café turc et épices. Idéal pour offrir.",
+    "tr": "Reçel, zeytinyağı, Türk kahvesi ve baharattan oluşan hediye seti.",
+    "en": "Gift box with jam, olive oil, Turkish coffee and spices. Perfect for gifting.",
+    "ar": "صندوق هدايا يحتوي على مربى وزيت زيتون وقهوة تركية وتوابل."
+   },
+   "category": "gifts",
+   "weight": "1.2kg",
+   "origin": "Türkiye",
+   "price": 4990,
+   "compareAt": 5990,
+   "badge": "best",
+   "rating": 5,
+   "reviews": 42,
+   "tone": 0,
+   "inStock": true,
+   "featured": true
+  },
+  {
+   "id": "p6",
+   "slug": "melange-epices-kebab",
+   "name": {
+    "fr": "Mélange d'Épices pour Kebab",
+    "tr": "Kebap Baharat Karışımı",
+    "en": "Kebab Spice Mix",
+    "ar": "خلطة بهارات الكباب"
+   },
+   "description": {
+    "fr": "Mélange traditionnel d'épices pour kebab : cumin, paprika, sumac et herbes aromatiques.",
+    "tr": "Geleneksel kebap baharat karışımı: kimyon, biber, sumak ve aromatik otlar.",
+    "en": "Traditional kebab spice blend: cumin, paprika, sumac and aromatic herbs.",
+    "ar": "خلطة بهارات كباب تقليدية: كمون، بابريكا، سماق وأعشاب عطرية."
+   },
+   "category": "spices",
+   "weight": "100g",
+   "origin": "Türkiye",
+   "price": 490,
+   "badge": "new",
+   "rating": 4.6,
+   "reviews": 68,
+   "tone": 4,
+   "inStock": true
+  },
+  {
+   "id": "p7",
+   "slug": "confiture-roses-isparta",
+   "name": {
+    "fr": "Confiture de Roses d'Isparta",
+    "tr": "Isparta Gül Reçeli",
+    "en": "Isparta Rose Jam",
+    "ar": "مربى ورد إسبارطة"
+   },
+   "description": {
+    "fr": "Confiture délicate de pétales de roses d'Isparta, la capitale mondiale de la rose.",
+    "tr": "Dünyanın gül başkenti Isparta'dan narin gül yaprağı reçeli.",
+    "en": "Delicate jam from Isparta rose petals, the world capital of roses.",
+    "ar": "مربى رقيق من بتلات ورد إسبارطة، عاصمة الورد في العالم."
+   },
+   "category": "jam",
+   "weight": "300g",
+   "origin": "Türkiye",
+   "price": 990,
+   "badge": "new",
+   "rating": 4.8,
+   "reviews": 31,
+   "tone": 5,
+   "inStock": true
+  },
+  {
+   "id": "p8",
+   "slug": "huile-argan-marocaine",
+   "name": {
+    "fr": "Huile d'Argan Marocaine",
+    "tr": "Fas Argan Yağı",
+    "en": "Moroccan Argan Oil",
+    "ar": "زيت أرغان مغربي"
+   },
+   "description": {
+    "fr": "Huile d'argan pure pressée à froid. Usage culinaire et cosmétique.",
+    "tr": "Soğuk sıkım saf argan yağı. Mutfak ve kozmetik kullanımı.",
+    "en": "Pure cold-pressed argan oil. Culinary and cosmetic use.",
+    "ar": "زيت أرغان نقي معصور على البارد. للاستخدام الغذائي والتجميلي."
+   },
+   "category": "oil",
+   "weight": "250ml",
+   "origin": "Maroc",
+   "price": 2290,
+   "badge": null,
+   "rating": 4.9,
+   "reviews": 47,
+   "tone": 4,
+   "inStock": true
+  },
+  {
+   "id": "p9",
+   "slug": "peignoir-coton-luxe",
+   "name": {
+    "fr": "Peignoir Coton de Luxe",
+    "tr": "Lüks Pamuklu Bornoz",
+    "en": "Luxury Cotton Bathrobe",
+    "ar": "روب حمام قطني فاخر"
+   },
+   "description": {
+    "fr": "Peignoir en coton éponge premium, toucher velouté et coupe ample.",
+    "tr": "Premium pamuklu havlu bornoz, kadife dokunuş ve bol kesim.",
+    "en": "Premium terry cotton bathrobe, velvety touch and loose fit.",
+    "ar": "روب حمام من القطن الممتاز، ملمس مخملي وقصة واسعة."
+   },
+   "category": "textile",
+   "weight": "800g",
+   "origin": "Türkiye",
+   "price": 4990,
+   "compareAt": 6490,
+   "badge": "sale",
+   "rating": 4.7,
+   "reviews": 23,
+   "tone": 3,
+   "inStock": true
+  },
+  {
+   "id": "p10",
+   "slug": "cafe-colombien-grains",
+   "name": {
+    "fr": "Café Colombien en Grains",
+    "tr": "Kolombiya Çekirdek Kahve",
+    "en": "Colombian Coffee Beans",
+    "ar": "حبوب قهوة كولومبية"
+   },
+   "description": {
+    "fr": "Grains de café arabica de Colombie. Torréfaction moyenne, notes de cacao et caramel.",
+    "tr": "Kolombiya arabica kahve çekirdekleri. Orta kavurma, kakao ve karamel notaları.",
+    "en": "Colombian arabica coffee beans. Medium roast, cocoa and caramel notes.",
+    "ar": "حبوب قهوة أرابيكا كولومبية. تحميص متوسط، نكهات الكاكاو والكراميل."
+   },
+   "category": "coffee",
+   "weight": "500g",
+   "origin": "Colombie",
+   "price": 1290,
+   "badge": null,
+   "rating": 4.8,
+   "reviews": 91,
+   "tone": 2,
+   "inStock": true
+  }
+ ]
+}
