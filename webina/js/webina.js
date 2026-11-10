@@ -504,6 +504,46 @@
     });
   })();
 
+  /* ---------- Logo animé du pied de page ---------- */
+  (function () {
+    var logo = document.querySelector('[data-wb-logo]');
+    if (!logo) return;
+    var wrap = logo.querySelector('.wb_dot-wrap');
+    var played = 0;
+    function play() {
+      logo.classList.remove('is-in');
+      logo.getBoundingClientRect();
+      logo.classList.add('is-in');
+      played = Date.now();
+    }
+    if ('IntersectionObserver' in window && !reduceMotion.matches) {
+      var io = new IntersectionObserver(function (en) {
+        if (en[0].isIntersecting) { play(); io.disconnect(); }
+      }, { threshold: 0.6 });
+      io.observe(logo);
+    } else {
+      logo.classList.add('is-in');
+    }
+    // Survol : l'animation se rejoue (pas plus d'une fois toutes les 2,5 s)
+    logo.addEventListener('pointerenter', function (e) {
+      if (e.pointerType !== 'mouse' || reduceMotion.matches) return;
+      if (Date.now() - played > 2500) play();
+    });
+    // Le carré vert se penche légèrement vers la souris
+    logo.addEventListener('pointermove', function (e) {
+      if (e.pointerType !== 'mouse' || reduceMotion.matches) return;
+      var r = logo.getBoundingClientRect();
+      var x = (e.clientX - (r.left + r.width / 2)) / (r.width / 2);
+      var y = (e.clientY - (r.top + r.height / 2)) / (r.height / 2);
+      wrap.style.setProperty('--dx', (x * 6).toFixed(1) + 'px');
+      wrap.style.setProperty('--dy', (y * 4).toFixed(1) + 'px');
+    });
+    logo.addEventListener('pointerleave', function () {
+      wrap.style.setProperty('--dx', '0px');
+      wrap.style.setProperty('--dy', '0px');
+    });
+  })();
+
   /* ---------- Consentement cookies ---------- */
   (function () {
     var box = document.querySelector('[data-cookie]');
