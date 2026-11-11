@@ -8,7 +8,7 @@
   <link rel="icon" type="image/png" href="/images/favicon.png">
   <link rel="preload" href="/fonts/schibsted-grotesk-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/css/webina.css?v=b99d685790">
-  <link rel="stylesheet" href="/css/admin.css?v=33baa0242e">
+  <link rel="stylesheet" href="/css/admin.css?v=d0faf1ce42">
   <script>
     (function () {
       try { var th = localStorage.getItem('webina-theme'); if (th) document.documentElement.setAttribute('data-theme', th); } catch (e) {}
@@ -18,6 +18,9 @@
 <body class="admin-body">
   <svg width="0" height="0" style="position:absolute" aria-hidden="true">
     <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M7 17 17 7M7 7h10v10"/></symbol>
+    <symbol id="i-send" viewBox="0 0 24 24"><path d="M14.54 21.69a.5.5 0 0 0 .94-.03l6.5-19a.5.5 0 0 0-.64-.64l-19 6.5a.5.5 0 0 0-.03.94l7.93 3.18a2 2 0 0 1 1.11 1.11zM21.85 2.15 10.91 13.09"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></symbol>
+    <symbol id="i-wa" viewBox="0 0 24 24"><path d="M3 21l1.65-3.8a9 9 0 1 1 3.4 2.9L3 21"/><path d="M9 10a.5.5 0 0 0 1 0V9a.5.5 0 0 0-1 0v1a5 5 0 0 0 5 5h1a.5.5 0 0 0 0-1h-1a.5.5 0 0 0 0 1"/></symbol>
     <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
     <symbol id="i-mail" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></symbol>
     <symbol id="i-copy" viewBox="0 0 24 24"><rect x="8" y="8" width="14" height="14" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></symbol>
@@ -92,6 +95,7 @@
           <button type="button" class="admin_tab" aria-selected="false" data-tab="tasks"><svg class="icon" aria-hidden="true"><use href="#i-check-square"/></svg>Tâches<span class="admin_count" data-count="tasks"></span></button>
           <button type="button" class="admin_tab" aria-selected="false" data-tab="projects"><svg class="icon" aria-hidden="true"><use href="#i-folder"/></svg>Projets</button>
           <button type="button" class="admin_tab" aria-selected="false" data-tab="expenses"><svg class="icon" aria-hidden="true"><use href="#i-wallet"/></svg>Dépenses</button>
+          <button type="button" class="admin_tab" aria-selected="false" data-tab="prospect"><svg class="icon" aria-hidden="true"><use href="#i-send"/></svg>Prospection</button>
           <p class="admin_side-label">Site</p>
           <button type="button" class="admin_tab" aria-selected="false" data-tab="submissions"><svg class="icon" aria-hidden="true"><use href="#i-inbox"/></svg>Demandes<span class="admin_count" data-count="submissions"></span></button>
           <button type="button" class="admin_tab" aria-selected="false" data-tab="promo"><svg class="icon" aria-hidden="true"><use href="#i-tag"/></svg>Codes de réduction</button>
@@ -182,6 +186,100 @@
         </div>
         <p class="text-size-small text-color-secondary crm_hint">Publicité (Instagram, Facebook, YouTube…), domaines, hébergement, logiciels, sous-traitance… Les montants en $ ou en € sont convertis en TL avec les taux de l'onglet Tarifs. Un abonnement s'ajoute tout seul à chaque échéance.</p>
         <div data-expenses></div>
+      </div>
+
+      <!-- CRM : prospection -->
+      <div class="admin_panel" data-panel="prospect" hidden>
+        <div class="crm_head">
+          <h1 class="crm_title">Prospection</h1>
+          <div class="choice_group" data-pr-view>
+            <label class="choice_chip"><input type="radio" name="prv" value="list" checked><span>Prospects</span></label>
+            <label class="choice_chip"><input type="radio" name="prv" value="search"><span>Recherche automatique</span></label>
+            <label class="choice_chip"><input type="radio" name="prv" value="templates"><span>Modèles d'e-mails</span></label>
+            <label class="choice_chip"><input type="radio" name="prv" value="import"><span>Importer</span></label>
+          </div>
+        </div>
+        <div class="pr_queue" data-pr-queue hidden></div>
+
+        <!-- Liste des prospects -->
+        <div data-pr-section="list">
+          <div class="admin_toolbar pr_filters">
+            <input class="form_input pr_search" type="search" placeholder="Rechercher un nom, un quartier…" data-pr-q aria-label="Rechercher">
+            <select class="form_input is-select pr_select" data-pr-trade aria-label="Métier"><option value="">Tous les métiers</option></select>
+            <div class="choice_group" data-pr-filter>
+              <label class="choice_chip"><input type="radio" name="prf" value="all" checked><span>Tous</span></label>
+              <label class="choice_chip"><input type="radio" name="prf" value="nosite"><span>Sans site</span></label>
+              <label class="choice_chip"><input type="radio" name="prf" value="email"><span>Avec e-mail</span></label>
+              <label class="choice_chip"><input type="radio" name="prf" value="todo"><span>Pas encore contactés</span></label>
+            </div>
+          </div>
+          <div class="pr_bar">
+            <label class="pr_check"><input type="checkbox" data-pr-all><span data-pr-count>0 sélectionné</span></label>
+            <select class="form_input is-select pr_select" data-pr-template aria-label="Modèle"><option value="auto">Modèle selon le métier (automatique)</option></select>
+            <button type="button" class="button is-small is-secondary" data-pr-preview disabled>Aperçu</button>
+            <button type="button" class="button is-small" data-pr-send disabled><svg class="icon" aria-hidden="true"><use href="#i-send"/></svg>Envoyer</button>
+          </div>
+          <div class="admin_table-wrap">
+            <table class="admin_table pr_table">
+              <thead><tr><th class="pr_cell-check"><span class="sr-only">Sélection</span></th><th>Établissement</th><th>Métier</th><th>Quartier</th><th>Contact</th><th>Site</th><th>Dernier e-mail</th><th class="is-actions"><span class="sr-only">Actions</span></th></tr></thead>
+              <tbody data-pr-rows></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Recherche automatique -->
+        <div data-pr-section="search" hidden>
+          <form class="admin_card" data-pr-finder>
+            <div>
+              <h2 class="heading-style-h5">Trouver des établissements</h2>
+              <p class="text-size-small text-color-secondary">Recherche dans OpenStreetMap, la carte libre : nom, téléphone, e-mail et site quand ils y sont renseignés. Les établissements sans site apparaissent en premier.</p>
+            </div>
+            <div class="admin_generate-fields">
+              <div class="form_field pr_field-trade"><label class="form_label" for="pr-ftrade">Métier</label><select class="form_input is-select" id="pr-ftrade" name="trade" required></select></div>
+              <div class="form_field is-grow"><label class="form_label" for="pr-fdist">Quartier (ilçe)</label><input class="form_input" id="pr-fdist" name="district" list="pr-districts" placeholder="ex. Kadıköy · vide = tout İstanbul"></div>
+              <button type="submit" class="button is-large"><svg class="icon" aria-hidden="true"><use href="#i-search"/></svg>Chercher</button>
+            </div>
+            <datalist id="pr-districts"></datalist>
+          </form>
+          <div data-pr-results></div>
+        </div>
+
+        <!-- Modèles -->
+        <div data-pr-section="templates" hidden>
+          <p class="text-size-small text-color-secondary crm_hint">Variables remplacées pour chaque prospect : <code>{isletme}</code> nom de l'établissement · <code>{ilce}</code> quartier · <code>{demo}</code> lien vers l'exemple de son métier. Votre signature et le lien de désinscription sont ajoutés automatiquement.</p>
+          <div class="pr_templates">
+            <ul class="pr_tpl-list" role="list" data-pr-tpls></ul>
+            <form class="admin_card pr_tpl-form" data-pr-tpl-form>
+              <div class="pr_tpl-row">
+                <div class="form_field is-grow"><label class="form_label" for="pr-tname">Nom du modèle</label><input class="form_input" id="pr-tname" name="name" maxlength="120" required></div>
+                <div class="form_field"><label class="form_label" for="pr-ttrade">Métier</label><select class="form_input is-select" id="pr-ttrade" name="trade"></select></div>
+              </div>
+              <div class="form_field"><label class="form_label" for="pr-tsubject">Objet</label><input class="form_input" id="pr-tsubject" name="subject" maxlength="200" required></div>
+              <div class="form_field"><label class="form_label" for="pr-tbody">Texte</label><textarea class="form_input is-area pr_tpl-body" id="pr-tbody" name="body" required></textarea></div>
+              <div class="button-group">
+                <button type="submit" class="button">Enregistrer</button>
+                <button type="button" class="button is-secondary" data-pr-tpl-new>Nouveau modèle</button>
+                <button type="button" class="button is-secondary" data-pr-tpl-del>Supprimer</button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- Import -->
+        <div data-pr-section="import" hidden>
+          <div class="admin_card">
+            <div>
+              <h2 class="heading-style-h5">Importer une liste</h2>
+              <p class="text-size-small text-color-secondary">Dans Excel, sélectionnez le tableau avec sa ligne de titres, copiez (Ctrl + C) et collez ici. Un fichier CSV fonctionne aussi. Colonnes reconnues : İşletme / nom, Kategori, İlçe, e-posta, Telefon, Web sitesi, Kaynak. Les doublons sont ignorés.</p>
+            </div>
+            <textarea class="form_input is-area pr_paste" data-pr-paste placeholder="Collez ici le tableau copié depuis Excel"></textarea>
+            <div class="button-group">
+              <label class="button is-secondary pr_file"><input type="file" accept=".csv,.tsv,.txt" data-pr-file hidden>Choisir un fichier CSV</label>
+              <button type="button" class="button" data-pr-import disabled>Importer</button>
+              <span class="text-size-small text-color-secondary" data-pr-import-info></span>
+            </div>
+          </div>
+        </div>
       </div>
 
       <!-- Demandes -->
@@ -379,7 +477,8 @@
   <div class="admin_toast" role="status" aria-live="polite" data-toast></div>
 
   <script src="/js/i18n.js?v=af15fef9e4" defer></script>
-  <script src="/js/admin.js?v=95ddc2e098" defer></script>
+  <script src="/js/admin.js?v=28e82d8a4c" defer></script>
   <script src="/js/crm.js?v=722af055b3" defer></script>
+  <script src="/js/prospect.js?v=52dfbecf27" defer></script>
 </body>
 </html>

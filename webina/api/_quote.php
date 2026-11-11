@@ -132,19 +132,19 @@ function mail_layout(string $inner, bool $rtl = false, bool $quote = false): str
 }
 
 // Envoi d'un e-mail HTML : SMTP authentifié si configuré, sinon mail() de PHP
-function send_html_mail(string $to, string $subject, string $html, ?string $replyTo = null, ?array &$log = null): bool {
+function send_html_mail(string $to, string $subject, string $html, ?string $replyTo = null, ?array &$log = null, array $extra = []): bool {
     global $CONFIG;
     $from = $CONFIG['mail_from'] ?? 'noreply@' . ($_SERVER['HTTP_HOST'] ?? 'localhost');
     $name = '=?UTF-8?B?' . base64_encode($CONFIG['mail_from_name'] ?? 'Webina') . '?=';
     $subj = '=?UTF-8?B?' . base64_encode($subject) . '?=';
     if (!empty($CONFIG['smtp_host'])) {
-        $ok = smtp_send($to, $subj, $html, "$name <$from>", $from, $replyTo, $log);
+        $ok = smtp_send($to, $subj, $html, "$name <$from>", $from, $replyTo, $log, $extra);
         if (!$ok && (int)($CONFIG['smtp_port'] ?? 465) !== 587) {
             // Secours : TLS sur 587 si SSL 465 est bloqué
             $log[] = '— nouvel essai en TLS 587 —';
             $saved = [$CONFIG['smtp_port'], $CONFIG['smtp_secure']];
             [$CONFIG['smtp_port'], $CONFIG['smtp_secure']] = [587, 'tls'];
-            $ok = smtp_send($to, $subj, $html, "$name <$from>", $from, $replyTo, $log);
+            $ok = smtp_send($to, $subj, $html, "$name <$from>", $from, $replyTo, $log, $extra);
             [$CONFIG['smtp_port'], $CONFIG['smtp_secure']] = $saved;
         }
         if (!$ok) error_log('[webina] SMTP: ' . implode(' | ', array_slice($log ?? [], -3)));
@@ -152,6 +152,7 @@ function send_html_mail(string $to, string $subject, string $html, ?string $repl
     }
     $headers = "MIME-Version: 1.0\r\nContent-Type: text/html; charset=UTF-8\r\nFrom: $name <$from>";
     if ($replyTo) $headers .= "\r\nReply-To: $replyTo";
+    foreach ($extra as $hd) $headers .= "\r\n" . $hd;
     // -f : expéditeur d'enveloppe (meilleure délivrabilité sur cPanel)
     $ok = @mail($to, $subj, $html, $headers, '-f' . $from);
     $log[] = 'mail() => ' . ($ok ? 'accepté' : 'refusé');
@@ -160,7 +161,7 @@ function send_html_mail(string $to, string $subject, string $html, ?string $repl
 }
 
 // Client SMTP minimal (AUTH LOGIN, SSL 465 ou STARTTLS 587)
-function smtp_send(string $to, string $subj, string $html, string $fromHeader, string $fromAddr, ?string $replyTo, ?array &$log): bool {
+function smtp_send(string $to, string $subj, string $html, string $fromHeader, string $fromAddr, ?string $replyTo, ?array &$log, array $extra = []): bool {
     global $CONFIG;
     $log = $log ?? [];
     $host = $CONFIG['smtp_host']; $port = (int)($CONFIG['smtp_port'] ?? 465);
@@ -206,6 +207,7 @@ function smtp_send(string $to, string $subj, string $html, string $fromHeader, s
         'Content-Transfer-Encoding: base64',
     ];
     if ($replyTo) $headers[] = "Reply-To: $replyTo";
+    foreach ($extra as $hd) $headers[] = $hd;
     $msg = implode("\r\n", $headers) . "\r\n\r\n" . chunk_split(base64_encode($html)) . "\r\n.";
     $sent = $cmd($msg, [250]);
     $cmd('QUIT', [221]);

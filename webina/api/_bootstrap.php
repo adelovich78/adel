@@ -171,6 +171,8 @@ function str_field(array $d, string $k, int $max, bool $required = false): ?stri
 function require_same_origin(): void {
     $method = $_SERVER['REQUEST_METHOD'] ?? 'GET';
     if ($method === 'GET') return;
+    // Désinscription en un clic depuis la messagerie du destinataire : le jeton secret suffit
+    if (defined('WEBINA_ONE_CLICK')) return;
     if (($_SERVER['HTTP_X_REQUESTED_WITH'] ?? '') !== 'webina') fail('Requête refusée.', 403);
     $origin = $_SERVER['HTTP_ORIGIN'] ?? '';
     if ($origin !== '') {
