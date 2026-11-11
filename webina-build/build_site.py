@@ -190,16 +190,21 @@ for p in PROJECTS:
 # Captures aussi disponibles en 1024 px (écrans haute densité)
 HIRES = {'w-biobaio.webp', 'w-right-C977AepQ.webp', 'w-ola-DcZDCr04.webp', 'w-newtrtv-FiRvvTCk.webp',
          'w-jandj-D28PlbRX.webp', 'w-audexa-yDxpiSMP.webp', 'w-ydm-BkQBTV4W.webp', 'w-newtrlive-C2LJbWvW.webp'}
-def srcset(img):
-    return f' srcset="/images/{img} 840w, /images/{img[:-5]}-1024.webp 1024w"' if img in HIRES else ''
+def hero_srcset(img):
+    # Scène du héro : 600 px (mobile), 840 px, et 1024 px quand la capture existe
+    stem = img[:-5]
+    big = f', /images/{stem}-1024.webp 1024w' if img in HIRES else ''
+    return f'/images/{stem}-600.webp 600w, /images/{img} 840w{big}'
+BLANK = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=='
+HERO_SIZES = '(max-width: 767px) 82vw, 48vw'
 CLIENTS = [p for p in PROJECTS if not p.get('demo')]   # sites clients (hors démos)
 HERO = [PROJECTS[12], PROJECTS[0], PROJECTS[2], PROJECTS[5], PROJECTS[1], PROJECTS[4], PROJECTS[6]]  # ordre de passage dans le héro
 DEMOS = [
-    {'key': 'law', 'img': 'long-avukat-xcq9581a.webp', 'url': 'https://test2.webina.com.tr/', 'host': 'test2.webina.com.tr', 'icon': 'i-scale'},
-    {'key': 'doctor', 'img': 'long-doktor-I3nRpI3G.webp', 'url': 'https://test.webina.com.tr/', 'host': 'test.webina.com.tr', 'icon': 'i-stethoscope'},
-    {'key': 'shop', 'img': 'long-yildiz-Ce8JzrvT.webp', 'url': 'https://demo.webina.com.tr/', 'host': 'demo.webina.com.tr', 'icon': 'i-store'},
-    {'key': 'barber', 'img': 'long-kuafor-Cd_bigEo.webp', 'url': 'https://my.webina.com.tr/', 'host': 'my.webina.com.tr', 'icon': 'i-scissors'},
-    {'key': 'ecommerce', 'img': 'long-biobaio.webp', 'url': 'https://eticaret.webina.com.tr/', 'host': 'eticaret.webina.com.tr', 'icon': 'i-bag'},
+    {'key': 'law', 'img': 'long-avukat-xcq9581a.webp', 'h': 2716, 'url': 'https://test2.webina.com.tr/', 'host': 'test2.webina.com.tr', 'icon': 'i-scale'},
+    {'key': 'doctor', 'img': 'long-doktor-I3nRpI3G.webp', 'h': 2056, 'url': 'https://test.webina.com.tr/', 'host': 'test.webina.com.tr', 'icon': 'i-stethoscope'},
+    {'key': 'shop', 'img': 'long-yildiz-Ce8JzrvT.webp', 'h': 3835, 'url': 'https://demo.webina.com.tr/', 'host': 'demo.webina.com.tr', 'icon': 'i-store'},
+    {'key': 'barber', 'img': 'long-kuafor-Cd_bigEo.webp', 'h': 1723, 'url': 'https://my.webina.com.tr/', 'host': 'my.webina.com.tr', 'icon': 'i-scissors'},
+    {'key': 'ecommerce', 'img': 'long-biobaio.webp', 'h': 2527, 'url': 'https://eticaret.webina.com.tr/', 'host': 'eticaret.webina.com.tr', 'icon': 'i-bag'},
 ]
 DEPTS = ['strategy', 'design', 'dev', 'marketing', 'support']
 CITIES = ["İstanbul", "Ankara", "İzmir", "Bursa", "Antalya", "Kocaeli", "Konya", "Adana", "Gaziantep", "Eskişehir", "Muğla", "Trabzon"]
@@ -215,11 +220,15 @@ def home_fragments():
     # Scène du héro : une fenêtre de navigateur par réalisation
     cards, segs, labels = [], [], []
     for i, p in enumerate(HERO):
+        # La fenêtre du centre et ses deux voisines se chargent tout de suite ; les autres après l'entrée (script)
+        near = i in (0, 1, len(HERO) - 1)
         prio = 'fetchpriority="high"' if i == 0 else 'fetchpriority="low"'
+        source = (f'src="/images/{p['img']}" srcset="{hero_srcset(p['img'])}"' if near
+                  else f'src="{BLANK}" data-src="/images/{p['img']}" data-srcset="{hero_srcset(p['img'])}"')
         cards.append(f'''
               <a href="{p['url']}" target="_blank" rel="noopener" class="stage_card" data-stage-card{'' if i == 0 else ' tabindex="-1"'}>
                 <span class="stage_bar" aria-hidden="true"><span class="browser_dots"><i></i><i></i><i></i></span><span class="stage_url" dir="ltr">{p['host']}</span></span>
-                <img src="/images/{p['img']}"{srcset(p['img'])} sizes="(max-width: 767px) 80vw, 46vw" alt="{html.escape(p['title'])}" width="840" height="472" {prio} decoding="async" draggable="false">
+                <img {source} sizes="{HERO_SIZES}" alt="{html.escape(p['title'])}" width="840" height="472" {prio} decoding="async" draggable="false">
                 <span class="stage_shade" aria-hidden="true"></span>
               </a>''')
         segs.append(f'''
@@ -244,7 +253,7 @@ def home_fragments():
               <div class="demos_frame">
                 <span class="crop-mark is-tl" aria-hidden="true"></span><span class="crop-mark is-tr" aria-hidden="true"></span><span class="crop-mark is-bl" aria-hidden="true"></span><span class="crop-mark is-br" aria-hidden="true"></span>
                 <div class="browser_bar"><span class="browser_dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="browser_url">{d['host']}</span><span class="browser_live text-style-mono"><span class="live-dot" aria-hidden="true"></span>{tx("demo.badge")}</span></div>
-                <div class="demos_screen" tabindex="0"><img src="/images/{d['img']}" alt="" width="800" loading="lazy" decoding="async"></div>
+                <div class="demos_screen" tabindex="0"><img src="/images/{d['img']}" alt="" width="800" height="{d['h']}" loading="lazy" decoding="async"></div>
               </div>
               <div class="demos_info">
                 {tx(f"demo.items.{k}.name", 'h3', 'heading-style-h3')}
@@ -446,8 +455,8 @@ for name, out, path, navkey, titlekey in PAGES:
     page = page.replace('{{PATH}}', path).replace('{{PAGE}}', titlekey or '')
     page = page.replace('{{LDJSON}}', ldjson if name == 'home' else '')
     first = HERO[0]['img']
-    preload = (f'<link rel="preload" as="image" href="/images/{first}" imagesrcset="/images/{first} 840w, /images/{first[:-5]}-1024.webp 1024w" '
-               f'imagesizes="(max-width: 767px) 80vw, 46vw" fetchpriority="high">') if name == 'home' else ''
+    preload = (f'<link rel="preload" as="image" href="/images/{first}" imagesrcset="{hero_srcset(first)}" '
+               f'imagesizes="{HERO_SIZES}" fetchpriority="high">') if name == 'home' else ''
     page = page.replace('{{PRELOAD}}', preload)
     page = page.replace('{{NAV_DESKTOP}}', nav_items('nav_link', navkey))
     page = page.replace('{{NAV_MOBILE}}', nav_items('nav_mobile-link', navkey))

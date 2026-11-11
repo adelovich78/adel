@@ -31,6 +31,8 @@
   --color-crop: rgba(17, 20, 18, 0.45);
   /* Vert d'origine du logo : réservé au carré-signature, jamais pour du texte */
   --color-brand: #6cc94b;
+  /* Texte « en attente » du manifeste : gris moyen, encore lisible (3:1 sur du grand texte) */
+  --color-text-dim: #8d938f;
 
   --shadow-proof: 0 1px 2px rgba(17, 20, 18, 0.06), 0 12px 32px -8px rgba(17, 20, 18, 0.18);
   --shadow-small: 0 1px 2px rgba(17, 20, 18, 0.06);
@@ -72,6 +74,7 @@
     --color-on-accent: #10200f;
     --color-live: #6cc46c;
     --color-crop: rgba(238, 241, 239, 0.4);
+    --color-text-dim: #646b66;
     --shadow-proof: 0 1px 0 rgba(255, 255, 255, 0.04) inset, 0 16px 40px -12px rgba(0, 0, 0, 0.6);
     --shadow-small: none;
     color-scheme: dark;
@@ -92,6 +95,7 @@
   --color-on-accent: #10200f;
   --color-live: #6cc46c;
   --color-crop: rgba(238, 241, 239, 0.4);
+  --color-text-dim: #646b66;
   --shadow-proof: 0 1px 0 rgba(255, 255, 255, 0.04) inset, 0 16px 40px -12px rgba(0, 0, 0, 0.6);
   --shadow-small: none;
   color-scheme: dark;
@@ -343,7 +347,7 @@ html[lang="ar"] .heading-style-h3 { font-weight: 600; letter-spacing: 0; line-he
 
 .nav_menu { position: relative; display: flex; align-items: center; gap: 4px; }
 .nav_link {
-  position: relative; padding: 8px 12px;
+  position: relative; padding: 8px 12px; white-space: nowrap;
   font-size: 0.9375rem; color: var(--color-text-secondary);
   transition: color var(--dur-hover) ease;
 }
@@ -421,6 +425,12 @@ html[lang="ar"] .heading-style-h3 { font-weight: 600; letter-spacing: 0; line-he
 .nav_mobile-link[aria-current="page"] { color: var(--color-accent-ink); }
 .lang_switch.is-mobile { align-self: flex-start; margin-block: 16px; }
 
+/* Petits écrans d'ordinateur : la barre se resserre au lieu de couper les libellés sur deux lignes */
+@media (min-width: 992px) and (max-width: 1139px) {
+  .nav_wrapper { gap: 12px; }
+  .nav_menu { gap: 0; }
+  .nav_link { padding-inline: 8px; font-size: 0.875rem; }
+}
 @media (max-width: 991px) {
   .nav_menu, .nav_actions > .lang_switch, .button.is-nav { display: none; }
   .nav_toggle { display: inline-block; }
@@ -496,14 +506,15 @@ html[lang="ar"] .hero_heading { line-height: 1.22; letter-spacing: 0; }
   perspective: 1500px; perspective-origin: 50% 50%;
   touch-action: pan-y; user-select: none; -webkit-user-select: none;
 }
-.stage_track { position: absolute; inset: 0; transform-style: preserve-3d; }
+/* Le plan de la piste est transparent mais passe devant les fenêtres reculées : il ne doit pas capter les clics */
+.stage_track { position: absolute; inset: 0; transform-style: preserve-3d; pointer-events: none; }
 .stage_card {
   position: absolute; left: 50%; top: 50%;
   width: var(--card-w); margin-left: calc(var(--card-w) / -2); margin-top: calc(var(--card-h) / -2);
   display: block; overflow: hidden; border-radius: 12px;
   background-color: var(--stage-card);
   box-shadow: 0 0 0 1px var(--stage-line), 0 36px 72px -32px rgba(0, 0, 0, 0.9);
-  opacity: 0; will-change: transform, opacity;
+  opacity: 0; will-change: transform, opacity; pointer-events: auto;
   -webkit-user-drag: none; -webkit-touch-callout: none;
   outline-offset: 5px;
 }
@@ -1162,7 +1173,8 @@ html[lang="ar"] .contact_quote-title { font-weight: 600; }
 .option_button:has(input[type="checkbox"]) .option_mark { border-radius: 6px; }
 .option_mark .icon { width: 12px; height: 12px; stroke-width: 2.5; transform: scale(0.6); opacity: 0; transition: transform 200ms var(--ease-out), opacity 150ms ease; }
 .option_label { flex: 1; line-height: 1.35; }
-.option_price { display: inline-flex; align-items: center; gap: 4px; font-size: 0.8125rem; font-weight: 500; color: var(--color-text-muted); white-space: nowrap; font-variant-numeric: tabular-nums; }
+/* Prix du devis : chiffres proportionnels (en chiffres tabulaires, le point des milliers s'écarte : « 17 . 000 ») */
+.option_price { display: inline-flex; align-items: center; gap: 4px; font-size: 0.8125rem; font-weight: 500; color: var(--color-text-muted); white-space: nowrap; }
 .option_price .icon { width: 12px; height: 12px; }
 .option_button:has(input:checked),
 .option_button.is-locked {
@@ -1207,11 +1219,11 @@ html[lang="ar"] .contact_quote-title { font-weight: 600; }
 .summary_line { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; animation: line-in 260ms var(--ease-out) both; }
 @keyframes line-in { from { opacity: 0; transform: translateY(-4px); } }
 .summary_line-label { color: var(--color-text-secondary); }
-.summary_line-value { white-space: nowrap; font-weight: 500; font-variant-numeric: tabular-nums; }
+.summary_line-value { white-space: nowrap; font-weight: 500; }
 .summary_line-was { margin-inline-end: 6px; color: var(--color-text-muted); text-decoration: line-through; font-weight: 400; }
 .summary_line-free { color: var(--color-accent-ink); }
 .summary_total { margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--color-hairline); }
-.summary_amount { font-family: var(--font-display); font-size: 3rem; font-weight: 500; line-height: 1.05; letter-spacing: -0.04em; font-variant-numeric: tabular-nums; }
+.summary_amount { font-family: var(--font-display); font-size: 3rem; font-weight: 500; line-height: 1.05; letter-spacing: -0.04em; }
 html[lang="ar"] .summary_amount { font-family: var(--font-mono); font-size: 2.5rem; }
 .summary_note { display: flex; align-items: flex-start; gap: 10px; margin-top: 16px; font-size: 0.8125rem; color: var(--color-text-secondary); }
 .summary_note.is-accent { padding: 12px; border-radius: var(--radius-control); background-color: color-mix(in srgb, var(--color-accent) 10%, transparent); color: var(--color-ink); }
@@ -1252,7 +1264,7 @@ html[lang="ar"] .summary_amount { font-family: var(--font-mono); font-size: 2.5r
   .quote_bar-toggle > span { display: flex; flex-direction: column; }
   .quote_bar-toggle .icon { transition: transform var(--dur-menu) var(--ease-out); }
   .quote_bar-toggle[aria-expanded="true"] .icon { transform: rotate(180deg); }
-  .quote_bar-total { font-family: var(--font-mono); font-size: 1.125rem; font-weight: 500; font-variant-numeric: tabular-nums; }
+  .quote_bar-total { font-family: var(--font-mono); font-size: 1.125rem; font-weight: 500; }
 }
 .quote_prepared { font-size: 0.45em; color: var(--color-text-secondary); letter-spacing: -0.01em; margin-top: 8px; }
 .form_success[hidden] { display: none; }
@@ -1838,7 +1850,7 @@ html[lang="ar"] .clients_link { letter-spacing: 0; }
 html[lang="ar"] .manifesto_text { font-weight: 600; letter-spacing: 0; line-height: 1.5; }
 /* Les mots passent du gris à l'encre à mesure qu'on fait défiler la page */
 .manifesto_word { transition: color 380ms ease; }
-.js .manifesto_text.is-split .manifesto_word:not(.is-lit) { color: var(--color-hairline-strong); }
+.js .manifesto_text.is-split .manifesto_word:not(.is-lit) { color: var(--color-text-dim); }
 
 /* ---------- Chiffres ---------- */
 .facts_component {

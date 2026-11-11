@@ -88,7 +88,7 @@
     if (!indicator || !navMenu) return;
     if (!link) { indicator.style.setProperty('--s', '0'); return; }
     if (animate === false) indicator.style.transition = 'none';
-    var pad = 12;
+    var pad = parseFloat(getComputedStyle(link).paddingLeft) || 12;   // suit le resserrement de la barre sur petit écran
     indicator.style.setProperty('--x', (link.offsetLeft + pad) + 'px');
     indicator.style.setProperty('--s', String((link.offsetWidth - pad * 2) / 100));
     if (animate === false) {
@@ -291,6 +291,7 @@
     var idxEl = el.querySelector('[data-stage-index]');
     var toggleBtn = el.querySelector('[data-stage-toggle]');
     var cursor = el.querySelector('[data-stage-cursor]');
+    var crop = el.querySelector('.stage_crop');
     var n = cards.length;
     if (!n) return null;
 
@@ -374,6 +375,11 @@
         if (k === i) { s.getBoundingClientRect(); s.classList.add('is-active'); }
       });
       if (heroTitle) heroTitle.show(i);
+      // Les repères de coupe se resserrent au moment où la nouvelle fenêtre se cale au centre
+      if (crop && crop.animate && started && !dragging && !reduceMotion.matches) {
+        crop.animate([{ transform: 'translate(-50%, -50%) scale(1.03)' }, { transform: 'translate(-50%, -50%) scale(1)' }],
+          { duration: 560, delay: 160, easing: 'cubic-bezier(0.23, 1, 0.32, 1)', fill: 'backwards' });
+      }
       updatePaused();
     }
     function go(t) {
@@ -499,6 +505,14 @@
     }
 
     function measure() { cardW = cards[0].offsetWidth; }
+    // Captures des fenêtres éloignées : chargées une fois l'entrée jouée, pour laisser la priorité à celle du centre
+    function loadRest() {
+      Array.prototype.forEach.call(el.querySelectorAll('img[data-src]'), function (im) {
+        im.srcset = im.getAttribute('data-srcset');
+        im.src = im.getAttribute('data-src');
+        im.removeAttribute('data-src'); im.removeAttribute('data-srcset');
+      });
+    }
     window.addEventListener('resize', function () { measure(); layout(); });
     document.addEventListener('visibilitychange', updatePaused);
     document.addEventListener('webina:lang', function () { syncToggle(); layout(); });
@@ -515,11 +529,12 @@
         if (reduceMotion.matches) {
           // Mouvement réduit : scène déjà déployée, pas de défilement automatique
           spread = spreadTo = 1; manual = true; started = true;
-          syncToggle(); layout(); el.classList.add('is-ready'); updatePaused();
+          syncToggle(); layout(); el.classList.add('is-ready'); updatePaused(); loadRest();
           return;
         }
         // Les fenêtres se déploient de derrière celle du centre, puis le défilement démarre
         setTimeout(function () { spreadTo = 1; kick(); }, 220);
+        setTimeout(loadRest, 700);
         setTimeout(function () {
           el.classList.add('is-ready');
           started = true;
@@ -972,7 +987,6 @@
     var words = [], lit = -1, inView = false, queued = false;
     function split() {
       var text = el.textContent;
-      el.setAttribute('aria-label', text);
       el.textContent = '';
       words = [];
       text.split(/(\s+)/).forEach(function (part) {
@@ -980,7 +994,6 @@
         if (/^\s+$/.test(part)) { el.appendChild(document.createTextNode(' ')); return; }
         var w = document.createElement('span');
         w.className = 'manifesto_word';
-        w.setAttribute('aria-hidden', 'true');
         w.textContent = part;
         el.appendChild(w);
         words.push(w);
