@@ -1,0 +1,30 @@
+    <main class="main-wrapper" id="main">
+      <section class="section_page-header">
+        <div class="padding-global">
+          <div class="container-large">
+            <div class="page-header_component">
+              <p class="text-style-mono text-color-accent" data-enter style="--d:0">{{t:sectorsPage.eyebrow}}</p>
+              <h1 class="heading-style-h1 page-header_title">
+                <span class="line-mask"><span class="line" data-enter-line style="--d:1">{{t:sectorsPage.t1}}</span></span>
+                <span class="line-mask"><span class="line text-color-accent" data-enter-line style="--d:2">{{t:sectorsPage.t2}}</span></span>
+              </h1>
+              <p class="text-size-large text-color-secondary page-header_text" data-enter style="--d:3">{{t:sectorsPage.text}}</p>
+              <div class="button-group" data-enter style="--d:4">
+                <a href="/teklif" class="button is-large">{{t:sectorsPage.talk}}<svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section_sector-grid">
+        <div class="padding-global">
+          <div class="container-large">
+            <div class="padding-section-medium">
+              <ul class="sectors_component is-page" role="list">{{SECTORS_ALL}}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>

@@ -1,0 +1,183 @@
+    <main class="main-wrapper" id="main">
+      <section class="section_page-header is-compact">
+        <div class="padding-global">
+          <div class="container-large">
+            <div class="page-header_component">
+              <p class="text-style-mono text-color-accent" data-enter style="--d:0">{{t:quote.eyebrow}}</p>
+              <h1 class="heading-style-h1 page-header_title" data-quote-title>
+                <span class="line-mask"><span class="line" data-enter-line style="--d:1">{{t:quote.t1}}</span></span>
+                <span class="line-mask"><span class="line text-color-accent" data-enter-line style="--d:2">{{t:quote.t2}}</span></span>
+              </h1>
+              <p class="text-size-large text-color-secondary page-header_text" data-enter style="--d:3">{{t:quote.lead}}</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section_quote" data-quote>
+        <div class="padding-global">
+          <div class="container-large">
+            <div class="quote_component" data-quote-form>
+              <form class="quote_form form_card" novalidate data-enter style="--d:4">
+                <!-- 1. Logo -->
+                <fieldset class="quote_step">
+                  <legend class="quote_step-head"><span class="quote_step-number">01</span><span class="quote_step-title">{{t:quote.q.logo}}</span></legend>
+                  <div class="option_grid is-2">
+                    {{OPT:logo:yes:quote.q.logoYes}}
+                    {{OPT:logo:no:quote.q.logoNo:free}}
+                  </div>
+                </fieldset>
+                <!-- 2. Alan adı -->
+                <fieldset class="quote_step">
+                  <legend class="quote_step-head"><span class="quote_step-number">02</span><span class="quote_step-title">{{t:quote.q.domain}}</span></legend>
+                  <p class="quote_hint text-size-small text-color-secondary">{{t:quote.q.domainHint}}</p>
+                  <div class="option_grid is-2">
+                    {{OPT:domain:yes:quote.q.domainYes}}
+                    {{OPT:domain:no:quote.q.domainNo:included}}
+                  </div>
+                  <div class="quote_reveal" data-show-if="domain" hidden>
+                    <input class="form_input" name="domainName" dir="ltr" maxlength="120" data-ph-yes="quote.q.domainYesPh" data-ph-no="quote.q.domainNoPh" aria-label="Domain">
+                  </div>
+                </fieldset>
+                <!-- 3. Sayfalar -->
+                <fieldset class="quote_step">
+                  <legend class="quote_step-head"><span class="quote_step-number">03</span><span class="quote_step-title">{{t:quote.q.pages}}</span></legend>
+                  <p class="quote_hint text-size-small text-color-secondary" data-fill="pagesHint">&nbsp;</p>
+                  <p class="quote_group-label text-style-mono text-color-muted">{{t:quote.q.pagesIncluded}}</p>
+                  <div class="option_grid is-2">{{INCLUDED_PAGES}}
+                  </div>
+                  <p class="quote_group-label text-style-mono text-color-muted">{{t:quote.q.pagesAddons}}</p>
+                  <div class="option_grid is-3">
+                    {{CHK:pages:gallery:quote.opt.pages.gallery}}
+                    {{CHK:pages:blog:quote.opt.pages.blog}}
+                    {{CHK:pages:shop:quote.opt.pages.shop}}
+                  </div>
+                  <div class="stepper_component" data-stepper>
+                    <div>
+                      <p class="stepper_label">{{t:quote.q.customPages}}</p>
+                      <p class="text-size-small text-color-muted" dir="ltr" data-fill="customHint">&nbsp;</p>
+                    </div>
+                    <div class="stepper_controls">
+                      <button type="button" class="stepper_button" data-step="-1" aria-label="−" disabled><svg class="icon" aria-hidden="true"><use href="#i-minus"/></svg></button>
+                      <output class="stepper_value" data-stepper-value aria-live="polite">0</output>
+                      <button type="button" class="stepper_button is-plus" data-step="1" aria-label="+"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg></button>
+                    </div>
+                  </div>
+                  <div class="quote_reveal" data-show-if="customPages" hidden>
+                    <input class="form_input" name="customDesc" maxlength="200" data-i18n-placeholder="quote.q.customPh" placeholder="{{raw:quote.q.customPh}}" aria-label="{{raw:quote.q.customPages}}">
+                  </div>
+                </fieldset>
+                <!-- 4. Diller -->
+                <fieldset class="quote_step">
+                  <legend class="quote_step-head"><span class="quote_step-number">04</span><span class="quote_step-title">{{t:quote.q.langs}}</span><span class="quote_badge text-style-mono" data-fill="langCount">2 / 2</span></legend>
+                  <p class="quote_hint text-size-small text-color-secondary" data-fill="langsHint">&nbsp;</p>
+                  <div class="option_grid is-3 is-langs">{{LANG_OPTS}}
+                  </div>
+                </fieldset>
+                <!-- 5. İletişim -->
+                <fieldset class="quote_step">
+                  <legend class="quote_step-head"><span class="quote_step-number">05</span><span class="quote_step-title">{{t:quote.q.booking}}</span></legend>
+                  <p class="quote_hint text-size-small text-color-secondary">{{t:quote.q.bookingHint}}</p>
+                  <div class="option_grid">
+                    {{CHK:booking:form:quote.opt.booking.form:included}}
+                    {{CHK:booking:whatsapp:quote.opt.booking.whatsapp:included}}
+                    {{CHK:booking:calendar:quote.opt.booking.calendar:bookingCalendar}}
+                  </div>
+                </fieldset>
+                <!-- 6. Metinler -->
+                <fieldset class="quote_step">
+                  <legend class="quote_step-head"><span class="quote_step-number">06</span><span class="quote_step-title">{{t:quote.q.content}}</span></legend>
+                  <div class="option_grid">
+                    {{OPT:content:ready:quote.opt.content.ready:included}}
+                    {{OPT:content:partial:quote.opt.content.partial:contentPartial}}
+                    {{OPT:content:need:quote.opt.content.need:contentFull}}
+                  </div>
+                </fieldset>
+                <!-- 7. Fotoğraflar -->
+                <fieldset class="quote_step">
+                  <legend class="quote_step-head"><span class="quote_step-number">07</span><span class="quote_step-title">{{t:quote.q.photos}}</span></legend>
+                  <div class="option_grid">
+                    {{OPT:photos:own:quote.opt.photos.own:included}}
+                    {{OPT:photos:stock:quote.opt.photos.stock:included}}
+                    {{OPT:photos:pro:quote.opt.photos.pro:photographer}}
+                  </div>
+                  <p class="quote_note text-size-small text-color-muted"><svg class="icon" aria-hidden="true"><use href="#i-pin"/></svg>{{t:quote.q.photosNote}}</p>
+                </fieldset>
+                <!-- 8. Örnek site -->
+                <fieldset class="quote_step">
+                  <legend class="quote_step-head"><span class="quote_step-number">08</span><span class="quote_step-title">{{t:quote.q.example}} <span class="text-color-muted">({{t:quote.optional}})</span></span></legend>
+                  <input class="form_input" name="example" type="url" dir="ltr" maxlength="200" placeholder="https://" aria-label="{{raw:quote.q.example}}">
+                </fieldset>
+                <!-- 9. Bilgiler -->
+                <fieldset class="quote_step" id="quote-contact">
+                  <legend class="quote_step-head"><span class="quote_step-number">09</span><span class="quote_step-title">{{t:quote.q.contactT}}</span></legend>
+                  <p class="quote_hint text-size-small text-color-secondary">{{t:quote.q.contactHint}}</p>
+                  <div class="form_grid">
+                    <div class="form_field"><label class="form_label" for="q-name">{{t:quote.q.name}}</label><input class="form_input" id="q-name" name="name" autocomplete="name" maxlength="120"></div>
+                    <div class="form_field"><label class="form_label" for="q-email">{{t:quote.q.email}}</label><input class="form_input" id="q-email" name="email" type="email" inputmode="email" autocomplete="email" dir="ltr" maxlength="255"></div>
+                    <div class="form_field"><label class="form_label" for="q-phone">{{t:quote.q.phone}}</label><input class="form_input" id="q-phone" name="phone" type="tel" autocomplete="tel" dir="ltr" maxlength="40"></div>
+                    <div class="form_field"><label class="form_label" for="q-company">{{t:quote.q.company}}</label><input class="form_input" id="q-company" name="company" autocomplete="organization" maxlength="120"></div>
+                    <div class="form_field"><label class="form_label" for="q-sector">{{t:quote.q.sector}}</label><select class="form_input is-select" id="q-sector" name="sector" data-options="contact.sectorOpts" data-empty="quote.q.sectorPh">{{SECTOR_OPTS_Q}}</select></div>
+                    <div class="form_field"><label class="form_label" for="q-city">{{t:quote.q.city}}</label><input class="form_input" id="q-city" name="city" list="webina-cities" autocomplete="address-level2" maxlength="60"><datalist id="webina-cities">{{CITIES}}</datalist></div>
+                    <div class="form_field is-full"><label class="form_label" for="q-notes">{{t:quote.q.notes}} <span class="text-color-muted">({{t:quote.optional}})</span></label><textarea class="form_input is-area" id="q-notes" name="notes" rows="3" maxlength="3000"></textarea></div>
+                    <input type="text" name="website" tabindex="-1" autocomplete="off" class="news_trap" aria-hidden="true">
+                  </div>
+                </fieldset>
+              </form>
+
+              <aside class="quote_aside" data-enter style="--d:5">
+                <div class="summary_card" data-summary>
+                  <h2 class="heading-style-h5">{{t:quote.sum.title}}</h2>
+                  <ul class="summary_lines" role="list" data-lines></ul>
+                  <div class="promo_component" data-promo>
+                    <label class="form_label" for="q-promo">{{t:quote.promo.label}}</label>
+                    <div class="promo_field" data-promo-field>
+                      <input class="promo_input" id="q-promo" name="promo" autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="24" dir="ltr" placeholder="{{raw:quote.promo.ph}}" data-i18n-placeholder="quote.promo.ph">
+                      <button type="button" class="button is-small is-secondary" data-promo-apply>{{t:quote.promo.apply}}</button>
+                    </div>
+                    <div class="promo_applied" data-promo-applied hidden>
+                      <span class="promo_tag"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span dir="ltr" data-promo-code></span></span>
+                      <span class="text-size-small text-color-secondary">{{t:quote.promo.applied}}</span>
+                      <button type="button" class="promo_remove" data-promo-remove>{{t:quote.promo.remove}}</button>
+                    </div>
+                    <p class="promo_error text-size-small" role="status" aria-live="polite" data-promo-error></p>
+                  </div>
+                  <div class="summary_total">
+                    <p class="text-size-small text-color-secondary">{{t:quote.sum.total}}</p>
+                    <p class="summary_amount" dir="ltr" data-total>—</p>
+                  </div>
+                  <p class="summary_note is-accent"><svg class="icon" aria-hidden="true"><use href="#i-shield"/></svg><span data-fill="deposit">{{raw:quote.sum.noDeposit}}</span></p>
+                  <p class="summary_note"><svg class="icon" aria-hidden="true"><use href="#i-info"/></svg><span data-fill="renewal">&nbsp;</span></p>
+                  <p class="form_error text-size-small" role="alert" data-quote-error></p>
+                  <button type="button" class="button is-large is-block" data-quote-send><svg class="icon" aria-hidden="true"><use href="#i-send"/></svg><span data-send-label>{{raw:quote.sum.send}}</span></button>
+                  <p class="summary_fine text-size-small text-color-muted" data-fill-hint>{{t:quote.sum.fillContact}}</p>
+                  <p class="summary_fine text-size-small text-color-muted">{{t:quote.sum.note}}</p>
+                </div>
+                <div class="summary_info">
+                  <p class="heading-style-h5"><svg class="icon" aria-hidden="true"><use href="#i-info"/></svg>{{t:quote.sum.hostTitle}}</p>
+                  <p class="text-size-small text-color-secondary">{{t:quote.sum.hostText}}</p>
+                </div>
+                <a href="https://wa.me/905399662557" target="_blank" rel="noopener" class="button is-large is-secondary is-block"><svg class="icon" aria-hidden="true"><use href="#i-chat"/></svg>{{t:quote.whatsapp}}</a>
+              </aside>
+            </div>
+
+            <!-- Barre fixe mobile -->
+            <div class="quote_bar" data-quote-bar>
+              <button type="button" class="quote_bar-toggle" aria-expanded="false" data-bar-toggle>
+                <svg class="icon" aria-hidden="true"><use href="#i-chevron"/></svg>
+                <span><span class="text-size-small text-color-secondary">{{t:quote.sum.total}}</span><span class="quote_bar-total" dir="ltr" data-total>—</span></span>
+              </button>
+              <button type="button" class="button" data-quote-send><svg class="icon" aria-hidden="true"><use href="#i-send"/></svg><span data-send-label>{{raw:quote.sum.send}}</span></button>
+            </div>
+
+            <div class="quote_success form_card" hidden tabindex="-1" data-quote-success>
+              <span class="form_success-icon"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg></span>
+              <h2 class="heading-style-h3">{{t:quote.sentT}}</h2>
+              <p class="text-color-secondary" data-fill="sentP">&nbsp;</p>
+              <p class="summary_amount" dir="ltr" data-total>—</p>
+              <a href="https://wa.me/905399662557" target="_blank" rel="noopener" class="button is-secondary"><svg class="icon" aria-hidden="true"><use href="#i-chat"/></svg>{{t:quote.whatsapp}}</a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>

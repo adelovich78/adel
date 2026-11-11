@@ -1,0 +1,95 @@
+    <main class="main-wrapper" id="main">
+      <section class="section_page-header">
+        <div class="padding-global">
+          <div class="container-large">
+            <div class="page-header_component">
+              <p class="text-style-mono text-color-accent" data-enter style="--d:0">{{t:contact.eyebrow}}</p>
+              <h1 class="heading-style-h1 page-header_title">
+                <span class="line-mask"><span class="line" data-enter-line style="--d:1">{{t:contact.t1}}</span></span>
+                <span class="line-mask"><span class="line text-color-accent" data-enter-line style="--d:2">{{t:contact.t2}}</span></span>
+              </h1>
+              <p class="text-size-large text-color-secondary page-header_text" data-enter style="--d:3">{{t:contact.text}}</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section_contact">
+        <div class="padding-global">
+          <div class="container-large">
+            <div class="padding-section-medium">
+              <div class="contact_component">
+                <aside class="contact_aside" data-enter style="--d:4">
+                  <a href="mailto:info@webina.com.tr" class="contact_channel">
+                    <svg class="icon" aria-hidden="true"><use href="#i-mail"/></svg>
+                    <span><span class="text-style-mono text-color-muted">E-mail</span><span class="contact_channel-value">info@webina.com.tr</span></span>
+                  </a>
+                  <a href="https://wa.me/905399662557" target="_blank" rel="noopener" class="contact_channel">
+                    <svg class="icon" aria-hidden="true"><use href="#i-chat"/></svg>
+                    <span><span class="text-style-mono text-color-muted">{{t:ui.whatsapp}}</span><span class="contact_channel-value" dir="ltr">+90 539 966 25 57</span></span>
+                  </a>
+                  <div class="contact_channel">
+                    <svg class="icon" aria-hidden="true"><use href="#i-pin"/></svg>
+                    <span><span class="text-style-mono text-color-muted">{{t:ui.office}}</span><span class="contact_channel-value">{{t:footer.address}}</span></span>
+                  </div>
+                  <a href="/teklif" class="contact_quote">
+                    <span class="text-style-mono text-color-accent">{{t:quote.eyebrow}}</span>
+                    <span class="contact_quote-title">{{t:quote.t1}} {{t:quote.t2}}</span>
+                    <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg>
+                  </a>
+                </aside>
+
+                <div class="form_card" data-enter style="--d:5">
+                  <form class="form_component" data-contact-form novalidate>
+                    <div class="form_grid">
+                      <div class="form_field">
+                        <label class="form_label" for="c-name">{{t:contact.name}}</label>
+                        <input class="form_input" id="c-name" name="name" autocomplete="name" maxlength="120" required>
+                      </div>
+                      <div class="form_field">
+                        <label class="form_label" for="c-email">{{t:contact.email}}</label>
+                        <input class="form_input" id="c-email" name="email" type="email" inputmode="email" autocomplete="email" maxlength="255" dir="ltr" required>
+                      </div>
+                      <div class="form_field">
+                        <label class="form_label" for="c-phone">{{t:contact.phone}}</label>
+                        <input class="form_input" id="c-phone" name="phone" type="tel" autocomplete="tel" maxlength="40" dir="ltr">
+                      </div>
+                      <div class="form_field">
+                        <label class="form_label" for="c-company">{{t:contact.company}}</label>
+                        <input class="form_input" id="c-company" name="company" autocomplete="organization" maxlength="120">
+                      </div>
+                      <div class="form_field">
+                        <label class="form_label" for="c-sector">{{t:contact.sector}}</label>
+                        <select class="form_input is-select" id="c-sector" name="sector" data-options="contact.sectorOpts">{{SECTOR_OPTS}}</select>
+                      </div>
+                      <div class="form_field">
+                        <label class="form_label" for="c-service">{{t:contact.service}}</label>
+                        <select class="form_input is-select" id="c-service" name="service" data-options="contact.serviceOpts">{{SERVICE_OPTS}}</select>
+                      </div>
+                      <div class="form_field is-full">
+                        <p class="form_label" id="c-budget-label">{{t:contact.budget}}</p>
+                        <div class="choice_group" role="radiogroup" aria-labelledby="c-budget-label" data-budget>{{BUDGET_OPTS}}
+                        </div>
+                        <input type="hidden" id="c-budget" name="budget">
+                      </div>
+                      <div class="form_field is-full">
+                        <label class="form_label" for="c-message">{{t:contact.message}}</label>
+                        <textarea class="form_input is-area" id="c-message" name="message" rows="5" maxlength="4000" required></textarea>
+                      </div>
+                      <input type="text" name="website" tabindex="-1" autocomplete="off" class="news_trap" aria-hidden="true">
+                    </div>
+                    <p class="form_error text-size-small" role="alert"></p>
+                    <button type="submit" class="button is-large is-block" data-label-idle="contact.send" data-label-busy="contact.sending">{{t:contact.send}}<svg class="icon" aria-hidden="true"><use href="#i-send"/></svg></button>
+                  </form>
+                  <div class="form_success" hidden tabindex="-1">
+                    <span class="form_success-icon"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg></span>
+                    <h2 class="heading-style-h3">{{t:contact.sentT}}</h2>
+                    <p class="text-color-secondary">{{t:contact.sentP}}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>

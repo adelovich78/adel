@@ -1,0 +1,266 @@
+{
+ "tr": {
+  "eyebrow": "Canlı demolar",
+  "t1": "Mesleğinize özel",
+  "t2": "hazır siteler.",
+  "text": "Sitenizin nasıl görüneceğini şimdi görün: avukatlar, doktorlar, kuaförler, esnaf ve online mağazalar için hazırladığımız gerçek, çalışan demolar.",
+  "live": "Canlı demoyu aç",
+  "want": "Bu siteden istiyorum",
+  "badge": "Canlı demo",
+  "items": {
+   "law": {
+    "tab": "Avukat",
+    "name": "Yıldız Hukuk Bürosu",
+    "desc": "Güven veren, sade ve prestijli bir hukuk bürosu sitesi.",
+    "feats": [
+     "Online danışmanlık randevusu",
+     "Uzmanlık alanları ve özgeçmiş",
+     "Türkçe & İngilizce",
+     "Açık / koyu tema, WhatsApp"
+    ]
+   },
+   "doctor": {
+    "tab": "Doktor",
+    "name": "Dr. Karim Haddad",
+    "desc": "Hastalarına güven veren, modern bir hekim sitesi.",
+    "feats": [
+     "Online randevu talebi",
+     "Ameliyatlar ve tedaviler",
+     "Foto & video galerisi, blog",
+     "Türkçe & İngilizce"
+    ]
+   },
+   "shop": {
+    "tab": "Esnaf",
+    "name": "Yıldız Oto Elektrik",
+    "desc": "Müşteri getiren, mahallenin en modern dükkân sitesi.",
+    "feats": [
+     "Araca göre akü bulucu",
+     "Hizmetler ve müşteri yorumları",
+     "Harita, çalışma saatleri",
+     "Tek tıkla WhatsApp & arama"
+    ]
+   },
+   "barber": {
+    "tab": "Kuaför",
+    "name": "Yıldız Berber",
+    "desc": "Koltukları dolduran, şık bir berber & kuaför sitesi.",
+    "feats": [
+     "30 saniyede online randevu",
+     "Boş saatleri anlık görme",
+     "Hizmet ve fiyat listesi",
+     "Türkçe & İngilizce, WhatsApp"
+    ]
+   },
+   "ecommerce": {
+    "tab": "E-ticaret",
+    "name": "Bio&Baio",
+    "desc": "Gurme ürünler ve el yapımı tekstil için satışa hazır online mağaza.",
+    "feats": [
+     "Kategoriler, filtreler ve sıralama",
+     "Sepet, ücretsiz kargo eşiği ve sipariş",
+     "Ürün sayfaları ve benzer ürünler",
+     "4 dil, Arapça dahil"
+    ]
+   }
+  }
+ },
+ "en": {
+  "eyebrow": "Live demos",
+  "t1": "Ready-made sites",
+  "t2": "for your profession.",
+  "text": "See how your site could look right now: real, working demos we built for lawyers, doctors, hair salons, local shops and online stores.",
+  "live": "Open live demo",
+  "want": "I want this site",
+  "badge": "Live demo",
+  "items": {
+   "law": {
+    "tab": "Lawyer",
+    "name": "Yıldız Law Office",
+    "desc": "A trustworthy, clean and prestigious law firm website.",
+    "feats": [
+     "Online consultation booking",
+     "Practice areas and CV",
+     "Turkish & English",
+     "Light / dark theme, WhatsApp"
+    ]
+   },
+   "doctor": {
+    "tab": "Doctor",
+    "name": "Dr. Karim Haddad",
+    "desc": "A modern physician website that builds patient trust.",
+    "feats": [
+     "Online appointment requests",
+     "Procedures and treatments",
+     "Photo & video gallery, blog",
+     "Turkish & English"
+    ]
+   },
+   "shop": {
+    "tab": "Local shop",
+    "name": "Yıldız Auto Electric",
+    "desc": "The most modern shop site in the neighbourhood — built to bring customers.",
+    "feats": [
+     "Battery finder by vehicle",
+     "Services and customer reviews",
+     "Map and opening hours",
+     "One-tap WhatsApp & call"
+    ]
+   },
+   "barber": {
+    "tab": "Hair salon",
+    "name": "Yıldız Barber",
+    "desc": "A stylish barber & salon site that keeps the chairs busy.",
+    "feats": [
+     "Online booking in 30 seconds",
+     "Live free time slots",
+     "Services and price list",
+     "Turkish & English, WhatsApp"
+    ]
+   },
+   "ecommerce": {
+    "tab": "E-commerce",
+    "name": "Bio&Baio",
+    "desc": "A ready-to-sell online store for fine foods and artisan textiles.",
+    "feats": [
+     "Collections, filters and sorting",
+     "Cart, free-shipping threshold and checkout",
+     "Product pages with related items",
+     "4 languages, Arabic included"
+    ]
+   }
+  }
+ },
+ "fr": {
+  "eyebrow": "Démos en ligne",
+  "t1": "Des sites prêts",
+  "t2": "pour votre métier.",
+  "text": "Voyez dès maintenant à quoi ressemblera votre site : de vraies démos fonctionnelles pour avocats, médecins, coiffeurs, commerçants et boutiques en ligne.",
+  "live": "Voir la démo en ligne",
+  "want": "Je veux ce site",
+  "badge": "Démo en ligne",
+  "items": {
+   "law": {
+    "tab": "Avocat",
+    "name": "Cabinet Yıldız Hukuk",
+    "desc": "Un site de cabinet sobre, rassurant et prestigieux.",
+    "feats": [
+     "Prise de RDV de consultation en ligne",
+     "Domaines d'expertise et parcours",
+     "Turc & anglais",
+     "Thème clair / sombre, WhatsApp"
+    ]
+   },
+   "doctor": {
+    "tab": "Médecin",
+    "name": "Dr Karim Haddad",
+    "desc": "Un site médical moderne qui inspire confiance aux patients.",
+    "feats": [
+     "Demande de rendez-vous en ligne",
+     "Interventions et traitements",
+     "Galerie photo & vidéo, blog",
+     "Turc & anglais"
+    ]
+   },
+   "shop": {
+    "tab": "Commerçant",
+    "name": "Yıldız Oto Elektrik",
+    "desc": "Le site de boutique le plus moderne du quartier, pensé pour attirer des clients.",
+    "feats": [
+     "Recherche de batterie par véhicule",
+     "Services et avis clients",
+     "Carte et horaires",
+     "WhatsApp & appel en un clic"
+    ]
+   },
+   "barber": {
+    "tab": "Coiffeur",
+    "name": "Yıldız Berber",
+    "desc": "Un site de barbier & coiffeur élégant qui remplit l'agenda.",
+    "feats": [
+     "Réservation en ligne en 30 secondes",
+     "Créneaux libres en temps réel",
+     "Prestations et tarifs",
+     "Turc & anglais, WhatsApp"
+    ]
+   },
+   "ecommerce": {
+    "tab": "E-commerce",
+    "name": "Bio&Baio",
+    "desc": "Une boutique en ligne prête à vendre, pour l'épicerie fine et le textile artisanal.",
+    "feats": [
+     "Collections, filtres et tri",
+     "Panier, seuil de livraison offerte et commande",
+     "Fiches produit et suggestions",
+     "4 langues, arabe compris"
+    ]
+   }
+  }
+ },
+ "ar": {
+  "eyebrow": "عروض تجريبية مباشرة",
+  "t1": "مواقع جاهزة",
+  "t2": "لمهنتكم.",
+  "text": "شاهدوا الآن كيف سيبدو موقعكم: عروض حقيقية تعمل، صمّمناها للمحامين والأطباء وصالونات الحلاقة والمحلات والمتاجر الإلكترونية.",
+  "live": "افتح العرض المباشر",
+  "want": "أريد هذا الموقع",
+  "badge": "عرض مباشر",
+  "items": {
+   "law": {
+    "tab": "محامٍ",
+    "name": "مكتب يلدز للمحاماة",
+    "desc": "موقع مكتب محاماة أنيق وموثوق.",
+    "feats": [
+     "حجز استشارة عبر الإنترنت",
+     "مجالات الاختصاص والسيرة",
+     "التركية والإنجليزية",
+     "وضع فاتح / داكن، واتساب"
+    ]
+   },
+   "doctor": {
+    "tab": "طبيب",
+    "name": "د. كريم حداد",
+    "desc": "موقع طبي عصري يبني ثقة المرضى.",
+    "feats": [
+     "طلب موعد عبر الإنترنت",
+     "العمليات والعلاجات",
+     "معرض صور وفيديو، مدونة",
+     "التركية والإنجليزية"
+    ]
+   },
+   "shop": {
+    "tab": "محل تجاري",
+    "name": "يلدز لكهرباء السيارات",
+    "desc": "أحدث موقع محل في الحي، مصمّم لجذب الزبائن.",
+    "feats": [
+     "باحث البطاريات حسب السيارة",
+     "الخدمات وآراء العملاء",
+     "الخريطة وساعات العمل",
+     "واتساب واتصال بنقرة"
+    ]
+   },
+   "barber": {
+    "tab": "حلاق",
+    "name": "يلدز للحلاقة",
+    "desc": "موقع أنيق لصالون حلاقة يملأ المواعيد.",
+    "feats": [
+     "حجز موعد خلال 30 ثانية",
+     "عرض الأوقات المتاحة مباشرة",
+     "قائمة الخدمات والأسعار",
+     "التركية والإنجليزية، واتساب"
+    ]
+   },
+   "ecommerce": {
+    "tab": "متجر إلكتروني",
+    "name": "Bio&Baio",
+    "desc": "متجر إلكتروني جاهز للبيع للمنتجات الفاخرة والمنسوجات الحرفية.",
+    "feats": [
+     "مجموعات وفلاتر وترتيب",
+     "سلة وحد الشحن المجاني وإتمام الطلب",
+     "صفحات منتجات واقتراحات",
+     "4 لغات بما فيها العربية"
+    ]
+   }
+  }
+ }
+}

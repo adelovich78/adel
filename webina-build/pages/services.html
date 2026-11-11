@@ -1,0 +1,42 @@
+    <main class="main-wrapper" id="main">
+      <section class="section_page-header">
+        <div class="padding-global">
+          <div class="container-large">
+            <div class="page-header_component">
+              <p class="text-style-mono text-color-accent" data-enter style="--d:0">{{t:servicesPage.eyebrow}}</p>
+              <h1 class="heading-style-h1 page-header_title">
+                <span class="line-mask"><span class="line" data-enter-line style="--d:1">{{t:servicesPage.t1}}</span></span>
+                <span class="line-mask"><span class="line text-color-accent" data-enter-line style="--d:2">{{t:servicesPage.t2}}</span></span>
+              </h1>
+              <p class="text-size-large text-color-secondary page-header_text" data-enter style="--d:3">{{t:servicesPage.text}}</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section_service-index">
+        <div class="padding-global">
+          <div class="container-large">
+            <div class="padding-section-medium">
+              <ol class="service-index_list" role="list">{{SERVICES_ALL}}
+              </ol>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section_method">
+        <div class="padding-global">
+          <div class="container-large">
+            <div class="padding-section-large">
+              <div class="section-header is-row">
+                <h2 class="heading-style-h2" data-reveal>{{t:servicesPage.methodA}}</h2>
+                <a href="/teklif" class="text-link" data-reveal style="--d:1">{{t:cta}}<svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+              </div>
+              <ol class="method_component" role="list" data-method>{{METHOD}}
+              </ol>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
