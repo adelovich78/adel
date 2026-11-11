@@ -1817,7 +1817,8 @@ html[lang="ar"] .drawer_title { font-weight: 600; letter-spacing: 0; line-height
 }
 .clients_track { display: flex; flex: none; align-items: center; animation: clients-scroll 44s linear infinite; }
 [dir="rtl"] .clients_track { animation-name: clients-scroll-rtl; }
-.clients_marquee:hover .clients_track, .clients_marquee:focus-within .clients_track { animation-play-state: paused; }
+.clients_marquee:focus-within .clients_track { animation-play-state: paused; }
+@media (hover: hover) and (pointer: fine) { .clients_marquee:hover .clients_track { animation-play-state: paused; } }
 @keyframes clients-scroll { to { transform: translateX(-100%); } }
 @keyframes clients-scroll-rtl { to { transform: translateX(100%); } }
 .clients_item { display: flex; align-items: center; gap: 28px; padding-inline-end: 28px; white-space: nowrap; }
@@ -1876,7 +1877,7 @@ html[lang="ar"] .manifesto_text { font-weight: 600; letter-spacing: 0; line-heig
 .worklist_item { border-bottom: 1px solid var(--color-hairline); }
 .worklist_link {
   display: grid; grid-template-columns: 56px minmax(0, 1.5fr) minmax(0, 1fr) minmax(0, 1fr) 40px;
-  align-items: center; gap: 24px; padding-block: 26px;
+  align-items: center; gap: 24px; padding-block: 24px;
   transition: opacity 240ms ease;
 }
 .worklist_index { color: var(--color-text-muted); }
@@ -1884,7 +1885,7 @@ html[lang="ar"] .manifesto_text { font-weight: 600; letter-spacing: 0; line-heig
 .worklist_title {
   font-family: var(--font-display); font-weight: 500; font-size: clamp(1.5rem, 2.6vw, 2.25rem); line-height: 1.1;
   letter-spacing: -0.035em; color: var(--color-ink);
-  transition: transform 420ms var(--ease-out);
+  transition: transform 300ms var(--ease-out);
 }
 html[lang="ar"] .worklist_title { letter-spacing: 0; }
 .worklist_cat { font-size: 0.9375rem; }
@@ -1925,7 +1926,7 @@ html[lang="ar"] .worklist_title { letter-spacing: 0; }
 }
 @media (max-width: 767px) {
   /* Sur mobile, pas de curseur : la capture s'affiche dans la ligne */
-  .worklist_link { grid-template-columns: 96px minmax(0, 1fr) 40px; grid-template-rows: auto auto; gap: 4px 16px; padding-block: 18px; }
+  .worklist_link { grid-template-columns: 96px minmax(0, 1fr) 40px; grid-template-rows: auto auto; gap: 4px 16px; padding-block: 16px; }
   .worklist_index { display: none; }
   .worklist_thumb { display: block; grid-row: 1 / span 2; width: 96px; aspect-ratio: 840 / 472; object-fit: cover; object-position: top; border-radius: 8px; box-shadow: 0 0 0 1px var(--color-hairline); }
   .worklist_title { grid-column: 2; align-self: end; font-size: 1.25rem; }
