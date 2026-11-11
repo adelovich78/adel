@@ -204,12 +204,23 @@
         <form class="admin_card admin_generate" data-generate>
           <div>
             <h2 class="heading-style-h5">Générer des codes</h2>
-            <p class="text-size-small text-color-secondary">Chaque code retire <span data-promo-amount>2.000</span> TL du devis et ne fonctionne qu'une seule fois.</p>
+            <p class="text-size-small text-color-secondary">Choisissez la réduction : un pourcentage du devis ou un montant en TL. Chaque code ne fonctionne qu'une seule fois.</p>
           </div>
           <div class="admin_generate-fields">
             <div class="form_field">
               <label class="form_label" for="g-count">Nombre</label>
               <input class="form_input" id="g-count" name="count" type="number" min="1" max="50" value="5" inputmode="numeric">
+            </div>
+            <div class="form_field">
+              <label class="form_label" for="g-kind">Type de réduction</label>
+              <select class="form_input admin_kind" id="g-kind" name="kind">
+                <option value="percent">Pourcentage</option>
+                <option value="amount">Montant</option>
+              </select>
+            </div>
+            <div class="form_field">
+              <label class="form_label" for="g-value">Réduction</label>
+              <div class="admin_money"><input class="form_input" id="g-value" name="value" type="number" min="1" max="100" value="25" required inputmode="numeric"><span data-g-unit>%</span></div>
             </div>
             <div class="form_field is-grow">
               <label class="form_label" for="g-note">Note (facultatif)</label>
@@ -228,7 +239,7 @@
         </div>
         <div class="admin_table-wrap">
           <table class="admin_table">
-            <thead><tr><th>Code</th><th>État</th><th>Note</th><th>Créé le</th><th class="is-actions"><span class="sr-only">Actions</span></th></tr></thead>
+            <thead><tr><th>Code</th><th>Réduction</th><th>État</th><th>Note</th><th>Créé le</th><th class="is-actions"><span class="sr-only">Actions</span></th></tr></thead>
             <tbody data-promo-rows></tbody>
           </table>
         </div>
@@ -246,7 +257,7 @@
               <div class="form_field"><label class="form_label" for="pr-base">Prix du pack</label><div class="admin_money"><input class="form_input" id="pr-base" name="prices.base" type="number" min="0" step="100" inputmode="numeric"><span>TL</span></div></div>
               <div class="form_field"><label class="form_label" for="pr-pages">Pages incluses</label><input class="form_input" id="pr-pages" name="includedPages" type="number" min="1" max="50" inputmode="numeric"></div>
               <div class="form_field"><label class="form_label" for="pr-langs">Langues incluses</label><input class="form_input" id="pr-langs" name="includedLanguages" type="number" min="1" max="9" inputmode="numeric"></div>
-              <div class="form_field"><label class="form_label" for="pr-promo">Réduction d'un code</label><div class="admin_money"><input class="form_input" id="pr-promo" name="prices.promoDiscount" type="number" min="0" step="100" inputmode="numeric"><span>TL</span></div></div>
+              <div class="form_field"><label class="form_label" for="pr-promo">Réduction des anciens codes</label><div class="admin_money"><input class="form_input" id="pr-promo" name="prices.promoDiscount" type="number" min="0" step="100" inputmode="numeric"><span>TL</span></div></div>
             </div>
             <p class="admin_preview text-size-small" data-pricing-preview></p>
           </div>

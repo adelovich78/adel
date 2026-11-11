@@ -255,12 +255,18 @@
     var q = p.toString();
     return location.origin + '/teklif' + (q ? '?' + q : '');
   }
+  // « %25 » ou « 1.000 TL » ; anciens codes sans valeur : réduction par défaut des tarifs
+  function discountLabel(c) {
+    if (c.kind === 'percent' && c.value) return '%' + c.value;
+    var v = c.value != null ? Number(c.value) : Number((state.pricing && state.pricing.prices.promoDiscount) || 0);
+    return v.toLocaleString('tr-TR') + ' TL';
+  }
   function renderCodes() {
     var rows = state.codes.filter(function (c) {
       return state.promoFilter === 'all' || (state.promoFilter === 'free' ? !c.used_at : !!c.used_at);
     });
     var tb = $('[data-promo-rows]');
-    if (!rows.length) { tb.innerHTML = '<tr><td colspan="5" class="is-muted">Aucun code</td></tr>'; return; }
+    if (!rows.length) { tb.innerHTML = '<tr><td colspan="6" class="is-muted">Aucun code</td></tr>'; return; }
     tb.innerHTML = rows.map(function (c) {
       var used = !!c.used_at;
       var etat = used
@@ -268,6 +274,7 @@
         : '<span class="admin_badge is-new">Disponible</span>';
       return '<tr class="' + (used ? 'is-used' : '') + (state.fresh.indexOf(c.code) > -1 ? ' is-fresh' : '') + '" data-id="' + esc(c.id) + '" data-code="' + esc(c.code) + '">' +
         '<td><span class="admin_code">' + esc(c.code) + '</span></td>' +
+        '<td class="is-num">' + esc(discountLabel(c)) + '</td>' +
         '<td>' + etat + '</td>' +
         '<td class="is-muted">' + esc(c.note || '—') + '</td>' +
         '<td class="is-muted">' + esc(date(c.created_at)) + '</td>' +
@@ -296,7 +303,7 @@
   $('[data-generate]').addEventListener('submit', function (e) {
     e.preventDefault();
     var f = e.target;
-    api('promo.php', { method: 'POST', body: { count: Number(f.count.value) || 1, note: f.note.value.trim() } }).then(function (d) {
+    api('promo.php', { method: 'POST', body: { count: Number(f.count.value) || 1, note: f.note.value.trim(), kind: f.kind.value, value: Number(f.value.value) || 0 } }).then(function (d) {
       state.fresh = d.codes || [];
       var box = $('[data-new-codes]');
       box.innerHTML = state.fresh.map(function (c) { return '<span class="admin_code">' + esc(c) + '</span>'; }).join('') +
@@ -306,6 +313,14 @@
       toast(state.fresh.length + ' code(s) créé(s)');
       return api('promo.php').then(function (r) { state.codes = r.items || []; renderStats(); renderCodes(); fillCodeSelect(); });
     }).catch(function (ex) { toast(ex.message); });
+  });
+  // Pourcentage (1–100) ou montant en TL : l'unité et les bornes suivent le type choisi
+  var gForm = $('[data-generate]');
+  gForm.kind.addEventListener('change', function () {
+    var pct = gForm.kind.value === 'percent';
+    gForm.value.max = pct ? '100' : '1000000';
+    gForm.value.value = pct ? '25' : '1000';
+    $('[data-g-unit]').textContent = pct ? '%' : 'TL';
   });
   $('[data-new-codes]').addEventListener('click', function (e) {
     if (e.target.closest('[data-copy-new]')) copy(state.fresh.join('\n'), 'Codes copiés');
@@ -326,7 +341,7 @@
       i.classList.remove('is-changed');
     });
     previewPricing();
-    $('[data-promo-amount]').textContent = Number(state.pricing.prices.promoDiscount || 0).toLocaleString('tr-TR');
+    renderCodes();
   }
   // Aperçu du pack dans les trois devises, avec le même arrondi que le site
   function previewPricing() {

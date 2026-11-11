@@ -9,7 +9,8 @@ function load_pricing(): array {
 }
 
 // $promo : code déjà validé et consommé (vide = pas de réduction)
-function compute_quote(array $p, string $lang, array $a, string $promo = ''): array {
+// $rule  : sa réduction, ['kind' => 'percent'|'amount', 'value' => int|null] (voir promo_rule)
+function compute_quote(array $p, string $lang, array $a, string $promo = '', ?array $rule = null): array {
     $currency = $p['currencyByLang'][$lang] ?? 'USD';
     $per  = (float)($p['tlPer'][$currency] ?? 1);
     $step = (float)($p['rounding'][$currency] ?? 1);
@@ -39,8 +40,20 @@ function compute_quote(array $p, string $lang, array $a, string $promo = ''): ar
     $lines[] = ['key' => 'domain', 'amount' => 0, 'free' => true, 'was' => $t['renewalYearly']];
 
     // Code de réduction (usage unique, vérifié et consommé par contact.php)
-    if ($promo !== '' && !empty($t['promoDiscount'])) {
-        $lines[] = ['key' => 'promo', 'amount' => -$t['promoDiscount'], 'c' => $promo];
+    if ($promo !== '') {
+        $subtotal = array_sum(array_column($lines, 'amount'));
+        $kind = $rule['kind'] ?? 'amount';
+        $value = $rule['value'] ?? null;
+        if ($kind === 'percent' && $value) {
+            $off = (int)(round($subtotal * min(100, $value) / 100 / $step) * $step);
+            $label = $promo . ' · %' . $value;
+        } else {
+            // Montant saisi en TL, converti comme les autres prix ; à défaut, la réduction par défaut des tarifs
+            $off = $value ? (int)(round(($value / $per) / $step) * $step) : (int)($t['promoDiscount'] ?? 0);
+            $label = $promo;
+        }
+        $off = min($off, $subtotal);
+        if ($off > 0) $lines[] = ['key' => 'promo', 'amount' => -$off, 'c' => $label];
     }
 
     $total = array_sum(array_column($lines, 'amount'));

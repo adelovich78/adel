@@ -434,7 +434,8 @@
 .crm_sub-line > span:first-child { display: inline-flex; align-items: center; gap: 8px; }
 .crm_sub-line .icon { width: 15px; height: 15px; color: var(--color-text-muted); }
 .crm_sub-line .crm_inline { gap: 12px; font-size: 0.875rem; }
-.admin_table .is-num { text-align: end; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.admin_table .is-num { text-align: end; white-space: nowrap; }
+.admin_kind { min-width: 160px; }
 .admin_table td .icon { width: 14px; height: 14px; color: var(--color-text-muted); vertical-align: -2px; }
 @media (max-width: 599px) { .crm_split li { grid-template-columns: minmax(0, 1fr) auto; } .crm_split-bar { grid-column: 1 / -1; grid-row: 2; } }
 .crm_grid { margin-bottom: 16px; }

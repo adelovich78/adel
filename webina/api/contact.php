@@ -22,7 +22,7 @@ $phone   = str_field($d, 'phone', 40);
 $company = str_field($d, 'company', 120);
 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) fail('Email invalide.', 422);
 
-$details = null; $quote = null; $lang = 'tr'; $clean = []; $promo = ''; $promoRejected = false;
+$details = null; $quote = null; $lang = 'tr'; $clean = []; $promo = ''; $promoRule = null; $promoRejected = false;
 if ($kind === 'quote') {
     $message = str_field($d, 'message', 4000) ?? '';
     $raw = is_array($d['details'] ?? null) ? $d['details'] : [];
@@ -37,12 +37,13 @@ if ($kind === 'quote') {
     $asked = promo_normalise((string)($clean['promo'] ?? ''));
     if ($asked !== '') {
         $pdo = db_or_null();
-        if ($pdo && promo_consume($pdo, $asked, $name, $email)) $promo = $asked;
+        $promoRule = $pdo ? promo_consume($pdo, $asked, $name, $email) : null;
+        if ($promoRule !== null) $promo = $asked;
         else $promoRejected = true;
     }
     $clean['promo'] = $promo;
     // Prix recalculé côté serveur : le navigateur ne peut pas le falsifier
-    $quote = compute_quote(load_pricing(), $lang, $clean, $promo);
+    $quote = compute_quote(load_pricing(), $lang, $clean, $promo, $promoRule);
     $clean['price'] = (string)$quote['total'];
     $clean['currency'] = $quote['currency'];
     $details = json_encode($clean, JSON_UNESCAPED_UNICODE);

@@ -113,6 +113,11 @@ function ensure_schema(PDO $pdo): void {
         used_email VARCHAR(255) NULL,
         INDEX idx_used (used_at)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci");
+    // Réduction propre à chaque code : un pourcentage (ex. 25 %) ou un montant en TL (ex. 1 000 TL).
+    // Les anciens codes (valeur vide) gardent la réduction par défaut des tarifs.
+    if (!$pdo->query("SHOW COLUMNS FROM promo_codes LIKE 'kind'")->fetchColumn()) {
+        $pdo->exec("ALTER TABLE promo_codes ADD COLUMN kind VARCHAR(8) NOT NULL DEFAULT 'amount' AFTER code, ADD COLUMN value INT NULL AFTER kind");
+    }
     // Premiers codes distribués avant l'admin : ajoutés une seule fois, à la création de la table
     if ($isNew) {
         $st = $pdo->prepare("INSERT IGNORE INTO promo_codes (id, code, note) VALUES (?, ?, 'Premiers codes')");

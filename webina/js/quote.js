@@ -42,7 +42,7 @@
     Object.keys(pricing.prices).forEach(function (k) {
       t[k] = Math.round(pricing.prices[k] / rate / step) * step;
     });
-    return { currency: cur, t: t };
+    return { currency: cur, t: t, rate: rate, step: step };
   }
 
   function compute() {
@@ -61,7 +61,19 @@
     if (state.photos === 'pro') lines.push({ key: 'photos', amount: t.photographer });
     if (state.logo !== 'yes') lines.push({ key: 'logo', amount: 0, free: true, was: t.logoValue });
     lines.push({ key: 'domain', amount: 0, free: true, was: t.renewalYearly });
-    if (state.promo && t.promoDiscount) lines.push({ key: 'promo', amount: -t.promoDiscount, code: state.promo });
+    // Code de réduction : pourcentage du sous-total ou montant fixe (en TL, converti comme les autres prix)
+    if (state.promo) {
+      var sub = lines.reduce(function (s, l) { return s + l.amount; }, 0), off = 0, label = state.promo;
+      var rule = state.promoRule || {};
+      if (rule.kind === 'percent' && rule.value) {
+        off = Math.round(sub * Math.min(100, rule.value) / 100 / c.step) * c.step;
+        label = state.promo + ' · %' + rule.value;
+      } else {
+        off = rule.value ? Math.round(rule.value / c.rate / c.step) * c.step : (t.promoDiscount || 0);
+      }
+      off = Math.min(off, sub);
+      if (off > 0) lines.push({ key: 'promo', amount: -off, code: label });
+    }
     var total = lines.reduce(function (s, l) { return s + l.amount; }, 0);
     var deposit = Math.round(total * pricing.depositPercent / 100);
     return {
@@ -324,6 +336,7 @@
     checkCode(code).then(function (res) {
       if (res && res.valid) {
         state.promo = code;
+        state.promoRule = { kind: res.kind, value: res.value };
         showPromo();
         render();
       } else if (!silent) {
@@ -339,7 +352,7 @@
   promoInput.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); applyPromo(false); } });
   promoInput.addEventListener('input', function () { promoError.textContent = ''; });
   promoBox.querySelector('[data-promo-remove]').addEventListener('click', function () {
-    state.promo = '';
+    state.promo = ''; state.promoRule = null;
     promoInput.value = '';
     showPromo();
     render();
