@@ -479,4 +479,19 @@ open(os.path.join(OUT, 'js', 'i18n.js'), 'w').write(
 missing = [f for f in sorted({p['img'] for p in PROJECTS} | {d['img'] for d in DEMOS})
            if not os.path.exists(os.path.join(OUT, 'images', f))]
 assert not missing, ('images manquantes', missing)
+# Numéro de version sur le CSS et le JS : le navigateur garde ces fichiers une semaine en cache,
+# donc chaque modification doit changer l'adresse, sinon l'ancien style s'applique aux nouvelles pages.
+import hashlib
+def stamp_assets(path):
+    page = open(path, encoding='utf-8').read()
+    def ver(m):
+        f = os.path.join(OUT, m.group(1).lstrip('/'))
+        h = hashlib.md5(open(f, 'rb').read()).hexdigest()[:10] if os.path.exists(f) else '0'
+        return f'{m.group(1)}?v={h}"'
+    new = re.sub(r'(/(?:css|js)/[\w.-]+\.(?:css|js))(?:\?v=\w+)?"', ver, page)
+    if new != page:
+        open(path, 'w', encoding='utf-8').write(new)
+for _, out, *_ in PAGES:
+    stamp_assets(os.path.join(OUT, out))
+stamp_assets(os.path.join(OUT, 'admin', 'index.html'))
 print('ok')
