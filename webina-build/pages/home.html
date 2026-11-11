@@ -1,34 +1,74 @@
     <main class="main-wrapper" id="main">
-      <!-- Hero -->
+      <!-- Hero : titre + scène 3D des réalisations (glissable) -->
       <section class="section_hero">
         <div class="padding-global">
           <div class="container-large">
-            <div class="hero_component">
-              <div class="hero_content">
-                <p class="hero_eyebrow text-style-mono" data-enter style="--d:0">{{t:home.badge}}</p>
-                <h1 class="hero_heading heading-style-h1" data-hero-title>
-                  <span class="line-mask"><span class="line" data-enter-line style="--d:1">{{t:home.h1a}}</span></span>
-                  <span class="line-mask"><span class="line" data-enter-line style="--d:2"><span class="hero_rotator text-color-accent" data-rotator><span data-i18n="home.h1b">{{raw:home.h1b}}</span></span> {{t:home.h1c}}</span></span>
-                  <span class="line-mask"><span class="line" data-enter-line style="--d:3">{{t:home.h1d}}</span></span>
-                </h1>
-                <p class="hero_lead text-size-large text-color-secondary" data-enter style="--d:4">{{t:home.lead}}</p>
-                <div class="button-group" data-enter style="--d:5">
-                  <a href="/teklif" class="button is-large">{{t:cta}}<svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
-                  <a href="/portfolio" class="button is-large is-secondary">{{t:nav.portfolio}}</a>
-                </div>
-              </div>
-              <div class="hero_visual" data-hero-deck>
-                <div class="hero_stack">
-                  <div class="hero_crop" aria-hidden="true"><span class="crop-mark is-tl"></span><span class="crop-mark is-tr"></span><span class="crop-mark is-bl"></span><span class="crop-mark is-br"></span></div>{{HERO_PROOFS}}
-                </div>
-                <div class="hero_caption text-style-mono" aria-live="off">
-                  <span class="hero_count" dir="ltr"><span data-hero-index>01</span> / {{HERO_TOTAL}}</span>
-                  <span class="hero_caption-line" aria-hidden="true"><span class="hero_caption-fill"></span></span>
-                  <span class="hero_caption-host" data-hero-host>{{HERO_FIRST_HOST}}</span>
-                </div>
+            <p class="hero_eyebrow text-style-mono" data-enter style="--d:0">{{t:home.badge}}</p>
+            <h1 class="hero_heading heading-style-display" data-hero-title>
+              <span class="line-mask"><span class="line" data-enter-line style="--d:1">{{t:home.h1a}} <span class="hero_rotator text-color-accent" data-rotator><span data-i18n="home.h1b">{{raw:home.h1b}}</span></span></span></span>
+              <span class="line-mask"><span class="line" data-enter-line style="--d:2">{{t:home.h1c}} {{t:home.h1d}}</span></span>
+            </h1>
+            <div class="hero_intro">
+              <p class="hero_lead text-size-large text-color-secondary" data-enter style="--d:3">{{t:home.lead}}</p>
+              <div class="button-group" data-enter style="--d:4">
+                <a href="/teklif" class="button is-large">{{t:cta}}<svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+                <a href="/portfolio" class="button is-large is-secondary">{{t:nav.portfolio}}</a>
               </div>
             </div>
-            <ul class="hero_disciplines text-style-mono" role="list" data-enter style="--d:6">{{WORDS}}</ul>
+          </div>
+        </div>
+        <div class="hero_stage" data-stage>
+          <div class="stage_scene" data-stage-scene role="group" aria-roledescription="carousel" aria-label="{{raw:stage.aria}}" data-i18n-aria="stage.aria">
+            <div class="stage_track">{{STAGE_CARDS}}
+            </div>
+            <div class="stage_crop" aria-hidden="true"><span class="crop-mark is-tl"></span><span class="crop-mark is-tr"></span><span class="crop-mark is-bl"></span><span class="crop-mark is-br"></span></div>
+          </div>
+          <div class="padding-global">
+            <div class="container-large">
+              <div class="stage_meta">
+                <p class="stage_count text-style-mono" dir="ltr" aria-hidden="true"><span data-stage-index>01</span> / {{STAGE_TOTAL}}</p>
+                <div class="stage_segs">{{STAGE_SEGS}}
+                </div>
+                <div class="stage_controls">
+                  <button type="button" class="stage_button" data-stage-toggle aria-label="{{raw:stage.pause}}" data-i18n-aria="stage.pause"><svg class="icon is-pause" aria-hidden="true"><use href="#i-pause"/></svg><svg class="icon is-play" aria-hidden="true"><use href="#i-play"/></svg></button>
+                  <button type="button" class="stage_button" data-stage-prev aria-label="{{raw:stage.prev}}" data-i18n-aria="stage.prev"><svg class="icon" aria-hidden="true"><use href="#i-chevron-left"/></svg></button>
+                  <button type="button" class="stage_button" data-stage-next aria-label="{{raw:stage.next}}" data-i18n-aria="stage.next"><svg class="icon" aria-hidden="true"><use href="#i-chevron-right"/></svg></button>
+                </div>
+                <p class="stage_label" aria-live="off">{{STAGE_LABELS}}
+                </p>
+                <p class="stage_speed" data-speed hidden><span data-speed-text></span></p>
+              </div>
+            </div>
+          </div>
+          <div class="stage_cursor" data-stage-cursor aria-hidden="true"><span class="stage_cursor-label is-drag">{{t:stage.drag}}</span><span class="stage_cursor-label is-open">{{t:stage.open}}</span></div>
+        </div>
+      </section>
+
+      <!-- Clients : bandeau défilant -->
+      <section class="section_clients">
+        <div class="clients_component">
+          <p class="clients_label text-style-mono">{{t:clients.label}}</p>
+          <div class="clients_marquee">
+            <ul class="clients_track" role="list">{{CLIENTS}}
+            </ul>
+            <ul class="clients_track" role="list" aria-hidden="true">{{CLIENTS_CLONE}}
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Manifeste : la phrase s'éclaire au défilement + chiffres vérifiables -->
+      <section class="section_manifesto">
+        <div class="padding-global">
+          <div class="container-large">
+            <div class="padding-section-large">
+              <div class="manifesto_component">
+                <p class="text-style-mono text-color-accent" data-reveal>{{t:manifesto.eyebrow}}</p>
+                <p class="manifesto_text" data-manifesto data-i18n="manifesto.text">{{raw:manifesto.text}}</p>
+              </div>
+              <ul class="facts_component" role="list">{{FACTS}}
+              </ul>
+            </div>
           </div>
         </div>
       </section>
@@ -104,8 +144,8 @@
                 <h2 class="heading-style-h2" data-reveal>{{t:home.projA}} {{t:home.projB}}</h2>
                 <a href="/portfolio" class="text-link" data-reveal style="--d:1">{{t:ui.seeAll}}<svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
               </div>
-              <div class="work_component">{{PROJECTS}}
-              </div>
+              <ol class="worklist_component" role="list" data-worklist>{{WORKLIST}}
+              </ol>
             </div>
           </div>
         </div>
@@ -126,4 +166,6 @@
           </div>
         </div>
       </section>
+      <!-- Aperçu flottant de l'index des projets (hors des sections : il suit le curseur dans toute la page) -->
+      <div class="worklist_preview" data-worklist-preview aria-hidden="true">{{WORKLIST_IMAGES}}</div>
     </main>

@@ -78,19 +78,65 @@ PROMO = {
     'ar': {'label': 'رمز الخصم', 'ph': 'رمزكم', 'apply': 'تطبيق', 'applied': 'تم تطبيق الرمز', 'invalid': 'هذا الرمز غير صالح', 'remove': 'إزالة', 'used': 'تم استخدام هذا الرمز من قبل', 'line': 'رمز الخصم ({c})'},
 }
 
+# Un mot par réalisation de la scène du héro (même ordre que HERO, plus bas)
+ROTATE = {
+    'tr': ['mağazayı', 'portfolyoyu', 'büro sitesini', 'vitrini', 'haber sitesini', 'kurumsal siteyi', 'markayı'],
+    'en': ['online store', 'portfolio', 'firm website', 'showcase', 'news site', 'corporate site', 'brand'],
+    'fr': ['la boutique', 'le portfolio', 'le site du cabinet', 'la vitrine', "le site d'actualités", "le site d'entreprise", 'la marque'],
+    'ar': ['متجراً إلكترونياً', 'معرضاً رقمياً', 'موقعاً لمكتبك', 'حضوراً رقمياً', 'موقعاً إخبارياً', 'موقعاً لشركتك', 'موقعاً احترافياً'],
+}
+# Textes de la version 2 de l'accueil : scène, bandeau clients, manifeste, chiffres
+V2 = {
+    'tr': {
+        'stage': {'aria': 'Öne çıkan projeler', 'prev': 'Önceki proje', 'next': 'Sonraki proje',
+                  'pause': 'Otomatik geçişi durdur', 'play': 'Otomatik geçişi başlat', 'drag': 'Sürükle', 'open': 'Aç'},
+        'speed': 'Bu sayfa {t} saniyede açıldı',
+        'clients': {'label': 'Bize güvenenler'},
+        'manifesto': {'eyebrow': 'Yaklaşımımız',
+                      'text': 'Web sitesi bir kartvizit değil, sizin için çalışan bir ekip arkadaşıdır: randevu alır, teklif hazırlar, dört dilde konuşur ve siz uyurken müşteri karşılar.'},
+        'facts': ['yayında müşteri sitesi', 'canlı sektör demosu', 'dilde yayın: TR, EN, FR, AR', 'uzmanlık, tek ekipte'],
+    },
+    'en': {
+        'stage': {'aria': 'Featured projects', 'prev': 'Previous project', 'next': 'Next project',
+                  'pause': 'Pause autoplay', 'play': 'Resume autoplay', 'drag': 'Drag', 'open': 'Open'},
+        'speed': 'This page loaded in {t} s',
+        'clients': {'label': 'Trusted by'},
+        'manifesto': {'eyebrow': 'Our approach',
+                      'text': 'A website is not a business card. It is a teammate that works for you: it books appointments, prepares quotes, speaks four languages and welcomes customers while you sleep.'},
+        'facts': ['client sites live', 'live industry demos', 'languages: TR, EN, FR, AR', 'disciplines in one team'],
+    },
+    'fr': {
+        'stage': {'aria': 'Projets à la une', 'prev': 'Projet précédent', 'next': 'Projet suivant',
+                  'pause': 'Mettre le défilement en pause', 'play': 'Reprendre le défilement', 'drag': 'Glisser', 'open': 'Ouvrir'},
+        'speed': "Cette page s'est affichée en {t} s",
+        'clients': {'label': 'Ils nous font confiance'},
+        'manifesto': {'eyebrow': 'Notre approche',
+                      'text': "Un site web n'est pas une carte de visite. C'est un collègue qui travaille pour vous : il prend les rendez-vous, prépare les devis, parle quatre langues et accueille vos clients pendant que vous dormez."},
+        'facts': ['sites clients en ligne', 'démos métier en ligne', 'langues : TR, EN, FR, AR', 'expertises dans une seule équipe'],
+    },
+    'ar': {
+        'stage': {'aria': 'مشاريع مختارة', 'prev': 'المشروع السابق', 'next': 'المشروع التالي',
+                  'pause': 'إيقاف العرض التلقائي', 'play': 'متابعة العرض التلقائي', 'drag': 'اسحب', 'open': 'افتح'},
+        'speed': 'فُتحت هذه الصفحة خلال {t} ثانية',
+        'clients': {'label': 'يثقون بنا'},
+        'manifesto': {'eyebrow': 'نهجنا',
+                      'text': 'الموقع الإلكتروني ليس بطاقة عمل، بل زميل يعمل لأجلك: يحجز المواعيد، يجهّز عروض الأسعار، يتحدث أربع لغات ويستقبل عملاءك وأنت نائم.'},
+        'facts': ['مواقع عملاء على الإنترنت', 'عروض تجريبية حية', 'لغات: التركية والإنجليزية والفرنسية والعربية', 'تخصصاً في فريق واحد'],
+    },
+}
+
 DICT = {}
 for l in LANGS:
     b = base[l]
     h = dict(b['home'])
     for k in ['h1d', 'whatB', 'sectorsB']:
         h[k] = strip_end(h[k])
-    # Mots qui remplacent tour à tour le mot vert du titre (le premier est celui d'origine)
-    h['rotate'] = {
-        'tr': [h['h1b'], 'web sitesini', 'yazılımı', 'markayı', 'e-ticareti'],
-        'en': [h['h1b'], 'website', 'software', 'brand', 'online store'],
-        'fr': [h['h1b'], 'site', 'logiciel', 'CRM', 'branding'],
-        'ar': [h['h1b'], 'موقعاً', 'برنامجاً', 'متجراً إلكترونياً'],
-    }[l]
+    # Français : l'article fait partie du mot qui change (« le digital », « la boutique »…)
+    if l == 'fr':
+        h['h1a'], h['h1b'] = 'On crée', 'le digital'
+    # Mot vert du titre : un par réalisation de la scène, dans le même ordre que HERO.
+    # Le mot d'origine (h1b) reste affiché à l'arrivée, avant le premier changement.
+    h['rotate'] = ROTATE[l]
     team = dict(b['team']); team['t2'] = strip_end(team['t2'])
     foot = dict(b['footer']); foot['title2'] = strip_end(foot['title2'])
     dm = dict(demo[l]); dm['t2'] = strip_end(dm['t2'])
@@ -107,6 +153,7 @@ for l in LANGS:
         'services': b['services'], 'sectors': b['sectors'], 'cats': b['cats'], 'tags': b['tags'],
         'demo': dm, 'ui': ui[l], 'servicesPage': sp, 'sectorsPage': sc, 'portfolioPage': pp,
         'contact': ct, 'quote': q, 'cookie': COOKIE[l], 'details': build_details(l),
+        **V2[l],
     }
 TR = DICT['tr']
 
@@ -140,7 +187,12 @@ PROJECTS = [
 ]
 for p in PROJECTS:
     p['host'] = re.sub(r'^https?://(www\.)?|/$', '', p['url'])
-HOME_PROJECTS = PROJECTS[:4]
+# Captures aussi disponibles en 1024 px (écrans haute densité)
+HIRES = {'w-biobaio.webp', 'w-right-C977AepQ.webp', 'w-ola-DcZDCr04.webp', 'w-newtrtv-FiRvvTCk.webp',
+         'w-jandj-D28PlbRX.webp', 'w-audexa-yDxpiSMP.webp', 'w-ydm-BkQBTV4W.webp', 'w-newtrlive-C2LJbWvW.webp'}
+def srcset(img):
+    return f' srcset="/images/{img} 840w, /images/{img[:-5]}-1024.webp 1024w"' if img in HIRES else ''
+CLIENTS = [p for p in PROJECTS if not p.get('demo')]   # sites clients (hors démos)
 HERO = [PROJECTS[12], PROJECTS[0], PROJECTS[2], PROJECTS[5], PROJECTS[1], PROJECTS[4], PROJECTS[6]]  # ordre de passage dans le héro
 DEMOS = [
     {'key': 'law', 'img': 'long-avukat-xcq9581a.webp', 'url': 'https://test2.webina.com.tr/', 'host': 'test2.webina.com.tr', 'icon': 'i-scale'},
@@ -160,13 +212,20 @@ def nav_items(cls, current):
 
 # ---------- Fragments accueil ----------
 def home_fragments():
-    proofs = []
+    # Scène du héro : une fenêtre de navigateur par réalisation
+    cards, segs, labels = [], [], []
     for i, p in enumerate(HERO):
-        proofs.append(f'''
-                  <a href="{p['url']}" target="_blank" rel="noopener" class="hero_proof" data-pos="{i}" style="--i:{i}" data-host="{p['host']}" {'tabindex="-1"' if i else ''}>
-                    <div class="browser_bar" aria-hidden="true"><span class="browser_dots"><i></i><i></i><i></i></span><span class="browser_url">{p['host']}</span></div>
-                    <img src="/images/{p['img']}" alt="{html.escape(p['title'])}" width="840" height="472" {'fetchpriority="high"' if i == 0 else 'loading="eager"'} decoding="async">
-                  </a>''')
+        prio = 'fetchpriority="high"' if i == 0 else 'fetchpriority="low"'
+        cards.append(f'''
+              <a href="{p['url']}" target="_blank" rel="noopener" class="stage_card" data-stage-card{'' if i == 0 else ' tabindex="-1"'}>
+                <span class="stage_bar" aria-hidden="true"><span class="browser_dots"><i></i><i></i><i></i></span><span class="stage_url" dir="ltr">{p['host']}</span></span>
+                <img src="/images/{p['img']}"{srcset(p['img'])} sizes="(max-width: 767px) 80vw, 46vw" alt="{html.escape(p['title'])}" width="840" height="472" {prio} decoding="async" draggable="false">
+                <span class="stage_shade" aria-hidden="true"></span>
+              </a>''')
+        segs.append(f'''
+                  <button type="button" class="stage_seg{' is-active' if i == 0 else ''}" data-stage-go="{i}" aria-label="{html.escape(p['title'])}"><span class="stage_seg-line"><span class="stage_seg-fill"></span></span></button>''')
+        labels.append(f'''
+                  <span class="stage_label-item{' is-active' if i == 0 else ''}"><span class="brand-square" aria-hidden="true"></span>{tx(f"cats.{p['cat']}", 'span', 'stage_label-cat')}<span class="stage_label-title">{html.escape(p['title'])}</span></span>''')
     services = ''.join(f'''
             <li class="services_item has-detail" data-reveal style="--d:{min(i,5)}">
               {cover('services', i, f'ser-t-{i}')}
@@ -209,25 +268,34 @@ def home_fragments():
               <ul class="team_roles" role="list">{items}
               </ul>
             </div>''')
-    works = ''.join(f'''
-            <a href="{p['url']}" target="_blank" rel="noopener" class="work_card is-{i+1}" data-reveal style="--d:{i%2}">
-              <div class="work_image-wrapper" data-clip>
-                <img src="/images/{p['img']}" alt="{html.escape(p['title'])}" width="840" height="472" loading="lazy" decoding="async" class="work_image">
-              </div>
-              <div class="work_meta">
-                <div>
-                  {tx(f"cats.{p['cat']}", 'p', 'text-style-mono text-color-muted')}
-                  <h3 class="work_title heading-style-h5">{html.escape(p['title'])}</h3>
-                </div>
-                <span class="work_arrow">{icon("i-arrow")}</span>
-              </div>
-            </a>''' for i, p in enumerate(HOME_PROJECTS))
+    # Bandeau clients (la copie sert à boucler le défilement sans raccord)
+    def client_items(clone):
+        return ''.join(f'''
+              <li class="clients_item"><a href="{p['url']}" target="_blank" rel="noopener" class="clients_link"{' tabindex="-1"' if clone else ''}>{html.escape(p['title'])}</a><span class="brand-square" aria-hidden="true"></span></li>''' for p in CLIENTS)
+    # Chiffres : calculés à partir du contenu du site, donc toujours exacts
+    numbers = [len(CLIENTS), len(DEMOS), len(LANGS), len(TR['team']['roles'])]
+    facts = ''.join(f'''
+                <li class="facts_item" data-reveal style="--d:{i}"><span class="facts_number" data-count="{n}">{n}</span>{tx(f"facts.{i}", 'span', 'facts_label text-color-secondary')}</li>''' for i, n in enumerate(numbers))
+    # Projets clients : index typographique ; l'aperçu suit le curseur (vignette en ligne sur mobile)
+    worklist = ''.join(f'''
+                <li class="worklist_item" data-reveal>
+                  <a href="{p['url']}" target="_blank" rel="noopener" class="worklist_link" data-preview="{i}">
+                    <span class="worklist_index text-style-mono">{i+1:02d}</span>
+                    <img class="worklist_thumb" src="/images/{p['img']}" alt="" width="840" height="472" loading="lazy" decoding="async">
+                    <span class="worklist_title">{html.escape(p['title'])}</span>
+                    {tx(f"cats.{p['cat']}", 'span', 'worklist_cat text-color-secondary')}
+                    <span class="worklist_host text-style-mono text-color-muted" dir="ltr">{p['host']}</span>
+                    <span class="worklist_arrow">{icon("i-arrow")}</span>
+                  </a>
+                </li>''' for i, p in enumerate(CLIENTS))
+    worklist_images = ''.join(f'<img data-src="/images/{p["img"]}" alt="" width="840" height="472" decoding="async">' for p in CLIENTS)
     sectors = ''.join(sector_item(i) for i in range(6))
-    words = ' '.join(f'<li {ti(f"home.words.{i}")}>{t(f"home.words.{i}")}</li>' for i in range(len(TR['home']['words'])))
     return {
-        'HERO_PROOFS': ''.join(proofs), 'HERO_TOTAL': f'{len(HERO):02d}', 'HERO_FIRST_HOST': HERO[0]['host'],
-        'WORDS': words, 'SERVICES': services, 'DEMO_TABS': '\n'.join(tabs), 'DEMO_PANELS': ''.join(panels),
-        'TEAM': ''.join(team), 'PROJECTS': works, 'SECTORS': sectors,
+        'STAGE_CARDS': ''.join(cards), 'STAGE_TOTAL': f'{len(HERO):02d}', 'STAGE_SEGS': ''.join(segs), 'STAGE_LABELS': ''.join(labels),
+        'CLIENTS': client_items(False), 'CLIENTS_CLONE': client_items(True), 'FACTS': facts,
+        'WORKLIST': worklist, 'WORKLIST_IMAGES': worklist_images,
+        'SERVICES': services, 'DEMO_TABS': '\n'.join(tabs), 'DEMO_PANELS': ''.join(panels),
+        'TEAM': ''.join(team), 'SECTORS': sectors,
     }
 
 def cover(kind, i, title_id):
@@ -377,6 +445,10 @@ for name, out, path, navkey, titlekey in PAGES:
     page = page.replace('{{TITLE}}', html.escape(title)).replace('{{DESC}}', html.escape(DESC[name]))
     page = page.replace('{{PATH}}', path).replace('{{PAGE}}', titlekey or '')
     page = page.replace('{{LDJSON}}', ldjson if name == 'home' else '')
+    first = HERO[0]['img']
+    preload = (f'<link rel="preload" as="image" href="/images/{first}" imagesrcset="/images/{first} 840w, /images/{first[:-5]}-1024.webp 1024w" '
+               f'imagesizes="(max-width: 767px) 80vw, 46vw" fetchpriority="high">') if name == 'home' else ''
+    page = page.replace('{{PRELOAD}}', preload)
     page = page.replace('{{NAV_DESKTOP}}', nav_items('nav_link', navkey))
     page = page.replace('{{NAV_MOBILE}}', nav_items('nav_mobile-link', navkey))
     page = page.replace('{{NAV_FOOTER}}', nav_items('footer_nav-link', None))

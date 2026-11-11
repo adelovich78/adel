@@ -52,11 +52,13 @@ window.WEBINA_I18N = {
    "sectorsA": "Her mesleğe",
    "sectorsB": "uygun çözüm",
    "rotate": [
-    "dijitali",
-    "web sitesini",
-    "yazılımı",
-    "markayı",
-    "e-ticareti"
+    "mağazayı",
+    "portfolyoyu",
+    "büro sitesini",
+    "vitrini",
+    "haber sitesini",
+    "kurumsal siteyi",
+    "markayı"
    ]
   },
   "team": {
@@ -991,7 +993,30 @@ window.WEBINA_I18N = {
      ]
     }
    ]
-  }
+  },
+  "stage": {
+   "aria": "Öne çıkan projeler",
+   "prev": "Önceki proje",
+   "next": "Sonraki proje",
+   "pause": "Otomatik geçişi durdur",
+   "play": "Otomatik geçişi başlat",
+   "drag": "Sürükle",
+   "open": "Aç"
+  },
+  "speed": "Bu sayfa {t} saniyede açıldı",
+  "clients": {
+   "label": "Bize güvenenler"
+  },
+  "manifesto": {
+   "eyebrow": "Yaklaşımımız",
+   "text": "Web sitesi bir kartvizit değil, sizin için çalışan bir ekip arkadaşıdır: randevu alır, teklif hazırlar, dört dilde konuşur ve siz uyurken müşteri karşılar."
+  },
+  "facts": [
+   "yayında müşteri sitesi",
+   "canlı sektör demosu",
+   "dilde yayın: TR, EN, FR, AR",
+   "uzmanlık, tek ekipte"
+  ]
  },
  "en": {
   "nav": {
@@ -1045,11 +1070,13 @@ window.WEBINA_I18N = {
    "sectorsA": "A solution for",
    "sectorsB": "every profession",
    "rotate": [
-    "digital",
-    "website",
-    "software",
-    "brand",
-    "online store"
+    "online store",
+    "portfolio",
+    "firm website",
+    "showcase",
+    "news site",
+    "corporate site",
+    "brand"
    ]
   },
   "team": {
@@ -1984,7 +2011,30 @@ window.WEBINA_I18N = {
      ]
     }
    ]
-  }
+  },
+  "stage": {
+   "aria": "Featured projects",
+   "prev": "Previous project",
+   "next": "Next project",
+   "pause": "Pause autoplay",
+   "play": "Resume autoplay",
+   "drag": "Drag",
+   "open": "Open"
+  },
+  "speed": "This page loaded in {t} s",
+  "clients": {
+   "label": "Trusted by"
+  },
+  "manifesto": {
+   "eyebrow": "Our approach",
+   "text": "A website is not a business card. It is a teammate that works for you: it books appointments, prepares quotes, speaks four languages and welcomes customers while you sleep."
+  },
+  "facts": [
+   "client sites live",
+   "live industry demos",
+   "languages: TR, EN, FR, AR",
+   "disciplines in one team"
+  ]
  },
  "fr": {
   "nav": {
@@ -2014,8 +2064,8 @@ window.WEBINA_I18N = {
   },
   "home": {
    "badge": "Digital Creation Agency",
-   "h1a": "On crée le",
-   "h1b": "digital",
+   "h1a": "On crée",
+   "h1b": "le digital",
    "h1c": "qui vous",
    "h1d": "ressemble",
    "lead": "Sites web, programmes sur mesure, CRM et SEO — conçus pour votre métier, de la clinique au cabinet d'avocats, du média au commerce de quartier.",
@@ -2038,11 +2088,13 @@ window.WEBINA_I18N = {
    "sectorsA": "Une solution adaptée à",
    "sectorsB": "chaque métier",
    "rotate": [
-    "digital",
-    "site",
-    "logiciel",
-    "CRM",
-    "branding"
+    "la boutique",
+    "le portfolio",
+    "le site du cabinet",
+    "la vitrine",
+    "le site d'actualités",
+    "le site d'entreprise",
+    "la marque"
    ]
   },
   "team": {
@@ -2977,7 +3029,30 @@ window.WEBINA_I18N = {
      ]
     }
    ]
-  }
+  },
+  "stage": {
+   "aria": "Projets à la une",
+   "prev": "Projet précédent",
+   "next": "Projet suivant",
+   "pause": "Mettre le défilement en pause",
+   "play": "Reprendre le défilement",
+   "drag": "Glisser",
+   "open": "Ouvrir"
+  },
+  "speed": "Cette page s'est affichée en {t} s",
+  "clients": {
+   "label": "Ils nous font confiance"
+  },
+  "manifesto": {
+   "eyebrow": "Notre approche",
+   "text": "Un site web n'est pas une carte de visite. C'est un collègue qui travaille pour vous : il prend les rendez-vous, prépare les devis, parle quatre langues et accueille vos clients pendant que vous dormez."
+  },
+  "facts": [
+   "sites clients en ligne",
+   "démos métier en ligne",
+   "langues : TR, EN, FR, AR",
+   "expertises dans une seule équipe"
+  ]
  },
  "ar": {
   "nav": {
@@ -3031,10 +3106,13 @@ window.WEBINA_I18N = {
    "sectorsA": "حل مناسب",
    "sectorsB": "لكل مهنة",
    "rotate": [
-    "عالماً رقمياً",
-    "موقعاً",
-    "برنامجاً",
-    "متجراً إلكترونياً"
+    "متجراً إلكترونياً",
+    "معرضاً رقمياً",
+    "موقعاً لمكتبك",
+    "حضوراً رقمياً",
+    "موقعاً إخبارياً",
+    "موقعاً لشركتك",
+    "موقعاً احترافياً"
    ]
   },
   "team": {
@@ -3969,6 +4047,29 @@ window.WEBINA_I18N = {
      ]
     }
    ]
-  }
+  },
+  "stage": {
+   "aria": "مشاريع مختارة",
+   "prev": "المشروع السابق",
+   "next": "المشروع التالي",
+   "pause": "إيقاف العرض التلقائي",
+   "play": "متابعة العرض التلقائي",
+   "drag": "اسحب",
+   "open": "افتح"
+  },
+  "speed": "فُتحت هذه الصفحة خلال {t} ثانية",
+  "clients": {
+   "label": "يثقون بنا"
+  },
+  "manifesto": {
+   "eyebrow": "نهجنا",
+   "text": "الموقع الإلكتروني ليس بطاقة عمل، بل زميل يعمل لأجلك: يحجز المواعيد، يجهّز عروض الأسعار، يتحدث أربع لغات ويستقبل عملاءك وأنت نائم."
+  },
+  "facts": [
+   "مواقع عملاء على الإنترنت",
+   "عروض تجريبية حية",
+   "لغات: التركية والإنجليزية والفرنسية والعربية",
+   "تخصصاً في فريق واحد"
+  ]
  }
 };
