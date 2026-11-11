@@ -263,7 +263,7 @@
     errorEl.textContent = '';
     if (!c.name) return fail(form.querySelector('[name="name"]'), q.errName);
     if (!emailOk(c.email)) return fail(form.querySelector('[name="email"]'), q.errEmail);
-    if (c.city.length < 2) return fail(form.querySelector('[name="city"]'), q.errCity);
+    if (c.city.length < 2) return fail(form.querySelector('[data-il]'), q.errCity);
     var res = compute();
     setSending(true);
     var details = JSON.parse(JSON.stringify(state));
@@ -384,11 +384,51 @@
   });
   form.addEventListener('change', function (e) { if (e.target.name === 'langs') state._langsTouched = true; }, true);
 
+  /* ---------- İl / ilçe : 81 provinces et leurs districts ----------
+     Le champ caché « city » envoie « İlçe / İl » (ou seulement l'il). */
+  var ilSel = form.querySelector('[data-il]'), ilceSel = form.querySelector('[data-ilce]'), cityIn = form.querySelector('[name="city"]');
+  var CITIES = window.TR_CITIES || {};
+  var TOP = ['İstanbul', 'Ankara', 'İzmir', 'Bursa', 'Antalya'];
+  function opt(v) { var o = document.createElement('option'); o.value = v; o.textContent = v; return o; }
+  (function fillIl() {
+    // Les grandes villes en tête, puis les 81 provinces dans l'ordre alphabétique turc
+    TOP.forEach(function (c) { if (CITIES[c]) ilSel.appendChild(opt(c)); });
+    var sep = opt(''); sep.disabled = true; sep.textContent = '──────────'; ilSel.appendChild(sep);
+    Object.keys(CITIES).forEach(function (c) { ilSel.appendChild(opt(c)); });
+  })();
+  function syncCity() {
+    cityIn.value = ilSel.value ? (ilceSel.value ? ilceSel.value + ' / ' + ilSel.value : ilSel.value) : '';
+    ilSel.removeAttribute('aria-invalid');
+    updateReady();
+  }
+  function fillIlce(keep) {
+    var first = ilceSel.options[0];
+    ilceSel.innerHTML = ''; ilceSel.appendChild(first);
+    (CITIES[ilSel.value] || []).forEach(function (d) { ilceSel.appendChild(opt(d)); });
+    ilceSel.disabled = !ilSel.value;
+    ilceSel.value = keep || '';
+  }
+  ilSel.addEventListener('change', function () { fillIlce(); syncCity(); });
+  ilceSel.addEventListener('change', syncCity);
+  // Lien de devis « ?sehir=Kadıköy » ou « ?sehir=İzmir » : on retrouve l'il (et l'ilçe)
+  function cityPick(v) {
+    var low = function (x) { return String(x).toLocaleLowerCase('tr-TR').trim(); };
+    v = low(v);
+    var il = Object.keys(CITIES).filter(function (c) { return low(c) === v; })[0], ilce = '';
+    if (!il) Object.keys(CITIES).some(function (c) {
+      var d = CITIES[c].filter(function (x) { return low(x) === v; })[0];
+      if (d) { il = c; ilce = d; return true; }
+      return false;
+    });
+    if (!il) return;
+    ilSel.value = il; fillIlce(ilce); syncCity();
+  }
+
   /* ---------- Démarrage ---------- */
   state.langs = defaultLangs(lang());
   if (params.get('ad')) form.querySelector('[name="name"]').value = params.get('ad');
   if (params.get('firma')) form.querySelector('[name="company"]').value = params.get('firma');
-  if (params.get('sehir')) form.querySelector('[name="city"]').value = params.get('sehir');
+  if (params.get('sehir')) cityPick(params.get('sehir'));
   if (params.get('sektor')) {
     var sel = form.querySelector('[name="sector"]');
     var val = params.get('sektor');

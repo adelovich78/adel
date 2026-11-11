@@ -416,7 +416,7 @@ def teklif_fragments(body):
     return body, {
         'INCLUDED_PAGES': included, 'LANG_OPTS': langs,
         'SECTOR_OPTS_Q': options('contact.sectorOpts', 'quote.q.sectorPh'),
-        'CITIES': ''.join(f'<option value="{c}"></option>' for c in CITIES),
+
     }
 
 # ---------- Assemblage ----------
@@ -461,7 +461,7 @@ for name, out, path, navkey, titlekey in PAGES:
     page = page.replace('{{NAV_DESKTOP}}', nav_items('nav_link', navkey))
     page = page.replace('{{NAV_MOBILE}}', nav_items('nav_mobile-link', navkey))
     page = page.replace('{{NAV_FOOTER}}', nav_items('footer_nav-link', None))
-    page = page.replace('{{SCRIPTS}}', '<script src="/js/quote.js" defer></script>' if name == 'teklif' else '')
+    page = page.replace('{{SCRIPTS}}', '<script src="/js/tr-cities.js" defer></script><script src="/js/quote.js" defer></script>' if name == 'teklif' else '')
     page = re.sub(r'\{\{t:([\w.]+)\}\}', lambda m: f'<span {ti(m.group(1))}>{t(m.group(1))}</span>', page)
     page = re.sub(r'\{\{i18n:([\w.]+)\}\}', lambda m: ti(m.group(1)), page)
     page = re.sub(r'\{\{raw:([\w.]+)\}\}', lambda m: t(m.group(1)), page)

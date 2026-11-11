@@ -492,7 +492,7 @@ window.WEBINA_I18N = {
     "photosNote": "Fiyat İstanbul içi çekim için geçerlidir; İstanbul dışı için ayrıca fiyatlandırılır.",
     "sector": "Faaliyet alanınız",
     "sectorPh": "Faaliyet alanınızı seçin",
-    "city": "Şehir *",
+    "city": "İl *",
     "sectorOther": "Diğer",
     "langs": "Site hangi dillerde olsun?",
     "langsHint": "2 dil dahil · 3. dilden itibaren her dil {x}",
@@ -508,7 +508,10 @@ window.WEBINA_I18N = {
     "phone": "Telefon / WhatsApp",
     "email": "E-posta *",
     "company": "Şirket / Muayenehane",
-    "notes": "Eklemek istedikleriniz"
+    "notes": "Eklemek istedikleriniz",
+    "district": "İlçe",
+    "cityPh": "İl seçin",
+    "districtPh": "İlçe seçin (isteğe bağlı)"
    },
    "opt": {
     "pages": {
@@ -1510,7 +1513,7 @@ window.WEBINA_I18N = {
     "photosNote": "Price valid for shoots in Istanbul; outside Istanbul is quoted separately.",
     "sector": "Your field of activity",
     "sectorPh": "Select your field",
-    "city": "City *",
+    "city": "Province *",
     "sectorOther": "Other",
     "langs": "Which languages?",
     "langsHint": "2 languages included · from the 3rd, each language {x}",
@@ -1526,7 +1529,10 @@ window.WEBINA_I18N = {
     "phone": "Phone / WhatsApp",
     "email": "Email *",
     "company": "Company / Practice",
-    "notes": "Anything to add"
+    "notes": "Anything to add",
+    "district": "District",
+    "cityPh": "Choose a province",
+    "districtPh": "Choose a district (optional)"
    },
    "opt": {
     "pages": {
@@ -2528,7 +2534,7 @@ window.WEBINA_I18N = {
     "photosNote": "Prix valable pour une séance à Istanbul ; hors Istanbul, sur devis.",
     "sector": "Votre activité",
     "sectorPh": "Choisissez votre activité",
-    "city": "Ville *",
+    "city": "Province (il) *",
     "sectorOther": "Autre",
     "langs": "En quelles langues ?",
     "langsHint": "2 langues incluses · à partir de la 3e, {x} par langue",
@@ -2544,7 +2550,10 @@ window.WEBINA_I18N = {
     "phone": "Téléphone / WhatsApp",
     "email": "Email *",
     "company": "Société / Cabinet",
-    "notes": "Autre chose à ajouter"
+    "notes": "Autre chose à ajouter",
+    "district": "District (ilçe)",
+    "cityPh": "Choisissez une province",
+    "districtPh": "Choisissez un district (facultatif)"
    },
    "opt": {
     "pages": {
@@ -3546,7 +3555,7 @@ window.WEBINA_I18N = {
     "photosNote": "السعر صالح للتصوير داخل إسطنبول؛ خارجها يُحدَّد السعر بشكل منفصل.",
     "sector": "مجال نشاطكم",
     "sectorPh": "اختاروا مجال النشاط",
-    "city": "المدينة *",
+    "city": "المحافظة *",
     "sectorOther": "أخرى",
     "langs": "بأي لغات؟",
     "langsHint": "لغتان مشمولتان · من اللغة الثالثة {x} لكل لغة",
@@ -3562,7 +3571,10 @@ window.WEBINA_I18N = {
     "phone": "الهاتف / واتساب",
     "email": "البريد الإلكتروني *",
     "company": "الشركة / العيادة",
-    "notes": "ملاحظات إضافية"
+    "notes": "ملاحظات إضافية",
+    "district": "المنطقة",
+    "cityPh": "اختر المحافظة",
+    "districtPh": "اختر المنطقة (اختياري)"
    },
    "opt": {
     "pages": {
