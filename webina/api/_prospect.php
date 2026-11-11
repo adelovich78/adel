@@ -72,8 +72,7 @@ function prospect_seed_templates(PDO $pdo): void {
         . "– Telefonda da hızlı açılan, size ait modern bir web sitesi (4 sayfa, 2 dil, SSL)\n"
         . "– WhatsApp ve tek tıkla arama butonları, harita ve çalışma saatleri\n"
         . "– Google'da bulunmanız için temel SEO\n"
-        . "– Alan adı + 1 yıllık hosting ve logo tasarımı ücretsiz\n\n"
-        . "Standart paketimiz 17.000 TL'den başlıyor. Fiyatı kendiniz hesaplamak isterseniz: https://webina.com.tr/teklif\n\n";
+        . "– Talepleri ve randevuları takip edeceğiniz basit bir yönetim paneli\n\n";
     $close = "Mesleğinize yakın hazırladığımız örneği buradan inceleyebilirsiniz: {demo}\n\n"
         . "Size uygun bir zamanda 10 dakikalık kısa bir görüşme yapabilir miyiz? Bu e-postayı yanıtlamanız veya WhatsApp'tan yazmanız yeterli.\n\n"
         . "Saygılarımla,";
@@ -148,20 +147,103 @@ function prospect_token(PDO $pdo, array $client): string {
     return $tok;
 }
 
-// Texte → HTML sobre (un e-mail qui ressemble à un message écrit à la main arrive mieux en boîte de réception)
-function prospect_html(string $body, string $unsubUrl): string {
+// Visuel de l'e-mail selon le métier : capture de la démo la plus proche (JPG, lu par toutes les messageries)
+function prospect_visual(string $trade): string {
+    return ['dentist' => 'health', 'doctor' => 'health', 'vet' => 'health', 'lawyer' => 'law', 'accountant' => 'law',
+        'beauty' => 'beauty', 'auto' => 'auto', 'cleaning' => 'auto', 'photo' => 'photo', 'shop' => 'shop'][$trade] ?? 'general';
+}
+
+// Liens de Webina, affichés en première ligne et en pied d'e-mail
+function prospect_links(): array {
     global $CONFIG;
-    $esc = h($body);
-    $esc = preg_replace('~(https?://[^\s<]+)~', '<a href="$1" style="color:#1f6e26">$1</a>', $esc);
-    $paras = array_map(fn($p) => '<p style="margin:0 0 14px">' . nl2br(trim($p)) . '</p>', preg_split("/\n\s*\n/", trim($esc)));
     $wa = preg_replace('/\D/', '', $CONFIG['whatsapp_site'] ?? $CONFIG['whatsapp'] ?? '');
-    $sign = '<p style="margin:0 0 4px"><strong>' . h($CONFIG['mail_from_name'] ?? 'Webina') . '</strong></p>'
-        . '<p style="margin:0;color:#4d5550">webina.com.tr' . ($wa ? ' · WhatsApp <a href="https://wa.me/' . $wa . '" style="color:#1f6e26">+' . $wa . '</a>' : '') . '</p>'
-        . '<p style="margin:0;color:#4d5550">' . h($CONFIG['company_address'] ?? 'Maslak, İstanbul') . '</p>';
-    $foot = '<p style="margin:28px 0 0;font-size:12px;color:#858d87">Bu e-posta, işletmenizin herkese açık iletişim adresine gönderilmiştir. '
-        . 'Bir daha almak istemiyorsanız <a href="' . h($unsubUrl) . '" style="color:#858d87">buradan çıkabilirsiniz</a>.</p>';
-    return '<!doctype html><html><body style="margin:0;padding:24px;font-family:Arial,Helvetica,sans-serif;font-size:15px;line-height:1.6;color:#121812;background:#ffffff">'
-        . '<div style="max-width:600px">' . implode('', $paras) . $sign . $foot . '</div></body></html>';
+    $links = [['Web', 'https://webina.com.tr'], ['Instagram', $CONFIG['instagram'] ?? 'https://www.instagram.com/webinacreativedesign/']];
+    $yt = $CONFIG['youtube'] ?? 'https://www.youtube.com/channel/UCteSvU-tpoDeVEBHnRubuCQ';
+    if ($yt) $links[] = ['YouTube', $yt];
+    if ($wa) $links[] = ['WhatsApp', 'https://wa.me/' . $wa];
+    return $links;
+}
+
+/* E-mail de prospection mis en page (tableaux et styles en ligne : rendu identique dans Gmail, Outlook, Apple Mail…)
+   Le texte du modèle reste la source : paragraphes séparés par une ligne vide, lignes commençant par « – » = liste. */
+function prospect_html(string $body, string $unsubUrl, string $trade = 'general', string $preheader = ''): string {
+    global $CONFIG;
+    $base = prospect_base_url();
+    $green = '#23772a'; $ink = '#121812'; $muted = '#5b645e';
+    $wa = preg_replace('/\D/', '', $CONFIG['whatsapp_site'] ?? $CONFIG['whatsapp'] ?? '');
+    $demo = prospect_demo($trade);
+    $link = fn($u, $t, $st = '') => '<a href="' . h($u) . '" style="color:' . $green . ';text-decoration:none;font-weight:600;' . $st . '">' . $t . '</a>';
+    $inline = function (string $t) use ($green) {
+        $t = h($t);
+        return preg_replace('~(https?://[^\s<]+)~', '<a href="$1" style="color:' . $green . ';font-weight:600">$1</a>', $t);
+    };
+
+    // Corps : paragraphes, listes à coches ; la phrase avec le lien de démo est remplacée par le visuel
+    $blocks = [];
+    foreach (preg_split("/\n\s*\n/", trim(str_replace("\r", '', $body))) as $para) {
+        $html = '';
+        $lines = array_values(array_filter(array_map('trim', explode("\n", $para)), 'strlen'));
+        if (!$lines) continue;
+        if (strpos($para, $demo) !== false && count($lines) === 1) continue;
+        $items = array_filter($lines, fn($l) => preg_match('/^[–\-•]\s*/u', $l));
+        if (count($items) >= 2) {
+            $head = array_values(array_filter($lines, fn($l) => !preg_match('/^[–\-•]\s*/u', $l)));
+            if ($head) $html .= '<p style="margin:0 0 10px;font-weight:700;color:' . $ink . '">' . $inline(implode(' ', $head)) . '</p>';
+            $html .= '<table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="margin:0 0 18px">';
+            foreach ($items as $it) {
+                $html .= '<tr><td width="28" valign="top" style="padding:3px 0"><span style="display:inline-block;width:18px;height:18px;border-radius:5px;background:#e3f1e2;color:' . $green . ';font-size:12px;line-height:18px;text-align:center;font-weight:700">&#10003;</span></td>'
+                    . '<td style="padding:3px 0;font-size:15px;line-height:1.5;color:' . $ink . '">' . $inline(preg_replace('/^[–\-•]\s*/u', '', $it)) . '</td></tr>';
+            }
+            $blocks[] = $html . '</table>';
+            continue;
+        }
+        $blocks[] = '<p style="margin:0 0 16px;font-size:15px;line-height:1.65;color:' . $ink . '">' . implode('<br>', array_map($inline, $lines)) . '</p>';
+    }
+    // L'encadré prix vient avant la demande de rendez-vous et la formule de politesse (les deux derniers paragraphes)
+    $tail = count($blocks) > 3 ? array_splice($blocks, -2) : [];
+    $html = implode('', $blocks);
+    $after = implode('', $tail);
+
+    $top = implode(' &nbsp;·&nbsp; ', array_map(fn($l) => $link($l[1], $l[0], 'color:#d7e3d4;font-weight:500'), prospect_links()));
+    $foot = implode(' &nbsp;·&nbsp; ', array_map(fn($l) => $link($l[1], $l[0], 'color:' . $muted . ';font-weight:500'), prospect_links()));
+    $img = $base . '/images/mail/' . prospect_visual($trade) . '.jpg';
+    $demoHost = preg_replace('~^https?://|/$~', '', $demo);
+    $btn = fn($u, $t, $bg, $fg, $extra = '') => '<a href="' . h($u) . '" style="display:inline-block;padding:13px 22px;margin:4px 0;border-radius:10px;background:' . $bg . ';color:' . $fg . ';font-size:15px;font-weight:700;text-decoration:none;' . $extra . '">' . $t . '</a>';
+    $waText = rawurlencode('Merhaba, Webina e-postanız hakkında bilgi almak istiyorum.');
+
+    return '<!doctype html><html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="color-scheme" content="light"><title>Webina</title></head>'
+        . '<body style="margin:0;padding:0;background:#eef1ed;font-family:Arial,Helvetica,sans-serif">'
+        . '<div style="display:none;max-height:0;overflow:hidden;opacity:0">' . h($preheader) . '</div>'
+        . '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#eef1ed"><tr><td align="center" style="padding:24px 12px">'
+        . '<table role="presentation" width="600" cellpadding="0" cellspacing="0" style="width:100%;max-width:600px;background:#ffffff;border-radius:18px;overflow:hidden">'
+        // 1re ligne : logo + liens (site, Instagram, YouTube, WhatsApp)
+        . '<tr><td style="background:' . $ink . ';padding:18px 28px"><table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr>'
+        . '<td style="font-size:22px;font-weight:800;letter-spacing:1px;color:#ffffff"><a href="https://webina.com.tr" style="color:#ffffff;text-decoration:none">WEB<span style="color:#7ED957">INA</span></a>'
+        . '<div style="font-size:9px;letter-spacing:3px;color:#a9b4a6;font-weight:400;margin-top:2px">DİJİTAL KREASYON AJANSI</div></td>'
+        . '<td align="right" style="font-size:13px;line-height:1.6">' . $top . '</td></tr></table></td></tr>'
+        // Visuel : la démo du métier, cliquable
+        . '<tr><td style="padding:28px 28px 0"><a href="' . h($demo) . '" style="text-decoration:none">'
+        . '<img src="' . h($img) . '" width="544" alt="Örnek site: ' . h($demoHost) . '" style="display:block;width:100%;max-width:544px;height:auto;border:0;border-radius:12px;box-shadow:0 0 0 1px #e1e6e0"></a>'
+        . '<p style="margin:10px 0 0;font-size:13px;color:' . $muted . '">Mesleğinize özel örnek: ' . $link($demo, h($demoHost) . ' &rarr;') . '</p></td></tr>'
+        . '<tr><td style="padding:24px 28px 4px">' . $html . '</td></tr>'
+        // Encadré prix + boutons
+        . '<tr><td style="padding:0 28px 8px"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f4f8f3;border-radius:14px"><tr><td style="padding:20px 22px">'
+        . '<p style="margin:0;font-size:13px;color:' . $muted . '">Standart paket · 4 sayfa · 2 dil · SSL · SEO</p>'
+        . '<p style="margin:4px 0 14px;font-size:26px;font-weight:800;color:' . $ink . '">17.000 TL<span style="font-size:15px;font-weight:600;color:' . $muted . '">\'den başlayan</span></p>'
+        . '<p style="margin:0 0 14px;font-size:14px;color:' . $green . ';font-weight:700">+ Alan adı, 1 yıl hosting ve logo tasarımı ücretsiz</p>'
+        . $btn('https://webina.com.tr/teklif', 'Fiyatınızı hesaplayın', $green, '#ffffff')
+        . ($wa ? ' &nbsp; ' . $btn('https://wa.me/' . $wa . '?text=' . $waText, 'WhatsApp\'tan yazın', '#ffffff', $green, 'border:1.5px solid ' . $green . ';padding:11.5px 20.5px;') : '')
+        . '</td></tr></table></td></tr>'
+        . ($after ? '<tr><td style="padding:20px 28px 0">' . $after . '</td></tr>' : '')
+        // Signature
+        . '<tr><td style="padding:4px 28px 26px;font-size:14px;line-height:1.6;color:' . $ink . '"><strong>' . h($CONFIG['mail_from_name'] ?? 'Webina') . '</strong><br>'
+        . '<span style="color:' . $muted . '">' . h($CONFIG['company_address'] ?? 'Maslak, İstanbul') . ($wa ? ' · +' . h($wa) : '') . '</span></td></tr>'
+        . '</table>'
+        // Pied : liens + désinscription
+        . '<table role="presentation" width="600" cellpadding="0" cellspacing="0" style="width:100%;max-width:600px"><tr><td style="padding:16px 28px;font-size:12px;line-height:1.6;color:' . $muted . ';text-align:center">'
+        . $foot . '<br>Bu e-posta, işletmenizin herkese açık iletişim adresine gönderilmiştir. Bir daha almak istemiyorsanız '
+        . '<a href="' . h($unsubUrl) . '" style="color:' . $muted . '">buradan çıkabilirsiniz</a>.</td></tr></table>'
+        . '</td></tr></table></body></html>';
 }
 
 function prospect_base_url(): string {
@@ -218,7 +300,8 @@ function prospect_send_next(PDO $pdo): array {
     global $CONFIG;
     $replyTo = email_list($CONFIG['notify_email'] ?? '')[0] ?? null;
     $log = [];
-    $ok = send_html_mail($row['to_email'], $row['subject'], prospect_html($row['body'], $unsub), $replyTo, $log,
+    $html = prospect_html($row['body'], $unsub, prospect_trade($client['sector'] ?? ''), $row['subject']);
+    $ok = send_html_mail($row['to_email'], $row['subject'], $html, $replyTo, $log,
         ['List-Unsubscribe: <' . $unsub . '>', 'List-Unsubscribe-Post: List-Unsubscribe=One-Click']);
     if ($ok) {
         $pdo->prepare("UPDATE crm_emails SET status = 'sent', sent_at = NOW() WHERE id = ?")->execute([$row['id']]);

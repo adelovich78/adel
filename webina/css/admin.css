@@ -473,7 +473,7 @@
 .pr_tpl-body { min-height: 420px !important; font-size: 0.9375rem; }
 .pr_paste { min-height: 220px !important; font-family: ui-monospace, monospace; font-size: 0.8125rem; }
 .pr_file { cursor: pointer; }
-.pr_dialog { width: min(680px, calc(100vw - 32px)); max-height: calc(100vh - 64px); padding: 0; border: 0; border-radius: var(--radius-panel); background-color: var(--color-bg); color: var(--color-ink); box-shadow: 0 24px 64px -16px rgba(0, 0, 0, 0.35); }
+.pr_dialog { width: min(720px, calc(100vw - 32px)); max-height: calc(100vh - 64px); padding: 0; border: 0; border-radius: var(--radius-panel); background-color: var(--color-bg); color: var(--color-ink); box-shadow: 0 24px 64px -16px rgba(0, 0, 0, 0.35); }
 .pr_dialog::backdrop { background-color: rgba(10, 12, 11, 0.45); }
 .pr_dialog-inner { display: grid; gap: 16px; padding: 24px; }
 .pr_dialog-head { display: flex; justify-content: space-between; gap: 16px; align-items: flex-start; }
@@ -483,3 +483,5 @@
   .pr_search, .pr_select { width: 100%; }
   .pr_bar .pr_select { margin-inline-start: 0; }
 }
+
+.pr_dialog-frame { width: 100%; height: 62vh; border: 0; border-radius: var(--radius-card); background-color: #eef1ed; }

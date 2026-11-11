@@ -85,7 +85,9 @@ case 'preview':
     $t = $pdo->prepare('SELECT * FROM crm_templates WHERE id = ?'); $t->execute([pid((string)($in['template_id'] ?? ''))]);
     $client = $c->fetch(); $tpl = $t->fetch();
     if (!$client || !$tpl) fail('Introuvable.', 404);
-    json_out(['to' => $client['email'], 'subject' => prospect_fill($tpl['subject'], $client), 'body' => prospect_fill($tpl['body'], $client)]);
+    $subject = prospect_fill($tpl['subject'], $client); $body = prospect_fill($tpl['body'], $client);
+    json_out(['to' => $client['email'], 'subject' => $subject, 'body' => $body,
+        'html' => prospect_html($body, '#', prospect_trade($client['sector'] ?? ''), $subject)]);
 
 case 'queue':
     if ($method === 'GET') {

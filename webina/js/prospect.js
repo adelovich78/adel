@@ -148,7 +148,7 @@
   dlg.className = 'pr_dialog';
   dlg.innerHTML = '<form method="dialog" class="pr_dialog-inner"><div class="pr_dialog-head"><div><p class="pr_meta" data-pv-to></p><h2 class="heading-style-h5" data-pv-subject></h2></div>' +
     '<button class="icon-button" aria-label="Fermer"><svg class="icon" aria-hidden="true"><use href="#i-x"/></svg></button></div>' +
-    '<div class="pr_dialog-body" data-pv-body></div><p class="pr_meta">+ votre signature et le lien de désinscription</p></form>';
+    '<iframe class="pr_dialog-frame" title="Aperçu de l\'e-mail" data-pv-frame></iframe></form>';
   document.body.appendChild(dlg);
   $('[data-pr-preview]').addEventListener('click', function () {
     var id = selectedIds()[0];
@@ -159,7 +159,7 @@
     api('prospect.php?r=preview', { method: 'POST', body: { client_id: id, template_id: tpl.id } }).then(function (p) {
       $('[data-pv-to]', dlg).textContent = 'À : ' + p.to + ' · modèle « ' + tpl.name + ' »';
       $('[data-pv-subject]', dlg).textContent = p.subject;
-      $('[data-pv-body]', dlg).textContent = p.body;
+      $('[data-pv-frame]', dlg).srcdoc = p.html;
       dlg.showModal();
     }).catch(function (e) { toast(e.message); });
   });
