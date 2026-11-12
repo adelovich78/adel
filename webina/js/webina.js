@@ -911,8 +911,10 @@
       var w = list.clientWidth;
       var left = tab.offsetLeft - list.scrollLeft;
       var right = w - left - tab.offsetWidth;
+      // Onglets sur plusieurs lignes (ordinateur) : on découpe aussi en hauteur
+      var top = tab.offsetTop, bottom = list.clientHeight - top - tab.offsetHeight;
       if (animate === false) overlay.style.transition = 'none';
-      overlay.style.setProperty('--clip', '4px ' + right + 'px 4px ' + left + 'px');
+      overlay.style.setProperty('--clip', top + 'px ' + right + 'px ' + bottom + 'px ' + left + 'px');
       if (animate === false) {
         overlay.getBoundingClientRect();
         overlay.style.transition = '';

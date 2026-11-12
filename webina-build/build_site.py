@@ -191,9 +191,9 @@ PROJECTS = [
     {'title': 'Bosphora', 'cat': 'moving', 'tags': ['quote', 'leads', 'vitrine'], 'img': 'w-nakliyat.webp', 'url': 'https://nakliyet.webina.com.tr/', 'demo': True},
     {'title': 'LENSA', 'cat': 'optic', 'tags': ['shop', 'cart', 'multi'], 'img': 'w-optik.webp', 'url': 'https://optik.webina.com.tr/', 'demo': True},
     # Démos en attente : elles n'apparaissent qu'une fois leurs captures déposées dans webina/images
-    {'title': 'Otel', 'cat': 'hotel', 'tags': ['reserve', 'multi', 'vitrine'], 'img': 'w-hotel.webp', 'url': 'https://hotel.webina.com.tr/', 'demo': True, 'pending': True},
-    {'title': 'Emlak', 'cat': 'realestate', 'tags': ['listing', 'leads', 'multi'], 'img': 'w-emlak.webp', 'url': 'https://emlak.webina.com.tr/', 'demo': True, 'pending': True},
-    {'title': 'Turizm', 'cat': 'travel', 'tags': ['search', 'reserve', 'multi'], 'img': 'w-turizm.webp', 'url': 'https://turizm.webina.com.tr/', 'demo': True, 'pending': True},
+    {'title': 'Maison Lycia', 'cat': 'hotel', 'tags': ['reserve', 'multi', 'vitrine'], 'img': 'w-hotel.webp', 'url': 'https://hotel.webina.com.tr/', 'demo': True, 'pending': True},
+    {'title': 'Boğaz Emlak', 'cat': 'realestate', 'tags': ['listing', 'leads', 'multi'], 'img': 'w-emlak.webp', 'url': 'https://emlak.webina.com.tr/', 'demo': True, 'pending': True},
+    {'title': 'Seyyora', 'cat': 'travel', 'tags': ['search', 'reserve', 'multi'], 'img': 'w-turizm.webp', 'url': 'https://turizm.webina.com.tr/', 'demo': True, 'pending': True},
 ]
 def _ready(img):
     return os.path.exists(os.path.join(os.path.dirname(HERE), 'webina', 'images', img))

@@ -310,7 +310,7 @@ window.WEBINA_I18N = {
    "eyebrow": "Canlı demolar",
    "t1": "Mesleğinize özel",
    "t2": "hazır siteler",
-   "text": "Sitenizin nasıl görüneceğini şimdi görün: avukatlar, doktorlar, diş klinikleri, veterinerler, restoranlar, eczaneler, nakliyat firmaları, optikler, kuaförler, esnaf ve online mağazalar için hazırladığımız gerçek, çalışan demolar.",
+   "text": "Sitenizin nasıl görüneceğini şimdi görün: avukatlar, doktorlar, diş klinikleri, veterinerler, restoranlar, eczaneler, nakliyat firmaları, optikler, oteller, emlak ofisleri, seyahat acenteleri, kuaförler, esnaf ve online mağazalar için hazırladığımız gerçek, çalışan demolar.",
    "live": "Canlı demoyu aç",
    "want": "Bu siteden istiyorum",
    "badge": "Canlı demo",
@@ -438,35 +438,35 @@ window.WEBINA_I18N = {
     },
     "hotel": {
      "tab": "Otel",
-     "name": "Otel",
-     "desc": "Doğrudan rezervasyon alan, misafiri ilk bakışta etkileyen bir otel sitesi.",
+     "name": "Maison Lycia",
+     "desc": "Antalya kıyısında lüks bir sahil oteli için, doğrudan rezervasyon alan zarif bir site.",
      "feats": [
-      "Online rezervasyon ve müsaitlik",
-      "Oda ve süitler, foto galeri",
-      "Restoran, spa ve hizmetler",
-      "Çok dilli, WhatsApp"
+      "Tarih ve kişi sayısıyla müsaitlik sorgulama",
+      "Odalar & süitler, restoranlar, hamam & spa",
+      "Destinasyon ve otel tanıtımı",
+      "Türkçe, İngilizce & Fransızca"
      ]
     },
     "realestate": {
      "tab": "Emlak",
-     "name": "Emlak",
-     "desc": "Portföyünü öne çıkaran, alıcıyı danışmana bağlayan bir emlak ofisi sitesi.",
+     "name": "Boğaz Emlak",
+     "desc": "İstanbul'da prestijli konutlar için, portföyü öne çıkaran bir emlak ofisi sitesi.",
      "feats": [
-      "Satılık & kiralık ilan arama",
-      "Fiyat, oda ve konum filtreleri",
-      "İlan detayı, galeri ve harita",
-      "Danışmana tek tıkla WhatsApp"
+      "Satılık & kiralık ilan arama ve filtreler",
+      "Favoriler, sıralama, ₺ $ € fiyat",
+      "Kredi ödemesi hesaplayıcı",
+      "Ücretsiz danışmanlık formu, 3 dil"
      ]
     },
     "travel": {
      "tab": "Turizm",
-     "name": "Turizm",
-     "desc": "Otel ve turları tarihe göre listeleyen, rezervasyon alan bir seyahat acentesi sitesi.",
+     "name": "Seyyora",
+     "desc": "Otel, araç, uçak bileti ve turları tek yerden sunan, Booking tarzı bir seyahat acentesi sitesi.",
      "feats": [
-      "Otel ve tur arama, tarih seçimi",
-      "Filtreler ve fiyat karşılaştırma",
-      "Online rezervasyon talebi",
-      "Çok dilli, farklı para birimleri"
+      "Otel, araç kiralama, uçak bileti ve tur arama",
+      "Tarih ve kişi seçimi, filtreler",
+      "Rezervasyon ve «Rezervasyonlarım» alanı",
+      "Türkçe, İngilizce & Fransızca"
      ]
     }
    }
@@ -1448,7 +1448,7 @@ window.WEBINA_I18N = {
    "eyebrow": "Live demos",
    "t1": "Ready-made sites",
    "t2": "for your profession",
-   "text": "See how your site could look right now: real, working demos we built for lawyers, doctors, dental clinics, vets, restaurants, pharmacies, moving companies, opticians, hair salons, local shops and online stores.",
+   "text": "See how your site could look right now: real, working demos we built for lawyers, doctors, dental clinics, vets, restaurants, pharmacies, moving companies, opticians, hotels, real estate agencies, travel agencies, hair salons, local shops and online stores.",
    "live": "Open live demo",
    "want": "I want this site",
    "badge": "Live demo",
@@ -1576,35 +1576,35 @@ window.WEBINA_I18N = {
     },
     "hotel": {
      "tab": "Hotel",
-     "name": "Hotel",
-     "desc": "A hotel site that wins direct bookings and impresses guests at first sight.",
+     "name": "Maison Lycia",
+     "desc": "An elegant site for a luxury beach hotel in Antalya that takes direct bookings.",
      "feats": [
-      "Online booking and availability",
-      "Rooms and suites, photo gallery",
-      "Restaurant, spa and services",
-      "Multilingual, WhatsApp"
+      "Availability check by dates and guests",
+      "Rooms & suites, restaurants, hammam & spa",
+      "Destination and hotel showcase",
+      "Turkish, English & French"
      ]
     },
     "realestate": {
      "tab": "Real estate",
-     "name": "Real estate",
-     "desc": "An agency site that showcases listings and connects buyers with an agent.",
+     "name": "Boğaz Emlak",
+     "desc": "A real estate agency site for prestige homes in Istanbul that puts listings first.",
      "feats": [
-      "Search homes for sale & rent",
-      "Price, rooms and location filters",
-      "Listing pages with gallery and map",
-      "One-tap WhatsApp to an agent"
+      "Search homes for sale & rent with filters",
+      "Favourites, sorting, prices in ₺ $ €",
+      "Mortgage payment calculator",
+      "Free consultation form, 3 languages"
      ]
     },
     "travel": {
      "tab": "Travel",
-     "name": "Travel",
-     "desc": "A travel agency site that lists hotels and tours by date and takes bookings.",
+     "name": "Seyyora",
+     "desc": "A Booking-style travel agency site for hotels, cars, flights and tours in one place.",
      "feats": [
-      "Hotel and tour search with dates",
-      "Filters and price comparison",
-      "Online booking requests",
-      "Multilingual, multiple currencies"
+      "Hotel, car rental, flight and tour search",
+      "Dates and travellers, filters",
+      "Bookings and a «My trips» area",
+      "Turkish, English & French"
      ]
     }
    }
@@ -2586,7 +2586,7 @@ window.WEBINA_I18N = {
    "eyebrow": "Démos en ligne",
    "t1": "Des sites prêts",
    "t2": "pour votre métier",
-   "text": "Voyez dès maintenant à quoi ressemblera votre site : de vraies démos fonctionnelles pour avocats, médecins, dentistes, vétérinaires, restaurants, pharmacies, déménageurs, opticiens, coiffeurs, commerçants et boutiques en ligne.",
+   "text": "Voyez dès maintenant à quoi ressemblera votre site : de vraies démos fonctionnelles pour avocats, médecins, dentistes, vétérinaires, restaurants, pharmacies, déménageurs, opticiens, hôtels, agences immobilières, agences de voyage, coiffeurs, commerçants et boutiques en ligne.",
    "live": "Voir la démo en ligne",
    "want": "Je veux ce site",
    "badge": "Démo en ligne",
@@ -2714,35 +2714,35 @@ window.WEBINA_I18N = {
     },
     "hotel": {
      "tab": "Hôtel",
-     "name": "Hôtel",
-     "desc": "Un site d’hôtel qui prend des réservations en direct et séduit dès le premier regard.",
+     "name": "Maison Lycia",
+     "desc": "Un site élégant pour un hôtel de luxe en bord de mer à Antalya, qui prend les réservations en direct.",
      "feats": [
-      "Réservation en ligne et disponibilités",
-      "Chambres et suites, galerie photo",
-      "Restaurant, spa et services",
-      "Multilingue, WhatsApp"
+      "Disponibilités par dates et voyageurs",
+      "Chambres & suites, restaurants, hammam & spa",
+      "Présentation de la destination et de l’hôtel",
+      "Turc, anglais & français"
      ]
     },
     "realestate": {
      "tab": "Immobilier",
-     "name": "Immobilier",
-     "desc": "Un site d’agence qui met en valeur les biens et met l’acheteur en contact avec un conseiller.",
+     "name": "Boğaz Emlak",
+     "desc": "Un site d’agence immobilière de prestige à Istanbul, qui met les annonces en avant.",
      "feats": [
-      "Recherche vente & location",
-      "Filtres prix, pièces et quartier",
-      "Fiches bien avec galerie et carte",
-      "WhatsApp avec un conseiller en un clic"
+      "Recherche vente & location avec filtres",
+      "Favoris, tri, prix en ₺ $ €",
+      "Simulateur de mensualités",
+      "Formulaire de conseil gratuit, 3 langues"
      ]
     },
     "travel": {
      "tab": "Voyage",
-     "name": "Voyage",
-     "desc": "Un site d’agence de voyage qui liste hôtels et circuits par dates et prend les réservations.",
+     "name": "Seyyora",
+     "desc": "Un site d’agence de voyage façon Booking : hôtels, voitures, billets et excursions au même endroit.",
      "feats": [
-      "Recherche hôtels et circuits par dates",
-      "Filtres et comparaison des prix",
-      "Demande de réservation en ligne",
-      "Multilingue, plusieurs devises"
+      "Recherche hôtels, voitures, vols et excursions",
+      "Dates, voyageurs et filtres",
+      "Réservations et espace « Mes voyages »",
+      "Turc, anglais & français"
      ]
     }
    }
@@ -3724,7 +3724,7 @@ window.WEBINA_I18N = {
    "eyebrow": "عروض تجريبية مباشرة",
    "t1": "مواقع جاهزة",
    "t2": "لمهنتكم",
-   "text": "شاهدوا الآن كيف سيبدو موقعكم: عروض حقيقية تعمل، صمّمناها للمحامين والأطباء وعيادات الأسنان والأطباء البيطريين والمطاعم والصيدليات وشركات نقل الأثاث ومحلات البصريات وصالونات الحلاقة والمحلات والمتاجر الإلكترونية.",
+   "text": "شاهدوا الآن كيف سيبدو موقعكم: عروض حقيقية تعمل، صمّمناها للمحامين والأطباء وعيادات الأسنان والأطباء البيطريين والمطاعم والصيدليات وشركات نقل الأثاث ومحلات البصريات والفنادق والمكاتب العقارية ووكالات السفر وصالونات الحلاقة والمحلات والمتاجر الإلكترونية.",
    "live": "افتح العرض المباشر",
    "want": "أريد هذا الموقع",
    "badge": "عرض مباشر",
@@ -3852,35 +3852,35 @@ window.WEBINA_I18N = {
     },
     "hotel": {
      "tab": "فندق",
-     "name": "فندق",
-     "desc": "موقع فندق يستقبل الحجوزات المباشرة ويجذب الضيوف من النظرة الأولى.",
+     "name": "Maison Lycia",
+     "desc": "موقع أنيق لفندق شاطئي فاخر في أنطاليا يستقبل الحجوزات المباشرة.",
      "feats": [
-      "حجز عبر الإنترنت والتوفر",
-      "الغرف والأجنحة ومعرض الصور",
-      "المطعم والسبا والخدمات",
-      "متعدد اللغات، واتساب"
+      "التحقق من التوفر حسب التواريخ والضيوف",
+      "الغرف والأجنحة والمطاعم والحمّام والسبا",
+      "تقديم الوجهة والفندق",
+      "التركية والإنجليزية والفرنسية"
      ]
     },
     "realestate": {
      "tab": "عقارات",
-     "name": "عقارات",
-     "desc": "موقع مكتب عقاري يبرز العروض ويربط المشتري بالمستشار.",
+     "name": "Boğaz Emlak",
+     "desc": "موقع مكتب عقاري للمنازل الفاخرة في إسطنبول يبرز العروض.",
      "feats": [
-      "البحث عن عقارات للبيع والإيجار",
-      "فلاتر السعر والغرف والموقع",
-      "صفحات العقار مع المعرض والخريطة",
-      "واتساب مع المستشار بنقرة"
+      "البحث عن عقارات للبيع والإيجار مع فلاتر",
+      "المفضلة والترتيب والأسعار بـ ₺ $ €",
+      "حاسبة أقساط القرض",
+      "نموذج استشارة مجانية، 3 لغات"
      ]
     },
     "travel": {
      "tab": "سفر",
-     "name": "سفر",
-     "desc": "موقع وكالة سفر يعرض الفنادق والجولات حسب التاريخ ويستقبل الحجوزات.",
+     "name": "Seyyora",
+     "desc": "موقع وكالة سفر على طريقة Booking: فنادق وسيارات وتذاكر طيران وجولات في مكان واحد.",
      "feats": [
-      "البحث عن الفنادق والجولات بالتواريخ",
-      "فلاتر ومقارنة الأسعار",
-      "طلب حجز عبر الإنترنت",
-      "متعدد اللغات والعملات"
+      "البحث عن فنادق وسيارات ورحلات وجولات",
+      "التواريخ والمسافرون والفلاتر",
+      "الحجوزات ومساحة «رحلاتي»",
+      "التركية والإنجليزية والفرنسية"
      ]
     }
    }

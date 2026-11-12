@@ -643,6 +643,10 @@ html[lang="ar"] .hero_heading { line-height: 1.22; letter-spacing: 0; }
   overflow-x: auto; scrollbar-width: none;
 }
 .demos_tabs::-webkit-scrollbar { display: none; }
+/* Ordinateur : les onglets passent à la ligne au lieu de défiler (14 démos) */
+@media (min-width: 992px) {
+  .demos_tabs { flex-wrap: wrap; overflow-x: visible; }
+}
 .demos_tab {
   display: inline-flex; align-items: center; gap: 8px;
   height: 40px; padding-inline: 16px; border-radius: 8px;
