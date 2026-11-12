@@ -24,9 +24,10 @@
   .card_recto-logo{height:36mm;width:auto}
 
   /* Verso : coordonnées */
-  .card_verso{background:var(--color--cream);color:var(--color--black);display:flex;align-items:center;gap:6mm;padding:0 7mm}
-  .card_verso-logo{width:20mm;height:20mm;border-radius:3mm;background:var(--color--black);display:flex;align-items:center;justify-content:center;flex:none}
-  .card_verso-logo img{width:15mm}
+  .card_verso{background:var(--color--cream);color:var(--color--black);display:flex;align-items:center;justify-content:space-between;gap:5mm;padding:0 7mm}
+  .card_qr{display:flex;flex-direction:column;align-items:center;gap:1.4mm;flex:none}
+  .card_qr-image{width:19mm;height:19mm;display:block}
+  .card_qr-label{font-size:2mm;font-weight:500;color:var(--color--grey)}
   .card_name{font-weight:700;font-size:5.4mm;line-height:1.1}
   .card_role{font-size:2.6mm;color:var(--color--grey);margin-top:.6mm;margin-bottom:3.6mm}
   .card_contact-list{display:flex;flex-direction:column;gap:1.8mm}
@@ -46,8 +47,7 @@
 
   <!-- Verso -->
   <div class="card_component card_verso">
-    <div class="card_verso-logo"><img src="logo-creme.png" alt="Webina"></div>
-    <div>
+    <div class="card_verso-content">
       <div class="card_name">Webina</div>
       <div class="card_role">Digital Creation Agency</div>
       <div class="card_contact-list">
@@ -64,6 +64,11 @@
           info@webina.com.tr
         </div>
       </div>
+    </div>
+    <!-- QR code vers le site -->
+    <div class="card_qr">
+      <img class="card_qr-image" src="qr-webina.svg" alt="QR code www.webina.com.tr">
+      <div class="card_qr-label">webina.com.tr</div>
     </div>
     <div class="card_bar"></div>
   </div>
