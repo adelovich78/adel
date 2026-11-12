@@ -386,7 +386,8 @@
 
   /* ---------- İl / ilçe : 81 provinces et leurs districts ----------
      Le champ caché « city » envoie « İlçe / İl » (ou seulement l'il). */
-  var ilSel = form.querySelector('[data-il]'), ilceSel = form.querySelector('[data-ilce]'), cityIn = form.querySelector('[name="city"]');
+  var ilSel = form.querySelector('[data-il]'), ilceSel = form.querySelector('[data-ilce]'), mahSel = form.querySelector('[data-mahalle]'), cityIn = form.querySelector('[name="city"]');
+  var CODES = window.TR_CODES || {}, mahCache = {};
   var CITIES = window.TR_CITIES || {};
   var TOP = ['İstanbul', 'Ankara', 'İzmir', 'Bursa', 'Antalya'];
   function opt(v) { var o = document.createElement('option'); o.value = v; o.textContent = v; return o; }
@@ -397,7 +398,7 @@
     Object.keys(CITIES).forEach(function (c) { ilSel.appendChild(opt(c)); });
   })();
   function syncCity() {
-    cityIn.value = ilSel.value ? (ilceSel.value ? ilceSel.value + ' / ' + ilSel.value : ilSel.value) : '';
+    cityIn.value = [mahSel.value, ilceSel.value, ilSel.value].filter(Boolean).join(' / ');
     ilSel.removeAttribute('aria-invalid');
     updateReady();
   }
@@ -408,8 +409,24 @@
     ilceSel.disabled = !ilSel.value;
     ilceSel.value = keep || '';
   }
-  ilSel.addEventListener('change', function () { fillIlce(); syncCity(); });
-  ilceSel.addEventListener('change', syncCity);
+  // Mahalleler : un fichier par province, chargé seulement quand on choisit un ilçe
+  function fillMahalle(keep) {
+    var first = mahSel.options[0];
+    mahSel.innerHTML = ''; mahSel.appendChild(first);
+    mahSel.disabled = true;
+    var il = ilSel.value, code = CODES[il], ilce = ilceSel.value;
+    if (!code || !ilce) return Promise.resolve();
+    var load = mahCache[code] || (mahCache[code] = fetch('/data/mahalle/' + code + '.json').then(function (r) { return r.json(); }).catch(function () { delete mahCache[code]; return {}; }));
+    return load.then(function (data) {
+      if (ilSel.value !== il || ilceSel.value !== ilce) return;   // le choix a changé pendant le chargement
+      (data[ilce] || []).forEach(function (m) { mahSel.appendChild(opt(m)); });
+      mahSel.disabled = !(data[ilce] || []).length;
+      mahSel.value = keep || '';
+    });
+  }
+  ilSel.addEventListener('change', function () { fillIlce(); fillMahalle(); syncCity(); });
+  ilceSel.addEventListener('change', function () { fillMahalle(); syncCity(); });
+  mahSel.addEventListener('change', syncCity);
   // Lien de devis « ?sehir=Kadıköy » ou « ?sehir=İzmir » : on retrouve l'il (et l'ilçe)
   function cityPick(v) {
     var low = function (x) { return String(x).toLocaleLowerCase('tr-TR').trim(); };
@@ -421,7 +438,7 @@
       return false;
     });
     if (!il) return;
-    ilSel.value = il; fillIlce(ilce); syncCity();
+    ilSel.value = il; fillIlce(ilce); fillMahalle(); syncCity();
   }
 
   /* ---------- Démarrage ---------- */

@@ -511,7 +511,9 @@ window.WEBINA_I18N = {
     "notes": "Eklemek istedikleriniz",
     "district": "İlçe",
     "cityPh": "İl seçin",
-    "districtPh": "İlçe seçin (isteğe bağlı)"
+    "districtPh": "İlçe seçin (isteğe bağlı)",
+    "mahalle": "Mahalle",
+    "mahallePh": "Mahalle seçin (isteğe bağlı)"
    },
    "opt": {
     "pages": {
@@ -1532,7 +1534,9 @@ window.WEBINA_I18N = {
     "notes": "Anything to add",
     "district": "District",
     "cityPh": "Choose a province",
-    "districtPh": "Choose a district (optional)"
+    "districtPh": "Choose a district (optional)",
+    "mahalle": "Neighbourhood",
+    "mahallePh": "Choose a neighbourhood (optional)"
    },
    "opt": {
     "pages": {
@@ -2553,7 +2557,9 @@ window.WEBINA_I18N = {
     "notes": "Autre chose à ajouter",
     "district": "District (ilçe)",
     "cityPh": "Choisissez une province",
-    "districtPh": "Choisissez un district (facultatif)"
+    "districtPh": "Choisissez un district (facultatif)",
+    "mahalle": "Quartier (mahalle)",
+    "mahallePh": "Choisissez un quartier (facultatif)"
    },
    "opt": {
     "pages": {
@@ -3574,7 +3580,9 @@ window.WEBINA_I18N = {
     "notes": "ملاحظات إضافية",
     "district": "المنطقة",
     "cityPh": "اختر المحافظة",
-    "districtPh": "اختر المنطقة (اختياري)"
+    "districtPh": "اختر المنطقة (اختياري)",
+    "mahalle": "الحي",
+    "mahallePh": "اختر الحي (اختياري)"
    },
    "opt": {
     "pages": {
