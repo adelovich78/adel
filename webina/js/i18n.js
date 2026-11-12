@@ -280,7 +280,8 @@ window.WEBINA_I18N = {
    "optic": "Optik & Gözlük",
    "hotel": "Otel & Konaklama",
    "realestate": "Emlak",
-   "travel": "Turizm & Seyahat"
+   "travel": "Turizm & Seyahat",
+   "education": "Eğitim & Okul"
   },
   "tags": {
    "media": "Medya platformu",
@@ -304,13 +305,15 @@ window.WEBINA_I18N = {
    "duty": "Nöbetçi eczane",
    "quote": "Ücretsiz teklif",
    "listing": "İlan & filtreler",
-   "search": "Arama & tarih seçimi"
+   "search": "Arama & tarih seçimi",
+   "portal": "Öğrenci & veli portalı",
+   "stock": "Araç stoku"
   },
   "demo": {
    "eyebrow": "Canlı demolar",
    "t1": "Mesleğinize özel",
    "t2": "hazır siteler",
-   "text": "Sitenizin nasıl görüneceğini şimdi görün: avukatlar, doktorlar, diş klinikleri, veterinerler, restoranlar, eczaneler, nakliyat firmaları, optikler, oteller, emlak ofisleri, seyahat acenteleri, kuaförler, esnaf ve online mağazalar için hazırladığımız gerçek, çalışan demolar.",
+   "text": "Sitenizin nasıl görüneceğini şimdi görün: avukatlar, doktorlar, diş klinikleri, veterinerler, restoranlar, eczaneler, nakliyat firmaları, optikler, oteller, emlak ofisleri, seyahat acenteleri, okullar, otomobil bayileri, kuaförler, esnaf ve online mağazalar için hazırladığımız gerçek, çalışan demolar.",
    "live": "Canlı demoyu aç",
    "want": "Bu siteden istiyorum",
    "badge": "Canlı demo",
@@ -466,6 +469,28 @@ window.WEBINA_I18N = {
       "Otel, araç kiralama, uçak bileti ve tur arama",
       "Tarih ve kişi seçimi, filtreler",
       "Rezervasyon ve «Rezervasyonlarım» alanı",
+      "Türkçe, İngilizce & Fransızca"
+     ]
+    },
+    "school": {
+     "tab": "Okul",
+     "name": "Campus Digital",
+     "desc": "Okullar, üniversiteler ve kurslar için şık, güven veren bir eğitim sitesi.",
+     "feats": [
+      "Okul ve program sayfaları",
+      "Öğrenci & veli portalı, çevrimiçi kurslar",
+      "Program bulucu ve online kayıt formu",
+      "Türkçe, İngilizce & Fransızca"
+     ]
+    },
+    "dealer": {
+     "tab": "Otomobil",
+     "name": "Volta Motors",
+     "desc": "Satış, servis ve boyayı tek yerde sunan, sinematik bir otomobil bayisi sitesi.",
+     "feats": [
+      "Araç stoku ve test sürüşü talebi",
+      "Bakım & mekanik, kaporta & boya",
+      "Online randevu",
       "Türkçe, İngilizce & Fransızca"
      ]
     }
@@ -1418,7 +1443,8 @@ window.WEBINA_I18N = {
    "optic": "Optician & Eyewear",
    "hotel": "Hotels & Stays",
    "realestate": "Real estate",
-   "travel": "Travel & Tourism"
+   "travel": "Travel & Tourism",
+   "education": "Education & Schools"
   },
   "tags": {
    "media": "Media platform",
@@ -1442,13 +1468,15 @@ window.WEBINA_I18N = {
    "duty": "On-duty pharmacy",
    "quote": "Free quote",
    "listing": "Listings & filters",
-   "search": "Search & date picker"
+   "search": "Search & date picker",
+   "portal": "Student & parent portal",
+   "stock": "Vehicle stock"
   },
   "demo": {
    "eyebrow": "Live demos",
    "t1": "Ready-made sites",
    "t2": "for your profession",
-   "text": "See how your site could look right now: real, working demos we built for lawyers, doctors, dental clinics, vets, restaurants, pharmacies, moving companies, opticians, hotels, real estate agencies, travel agencies, hair salons, local shops and online stores.",
+   "text": "See how your site could look right now: real, working demos we built for lawyers, doctors, dental clinics, vets, restaurants, pharmacies, moving companies, opticians, hotels, real estate agencies, travel agencies, schools, car dealers, hair salons, local shops and online stores.",
    "live": "Open live demo",
    "want": "I want this site",
    "badge": "Live demo",
@@ -1604,6 +1632,28 @@ window.WEBINA_I18N = {
       "Hotel, car rental, flight and tour search",
       "Dates and travellers, filters",
       "Bookings and a «My trips» area",
+      "Turkish, English & French"
+     ]
+    },
+    "school": {
+     "tab": "School",
+     "name": "Campus Digital",
+     "desc": "An elegant, trustworthy site for schools, universities and training centres.",
+     "feats": [
+      "School and programme pages",
+      "Student & parent portal, online courses",
+      "Programme finder and online enrolment form",
+      "Turkish, English & French"
+     ]
+    },
+    "dealer": {
+     "tab": "Car dealer",
+     "name": "Volta Motors",
+     "desc": "A cinematic car dealership site bringing sales, servicing and paint under one roof.",
+     "feats": [
+      "Vehicle stock and test drive requests",
+      "Servicing & mechanics, bodywork & paint",
+      "Online appointments",
       "Turkish, English & French"
      ]
     }
@@ -2556,7 +2606,8 @@ window.WEBINA_I18N = {
    "optic": "Opticien & Lunettes",
    "hotel": "Hôtellerie",
    "realestate": "Immobilier",
-   "travel": "Voyage & Tourisme"
+   "travel": "Voyage & Tourisme",
+   "education": "Éducation & Écoles"
   },
   "tags": {
    "media": "Plateforme média",
@@ -2580,13 +2631,15 @@ window.WEBINA_I18N = {
    "duty": "Pharmacie de garde",
    "quote": "Devis gratuit",
    "listing": "Annonces & filtres",
-   "search": "Recherche & dates"
+   "search": "Recherche & dates",
+   "portal": "Portail élèves & parents",
+   "stock": "Stock de véhicules"
   },
   "demo": {
    "eyebrow": "Démos en ligne",
    "t1": "Des sites prêts",
    "t2": "pour votre métier",
-   "text": "Voyez dès maintenant à quoi ressemblera votre site : de vraies démos fonctionnelles pour avocats, médecins, dentistes, vétérinaires, restaurants, pharmacies, déménageurs, opticiens, hôtels, agences immobilières, agences de voyage, coiffeurs, commerçants et boutiques en ligne.",
+   "text": "Voyez dès maintenant à quoi ressemblera votre site : de vraies démos fonctionnelles pour avocats, médecins, dentistes, vétérinaires, restaurants, pharmacies, déménageurs, opticiens, hôtels, agences immobilières, agences de voyage, écoles, concessions automobiles, coiffeurs, commerçants et boutiques en ligne.",
    "live": "Voir la démo en ligne",
    "want": "Je veux ce site",
    "badge": "Démo en ligne",
@@ -2742,6 +2795,28 @@ window.WEBINA_I18N = {
       "Recherche hôtels, voitures, vols et excursions",
       "Dates, voyageurs et filtres",
       "Réservations et espace « Mes voyages »",
+      "Turc, anglais & français"
+     ]
+    },
+    "school": {
+     "tab": "École",
+     "name": "Campus Digital",
+     "desc": "Un site élégant et rassurant pour écoles, universités et centres de formation.",
+     "feats": [
+      "Pages de l’école et des programmes",
+      "Portail élèves & parents, cours en ligne",
+      "Orientation et formulaire d’inscription en ligne",
+      "Turc, anglais & français"
+     ]
+    },
+    "dealer": {
+     "tab": "Concession auto",
+     "name": "Volta Motors",
+     "desc": "Un site de concession automobile cinématographique : vente, atelier et peinture au même endroit.",
+     "feats": [
+      "Stock de véhicules et demande d’essai",
+      "Entretien & mécanique, carrosserie & peinture",
+      "Prise de rendez-vous en ligne",
       "Turc, anglais & français"
      ]
     }
@@ -3694,7 +3769,8 @@ window.WEBINA_I18N = {
    "optic": "بصريات ونظارات",
    "hotel": "فنادق وإقامة",
    "realestate": "عقارات",
-   "travel": "سياحة وسفر"
+   "travel": "سياحة وسفر",
+   "education": "تعليم ومدارس"
   },
   "tags": {
    "media": "منصة إعلامية",
@@ -3718,13 +3794,15 @@ window.WEBINA_I18N = {
    "duty": "صيدلية مناوبة",
    "quote": "عرض سعر مجاني",
    "listing": "إعلانات وفلاتر",
-   "search": "بحث واختيار التواريخ"
+   "search": "بحث واختيار التواريخ",
+   "portal": "بوابة الطلاب وأولياء الأمور",
+   "stock": "مخزون السيارات"
   },
   "demo": {
    "eyebrow": "عروض تجريبية مباشرة",
    "t1": "مواقع جاهزة",
    "t2": "لمهنتكم",
-   "text": "شاهدوا الآن كيف سيبدو موقعكم: عروض حقيقية تعمل، صمّمناها للمحامين والأطباء وعيادات الأسنان والأطباء البيطريين والمطاعم والصيدليات وشركات نقل الأثاث ومحلات البصريات والفنادق والمكاتب العقارية ووكالات السفر وصالونات الحلاقة والمحلات والمتاجر الإلكترونية.",
+   "text": "شاهدوا الآن كيف سيبدو موقعكم: عروض حقيقية تعمل، صمّمناها للمحامين والأطباء وعيادات الأسنان والأطباء البيطريين والمطاعم والصيدليات وشركات نقل الأثاث ومحلات البصريات والفنادق والمكاتب العقارية ووكالات السفر والمدارس ووكالات السيارات وصالونات الحلاقة والمحلات والمتاجر الإلكترونية.",
    "live": "افتح العرض المباشر",
    "want": "أريد هذا الموقع",
    "badge": "عرض مباشر",
@@ -3880,6 +3958,28 @@ window.WEBINA_I18N = {
       "البحث عن فنادق وسيارات ورحلات وجولات",
       "التواريخ والمسافرون والفلاتر",
       "الحجوزات ومساحة «رحلاتي»",
+      "التركية والإنجليزية والفرنسية"
+     ]
+    },
+    "school": {
+     "tab": "مدرسة",
+     "name": "Campus Digital",
+     "desc": "موقع أنيق وموثوق للمدارس والجامعات ومراكز التدريب.",
+     "feats": [
+      "صفحات المدرسة والبرامج",
+      "بوابة الطلاب وأولياء الأمور، دورات عبر الإنترنت",
+      "أداة اختيار البرنامج ونموذج تسجيل",
+      "التركية والإنجليزية والفرنسية"
+     ]
+    },
+    "dealer": {
+     "tab": "وكالة سيارات",
+     "name": "Volta Motors",
+     "desc": "موقع وكالة سيارات سينمائي يجمع البيع والصيانة والطلاء في مكان واحد.",
+     "feats": [
+      "مخزون السيارات وطلب تجربة القيادة",
+      "الصيانة والميكانيك، السمكرة والطلاء",
+      "حجز موعد عبر الإنترنت",
       "التركية والإنجليزية والفرنسية"
      ]
     }

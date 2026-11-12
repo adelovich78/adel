@@ -194,6 +194,8 @@ PROJECTS = [
     {'title': 'Maison Lycia', 'cat': 'hotel', 'tags': ['reserve', 'multi', 'vitrine'], 'img': 'w-hotel.webp', 'url': 'https://hotel.webina.com.tr/', 'demo': True, 'pending': True},
     {'title': 'Boğaz Emlak', 'cat': 'realestate', 'tags': ['listing', 'leads', 'multi'], 'img': 'w-emlak.webp', 'url': 'https://emlak.webina.com.tr/', 'demo': True, 'pending': True},
     {'title': 'Seyyora', 'cat': 'travel', 'tags': ['search', 'reserve', 'multi'], 'img': 'w-turizm.webp', 'url': 'https://turizm.webina.com.tr/', 'demo': True, 'pending': True},
+    {'title': 'Campus Digital', 'cat': 'education', 'tags': ['portal', 'leads', 'multi'], 'img': 'w-okul.webp', 'url': 'https://okul.webina.com.tr/', 'demo': True, 'pending': True},
+    {'title': 'Volta Motors', 'cat': 'auto', 'tags': ['stock', 'booking', 'multi'], 'img': 'w-otomobil.webp', 'url': 'https://otomobil.webina.com.tr/', 'demo': True, 'pending': True},
 ]
 def _ready(img):
     return os.path.exists(os.path.join(os.path.dirname(HERE), 'webina', 'images', img))
@@ -230,6 +232,8 @@ DEMOS = [
     {'key': 'hotel', 'img': 'long-hotel.webp', 'h': None, 'url': 'https://hotel.webina.com.tr/', 'host': 'hotel.webina.com.tr', 'icon': 'i-bed'},
     {'key': 'realestate', 'img': 'long-emlak.webp', 'h': None, 'url': 'https://emlak.webina.com.tr/', 'host': 'emlak.webina.com.tr', 'icon': 'i-house'},
     {'key': 'travel', 'img': 'long-turizm.webp', 'h': None, 'url': 'https://turizm.webina.com.tr/', 'host': 'turizm.webina.com.tr', 'icon': 'i-plane'},
+    {'key': 'school', 'img': 'long-okul.webp', 'h': None, 'url': 'https://okul.webina.com.tr/', 'host': 'okul.webina.com.tr', 'icon': 'i-cap'},
+    {'key': 'dealer', 'img': 'long-otomobil.webp', 'h': None, 'url': 'https://otomobil.webina.com.tr/', 'host': 'otomobil.webina.com.tr', 'icon': 'i-car'},
 ]
 # Démos en attente : retirées tant que la capture longue manque ; hauteur lue sur l'image sinon
 DEMOS = [d for d in DEMOS if d['url'] not in _skip and _ready(d['img'])]

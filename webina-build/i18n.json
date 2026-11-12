@@ -298,7 +298,8 @@
    "optic": "Optik & Gözlük",
    "hotel": "Otel & Konaklama",
    "realestate": "Emlak",
-   "travel": "Turizm & Seyahat"
+   "travel": "Turizm & Seyahat",
+   "education": "Eğitim & Okul"
   },
   "tags": {
    "media": "Medya platformu",
@@ -322,7 +323,9 @@
    "duty": "Nöbetçi eczane",
    "quote": "Ücretsiz teklif",
    "listing": "İlan & filtreler",
-   "search": "Arama & tarih seçimi"
+   "search": "Arama & tarih seçimi",
+   "portal": "Öğrenci & veli portalı",
+   "stock": "Araç stoku"
   },
   "contact": {
    "eyebrow": "İletişim",
@@ -687,7 +690,8 @@
    "optic": "Optician & Eyewear",
    "hotel": "Hotels & Stays",
    "realestate": "Real estate",
-   "travel": "Travel & Tourism"
+   "travel": "Travel & Tourism",
+   "education": "Education & Schools"
   },
   "tags": {
    "media": "Media platform",
@@ -711,7 +715,9 @@
    "duty": "On-duty pharmacy",
    "quote": "Free quote",
    "listing": "Listings & filters",
-   "search": "Search & date picker"
+   "search": "Search & date picker",
+   "portal": "Student & parent portal",
+   "stock": "Vehicle stock"
   },
   "contact": {
    "eyebrow": "Contact",
@@ -1076,7 +1082,8 @@
    "optic": "Opticien & Lunettes",
    "hotel": "Hôtellerie",
    "realestate": "Immobilier",
-   "travel": "Voyage & Tourisme"
+   "travel": "Voyage & Tourisme",
+   "education": "Éducation & Écoles"
   },
   "tags": {
    "media": "Plateforme média",
@@ -1100,7 +1107,9 @@
    "duty": "Pharmacie de garde",
    "quote": "Devis gratuit",
    "listing": "Annonces & filtres",
-   "search": "Recherche & dates"
+   "search": "Recherche & dates",
+   "portal": "Portail élèves & parents",
+   "stock": "Stock de véhicules"
   },
   "contact": {
    "eyebrow": "Contact",
@@ -1465,7 +1474,8 @@
    "optic": "بصريات ونظارات",
    "hotel": "فنادق وإقامة",
    "realestate": "عقارات",
-   "travel": "سياحة وسفر"
+   "travel": "سياحة وسفر",
+   "education": "تعليم ومدارس"
   },
   "tags": {
    "media": "منصة إعلامية",
@@ -1489,7 +1499,9 @@
    "duty": "صيدلية مناوبة",
    "quote": "عرض سعر مجاني",
    "listing": "إعلانات وفلاتر",
-   "search": "بحث واختيار التواريخ"
+   "search": "بحث واختيار التواريخ",
+   "portal": "بوابة الطلاب وأولياء الأمور",
+   "stock": "مخزون السيارات"
   },
   "contact": {
    "eyebrow": "اتصل بنا",
