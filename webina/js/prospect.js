@@ -121,7 +121,6 @@
     var n = selectedIds().length;
     $('[data-pr-count]').textContent = n + (n > 1 ? ' sélectionnés' : ' sélectionné');
     $('[data-pr-send]').disabled = !n;
-    $('[data-pr-preview]').disabled = !n;
     var mailable = visible().filter(canMail);
     var all = $('[data-pr-all]');
     all.checked = mailable.length > 0 && mailable.every(function (c) { return state.sel[c.id]; });
@@ -143,40 +142,89 @@
     if (e.target.closest('[data-pr-open]') && window.CRM) window.CRM.open(e.target.closest('tr').dataset.id);
   });
 
-  /* ---------- Aperçu ---------- */
+  /* ---------- Aperçu obligatoire avant l'envoi ----------
+     « Envoyer » ouvre l'aperçu : mode d'envoi, expéditeur, destinataires, e-mail tel qu'il sera reçu.
+     Rien ne part tant que « Confirmer l'envoi » n'est pas cliqué. */
   var dlg = document.createElement('dialog');
   dlg.className = 'pr_dialog';
-  dlg.innerHTML = '<form method="dialog" class="pr_dialog-inner"><div class="pr_dialog-head"><div><p class="pr_meta" data-pv-to></p><h2 class="heading-style-h5" data-pv-subject></h2></div>' +
-    '<button class="icon-button" aria-label="Fermer"><svg class="icon" aria-hidden="true"><use href="#i-x"/></svg></button></div>' +
-    '<iframe class="pr_dialog-frame" title="Aperçu de l\'e-mail" data-pv-frame></iframe></form>';
+  dlg.innerHTML = '<div class="pr_dialog-inner">' +
+    '<div class="pr_dialog-head"><div><p class="pr_meta" data-pv-from></p><h2 class="heading-style-h5" data-pv-subject></h2></div>' +
+    '<button type="button" class="icon-button" data-pv-close aria-label="Fermer"><svg class="icon" aria-hidden="true"><use href="#i-x"/></svg></button></div>' +
+    '<div class="choice_group pr_modes" data-pv-mode>' +
+      '<label class="choice_chip"><input type="radio" name="pvm" value="bcc" checked><span>Envoi groupé en Cci</span></label>' +
+      '<label class="choice_chip"><input type="radio" name="pvm" value="single"><span>Un e-mail personnalisé par prospect</span></label>' +
+    '</div>' +
+    '<p class="pr_meta" data-pv-explain></p>' +
+    '<div class="pr_pv-nav" data-pv-nav><button type="button" class="icon-button" data-pv-prev aria-label="Précédent"><svg class="icon" aria-hidden="true"><use href="#i-chevron-left"/></svg></button>' +
+      '<span data-pv-who></span><button type="button" class="icon-button" data-pv-next aria-label="Suivant"><svg class="icon" aria-hidden="true"><use href="#i-chevron-right"/></svg></button></div>' +
+    '<iframe class="pr_dialog-frame" title="Aperçu de l\'e-mail" data-pv-frame></iframe>' +
+    '<div class="button-group pr_pv-actions"><button type="button" class="button" data-pv-confirm><svg class="icon" aria-hidden="true"><use href="#i-send"/></svg><span data-pv-confirm-label>Confirmer l\'envoi</span></button>' +
+    '<button type="button" class="button is-secondary" data-pv-close>Annuler</button></div></div>';
   document.body.appendChild(dlg);
-  $('[data-pr-preview]').addEventListener('click', function () {
-    var id = selectedIds()[0];
-    var c = state.items.filter(function (x) { return x.id === id; })[0];
+  var pv = { ids: [], i: 0, mode: 'bcc' };
+
+  function tplFor(c) {
     var tid = $('[data-pr-template]').value;
-    var tpl = tid === 'auto' ? (state.tpls.filter(function (t) { return t.trade === c.trade; })[0] || state.tpls.filter(function (t) { return t.trade === 'general'; })[0]) : state.tpls.filter(function (t) { return t.id === tid; })[0];
-    if (!tpl) return toast('Aucun modèle');
-    api('prospect.php?r=preview', { method: 'POST', body: { client_id: id, template_id: tpl.id } }).then(function (p) {
-      $('[data-pv-to]', dlg).textContent = 'À : ' + p.to + ' · modèle « ' + tpl.name + ' »';
+    if (tid !== 'auto') return state.tpls.filter(function (t) { return t.id === tid; })[0];
+    return state.tpls.filter(function (t) { return t.trade === c.trade; })[0] || state.tpls.filter(function (t) { return t.trade === 'general'; })[0];
+  }
+  function client(id) { return state.items.filter(function (x) { return x.id === id; })[0]; }
+  // Envoi groupé : un e-mail par modèle ; on prévisualise chaque modèle une fois
+  function groups() {
+    var g = {};
+    pv.ids.forEach(function (id) { var t = tplFor(client(id)); if (!t) return; (g[t.id] = g[t.id] || { tpl: t, ids: [] }).ids.push(id); });
+    return Object.keys(g).map(function (k) { return g[k]; });
+  }
+  function renderPreview() {
+    var bcc = pv.mode === 'bcc', list = bcc ? groups() : pv.ids, n = list.length;
+    pv.i = Math.max(0, Math.min(pv.i, n - 1));
+    var id = bcc ? list[pv.i].ids[0] : list[pv.i];
+    var c = client(id), tpl = bcc ? list[pv.i].tpl : tplFor(c);
+    var lim = state.queue || {};
+    $('[data-pv-explain]', dlg).textContent = bcc
+      ? pv.ids.length + ' destinataire(s) en copie cachée : aucun ne voit les adresses des autres. ' + n + ' e-mail(s) (un par modèle), par lots de 25 au plus. Texte identique pour tous, sans le nom de l\'établissement.'
+      : pv.ids.length + ' e-mail(s) personnalisé(s) avec le nom et le quartier de chaque établissement, envoyés un par un, espacés.';
+    $('[data-pv-who]', dlg).textContent = bcc
+      ? 'Modèle « ' + tpl.name + ' » · ' + list[pv.i].ids.length + ' destinataire(s) · ' + (pv.i + 1) + ' / ' + n
+      : (c.company || c.name) + ' · ' + c.email + ' · ' + (pv.i + 1) + ' / ' + n;
+    $('[data-pv-prev]', dlg).disabled = pv.i === 0;
+    $('[data-pv-next]', dlg).disabled = pv.i >= n - 1;
+    $('[data-pv-confirm-label]', dlg).textContent = 'Confirmer l\'envoi à ' + pv.ids.length + ' prospect(s)';
+    api('prospect.php?r=preview', { method: 'POST', body: { client_id: id, template_id: tpl.id, mode: pv.mode } }).then(function (p) {
+      $('[data-pv-from]', dlg).textContent = 'De : ' + (p.from || '—') + (lim.daily ? ' · limite ' + lim.daily + ' destinataires par jour' : '');
       $('[data-pv-subject]', dlg).textContent = p.subject;
       $('[data-pv-frame]', dlg).srcdoc = p.html;
-      dlg.showModal();
     }).catch(function (e) { toast(e.message); });
+  }
+  function openPreview() {
+    pv.ids = selectedIds().filter(function (id) { var c = client(id); return c && canMail(c); });
+    if (!pv.ids.length) return toast('Aucun prospect avec e-mail sélectionné');
+    if (!state.tpls.length) return toast('Aucun modèle');
+    pv.i = 0;
+    renderPreview();
+    dlg.showModal();
+  }
+  $('[data-pr-send]').addEventListener('click', openPreview);
+  dlg.addEventListener('click', function (e) {
+    if (e.target.closest('[data-pv-close]')) dlg.close();
+    else if (e.target.closest('[data-pv-prev]')) { pv.i--; renderPreview(); }
+    else if (e.target.closest('[data-pv-next]')) { pv.i++; renderPreview(); }
+    else if (e.target.closest('[data-pv-confirm]')) confirmSend();
   });
+  $('[data-pv-mode]', dlg).addEventListener('change', function (e) { pv.mode = e.target.value; pv.i = 0; renderPreview(); });
 
-  /* ---------- Envoi : mise en file puis envoi un par un, espacé ---------- */
-  $('[data-pr-send]').addEventListener('click', function () {
-    var ids = selectedIds();
-    var tid = $('[data-pr-template]').value;
-    if (!W.confirm('Envoyer un e-mail de présentation à ' + ids.length + ' prospect(s) ? Les e-mails partent un par un, espacés, dans la limite du jour.')) return;
-    api('prospect.php?r=queue', { method: 'POST', body: { client_ids: ids, auto: tid === 'auto', template_id: tid === 'auto' ? null : tid } }).then(function (r) {
+  function confirmSend() {
+    var tid = $('[data-pr-template]').value, btn = $('[data-pv-confirm]', dlg);
+    btn.disabled = true;
+    api('prospect.php?r=queue', { method: 'POST', body: { client_ids: pv.ids, auto: tid === 'auto', template_id: tid === 'auto' ? null : tid, mode: pv.mode } }).then(function (r) {
       var sk = r.skipped || {}, skipped = (sk.email || 0) + (sk.optout || 0) + (sk.already || 0);
-      toast(r.queued + ' e-mail(s) en file' + (skipped ? ' · ' + skipped + ' ignoré(s) (déjà contacté, désinscrit ou sans e-mail)' : ''));
+      toast(r.queued + ' destinataire(s) en file' + (skipped ? ' · ' + skipped + ' ignoré(s) (déjà contacté, désinscrit ou sans e-mail)' : ''));
+      dlg.close();
       state.sel = {};
       state.queue = r;
       return api('prospect.php?r=list').then(function (d) { state.items = d.items || []; renderList(); renderQueue(); startSending(); });
-    }).catch(function (e) { toast(e.message); });
-  });
+    }).catch(function (e) { toast(e.message); }).then(function () { btn.disabled = false; });
+  }
 
   function renderQueue() {
     var q = state.queue, box = $('[data-pr-queue]');
@@ -212,8 +260,9 @@
     api('prospect.php?r=send', { method: 'POST', body: {} }).then(function (r) {
       state.queue = r;
       if (r.sent) {
+        var sentTo = r.sent.emails || [r.sent.to];
         state.items.forEach(function (c) {
-          if (c.email === r.sent.to) { c.mail_status = r.sent.ok ? 'sent' : 'failed'; if (r.sent.ok) c.last_mailed_at = new Date().toISOString(); }
+          if (sentTo.indexOf(c.email) > -1) { c.mail_status = r.sent.ok ? 'sent' : 'failed'; if (r.sent.ok) c.last_mailed_at = new Date().toISOString(); }
         });
         renderList();
         if (!r.sent.ok) toast('Échec de l\'envoi à ' + r.sent.to);

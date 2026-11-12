@@ -61,6 +61,8 @@ function prospect_schema(PDO $pdo): void {
         sent_at DATETIME NULL,
         INDEX idx_status (status, created_at), INDEX idx_client (client_id), INDEX idx_sent (sent_at)
     ) $o");
+    $ecols = array_column($pdo->query('SHOW COLUMNS FROM crm_emails')->fetchAll(), 'Field');
+    if (!in_array('batch', $ecols, true)) $pdo->exec('ALTER TABLE crm_emails ADD COLUMN batch CHAR(36) NULL AFTER template_id, ADD INDEX idx_batch (batch)');
     if (!(int)$pdo->query('SELECT COUNT(*) FROM crm_templates')->fetchColumn()) prospect_seed_templates($pdo);
 }
 
@@ -138,6 +140,31 @@ function prospect_fill(string $text, array $client): string {
     $name = trim((string)($client['company'] ?: $client['name']));
     $district = trim((string)($client['district'] ?? '')) ?: trim((string)($client['city'] ?? '')) ?: 'İstanbul';
     return strtr($text, ['{isletme}' => $name, '{ilce}' => $district, '{demo}' => prospect_demo($trade)]);
+}
+
+// Envoi groupé en copie cachée : un seul texte pour tous, sans nom d'établissement
+function prospect_fill_generic(string $text, string $trade): string {
+    $t = strtr($text, ['{isletme}' => 'işletmeniz', '{ilce}' => 'İstanbul', '{demo}' => prospect_demo($trade)]);
+    return preg_replace_callback('/^(\s*)(\p{Ll})/u', fn($m) => $m[1] . mb_strtoupper($m[2] === 'i' ? 'İ' : $m[2]), $t);
+}
+
+// Compte d'envoi de la prospection : « prospect_from » (ex. kurumsal@…) avec son propre mot de passe SMTP.
+// Sans réglage, la prospection part du compte principal du site.
+function prospect_account(callable $fn) {
+    global $CONFIG;
+    $keys = ['mail_from', 'mail_from_name', 'smtp_user', 'smtp_pass'];
+    $saved = array_intersect_key($CONFIG, array_flip($keys));
+    if (!empty($CONFIG['prospect_from'])) {
+        $CONFIG['mail_from'] = $CONFIG['prospect_from'];
+        $CONFIG['smtp_user'] = $CONFIG['prospect_smtp_user'] ?? $CONFIG['prospect_from'];
+        if (isset($CONFIG['prospect_smtp_pass'])) $CONFIG['smtp_pass'] = $CONFIG['prospect_smtp_pass'];
+        if (!empty($CONFIG['prospect_from_name'])) $CONFIG['mail_from_name'] = $CONFIG['prospect_from_name'];
+    }
+    try { return $fn(); } finally { foreach ($keys as $k) { if (array_key_exists($k, $saved)) $CONFIG[$k] = $saved[$k]; else unset($CONFIG[$k]); } }
+}
+function prospect_sender(): string {
+    global $CONFIG;
+    return (string)($CONFIG['prospect_from'] ?? $CONFIG['mail_from'] ?? '');
 }
 
 function prospect_token(PDO $pdo, array $client): string {
@@ -289,6 +316,50 @@ function prospect_send_next(PDO $pdo): array {
     $lock->execute([$row['id']]);
     if ($lock->rowCount() !== 1) return $q + ['sent' => null, 'reason' => 'wait'];
 
+    global $CONFIG;
+    $sender = prospect_sender();
+    $replyTo = $sender ?: (email_list($CONFIG['notify_email'] ?? '')[0] ?? null);
+
+    // ---- Envoi groupé : un seul e-mail, tous les destinataires du lot en copie cachée ----
+    if (!empty($row['batch'])) {
+        $max = min(max(1, min(50, (int)($CONFIG['prospect_bcc_batch'] ?? 25))), $q['daily'] - $q['sentToday']);
+        $st = $pdo->prepare("SELECT e.id, e.to_email, e.client_id, c.email_optout FROM crm_emails e JOIN crm_clients c ON c.id = e.client_id
+            WHERE e.batch = ? AND e.status = 'queued' AND e.id <> ? ORDER BY e.created_at, e.id LIMIT " . max(0, $max - 1));
+        $st->execute([$row['batch'], $row['id']]);
+        $rows = array_merge([['id' => $row['id'], 'to_email' => $row['to_email'], 'client_id' => $row['client_id'], 'email_optout' => null]], $st->fetchAll());
+        $ids = [];
+        foreach ($rows as $r) {
+            $o = $pdo->prepare('SELECT email_optout FROM crm_clients WHERE id = ?'); $o->execute([$r['client_id']]);
+            if ((int)$o->fetchColumn() === 1) { $pdo->prepare("UPDATE crm_emails SET status = 'skipped', error = 'désinscrit' WHERE id = ?")->execute([$r['id']]); continue; }
+            if ($r['id'] !== $row['id']) {
+                $l = $pdo->prepare("UPDATE crm_emails SET status = 'sending', sent_at = NOW() WHERE id = ? AND status = 'queued'"); $l->execute([$r['id']]);
+                if ($l->rowCount() !== 1) continue;
+            }
+            $ids[$r['id']] = $r;
+        }
+        if (!$ids) return prospect_queue_state($pdo) + ['sent' => null, 'reason' => 'skipped'];
+        $unsub = 'mailto:' . $sender . '?subject=' . rawurlencode('Listeden çıkar');
+        $tpl = null;
+        if ($row['template_id']) { $t = $pdo->prepare('SELECT trade FROM crm_templates WHERE id = ?'); $t->execute([$row['template_id']]); $tpl = $t->fetchColumn(); }
+        $html = prospect_html($row['body'], $unsub, $tpl ?: 'general', $row['subject']);
+        $log = [];
+        $bcc = array_values(array_unique(array_column($ids, 'to_email')));
+        $ok = prospect_account(fn() => send_html_mail($sender, $row['subject'], $html, $replyTo, $log, ['List-Unsubscribe: <' . $unsub . '>'], $bcc));
+        $in = implode(',', array_fill(0, count($ids), '?'));
+        if ($ok) {
+            $pdo->prepare("UPDATE crm_emails SET status = 'sent', sent_at = NOW() WHERE id IN ($in)")->execute(array_keys($ids));
+            foreach ($ids as $r) {
+                $pdo->prepare('UPDATE crm_clients SET last_mailed_at = NOW() WHERE id = ?')->execute([$r['client_id']]);
+                crm_log($pdo, $r['client_id'], null, 'email', 'E-mail de prospection envoyé (copie cachée) : « ' . $row['subject'] . ' »');
+            }
+        } else {
+            $err = mb_substr(implode(' | ', array_slice($log, -2)), 0, 250) ?: 'échec de l\'envoi';
+            $pdo->prepare("UPDATE crm_emails SET status = 'failed', sent_at = NOW(), error = ? WHERE id IN ($in)")->execute(array_merge([$err], array_keys($ids)));
+        }
+        return prospect_queue_state($pdo) + ['sent' => ['to' => implode(', ', $bcc), 'emails' => $bcc, 'ok' => $ok, 'count' => count($bcc), 'name' => count($bcc) . ' destinataires (Cci)']];
+    }
+
+    // ---- Envoi individuel : un e-mail personnalisé par destinataire ----
     $c = $pdo->prepare('SELECT * FROM crm_clients WHERE id = ?');
     $c->execute([$row['client_id']]);
     $client = $c->fetch();
@@ -297,12 +368,10 @@ function prospect_send_next(PDO $pdo): array {
         return prospect_queue_state($pdo) + ['sent' => null, 'reason' => 'skipped'];
     }
     $unsub = prospect_base_url() . '/api/unsubscribe.php?t=' . prospect_token($pdo, $client);
-    global $CONFIG;
-    $replyTo = email_list($CONFIG['notify_email'] ?? '')[0] ?? null;
     $log = [];
     $html = prospect_html($row['body'], $unsub, prospect_trade($client['sector'] ?? ''), $row['subject']);
-    $ok = send_html_mail($row['to_email'], $row['subject'], $html, $replyTo, $log,
-        ['List-Unsubscribe: <' . $unsub . '>', 'List-Unsubscribe-Post: List-Unsubscribe=One-Click']);
+    $ok = prospect_account(fn() => send_html_mail($row['to_email'], $row['subject'], $html, $replyTo, $log,
+        ['List-Unsubscribe: <' . $unsub . '>', 'List-Unsubscribe-Post: List-Unsubscribe=One-Click']));
     if ($ok) {
         $pdo->prepare("UPDATE crm_emails SET status = 'sent', sent_at = NOW() WHERE id = ?")->execute([$row['id']]);
         $pdo->prepare('UPDATE crm_clients SET last_mailed_at = NOW() WHERE id = ?')->execute([$client['id']]);
@@ -311,7 +380,7 @@ function prospect_send_next(PDO $pdo): array {
         $err = mb_substr(implode(' | ', array_slice($log, -2)), 0, 250) ?: 'échec de l\'envoi';
         $pdo->prepare("UPDATE crm_emails SET status = 'failed', sent_at = NOW(), error = ? WHERE id = ?")->execute([$err, $row['id']]);
     }
-    return prospect_queue_state($pdo) + ['sent' => ['to' => $row['to_email'], 'ok' => $ok, 'name' => $client['company'] ?: $client['name']]];
+    return prospect_queue_state($pdo) + ['sent' => ['to' => $row['to_email'], 'emails' => [$row['to_email']], 'ok' => $ok, 'count' => 1, 'name' => $client['company'] ?: $client['name']]];
 }
 
 /* ---------- Recherche automatique : OpenStreetMap (gratuit, données libres ODbL) ----------

@@ -132,19 +132,20 @@ function mail_layout(string $inner, bool $rtl = false, bool $quote = false): str
 }
 
 // Envoi d'un e-mail HTML : SMTP authentifié si configuré, sinon mail() de PHP
-function send_html_mail(string $to, string $subject, string $html, ?string $replyTo = null, ?array &$log = null, array $extra = []): bool {
+// $bcc : destinataires en copie cachée (aucun ne voit les autres)
+function send_html_mail(string $to, string $subject, string $html, ?string $replyTo = null, ?array &$log = null, array $extra = [], array $bcc = []): bool {
     global $CONFIG;
     $from = $CONFIG['mail_from'] ?? 'noreply@' . ($_SERVER['HTTP_HOST'] ?? 'localhost');
     $name = '=?UTF-8?B?' . base64_encode($CONFIG['mail_from_name'] ?? 'Webina') . '?=';
     $subj = '=?UTF-8?B?' . base64_encode($subject) . '?=';
     if (!empty($CONFIG['smtp_host'])) {
-        $ok = smtp_send($to, $subj, $html, "$name <$from>", $from, $replyTo, $log, $extra);
+        $ok = smtp_send($to, $subj, $html, "$name <$from>", $from, $replyTo, $log, $extra, $bcc);
         if (!$ok && (int)($CONFIG['smtp_port'] ?? 465) !== 587) {
             // Secours : TLS sur 587 si SSL 465 est bloqué
             $log[] = '— nouvel essai en TLS 587 —';
             $saved = [$CONFIG['smtp_port'], $CONFIG['smtp_secure']];
             [$CONFIG['smtp_port'], $CONFIG['smtp_secure']] = [587, 'tls'];
-            $ok = smtp_send($to, $subj, $html, "$name <$from>", $from, $replyTo, $log, $extra);
+            $ok = smtp_send($to, $subj, $html, "$name <$from>", $from, $replyTo, $log, $extra, $bcc);
             [$CONFIG['smtp_port'], $CONFIG['smtp_secure']] = $saved;
         }
         if (!$ok) error_log('[webina] SMTP: ' . implode(' | ', array_slice($log ?? [], -3)));
@@ -153,6 +154,7 @@ function send_html_mail(string $to, string $subject, string $html, ?string $repl
     $headers = "MIME-Version: 1.0\r\nContent-Type: text/html; charset=UTF-8\r\nFrom: $name <$from>";
     if ($replyTo) $headers .= "\r\nReply-To: $replyTo";
     foreach ($extra as $hd) $headers .= "\r\n" . $hd;
+    if ($bcc) $headers .= "\r\nBcc: " . implode(', ', $bcc);
     // -f : expéditeur d'enveloppe (meilleure délivrabilité sur cPanel)
     $ok = @mail($to, $subj, $html, $headers, '-f' . $from);
     $log[] = 'mail() => ' . ($ok ? 'accepté' : 'refusé');
@@ -161,7 +163,7 @@ function send_html_mail(string $to, string $subject, string $html, ?string $repl
 }
 
 // Client SMTP minimal (AUTH LOGIN, SSL 465 ou STARTTLS 587)
-function smtp_send(string $to, string $subj, string $html, string $fromHeader, string $fromAddr, ?string $replyTo, ?array &$log, array $extra = []): bool {
+function smtp_send(string $to, string $subj, string $html, string $fromHeader, string $fromAddr, ?string $replyTo, ?array &$log, array $extra = [], array $bcc = []): bool {
     global $CONFIG;
     $log = $log ?? [];
     $host = $CONFIG['smtp_host']; $port = (int)($CONFIG['smtp_port'] ?? 465);
@@ -192,8 +194,10 @@ function smtp_send(string $to, string $subj, string $html, string $fromHeader, s
         && $cmd(base64_encode($CONFIG['smtp_user'] ?? ''), [334], true)
         && $cmd(base64_encode($CONFIG['smtp_pass'] ?? ''), [235], true)
         && $cmd("MAIL FROM:<$fromAddr>", [250])
-        && $cmd("RCPT TO:<$to>", [250, 251])
-        && $cmd('DATA', [354]);
+        && $cmd("RCPT TO:<$to>", [250, 251]);
+    // Copie cachée : une enveloppe RCPT par destinataire, aucun en-tête « Bcc » dans le message
+    if ($ok) foreach ($bcc as $b) { if (!$cmd("RCPT TO:<$b>", [250, 251])) $log[] = "Destinataire refusé : $b"; }
+    $ok = $ok && $cmd('DATA', [354]);
     if (!$ok) { fclose($fp); return false; }
 
     $headers = [

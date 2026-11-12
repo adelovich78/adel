@@ -485,3 +485,7 @@
 }
 
 .pr_dialog-frame { width: 100%; height: 62vh; border: 0; border-radius: var(--radius-card); background-color: #eef1ed; }
+.pr_modes { flex-wrap: wrap; }
+.pr_pv-nav { display: flex; align-items: center; gap: 8px; font-size: 0.875rem; color: var(--color-text-secondary); }
+.pr_pv-actions { justify-content: flex-end; }
+.pr_dialog-frame { height: 52vh; }

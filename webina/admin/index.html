@@ -8,7 +8,7 @@
   <link rel="icon" type="image/png" href="/images/favicon.png">
   <link rel="preload" href="/fonts/schibsted-grotesk-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/css/webina.css?v=0dc844c766">
-  <link rel="stylesheet" href="/css/admin.css?v=53126a8e0d">
+  <link rel="stylesheet" href="/css/admin.css?v=2e2ffba948">
   <script>
     (function () {
       try { var th = localStorage.getItem('webina-theme'); if (th) document.documentElement.setAttribute('data-theme', th); } catch (e) {}
@@ -18,6 +18,8 @@
 <body class="admin-body">
   <svg width="0" height="0" style="position:absolute" aria-hidden="true">
     <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M7 17 17 7M7 7h10v10"/></symbol>
+    <symbol id="i-chevron-left" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></symbol>
+    <symbol id="i-chevron-right" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></symbol>
     <symbol id="i-send" viewBox="0 0 24 24"><path d="M14.54 21.69a.5.5 0 0 0 .94-.03l6.5-19a.5.5 0 0 0-.64-.64l-19 6.5a.5.5 0 0 0-.03.94l7.93 3.18a2 2 0 0 1 1.11 1.11zM21.85 2.15 10.91 13.09"/></symbol>
     <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></symbol>
     <symbol id="i-wa" viewBox="0 0 24 24"><path d="M3 21l1.65-3.8a9 9 0 1 1 3.4 2.9L3 21"/><path d="M9 10a.5.5 0 0 0 1 0V9a.5.5 0 0 0-1 0v1a5 5 0 0 0 5 5h1a.5.5 0 0 0 0-1h-1a.5.5 0 0 0 0 1"/></symbol>
@@ -216,8 +218,7 @@
           <div class="pr_bar">
             <label class="pr_check"><input type="checkbox" data-pr-all><span data-pr-count>0 sélectionné</span></label>
             <select class="form_input is-select pr_select" data-pr-template aria-label="Modèle"><option value="auto">Modèle selon le métier (automatique)</option></select>
-            <button type="button" class="button is-small is-secondary" data-pr-preview disabled>Aperçu</button>
-            <button type="button" class="button is-small" data-pr-send disabled><svg class="icon" aria-hidden="true"><use href="#i-send"/></svg>Envoyer</button>
+                        <button type="button" class="button is-small" data-pr-send disabled><svg class="icon" aria-hidden="true"><use href="#i-send"/></svg>Aperçu et envoi</button>
           </div>
           <div class="admin_table-wrap">
             <table class="admin_table pr_table">
@@ -479,6 +480,6 @@
   <script src="/js/i18n.js?v=06af9360bb" defer></script>
   <script src="/js/admin.js?v=28e82d8a4c" defer></script>
   <script src="/js/crm.js?v=722af055b3" defer></script>
-  <script src="/js/prospect.js?v=d955874ebb" defer></script>
+  <script src="/js/prospect.js?v=36043a03d5" defer></script>
 </body>
 </html>

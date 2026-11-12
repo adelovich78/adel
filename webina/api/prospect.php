@@ -3,8 +3,9 @@
 //   list                GET   prospects (fiches « lead ») avec métier, e-mail, site, dernier envoi
 //   import              POST  { rows: [{ name, sector, district, email, phone, website, source, notes }] }
 //   templates           GET | POST | PUT ?id= | DELETE ?id=
-//   preview             POST  { client_id, template_id } → objet et texte personnalisés
-//   queue               GET   état de la file · POST { client_ids, template_id, auto } → met en file
+//   preview             POST  { client_id, template_id, mode } → objet, texte et e-mail mis en page
+//   queue               GET   état de la file · POST { client_ids, template_id, auto, mode } → met en file
+//                       mode 'bcc' : un e-mail par modèle, destinataires en copie cachée · 'single' : un e-mail personnalisé chacun
 //   send                POST  envoie le prochain e-mail si l'espacement le permet
 //   clear               POST  vide la file (e-mails pas encore partis)
 //   search              GET   ?trade=&district= → recherche OpenStreetMap
@@ -85,9 +86,12 @@ case 'preview':
     $t = $pdo->prepare('SELECT * FROM crm_templates WHERE id = ?'); $t->execute([pid((string)($in['template_id'] ?? ''))]);
     $client = $c->fetch(); $tpl = $t->fetch();
     if (!$client || !$tpl) fail('Introuvable.', 404);
-    $subject = prospect_fill($tpl['subject'], $client); $body = prospect_fill($tpl['body'], $client);
-    json_out(['to' => $client['email'], 'subject' => $subject, 'body' => $body,
-        'html' => prospect_html($body, '#', prospect_trade($client['sector'] ?? ''), $subject)]);
+    $bccMode = ($in['mode'] ?? '') === 'bcc';
+    $trade = $bccMode ? $tpl['trade'] : prospect_trade($client['sector'] ?? '');
+    $subject = $bccMode ? prospect_fill_generic($tpl['subject'], $trade) : prospect_fill($tpl['subject'], $client);
+    $body = $bccMode ? prospect_fill_generic($tpl['body'], $trade) : prospect_fill($tpl['body'], $client);
+    json_out(['to' => $client['email'], 'from' => prospect_sender(), 'subject' => $subject, 'body' => $body,
+        'html' => prospect_html($body, '#', $trade, $subject)]);
 
 case 'queue':
     if ($method === 'GET') {
@@ -105,7 +109,9 @@ case 'queue':
     $chosen = $tplById[(string)($in['template_id'] ?? '')] ?? null;
     if (!$auto && !$chosen) fail('Choisissez un modèle.', 422);
     $get = $pdo->prepare('SELECT * FROM crm_clients WHERE id = ?');
-    $ins = $pdo->prepare('INSERT INTO crm_emails (id, client_id, template_id, to_email, subject, body) VALUES (?, ?, ?, ?, ?, ?)');
+    $ins = $pdo->prepare('INSERT INTO crm_emails (id, client_id, template_id, batch, to_email, subject, body) VALUES (?, ?, ?, ?, ?, ?, ?)');
+    $bccMode = ($in['mode'] ?? 'bcc') !== 'single';
+    $batches = [];   // un lot par modèle en envoi groupé
     $pending = $pdo->prepare("SELECT 1 FROM crm_emails WHERE client_id = ? AND status IN ('queued', 'sending') LIMIT 1");
     $done = 0; $skip = ['email' => 0, 'optout' => 0, 'already' => 0];
     $seen = [];
@@ -119,7 +125,12 @@ case 'queue':
         if ($pending->fetch() || (!empty($c['last_mailed_at']) && empty($in['again']))) { $skip['already']++; continue; }
         $tpl = $auto ? ($tplByTrade[prospect_trade($c['sector'])] ?? $tplByTrade['general'] ?? $chosen) : $chosen;
         if (!$tpl) { $skip['email']++; continue; }
-        $ins->execute([uuid4(), $cid, $tpl['id'], $email, mb_substr(prospect_fill($tpl['subject'], $c), 0, 200), prospect_fill($tpl['body'], $c)]);
+        if ($bccMode) {
+            $batch = $batches[$tpl['id']] ??= uuid4();
+            $ins->execute([uuid4(), $cid, $tpl['id'], $batch, $email, mb_substr(prospect_fill_generic($tpl['subject'], $tpl['trade']), 0, 200), prospect_fill_generic($tpl['body'], $tpl['trade'])]);
+        } else {
+            $ins->execute([uuid4(), $cid, $tpl['id'], null, $email, mb_substr(prospect_fill($tpl['subject'], $c), 0, 200), prospect_fill($tpl['body'], $c)]);
+        }
         $seen[$email] = true;
         $done++;
     }
