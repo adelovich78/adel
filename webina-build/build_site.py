@@ -196,6 +196,7 @@ PROJECTS = [
     {'title': 'Seyyora', 'cat': 'travel', 'tags': ['search', 'reserve', 'multi'], 'img': 'w-turizm.webp', 'url': 'https://turizm.webina.com.tr/', 'demo': True, 'pending': True},
     {'title': 'Campus Digital', 'cat': 'education', 'tags': ['portal', 'leads', 'multi'], 'img': 'w-okul.webp', 'url': 'https://okul.webina.com.tr/', 'demo': True, 'pending': True},
     {'title': 'Volta Motors', 'cat': 'auto', 'tags': ['stock', 'booking', 'multi'], 'img': 'w-otomobil.webp', 'url': 'https://otomobil.webina.com.tr/', 'demo': True, 'pending': True},
+    {'title': 'Maison Éclat', 'cat': 'beauty', 'tags': ['booking', 'multi', 'vitrine'], 'img': 'w-spa.webp', 'url': 'https://spa.webina.com.tr/', 'demo': True, 'pending': True},
 ]
 def _ready(img):
     return os.path.exists(os.path.join(os.path.dirname(HERE), 'webina', 'images', img))
@@ -234,6 +235,7 @@ DEMOS = [
     {'key': 'travel', 'img': 'long-turizm.webp', 'h': None, 'url': 'https://turizm.webina.com.tr/', 'host': 'turizm.webina.com.tr', 'icon': 'i-plane'},
     {'key': 'school', 'img': 'long-okul.webp', 'h': None, 'url': 'https://okul.webina.com.tr/', 'host': 'okul.webina.com.tr', 'icon': 'i-cap'},
     {'key': 'dealer', 'img': 'long-otomobil.webp', 'h': None, 'url': 'https://otomobil.webina.com.tr/', 'host': 'otomobil.webina.com.tr', 'icon': 'i-car'},
+    {'key': 'spa', 'img': 'long-spa.webp', 'h': None, 'url': 'https://spa.webina.com.tr/', 'host': 'spa.webina.com.tr', 'icon': 'i-sparkle'},
 ]
 # Démos en attente : retirées tant que la capture longue manque ; hauteur lue sur l'image sinon
 DEMOS = [d for d in DEMOS if d['url'] not in _skip and _ready(d['img'])]

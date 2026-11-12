@@ -313,7 +313,7 @@ window.WEBINA_I18N = {
    "eyebrow": "Canlı demolar",
    "t1": "Mesleğinize özel",
    "t2": "hazır siteler",
-   "text": "Sitenizin nasıl görüneceğini şimdi görün: avukatlar, doktorlar, diş klinikleri, veterinerler, restoranlar, eczaneler, nakliyat firmaları, optikler, oteller, emlak ofisleri, seyahat acenteleri, okullar, otomobil bayileri, kuaförler, esnaf ve online mağazalar için hazırladığımız gerçek, çalışan demolar.",
+   "text": "Sitenizin nasıl görüneceğini şimdi görün: avukatlar, doktorlar, diş klinikleri, veterinerler, restoranlar, eczaneler, nakliyat firmaları, optikler, oteller, emlak ofisleri, seyahat acenteleri, okullar, otomobil bayileri, kuaförler, güzellik salonları ve spalar, esnaf ve online mağazalar için hazırladığımız gerçek, çalışan demolar.",
    "live": "Canlı demoyu aç",
    "want": "Bu siteden istiyorum",
    "badge": "Canlı demo",
@@ -491,6 +491,17 @@ window.WEBINA_I18N = {
       "Araç stoku ve test sürüşü talebi",
       "Bakım & mekanik, kaporta & boya",
       "Online randevu",
+      "Türkçe, İngilizce & Fransızca"
+     ]
+    },
+    "spa": {
+     "tab": "Güzellik & Spa",
+     "name": "Maison Éclat",
+     "desc": "Kuaför, spa, tırnak ve lazer hizmetlerini bir arada sunan, lüks bir güzellik salonu sitesi.",
+     "feats": [
+      "Online randevu",
+      "Hizmetler ve fiyat listesi",
+      "Kişisel bakım danışmanlığı",
       "Türkçe, İngilizce & Fransızca"
      ]
     }
@@ -1476,7 +1487,7 @@ window.WEBINA_I18N = {
    "eyebrow": "Live demos",
    "t1": "Ready-made sites",
    "t2": "for your profession",
-   "text": "See how your site could look right now: real, working demos we built for lawyers, doctors, dental clinics, vets, restaurants, pharmacies, moving companies, opticians, hotels, real estate agencies, travel agencies, schools, car dealers, hair salons, local shops and online stores.",
+   "text": "See how your site could look right now: real, working demos we built for lawyers, doctors, dental clinics, vets, restaurants, pharmacies, moving companies, opticians, hotels, real estate agencies, travel agencies, schools, car dealers, hair salons, beauty salons and spas, local shops and online stores.",
    "live": "Open live demo",
    "want": "I want this site",
    "badge": "Live demo",
@@ -1654,6 +1665,17 @@ window.WEBINA_I18N = {
       "Vehicle stock and test drive requests",
       "Servicing & mechanics, bodywork & paint",
       "Online appointments",
+      "Turkish, English & French"
+     ]
+    },
+    "spa": {
+     "tab": "Beauty & Spa",
+     "name": "Maison Éclat",
+     "desc": "A luxury beauty salon site bringing hair, spa, nails and laser together.",
+     "feats": [
+      "Online booking",
+      "Treatments and price list",
+      "Personal beauty consultation",
       "Turkish, English & French"
      ]
     }
@@ -2639,7 +2661,7 @@ window.WEBINA_I18N = {
    "eyebrow": "Démos en ligne",
    "t1": "Des sites prêts",
    "t2": "pour votre métier",
-   "text": "Voyez dès maintenant à quoi ressemblera votre site : de vraies démos fonctionnelles pour avocats, médecins, dentistes, vétérinaires, restaurants, pharmacies, déménageurs, opticiens, hôtels, agences immobilières, agences de voyage, écoles, concessions automobiles, coiffeurs, commerçants et boutiques en ligne.",
+   "text": "Voyez dès maintenant à quoi ressemblera votre site : de vraies démos fonctionnelles pour avocats, médecins, dentistes, vétérinaires, restaurants, pharmacies, déménageurs, opticiens, hôtels, agences immobilières, agences de voyage, écoles, concessions automobiles, coiffeurs, instituts de beauté et spas, commerçants et boutiques en ligne.",
    "live": "Voir la démo en ligne",
    "want": "Je veux ce site",
    "badge": "Démo en ligne",
@@ -2817,6 +2839,17 @@ window.WEBINA_I18N = {
       "Stock de véhicules et demande d’essai",
       "Entretien & mécanique, carrosserie & peinture",
       "Prise de rendez-vous en ligne",
+      "Turc, anglais & français"
+     ]
+    },
+    "spa": {
+     "tab": "Beauté & Spa",
+     "name": "Maison Éclat",
+     "desc": "Un site de salon de beauté haut de gamme : coiffure, spa, onglerie et laser au même endroit.",
+     "feats": [
+      "Réservation en ligne",
+      "Prestations et tarifs",
+      "Conseil beauté personnalisé",
       "Turc, anglais & français"
      ]
     }
@@ -3802,7 +3835,7 @@ window.WEBINA_I18N = {
    "eyebrow": "عروض تجريبية مباشرة",
    "t1": "مواقع جاهزة",
    "t2": "لمهنتكم",
-   "text": "شاهدوا الآن كيف سيبدو موقعكم: عروض حقيقية تعمل، صمّمناها للمحامين والأطباء وعيادات الأسنان والأطباء البيطريين والمطاعم والصيدليات وشركات نقل الأثاث ومحلات البصريات والفنادق والمكاتب العقارية ووكالات السفر والمدارس ووكالات السيارات وصالونات الحلاقة والمحلات والمتاجر الإلكترونية.",
+   "text": "شاهدوا الآن كيف سيبدو موقعكم: عروض حقيقية تعمل، صمّمناها للمحامين والأطباء وعيادات الأسنان والأطباء البيطريين والمطاعم والصيدليات وشركات نقل الأثاث ومحلات البصريات والفنادق والمكاتب العقارية ووكالات السفر والمدارس ووكالات السيارات وصالونات الحلاقة وصالونات التجميل والسبا والمحلات والمتاجر الإلكترونية.",
    "live": "افتح العرض المباشر",
    "want": "أريد هذا الموقع",
    "badge": "عرض مباشر",
@@ -3980,6 +4013,17 @@ window.WEBINA_I18N = {
       "مخزون السيارات وطلب تجربة القيادة",
       "الصيانة والميكانيك، السمكرة والطلاء",
       "حجز موعد عبر الإنترنت",
+      "التركية والإنجليزية والفرنسية"
+     ]
+    },
+    "spa": {
+     "tab": "تجميل وسبا",
+     "name": "Maison Éclat",
+     "desc": "موقع صالون تجميل فاخر يجمع تصفيف الشعر والسبا والأظافر والليزر.",
+     "feats": [
+      "حجز موعد عبر الإنترنت",
+      "الخدمات وقائمة الأسعار",
+      "استشارة تجميل شخصية",
       "التركية والإنجليزية والفرنسية"
      ]
     }
