@@ -643,9 +643,28 @@ html[lang="ar"] .hero_heading { line-height: 1.22; letter-spacing: 0; }
   overflow-x: auto; scrollbar-width: none;
 }
 .demos_tabs::-webkit-scrollbar { display: none; }
-/* Ordinateur : les onglets passent à la ligne au lieu de défiler (14 démos) */
+/* Ordinateur : grille régulière à colonnes égales (une case par démo), au lieu d'une barre qui défile */
 @media (min-width: 992px) {
-  .demos_tabs { flex-wrap: wrap; overflow-x: visible; }
+  .demos_tabs-wrapper { display: block; }
+  .demos_tabs {
+    display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 6px;
+    padding: 0; border-radius: 0; background-color: transparent; overflow: visible;
+  }
+  .demos_tabs .demos_tab {
+    height: 48px; padding-inline: 14px; border-radius: 10px;
+    background-color: var(--color-raised);
+    box-shadow: inset 0 0 0 1px var(--color-hairline);
+    overflow: hidden; text-overflow: ellipsis;
+  }
+  .demos_tabs .demos_tab .icon { width: 18px; height: 18px; flex: none; }
+  .demos_tabs.is-overlay { clip-path: inset(var(--clip, 0 100% 0 0) round 10px); }
+  .demos_tabs.is-overlay .demos_tab { box-shadow: none; }
+}
+@media (min-width: 992px) and (max-width: 1199px) {
+  .demos_tabs .demos_tab { padding-inline: 12px; gap: 6px; font-size: 0.875rem; }
+}
+@media (min-width: 992px) and (hover: hover) and (pointer: fine) {
+  .demos_tabs:not(.is-overlay) .demos_tab:hover { box-shadow: inset 0 0 0 1px var(--color-hairline-strong); }
 }
 .demos_tab {
   display: inline-flex; align-items: center; gap: 8px;

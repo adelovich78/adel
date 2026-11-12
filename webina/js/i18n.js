@@ -2766,7 +2766,7 @@ window.WEBINA_I18N = {
      ]
     },
     "moving": {
-     "tab": "Déménagement",
+     "tab": "Déménageur",
      "name": "Bosphora",
      "desc": "Un site d’entreprise rassurant qui réunit déménagement et nettoyage sous un même toit.",
      "feats": [
@@ -2832,7 +2832,7 @@ window.WEBINA_I18N = {
      ]
     },
     "dealer": {
-     "tab": "Concession auto",
+     "tab": "Automobile",
      "name": "Volta Motors",
      "desc": "Un site de concession automobile cinématographique : vente, atelier et peinture au même endroit.",
      "feats": [
