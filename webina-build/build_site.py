@@ -190,7 +190,17 @@ PROJECTS = [
     {'title': 'Eczane Lale', 'cat': 'pharmacy', 'tags': ['duty', 'vitrine', 'multi'], 'img': 'w-eczane.webp', 'url': 'https://ezcane.webina.com.tr/', 'demo': True},
     {'title': 'Bosphora', 'cat': 'moving', 'tags': ['quote', 'leads', 'vitrine'], 'img': 'w-nakliyat.webp', 'url': 'https://nakliyet.webina.com.tr/', 'demo': True},
     {'title': 'LENSA', 'cat': 'optic', 'tags': ['shop', 'cart', 'multi'], 'img': 'w-optik.webp', 'url': 'https://optik.webina.com.tr/', 'demo': True},
+    # Démos en attente : elles n'apparaissent qu'une fois leurs captures déposées dans webina/images
+    {'title': 'Otel', 'cat': 'hotel', 'tags': ['reserve', 'multi', 'vitrine'], 'img': 'w-hotel.webp', 'url': 'https://hotel.webina.com.tr/', 'demo': True, 'pending': True},
+    {'title': 'Emlak', 'cat': 'realestate', 'tags': ['listing', 'leads', 'multi'], 'img': 'w-emlak.webp', 'url': 'https://emlak.webina.com.tr/', 'demo': True, 'pending': True},
+    {'title': 'Turizm', 'cat': 'travel', 'tags': ['search', 'reserve', 'multi'], 'img': 'w-turizm.webp', 'url': 'https://turizm.webina.com.tr/', 'demo': True, 'pending': True},
 ]
+def _ready(img):
+    return os.path.exists(os.path.join(os.path.dirname(HERE), 'webina', 'images', img))
+_skip = [p['url'] for p in PROJECTS if p.get('pending') and not _ready(p['img'])]
+if _skip:
+    print('démos en attente de captures (non publiées) :', ', '.join(_skip), file=sys.stderr)
+PROJECTS = [p for p in PROJECTS if p['url'] not in _skip]
 for p in PROJECTS:
     p['host'] = re.sub(r'^https?://(www\.)?|/$', '', p['url'])
 # Captures aussi disponibles en 1024 px (écrans haute densité)
@@ -217,7 +227,16 @@ DEMOS = [
     {'key': 'pharmacy', 'img': 'long-eczane.webp', 'h': 2722, 'url': 'https://ezcane.webina.com.tr/', 'host': 'ezcane.webina.com.tr', 'icon': 'i-pill'},
     {'key': 'moving', 'img': 'long-nakliyat.webp', 'h': 2556, 'url': 'https://nakliyet.webina.com.tr/', 'host': 'nakliyet.webina.com.tr', 'icon': 'i-truck'},
     {'key': 'optic', 'img': 'long-optik.webp', 'h': 3111, 'url': 'https://optik.webina.com.tr/', 'host': 'optik.webina.com.tr', 'icon': 'i-glasses'},
+    {'key': 'hotel', 'img': 'long-hotel.webp', 'h': None, 'url': 'https://hotel.webina.com.tr/', 'host': 'hotel.webina.com.tr', 'icon': 'i-bed'},
+    {'key': 'realestate', 'img': 'long-emlak.webp', 'h': None, 'url': 'https://emlak.webina.com.tr/', 'host': 'emlak.webina.com.tr', 'icon': 'i-house'},
+    {'key': 'travel', 'img': 'long-turizm.webp', 'h': None, 'url': 'https://turizm.webina.com.tr/', 'host': 'turizm.webina.com.tr', 'icon': 'i-plane'},
 ]
+# Démos en attente : retirées tant que la capture longue manque ; hauteur lue sur l'image sinon
+DEMOS = [d for d in DEMOS if d['url'] not in _skip and _ready(d['img'])]
+for d in DEMOS:
+    if d['h'] is None:
+        from PIL import Image
+        d['h'] = Image.open(os.path.join(os.path.dirname(HERE), 'webina', 'images', d['img'])).height
 DEPTS = ['strategy', 'design', 'dev', 'marketing', 'support']
 CITIES = ["İstanbul", "Ankara", "İzmir", "Bursa", "Antalya", "Kocaeli", "Konya", "Adana", "Gaziantep", "Eskişehir", "Muğla", "Trabzon"]
 NAV = [('home', '/'), ('services', '/services'), ('sectors', '/secteurs'), ('portfolio', '/portfolio'), ('contact', '/contact'), ('quote', '/teklif')]

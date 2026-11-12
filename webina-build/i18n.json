@@ -295,7 +295,10 @@
    "restaurant": "Restoran",
    "pharmacy": "Eczane",
    "moving": "Nakliyat & Temizlik",
-   "optic": "Optik & Gözlük"
+   "optic": "Optik & Gözlük",
+   "hotel": "Otel & Konaklama",
+   "realestate": "Emlak",
+   "travel": "Turizm & Seyahat"
   },
   "tags": {
    "media": "Medya platformu",
@@ -317,7 +320,9 @@
    "emergency": "7/24 acil",
    "menu": "Menü",
    "duty": "Nöbetçi eczane",
-   "quote": "Ücretsiz teklif"
+   "quote": "Ücretsiz teklif",
+   "listing": "İlan & filtreler",
+   "search": "Arama & tarih seçimi"
   },
   "contact": {
    "eyebrow": "İletişim",
@@ -679,7 +684,10 @@
    "restaurant": "Restaurant",
    "pharmacy": "Pharmacy",
    "moving": "Moving & Cleaning",
-   "optic": "Optician & Eyewear"
+   "optic": "Optician & Eyewear",
+   "hotel": "Hotels & Stays",
+   "realestate": "Real estate",
+   "travel": "Travel & Tourism"
   },
   "tags": {
    "media": "Media platform",
@@ -701,7 +709,9 @@
    "emergency": "24/7 emergency",
    "menu": "Menu",
    "duty": "On-duty pharmacy",
-   "quote": "Free quote"
+   "quote": "Free quote",
+   "listing": "Listings & filters",
+   "search": "Search & date picker"
   },
   "contact": {
    "eyebrow": "Contact",
@@ -1063,7 +1073,10 @@
    "restaurant": "Restaurant",
    "pharmacy": "Pharmacie",
    "moving": "Déménagement & Nettoyage",
-   "optic": "Opticien & Lunettes"
+   "optic": "Opticien & Lunettes",
+   "hotel": "Hôtellerie",
+   "realestate": "Immobilier",
+   "travel": "Voyage & Tourisme"
   },
   "tags": {
    "media": "Plateforme média",
@@ -1085,7 +1098,9 @@
    "emergency": "Urgences 24/7",
    "menu": "Carte & menus",
    "duty": "Pharmacie de garde",
-   "quote": "Devis gratuit"
+   "quote": "Devis gratuit",
+   "listing": "Annonces & filtres",
+   "search": "Recherche & dates"
   },
   "contact": {
    "eyebrow": "Contact",
@@ -1447,7 +1462,10 @@
    "restaurant": "مطعم",
    "pharmacy": "صيدلية",
    "moving": "نقل الأثاث والتنظيف",
-   "optic": "بصريات ونظارات"
+   "optic": "بصريات ونظارات",
+   "hotel": "فنادق وإقامة",
+   "realestate": "عقارات",
+   "travel": "سياحة وسفر"
   },
   "tags": {
    "media": "منصة إعلامية",
@@ -1469,7 +1487,9 @@
    "emergency": "طوارئ 24/7",
    "menu": "قائمة الطعام",
    "duty": "صيدلية مناوبة",
-   "quote": "عرض سعر مجاني"
+   "quote": "عرض سعر مجاني",
+   "listing": "إعلانات وفلاتر",
+   "search": "بحث واختيار التواريخ"
   },
   "contact": {
    "eyebrow": "اتصل بنا",

@@ -44,7 +44,7 @@ ErrorDocument 404 /index.html
   Header unset X-Powered-By
 
   # Cache : HTML et JSON toujours frais, ressources statiques 1 an
-  <FilesMatch "\.(html|json)$">
+  <FilesMatch "\.(html|json|vcf)$">
     Header set Cache-Control "no-cache, must-revalidate"
   </FilesMatch>
   <FilesMatch "\.(css|js)$">
@@ -62,4 +62,6 @@ ErrorDocument 404 /index.html
 <IfModule mod_mime.c>
   AddType image/webp .webp
   AddType font/woff2 .woff2
+  # Fiche contact de la carte de visite (/kart) : ouverte par Contacts sur iPhone et Android
+  AddType "text/vcard; charset=utf-8" .vcf
 </IfModule>

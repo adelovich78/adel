@@ -277,7 +277,10 @@ window.WEBINA_I18N = {
    "restaurant": "Restoran",
    "pharmacy": "Eczane",
    "moving": "Nakliyat & Temizlik",
-   "optic": "Optik & Gözlük"
+   "optic": "Optik & Gözlük",
+   "hotel": "Otel & Konaklama",
+   "realestate": "Emlak",
+   "travel": "Turizm & Seyahat"
   },
   "tags": {
    "media": "Medya platformu",
@@ -299,7 +302,9 @@ window.WEBINA_I18N = {
    "emergency": "7/24 acil",
    "menu": "Menü",
    "duty": "Nöbetçi eczane",
-   "quote": "Ücretsiz teklif"
+   "quote": "Ücretsiz teklif",
+   "listing": "İlan & filtreler",
+   "search": "Arama & tarih seçimi"
   },
   "demo": {
    "eyebrow": "Canlı demolar",
@@ -429,6 +434,39 @@ window.WEBINA_I18N = {
       "Yüz şekline göre stil bulucu",
       "Ücretsiz göz muayenesi randevusu",
       "Türkçe & İngilizce"
+     ]
+    },
+    "hotel": {
+     "tab": "Otel",
+     "name": "Otel",
+     "desc": "Doğrudan rezervasyon alan, misafiri ilk bakışta etkileyen bir otel sitesi.",
+     "feats": [
+      "Online rezervasyon ve müsaitlik",
+      "Oda ve süitler, foto galeri",
+      "Restoran, spa ve hizmetler",
+      "Çok dilli, WhatsApp"
+     ]
+    },
+    "realestate": {
+     "tab": "Emlak",
+     "name": "Emlak",
+     "desc": "Portföyünü öne çıkaran, alıcıyı danışmana bağlayan bir emlak ofisi sitesi.",
+     "feats": [
+      "Satılık & kiralık ilan arama",
+      "Fiyat, oda ve konum filtreleri",
+      "İlan detayı, galeri ve harita",
+      "Danışmana tek tıkla WhatsApp"
+     ]
+    },
+    "travel": {
+     "tab": "Turizm",
+     "name": "Turizm",
+     "desc": "Otel ve turları tarihe göre listeleyen, rezervasyon alan bir seyahat acentesi sitesi.",
+     "feats": [
+      "Otel ve tur arama, tarih seçimi",
+      "Filtreler ve fiyat karşılaştırma",
+      "Online rezervasyon talebi",
+      "Çok dilli, farklı para birimleri"
      ]
     }
    }
@@ -1377,7 +1415,10 @@ window.WEBINA_I18N = {
    "restaurant": "Restaurant",
    "pharmacy": "Pharmacy",
    "moving": "Moving & Cleaning",
-   "optic": "Optician & Eyewear"
+   "optic": "Optician & Eyewear",
+   "hotel": "Hotels & Stays",
+   "realestate": "Real estate",
+   "travel": "Travel & Tourism"
   },
   "tags": {
    "media": "Media platform",
@@ -1399,7 +1440,9 @@ window.WEBINA_I18N = {
    "emergency": "24/7 emergency",
    "menu": "Menu",
    "duty": "On-duty pharmacy",
-   "quote": "Free quote"
+   "quote": "Free quote",
+   "listing": "Listings & filters",
+   "search": "Search & date picker"
   },
   "demo": {
    "eyebrow": "Live demos",
@@ -1529,6 +1572,39 @@ window.WEBINA_I18N = {
       "Style finder by face shape",
       "Free eye exam booking",
       "Turkish & English"
+     ]
+    },
+    "hotel": {
+     "tab": "Hotel",
+     "name": "Hotel",
+     "desc": "A hotel site that wins direct bookings and impresses guests at first sight.",
+     "feats": [
+      "Online booking and availability",
+      "Rooms and suites, photo gallery",
+      "Restaurant, spa and services",
+      "Multilingual, WhatsApp"
+     ]
+    },
+    "realestate": {
+     "tab": "Real estate",
+     "name": "Real estate",
+     "desc": "An agency site that showcases listings and connects buyers with an agent.",
+     "feats": [
+      "Search homes for sale & rent",
+      "Price, rooms and location filters",
+      "Listing pages with gallery and map",
+      "One-tap WhatsApp to an agent"
+     ]
+    },
+    "travel": {
+     "tab": "Travel",
+     "name": "Travel",
+     "desc": "A travel agency site that lists hotels and tours by date and takes bookings.",
+     "feats": [
+      "Hotel and tour search with dates",
+      "Filters and price comparison",
+      "Online booking requests",
+      "Multilingual, multiple currencies"
      ]
     }
    }
@@ -2477,7 +2553,10 @@ window.WEBINA_I18N = {
    "restaurant": "Restaurant",
    "pharmacy": "Pharmacie",
    "moving": "Déménagement & Nettoyage",
-   "optic": "Opticien & Lunettes"
+   "optic": "Opticien & Lunettes",
+   "hotel": "Hôtellerie",
+   "realestate": "Immobilier",
+   "travel": "Voyage & Tourisme"
   },
   "tags": {
    "media": "Plateforme média",
@@ -2499,7 +2578,9 @@ window.WEBINA_I18N = {
    "emergency": "Urgences 24/7",
    "menu": "Carte & menus",
    "duty": "Pharmacie de garde",
-   "quote": "Devis gratuit"
+   "quote": "Devis gratuit",
+   "listing": "Annonces & filtres",
+   "search": "Recherche & dates"
   },
   "demo": {
    "eyebrow": "Démos en ligne",
@@ -2629,6 +2710,39 @@ window.WEBINA_I18N = {
       "Conseiller de style selon le visage",
       "Rendez-vous examen de vue gratuit",
       "Turc & anglais"
+     ]
+    },
+    "hotel": {
+     "tab": "Hôtel",
+     "name": "Hôtel",
+     "desc": "Un site d’hôtel qui prend des réservations en direct et séduit dès le premier regard.",
+     "feats": [
+      "Réservation en ligne et disponibilités",
+      "Chambres et suites, galerie photo",
+      "Restaurant, spa et services",
+      "Multilingue, WhatsApp"
+     ]
+    },
+    "realestate": {
+     "tab": "Immobilier",
+     "name": "Immobilier",
+     "desc": "Un site d’agence qui met en valeur les biens et met l’acheteur en contact avec un conseiller.",
+     "feats": [
+      "Recherche vente & location",
+      "Filtres prix, pièces et quartier",
+      "Fiches bien avec galerie et carte",
+      "WhatsApp avec un conseiller en un clic"
+     ]
+    },
+    "travel": {
+     "tab": "Voyage",
+     "name": "Voyage",
+     "desc": "Un site d’agence de voyage qui liste hôtels et circuits par dates et prend les réservations.",
+     "feats": [
+      "Recherche hôtels et circuits par dates",
+      "Filtres et comparaison des prix",
+      "Demande de réservation en ligne",
+      "Multilingue, plusieurs devises"
      ]
     }
    }
@@ -3577,7 +3691,10 @@ window.WEBINA_I18N = {
    "restaurant": "مطعم",
    "pharmacy": "صيدلية",
    "moving": "نقل الأثاث والتنظيف",
-   "optic": "بصريات ونظارات"
+   "optic": "بصريات ونظارات",
+   "hotel": "فنادق وإقامة",
+   "realestate": "عقارات",
+   "travel": "سياحة وسفر"
   },
   "tags": {
    "media": "منصة إعلامية",
@@ -3599,7 +3716,9 @@ window.WEBINA_I18N = {
    "emergency": "طوارئ 24/7",
    "menu": "قائمة الطعام",
    "duty": "صيدلية مناوبة",
-   "quote": "عرض سعر مجاني"
+   "quote": "عرض سعر مجاني",
+   "listing": "إعلانات وفلاتر",
+   "search": "بحث واختيار التواريخ"
   },
   "demo": {
    "eyebrow": "عروض تجريبية مباشرة",
@@ -3729,6 +3848,39 @@ window.WEBINA_I18N = {
       "أداة اختيار الطراز حسب شكل الوجه",
       "حجز فحص نظر مجاني",
       "التركية والإنجليزية"
+     ]
+    },
+    "hotel": {
+     "tab": "فندق",
+     "name": "فندق",
+     "desc": "موقع فندق يستقبل الحجوزات المباشرة ويجذب الضيوف من النظرة الأولى.",
+     "feats": [
+      "حجز عبر الإنترنت والتوفر",
+      "الغرف والأجنحة ومعرض الصور",
+      "المطعم والسبا والخدمات",
+      "متعدد اللغات، واتساب"
+     ]
+    },
+    "realestate": {
+     "tab": "عقارات",
+     "name": "عقارات",
+     "desc": "موقع مكتب عقاري يبرز العروض ويربط المشتري بالمستشار.",
+     "feats": [
+      "البحث عن عقارات للبيع والإيجار",
+      "فلاتر السعر والغرف والموقع",
+      "صفحات العقار مع المعرض والخريطة",
+      "واتساب مع المستشار بنقرة"
+     ]
+    },
+    "travel": {
+     "tab": "سفر",
+     "name": "سفر",
+     "desc": "موقع وكالة سفر يعرض الفنادق والجولات حسب التاريخ ويستقبل الحجوزات.",
+     "feats": [
+      "البحث عن الفنادق والجولات بالتواريخ",
+      "فلاتر ومقارنة الأسعار",
+      "طلب حجز عبر الإنترنت",
+      "متعدد اللغات والعملات"
      ]
     }
    }

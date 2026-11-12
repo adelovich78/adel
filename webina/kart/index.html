@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Webina — Dijital kartvizit</title>
+<meta name="description" content="Webina dijital kartvizit: telefon, WhatsApp, e-posta, web sitesi ve Instagram. Tek dokunuşla rehberinize ekleyin.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#161311">
+<meta property="og:title" content="Webina — Dijital kartvizit">
+<meta property="og:description" content="Tek dokunuşla Webina'yı rehberinize ekleyin.">
+<meta property="og:image" content="https://webina.com.tr/images/og-image.jpg">
+<link rel="icon" href="/images/favicon.png">
+<link rel="apple-touch-icon" href="/images/favicon.png">
+<link rel="preload" href="/fonts/schibsted-grotesk-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face { font-family: "Schibsted Grotesk"; font-weight: 400 900; font-display: swap; src: url(/fonts/schibsted-grotesk-latin-wght-normal.woff2) format("woff2"); }
+@font-face { font-family: "Schibsted Grotesk"; font-weight: 400 900; font-display: swap; src: url(/fonts/schibsted-grotesk-latin-ext-wght-normal.woff2) format("woff2"); unicode-range: U+0100-02BA, U+1E00-1E9F; }
+
+/* Couleurs reprises de la carte imprimée */
+:root {
+  --cream: #fcf7ef;
+  --ink: #161311;
+  --ink-soft: #6d6b6b;
+  --line: rgba(22, 19, 17, 0.09);
+  --green: #88c658;
+  --green-ink: #2f8f3a;
+  --green-tint: #ecf5e2;
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { -webkit-text-size-adjust: 100%; }
+body { min-height: 100dvh; background: var(--cream); color: var(--ink); font-family: "Schibsted Grotesk", system-ui, sans-serif; -webkit-font-smoothing: antialiased; -webkit-tap-highlight-color: transparent; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+:focus-visible { outline: 2px solid var(--green-ink); outline-offset: 3px; border-radius: 12px; }
+
+.page-wrapper { max-width: 30rem; margin: 0 auto; padding: max(1rem, env(safe-area-inset-top)) 1rem calc(6rem + env(safe-area-inset-bottom)); }
+
+/* En-tête : langue */
+.kart_top { display: flex; justify-content: space-between; align-items: center; padding: 0.25rem 0.25rem 1rem; }
+.kart_top-label { font-size: 0.8125rem; font-weight: 600; color: var(--ink-soft); }
+.kart_lang { display: flex; gap: 0.25rem; padding: 0.25rem; border-radius: 999px; background: rgba(22, 19, 17, 0.05); }
+.kart_lang button { min-width: 2.5rem; height: 2rem; border-radius: 999px; font-size: 0.8125rem; font-weight: 700; color: var(--ink-soft); transition: background-color 200ms var(--ease-out), color 200ms var(--ease-out); }
+.kart_lang button[aria-pressed="true"] { background: var(--ink); color: #fff; }
+
+/* Recto de la carte */
+.kart_card { display: block; width: 100%; aspect-ratio: 960 / 622; border-radius: 1.25rem; overflow: hidden; background: #161311; box-shadow: 0 1px 0 rgba(255, 255, 255, 0.06) inset, 0 24px 48px -20px rgba(22, 19, 17, 0.45); }
+.kart_card img { display: block; width: 100%; height: 100%; object-fit: cover; }
+
+/* Identité */
+.kart_identity { padding: 1.5rem 0.25rem 1.25rem; }
+.kart_name { font-size: 2rem; font-weight: 700; letter-spacing: -0.02em; line-height: 1.1; }
+.kart_role { margin-top: 0.25rem; color: var(--ink-soft); font-size: 1rem; }
+.kart_bar { width: 3.5rem; height: 0.3rem; margin-top: 1rem; border-radius: 2px; background: var(--green); }
+
+/* Boutons principaux */
+.kart_actions { display: grid; grid-template-columns: 1fr auto; gap: 0.5rem; }
+.button { display: inline-flex; align-items: center; justify-content: center; gap: 0.6rem; height: 3.5rem; padding: 0 1.25rem; border-radius: 1rem; font-size: 1.0625rem; font-weight: 650; transition: transform 160ms var(--ease-out), background-color 200ms var(--ease-out); touch-action: manipulation; user-select: none; }
+.button:active { transform: scale(0.97); }
+.button.is-primary { background: var(--ink); color: #fff; }
+.button.is-secondary { width: 3.5rem; padding: 0; background: #fff; box-shadow: inset 0 0 0 1px var(--line); }
+.button svg { width: 1.375rem; height: 1.375rem; flex: none; }
+
+/* Liste des coordonnées */
+.kart_list { margin-top: 1.25rem; border-radius: 1.25rem; background: #fff; box-shadow: inset 0 0 0 1px var(--line); list-style: none; overflow: hidden; }
+.kart_item + .kart_item { border-top: 1px solid var(--line); }
+.kart_link { display: flex; align-items: center; gap: 0.875rem; min-height: 4.25rem; padding: 0.75rem 1rem; transition: background-color 160ms var(--ease-out); }
+.kart_link:active { background: rgba(22, 19, 17, 0.04); }
+.kart_icon { display: grid; place-items: center; width: 2.5rem; height: 2.5rem; flex: none; border-radius: 0.75rem; background: var(--green-tint); color: var(--green-ink); }
+.kart_icon svg { width: 1.25rem; height: 1.25rem; }
+.kart_text { flex: 1; min-width: 0; }
+.kart_label { display: block; font-size: 0.8125rem; color: var(--ink-soft); }
+.kart_value { display: block; margin-top: 0.125rem; font-size: 1rem; font-weight: 600; overflow-wrap: anywhere; }
+.kart_chev { width: 1.125rem; height: 1.125rem; color: rgba(22, 19, 17, 0.3); flex: none; }
+
+/* Offre */
+.kart_offer { display: flex; align-items: center; gap: 1rem; margin-top: 1.25rem; padding: 1.25rem; border-radius: 1.25rem; background: var(--ink); color: #fff; }
+.kart_offer-text { flex: 1; }
+.kart_offer-title { display: block; font-size: 1.0625rem; font-weight: 650; }
+.kart_offer-sub { display: block; margin-top: 0.25rem; font-size: 0.875rem; color: rgba(255, 255, 255, 0.65); }
+.kart_offer .kart_chev { color: var(--green); }
+.kart_foot { margin-top: 1.5rem; text-align: center; font-size: 0.8125rem; color: var(--ink-soft); }
+
+/* Barre fixe en bas (pouce) */
+/* Visible seulement quand le bouton du haut est sorti de l'écran */
+.kart_dock { position: fixed; left: 0; right: 0; bottom: 0; padding: 0.75rem 1rem calc(0.75rem + env(safe-area-inset-bottom)); background: linear-gradient(to top, var(--cream) 70%, rgba(252, 247, 239, 0)); transform: translateY(110%); visibility: hidden; transition: transform 280ms var(--ease-out), visibility 0s linear 280ms; }
+.kart_dock.is-on { transform: none; visibility: visible; transition: transform 280ms var(--ease-out), visibility 0s; }
+.kart_dock .button { width: 100%; max-width: 28rem; margin: 0 auto; display: flex; }
+
+/* Message bref après l'ajout */
+.kart_toast { position: fixed; left: 50%; bottom: calc(5.5rem + env(safe-area-inset-bottom)); padding: 0.75rem 1rem; border-radius: 0.875rem; background: var(--ink); color: #fff; font-size: 0.9375rem; font-weight: 600; transform: translate(-50%, 0.5rem); opacity: 0; pointer-events: none; transition: transform 240ms var(--ease-out), opacity 240ms var(--ease-out); }
+.kart_toast.is-on { transform: translate(-50%, 0); opacity: 1; }
+
+/* Une seule entrée : la page monte légèrement */
+@media (prefers-reduced-motion: no-preference) {
+  .page-wrapper { animation: kart-in 520ms var(--ease-out) both; }
+  @keyframes kart-in { from { opacity: 0; transform: translateY(12px); } }
+}
+@media (hover: hover) {
+  .kart_link:hover { background: rgba(22, 19, 17, 0.03); }
+  .button.is-primary:hover { background: #2a2522; }
+}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></symbol>
+  <symbol id="i-wa" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21l1.65-3.8a9 9 0 1 1 3.4 2.9L3 21"/><path d="M8.5 12h.01M12 12h.01M15.5 12h.01"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></symbol>
+  <symbol id="i-web" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></symbol>
+  <symbol id="i-insta" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><path d="M17.5 6.5h.01"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></symbol>
+  <symbol id="i-add" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="4"/><path d="M2 21a7 7 0 0 1 14 0M19 8v6M16 11h6"/></symbol>
+  <symbol id="i-share" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v13M7 8l5-5 5 5"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/></symbol>
+  <symbol id="i-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></symbol>
+</svg>
+
+<main class="page-wrapper">
+  <div class="kart_top">
+    <span class="kart_top-label" data-t="label">Dijital kartvizit</span>
+    <div class="kart_lang" role="group" aria-label="Dil / Language">
+      <button type="button" data-lang="tr" aria-pressed="true">TR</button>
+      <button type="button" data-lang="en" aria-pressed="false">EN</button>
+    </div>
+  </div>
+
+  <a class="kart_card" href="https://webina.com.tr/" aria-label="webina.com.tr">
+    <img src="/kart/recto.webp" alt="Webina — Digital Creation Agency" width="960" height="622">
+  </a>
+
+  <div class="kart_identity">
+    <h1 class="kart_name">Webina</h1>
+    <p class="kart_role" data-t="role">Dijital kreasyon ajansı · İstanbul</p>
+    <div class="kart_bar" aria-hidden="true"></div>
+  </div>
+
+  <div class="kart_actions">
+    <a class="button is-primary" href="/kart/webina.vcf" data-add><svg aria-hidden="true"><use href="#i-add"/></svg><span data-t="add">Rehbere ekle</span></a>
+    <button type="button" class="button is-secondary" data-share aria-label="Paylaş"><svg aria-hidden="true"><use href="#i-share"/></svg></button>
+  </div>
+
+  <ul class="kart_list" role="list">
+    <li class="kart_item"><a class="kart_link" href="tel:+905310800277"><span class="kart_icon"><svg aria-hidden="true"><use href="#i-phone"/></svg></span><span class="kart_text"><span class="kart_label" data-t="call">Ara</span><span class="kart_value">+90 531 080 02 77</span></span><svg class="kart_chev" aria-hidden="true"><use href="#i-chev"/></svg></a></li>
+    <li class="kart_item"><a class="kart_link" href="https://wa.me/905399662557" target="_blank" rel="noopener"><span class="kart_icon"><svg aria-hidden="true"><use href="#i-wa"/></svg></span><span class="kart_text"><span class="kart_label">WhatsApp</span><span class="kart_value">+90 539 966 25 57</span></span><svg class="kart_chev" aria-hidden="true"><use href="#i-chev"/></svg></a></li>
+    <li class="kart_item"><a class="kart_link" href="mailto:info@webina.com.tr"><span class="kart_icon"><svg aria-hidden="true"><use href="#i-mail"/></svg></span><span class="kart_text"><span class="kart_label" data-t="mail">E-posta</span><span class="kart_value">info@webina.com.tr</span></span><svg class="kart_chev" aria-hidden="true"><use href="#i-chev"/></svg></a></li>
+    <li class="kart_item"><a class="kart_link" href="https://webina.com.tr/"><span class="kart_icon"><svg aria-hidden="true"><use href="#i-web"/></svg></span><span class="kart_text"><span class="kart_label" data-t="web">Web sitesi</span><span class="kart_value">webina.com.tr</span></span><svg class="kart_chev" aria-hidden="true"><use href="#i-chev"/></svg></a></li>
+    <li class="kart_item"><a class="kart_link" href="https://www.instagram.com/webinacreativedesign/" target="_blank" rel="noopener"><span class="kart_icon"><svg aria-hidden="true"><use href="#i-insta"/></svg></span><span class="kart_text"><span class="kart_label">Instagram</span><span class="kart_value">@webinacreativedesign</span></span><svg class="kart_chev" aria-hidden="true"><use href="#i-chev"/></svg></a></li>
+    <li class="kart_item"><a class="kart_link" href="https://maps.google.com/?q=Maslak,+%C4%B0stanbul" target="_blank" rel="noopener"><span class="kart_icon"><svg aria-hidden="true"><use href="#i-pin"/></svg></span><span class="kart_text"><span class="kart_label" data-t="addr">Adres</span><span class="kart_value">Maslak, İstanbul</span></span><svg class="kart_chev" aria-hidden="true"><use href="#i-chev"/></svg></a></li>
+  </ul>
+
+  <a class="kart_offer" href="https://webina.com.tr/teklif">
+    <span class="kart_offer-text"><span class="kart_offer-title" data-t="offer">Ücretsiz teklif alın</span><span class="kart_offer-sub" data-t="offerSub">Web sitesi, e-ticaret, SEO — 24 saatte dönüş</span></span>
+    <svg class="kart_chev" aria-hidden="true"><use href="#i-chev"/></svg>
+  </a>
+
+  <p class="kart_foot">© Webina · webina.com.tr</p>
+</main>
+
+<div class="kart_dock" aria-hidden="true">
+  <a class="button is-primary" href="/kart/webina.vcf" data-add tabindex="-1"><svg aria-hidden="true"><use href="#i-add"/></svg><span data-t="add">Rehbere ekle</span></a>
+</div>
+<div class="kart_toast" role="status" aria-live="polite"></div>
+
+<script>
+(function () {
+  // Textes TR / EN
+  var T = {
+    tr: { label: 'Dijital kartvizit', role: 'Dijital kreasyon ajansı · İstanbul', add: 'Rehbere ekle', call: 'Ara', mail: 'E-posta', web: 'Web sitesi', addr: 'Adres', offer: 'Ücretsiz teklif alın', offerSub: 'Web sitesi, e-ticaret, SEO — 24 saatte dönüş', share: 'Paylaş', copied: 'Bağlantı kopyalandı', added: 'Kişi kartı açılıyor…' },
+    en: { label: 'Digital business card', role: 'Digital creation agency · Istanbul', add: 'Add to contacts', call: 'Call', mail: 'Email', web: 'Website', addr: 'Address', offer: 'Get a free quote', offerSub: 'Websites, e-commerce, SEO — reply within 24h', share: 'Share', copied: 'Link copied', added: 'Opening contact card…' }
+  };
+  var lang = 'tr';
+  try { lang = sessionStorage.getItem('wb-lang') || ((navigator.language || '').slice(0, 2) === 'tr' ? 'tr' : 'en'); } catch (e) {}
+  function apply(l) {
+    lang = T[l] ? l : 'tr';
+    document.documentElement.lang = lang;
+    document.querySelectorAll('[data-t]').forEach(function (el) { el.textContent = T[lang][el.getAttribute('data-t')]; });
+    document.querySelector('[data-share]').setAttribute('aria-label', T[lang].share);
+    document.querySelectorAll('[data-lang]').forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-lang') === lang)); });
+    try { sessionStorage.setItem('wb-lang', lang); } catch (e) {}
+  }
+  document.querySelectorAll('[data-lang]').forEach(function (b) { b.addEventListener('click', function () { apply(b.getAttribute('data-lang')); }); });
+  apply(lang);
+
+  var toast = document.querySelector('.kart_toast'), timer;
+  function say(msg) { toast.textContent = msg; toast.classList.add('is-on'); clearTimeout(timer); timer = setTimeout(function () { toast.classList.remove('is-on'); }, 2200); }
+
+  document.querySelectorAll('[data-add]').forEach(function (a) { a.addEventListener('click', function () { say(T[lang].added); }); });
+
+  // Barre du bas : apparaît quand le bouton principal n'est plus visible
+  var dock = document.querySelector('.kart_dock'), main = document.querySelector('.kart_actions');
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(function (es) { var off = !es[0].isIntersecting && es[0].boundingClientRect.top < 0; dock.classList.toggle('is-on', off); dock.setAttribute('aria-hidden', String(!off)); }).observe(main);
+  }
+
+  // Partage natif, sinon copie du lien
+  document.querySelector('[data-share]').addEventListener('click', function () {
+    var url = 'https://webina.com.tr/kart';
+    if (navigator.share) { navigator.share({ title: 'Webina', url: url }).catch(function () {}); return; }
+    if (navigator.clipboard) navigator.clipboard.writeText(url).then(function () { say(T[lang].copied); });
+  });
+})();
+</script>
+</body>
+</html>

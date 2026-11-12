@@ -128,6 +128,39 @@
      "Ücretsiz göz muayenesi randevusu",
      "Türkçe & İngilizce"
     ]
+   },
+   "hotel": {
+    "tab": "Otel",
+    "name": "Otel",
+    "desc": "Doğrudan rezervasyon alan, misafiri ilk bakışta etkileyen bir otel sitesi.",
+    "feats": [
+     "Online rezervasyon ve müsaitlik",
+     "Oda ve süitler, foto galeri",
+     "Restoran, spa ve hizmetler",
+     "Çok dilli, WhatsApp"
+    ]
+   },
+   "realestate": {
+    "tab": "Emlak",
+    "name": "Emlak",
+    "desc": "Portföyünü öne çıkaran, alıcıyı danışmana bağlayan bir emlak ofisi sitesi.",
+    "feats": [
+     "Satılık & kiralık ilan arama",
+     "Fiyat, oda ve konum filtreleri",
+     "İlan detayı, galeri ve harita",
+     "Danışmana tek tıkla WhatsApp"
+    ]
+   },
+   "travel": {
+    "tab": "Turizm",
+    "name": "Turizm",
+    "desc": "Otel ve turları tarihe göre listeleyen, rezervasyon alan bir seyahat acentesi sitesi.",
+    "feats": [
+     "Otel ve tur arama, tarih seçimi",
+     "Filtreler ve fiyat karşılaştırma",
+     "Online rezervasyon talebi",
+     "Çok dilli, farklı para birimleri"
+    ]
    }
   }
  },
@@ -259,6 +292,39 @@
      "Style finder by face shape",
      "Free eye exam booking",
      "Turkish & English"
+    ]
+   },
+   "hotel": {
+    "tab": "Hotel",
+    "name": "Hotel",
+    "desc": "A hotel site that wins direct bookings and impresses guests at first sight.",
+    "feats": [
+     "Online booking and availability",
+     "Rooms and suites, photo gallery",
+     "Restaurant, spa and services",
+     "Multilingual, WhatsApp"
+    ]
+   },
+   "realestate": {
+    "tab": "Real estate",
+    "name": "Real estate",
+    "desc": "An agency site that showcases listings and connects buyers with an agent.",
+    "feats": [
+     "Search homes for sale & rent",
+     "Price, rooms and location filters",
+     "Listing pages with gallery and map",
+     "One-tap WhatsApp to an agent"
+    ]
+   },
+   "travel": {
+    "tab": "Travel",
+    "name": "Travel",
+    "desc": "A travel agency site that lists hotels and tours by date and takes bookings.",
+    "feats": [
+     "Hotel and tour search with dates",
+     "Filters and price comparison",
+     "Online booking requests",
+     "Multilingual, multiple currencies"
     ]
    }
   }
@@ -392,6 +458,39 @@
      "Rendez-vous examen de vue gratuit",
      "Turc & anglais"
     ]
+   },
+   "hotel": {
+    "tab": "Hôtel",
+    "name": "Hôtel",
+    "desc": "Un site d’hôtel qui prend des réservations en direct et séduit dès le premier regard.",
+    "feats": [
+     "Réservation en ligne et disponibilités",
+     "Chambres et suites, galerie photo",
+     "Restaurant, spa et services",
+     "Multilingue, WhatsApp"
+    ]
+   },
+   "realestate": {
+    "tab": "Immobilier",
+    "name": "Immobilier",
+    "desc": "Un site d’agence qui met en valeur les biens et met l’acheteur en contact avec un conseiller.",
+    "feats": [
+     "Recherche vente & location",
+     "Filtres prix, pièces et quartier",
+     "Fiches bien avec galerie et carte",
+     "WhatsApp avec un conseiller en un clic"
+    ]
+   },
+   "travel": {
+    "tab": "Voyage",
+    "name": "Voyage",
+    "desc": "Un site d’agence de voyage qui liste hôtels et circuits par dates et prend les réservations.",
+    "feats": [
+     "Recherche hôtels et circuits par dates",
+     "Filtres et comparaison des prix",
+     "Demande de réservation en ligne",
+     "Multilingue, plusieurs devises"
+    ]
    }
   }
  },
@@ -523,6 +622,39 @@
      "أداة اختيار الطراز حسب شكل الوجه",
      "حجز فحص نظر مجاني",
      "التركية والإنجليزية"
+    ]
+   },
+   "hotel": {
+    "tab": "فندق",
+    "name": "فندق",
+    "desc": "موقع فندق يستقبل الحجوزات المباشرة ويجذب الضيوف من النظرة الأولى.",
+    "feats": [
+     "حجز عبر الإنترنت والتوفر",
+     "الغرف والأجنحة ومعرض الصور",
+     "المطعم والسبا والخدمات",
+     "متعدد اللغات، واتساب"
+    ]
+   },
+   "realestate": {
+    "tab": "عقارات",
+    "name": "عقارات",
+    "desc": "موقع مكتب عقاري يبرز العروض ويربط المشتري بالمستشار.",
+    "feats": [
+     "البحث عن عقارات للبيع والإيجار",
+     "فلاتر السعر والغرف والموقع",
+     "صفحات العقار مع المعرض والخريطة",
+     "واتساب مع المستشار بنقرة"
+    ]
+   },
+   "travel": {
+    "tab": "سفر",
+    "name": "سفر",
+    "desc": "موقع وكالة سفر يعرض الفنادق والجولات حسب التاريخ ويستقبل الحجوزات.",
+    "feats": [
+     "البحث عن الفنادق والجولات بالتواريخ",
+     "فلاتر ومقارنة الأسعار",
+     "طلب حجز عبر الإنترنت",
+     "متعدد اللغات والعملات"
     ]
    }
   }
