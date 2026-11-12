@@ -276,7 +276,8 @@ window.WEBINA_I18N = {
    "vet": "Veteriner",
    "restaurant": "Restoran",
    "pharmacy": "Eczane",
-   "moving": "Nakliyat & Temizlik"
+   "moving": "Nakliyat & Temizlik",
+   "optic": "Optik & Gözlük"
   },
   "tags": {
    "media": "Medya platformu",
@@ -304,7 +305,7 @@ window.WEBINA_I18N = {
    "eyebrow": "Canlı demolar",
    "t1": "Mesleğinize özel",
    "t2": "hazır siteler",
-   "text": "Sitenizin nasıl görüneceğini şimdi görün: avukatlar, doktorlar, diş klinikleri, veterinerler, restoranlar, eczaneler, nakliyat firmaları, kuaförler, esnaf ve online mağazalar için hazırladığımız gerçek, çalışan demolar.",
+   "text": "Sitenizin nasıl görüneceğini şimdi görün: avukatlar, doktorlar, diş klinikleri, veterinerler, restoranlar, eczaneler, nakliyat firmaları, optikler, kuaförler, esnaf ve online mağazalar için hazırladığımız gerçek, çalışan demolar.",
    "live": "Canlı demoyu aç",
    "want": "Bu siteden istiyorum",
    "badge": "Canlı demo",
@@ -417,6 +418,17 @@ window.WEBINA_I18N = {
       "Evden eve, ofis taşıma, depolama",
       "Temizlik, dezenfeksiyon, ilaçlama",
       "Tek tıkla arama & WhatsApp"
+     ]
+    },
+    "optic": {
+     "tab": "Optik",
+     "name": "LENSA",
+     "desc": "Gözlüklerini online satan, butik ruhlu modern bir optik mağazası.",
+     "feats": [
+      "Online mağaza ve sepet",
+      "Yüz şekline göre stil bulucu",
+      "Ücretsiz göz muayenesi randevusu",
+      "Türkçe & İngilizce"
      ]
     }
    }
@@ -1364,7 +1376,8 @@ window.WEBINA_I18N = {
    "vet": "Veterinary",
    "restaurant": "Restaurant",
    "pharmacy": "Pharmacy",
-   "moving": "Moving & Cleaning"
+   "moving": "Moving & Cleaning",
+   "optic": "Optician & Eyewear"
   },
   "tags": {
    "media": "Media platform",
@@ -1392,7 +1405,7 @@ window.WEBINA_I18N = {
    "eyebrow": "Live demos",
    "t1": "Ready-made sites",
    "t2": "for your profession",
-   "text": "See how your site could look right now: real, working demos we built for lawyers, doctors, dental clinics, vets, restaurants, pharmacies, moving companies, hair salons, local shops and online stores.",
+   "text": "See how your site could look right now: real, working demos we built for lawyers, doctors, dental clinics, vets, restaurants, pharmacies, moving companies, opticians, hair salons, local shops and online stores.",
    "live": "Open live demo",
    "want": "I want this site",
    "badge": "Live demo",
@@ -1505,6 +1518,17 @@ window.WEBINA_I18N = {
       "Home and office moves, storage",
       "Cleaning, disinfection, pest control",
       "One-tap call & WhatsApp"
+     ]
+    },
+    "optic": {
+     "tab": "Optician",
+     "name": "LENSA",
+     "desc": "A modern boutique optician that sells its eyewear online.",
+     "feats": [
+      "Online store and cart",
+      "Style finder by face shape",
+      "Free eye exam booking",
+      "Turkish & English"
      ]
     }
    }
@@ -2452,7 +2476,8 @@ window.WEBINA_I18N = {
    "vet": "Vétérinaire",
    "restaurant": "Restaurant",
    "pharmacy": "Pharmacie",
-   "moving": "Déménagement & Nettoyage"
+   "moving": "Déménagement & Nettoyage",
+   "optic": "Opticien & Lunettes"
   },
   "tags": {
    "media": "Plateforme média",
@@ -2480,7 +2505,7 @@ window.WEBINA_I18N = {
    "eyebrow": "Démos en ligne",
    "t1": "Des sites prêts",
    "t2": "pour votre métier",
-   "text": "Voyez dès maintenant à quoi ressemblera votre site : de vraies démos fonctionnelles pour avocats, médecins, dentistes, vétérinaires, restaurants, pharmacies, déménageurs, coiffeurs, commerçants et boutiques en ligne.",
+   "text": "Voyez dès maintenant à quoi ressemblera votre site : de vraies démos fonctionnelles pour avocats, médecins, dentistes, vétérinaires, restaurants, pharmacies, déménageurs, opticiens, coiffeurs, commerçants et boutiques en ligne.",
    "live": "Voir la démo en ligne",
    "want": "Je veux ce site",
    "badge": "Démo en ligne",
@@ -2593,6 +2618,17 @@ window.WEBINA_I18N = {
       "Déménagement maison et bureau, garde-meuble",
       "Nettoyage, désinfection, désinsectisation",
       "Appel & WhatsApp en un clic"
+     ]
+    },
+    "optic": {
+     "tab": "Opticien",
+     "name": "LENSA",
+     "desc": "Un opticien boutique moderne qui vend ses lunettes en ligne.",
+     "feats": [
+      "Boutique en ligne et panier",
+      "Conseiller de style selon le visage",
+      "Rendez-vous examen de vue gratuit",
+      "Turc & anglais"
      ]
     }
    }
@@ -3540,7 +3576,8 @@ window.WEBINA_I18N = {
    "vet": "طب بيطري",
    "restaurant": "مطعم",
    "pharmacy": "صيدلية",
-   "moving": "نقل الأثاث والتنظيف"
+   "moving": "نقل الأثاث والتنظيف",
+   "optic": "بصريات ونظارات"
   },
   "tags": {
    "media": "منصة إعلامية",
@@ -3568,7 +3605,7 @@ window.WEBINA_I18N = {
    "eyebrow": "عروض تجريبية مباشرة",
    "t1": "مواقع جاهزة",
    "t2": "لمهنتكم",
-   "text": "شاهدوا الآن كيف سيبدو موقعكم: عروض حقيقية تعمل، صمّمناها للمحامين والأطباء وعيادات الأسنان والأطباء البيطريين والمطاعم والصيدليات وشركات نقل الأثاث وصالونات الحلاقة والمحلات والمتاجر الإلكترونية.",
+   "text": "شاهدوا الآن كيف سيبدو موقعكم: عروض حقيقية تعمل، صمّمناها للمحامين والأطباء وعيادات الأسنان والأطباء البيطريين والمطاعم والصيدليات وشركات نقل الأثاث ومحلات البصريات وصالونات الحلاقة والمحلات والمتاجر الإلكترونية.",
    "live": "افتح العرض المباشر",
    "want": "أريد هذا الموقع",
    "badge": "عرض مباشر",
@@ -3681,6 +3718,17 @@ window.WEBINA_I18N = {
       "نقل المنازل والمكاتب والتخزين",
       "التنظيف والتعقيم ومكافحة الحشرات",
       "اتصال وواتساب بنقرة واحدة"
+     ]
+    },
+    "optic": {
+     "tab": "بصريات",
+     "name": "LENSA",
+     "desc": "متجر بصريات عصري بروح البوتيك يبيع نظاراته عبر الإنترنت.",
+     "feats": [
+      "متجر إلكتروني وسلة",
+      "أداة اختيار الطراز حسب شكل الوجه",
+      "حجز فحص نظر مجاني",
+      "التركية والإنجليزية"
      ]
     }
    }

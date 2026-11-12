@@ -294,7 +294,8 @@
    "vet": "Veteriner",
    "restaurant": "Restoran",
    "pharmacy": "Eczane",
-   "moving": "Nakliyat & Temizlik"
+   "moving": "Nakliyat & Temizlik",
+   "optic": "Optik & Gözlük"
   },
   "tags": {
    "media": "Medya platformu",
@@ -677,7 +678,8 @@
    "vet": "Veterinary",
    "restaurant": "Restaurant",
    "pharmacy": "Pharmacy",
-   "moving": "Moving & Cleaning"
+   "moving": "Moving & Cleaning",
+   "optic": "Optician & Eyewear"
   },
   "tags": {
    "media": "Media platform",
@@ -1060,7 +1062,8 @@
    "vet": "Vétérinaire",
    "restaurant": "Restaurant",
    "pharmacy": "Pharmacie",
-   "moving": "Déménagement & Nettoyage"
+   "moving": "Déménagement & Nettoyage",
+   "optic": "Opticien & Lunettes"
   },
   "tags": {
    "media": "Plateforme média",
@@ -1443,7 +1446,8 @@
    "vet": "طب بيطري",
    "restaurant": "مطعم",
    "pharmacy": "صيدلية",
-   "moving": "نقل الأثاث والتنظيف"
+   "moving": "نقل الأثاث والتنظيف",
+   "optic": "بصريات ونظارات"
   },
   "tags": {
    "media": "منصة إعلامية",
