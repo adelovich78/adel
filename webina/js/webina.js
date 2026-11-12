@@ -1161,6 +1161,78 @@
   var year = document.querySelector('[data-year]');
   if (year) year.textContent = String(new Date().getFullYear());
 
+  /* ---------- Arrivée sur le site : animation du logo ----------
+     1. Le W puis le B se tracent, le carré vert tombe à sa place, WEBINA apparaît lettre par lettre,
+        la barre verte se déroule, puis la signature.
+     2. Le logo rétrécit et glisse exactement à la place de celui de l'en-tête (FLIP), le fond s'efface,
+        et la page démarre son entrée au moment où le logo se pose.
+     Un clic, une touche ou la molette accélèrent la fin. Une seule fois par visite. */
+  var intro = (function () {
+    var box = document.querySelector('[data-intro]');
+    if (!box || !root.classList.contains('has-intro')) return null;
+    var logo = box.querySelector('[data-intro-logo]');
+    var q = function (s) { return box.querySelector(s); };
+    var EASE_IO = 'cubic-bezier(0.77, 0, 0.175, 1)', EASE_OUT = 'cubic-bezier(0.23, 1, 0.32, 1)';
+    var anims = [], done = false, flying = false, resolve;
+    var finished = new Promise(function (r) { resolve = r; });
+    try { sessionStorage.setItem('wb-intro', '1'); } catch (e) {}
+
+    function play(el, frames, opts) {
+      if (!el || !el.animate) return null;
+      var a = el.animate(frames, Object.assign({ fill: 'both' }, opts));
+      anims.push(a);
+      return a;
+    }
+    play(q('[data-intro-w]'), [{ strokeDashoffset: 1 }, { strokeDashoffset: 0 }], { duration: 640, delay: 80, easing: EASE_IO });
+    play(q('[data-intro-b]'), [{ strokeDashoffset: 1 }, { strokeDashoffset: 0 }], { duration: 640, delay: 320, easing: EASE_IO });
+    play(q('[data-intro-dot]'), [
+      { opacity: 0, transform: 'translateY(-70px) scale(0.6)' },
+      { opacity: 1, transform: 'translateY(0) scale(1.1, 0.86)', offset: 0.55 },
+      { transform: 'translateY(-8px) scale(0.96, 1.05)', offset: 0.78 },
+      { opacity: 1, transform: 'none' }
+    ], { duration: 560, delay: 860, easing: 'cubic-bezier(0.22, 1, 0.36, 1)' });
+    Array.prototype.forEach.call(box.querySelectorAll('[data-intro-name] text'), function (t, i) {
+      play(t, [{ opacity: 0, transform: 'translateY(12px)', filter: 'blur(3px)' }, { opacity: 1, transform: 'none', filter: 'blur(0)' }],
+        { duration: 420, delay: 1020 + i * 45, easing: EASE_OUT });
+    });
+    play(q('[data-intro-bar]'), [{ transform: 'scaleX(0)' }, { transform: 'scaleX(1)' }], { duration: 520, delay: 1260, easing: EASE_OUT });
+    play(q('[data-intro-tag]'), [{ opacity: 0 }, { opacity: 1 }], { duration: 400, delay: 1480, easing: 'ease' });
+
+    // Le logo rejoint la place exacte de celui de l'en-tête
+    function fly(fast) {
+      if (flying) return;
+      flying = true;
+      anims.forEach(function (a) { try { a.finish(); } catch (e) {} });
+      var target = document.querySelector('.nav_brand .nav_logo:not([hidden])');
+      var imgs = document.querySelectorAll('.nav_brand .nav_logo');
+      for (var i = 0; i < imgs.length; i++) if (imgs[i].offsetParent !== null) { target = imgs[i]; break; }
+      var from = logo.getBoundingClientRect(), to = target ? target.getBoundingClientRect() : { left: 32, top: 16, width: 40, height: 40 };
+      var dx = to.left - from.left, dy = to.top - from.top, k = to.width / from.width;
+      var dur = fast ? 420 : 760;
+      var move = logo.animate([{ transform: 'none' }, { transform: 'translate(' + dx + 'px,' + dy + 'px) scale(' + k + ')' }],
+        { duration: dur, easing: EASE_IO, fill: 'forwards' });
+      // Le fond s'efface pendant le trajet ; la page commence son entrée dès maintenant
+      box.animate([{ backgroundColor: getComputedStyle(box).backgroundColor }, { backgroundColor: 'transparent' }],
+        { duration: dur * 0.7, delay: dur * 0.2, easing: 'ease', fill: 'forwards' });
+      resolve();
+      move.onfinish = function () {
+        root.classList.remove('has-intro');
+        // Relais avec le vrai logo de l'en-tête, sans saut
+        if (target && target.animate) target.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 160, easing: 'ease' });
+        box.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 160, easing: 'ease', fill: 'forwards' }).onfinish = function () {
+          if (box.parentNode) box.parentNode.removeChild(box);
+          done = true;
+        };
+      };
+    }
+    var t = setTimeout(function () { fly(false); }, 1980);
+    function skip() { clearTimeout(t); fly(true); }
+    ['pointerdown', 'keydown', 'wheel', 'touchstart'].forEach(function (ev) { window.addEventListener(ev, skip, { once: true, passive: true }); });
+    // Sécurité : quoi qu'il arrive, la page n'est jamais bloquée derrière l'animation
+    setTimeout(function () { if (!done) { root.classList.remove('has-intro'); if (box.parentNode) box.parentNode.removeChild(box); resolve(); } }, 4500);
+    return { finished: finished };
+  })();
+
   /* ---------- Démarrage ---------- */
   var params = new URLSearchParams(location.search);
   var initial = params.get('lang') || store('webina-lang') || 'tr';
@@ -1177,9 +1249,9 @@
       if (demos) demos.syncClip(false);
     });
   };
-  if (document.fonts && document.fonts.ready) {
-    Promise.race([document.fonts.ready, new Promise(function (r) { setTimeout(r, 800); })]).then(start);
-  } else {
-    start();
-  }
+  var ready = (document.fonts && document.fonts.ready)
+    ? Promise.race([document.fonts.ready, new Promise(function (r) { setTimeout(r, 800); })])
+    : Promise.resolve();
+  // Avec l'animation du logo, la page démarre quand le logo commence à rejoindre l'en-tête
+  Promise.all([ready, intro ? intro.finished : null]).then(start);
 })();

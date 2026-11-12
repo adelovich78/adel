@@ -1948,3 +1948,24 @@ html[lang="ar"] .worklist_title { letter-spacing: 0; }
 /* Performance : les grandes sections hors écran ne sont calculées qu'à l'approche du défilement */
 .main-wrapper > section:not(:first-child):not(.section_clients):not(.section_manifesto),
 .footer_component { content-visibility: auto; contain-intrinsic-size: auto 900px; }
+
+/* ==========================================================================
+   Arrivée sur le site : le logo se dessine au centre, puis rétrécit et vient
+   prendre sa place dans l'en-tête (une fois par visite)
+   ========================================================================== */
+.intro_component { display: none; }
+.has-intro .intro_component {
+  position: fixed; inset: 0; z-index: 200;
+  display: grid; place-items: center;
+  background-color: var(--color-bg);
+}
+.has-intro body { overflow: hidden; }
+/* Le logo de l'en-tête attend l'arrivée de celui de l'animation */
+.has-intro .nav_brand .nav_logo { opacity: 0; }
+.intro_logo { width: min(56vw, 300px); aspect-ratio: 1; color: var(--color-ink); transform-origin: 0 0; will-change: transform; }
+.intro_svg { display: block; width: 100%; height: 100%; overflow: visible; }
+.intro_stroke { fill: none; stroke: currentColor; stroke-width: 22; stroke-linejoin: miter; stroke-dasharray: 1; stroke-dashoffset: 1; }
+.intro_dot { fill: var(--color-brand); opacity: 0; transform-box: fill-box; transform-origin: 50% 100%; }
+.intro_name text { font-family: var(--font-sans); font-size: 36px; font-weight: 600; fill: currentColor; text-anchor: middle; opacity: 0; }
+.intro_bar { fill: var(--color-brand); transform-box: fill-box; transform-origin: 0 50%; transform: scaleX(0); }
+.intro_tag { font-family: var(--font-sans); font-size: 14.5px; font-weight: 500; letter-spacing: 2.6px; fill: var(--color-text-muted); text-anchor: middle; opacity: 0; }
