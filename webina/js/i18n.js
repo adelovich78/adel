@@ -271,7 +271,11 @@ window.WEBINA_I18N = {
    "auto": "Otomotiv & Oto elektrik",
    "health": "Sağlık & Doktor",
    "beauty": "Kuaför & Güzellik",
-   "ecommerce": "E-ticaret"
+   "ecommerce": "E-ticaret",
+   "dental": "Diş kliniği",
+   "vet": "Veteriner",
+   "restaurant": "Restoran",
+   "pharmacy": "Eczane"
   },
   "tags": {
    "media": "Medya platformu",
@@ -288,13 +292,17 @@ window.WEBINA_I18N = {
    "demo": "Demo",
    "finder": "Akü bulucu",
    "shop": "Online mağaza",
-   "cart": "Sepet & sipariş"
+   "cart": "Sepet & sipariş",
+   "tourism": "Sağlık turizmi",
+   "emergency": "7/24 acil",
+   "menu": "Menü",
+   "duty": "Nöbetçi eczane"
   },
   "demo": {
    "eyebrow": "Canlı demolar",
    "t1": "Mesleğinize özel",
    "t2": "hazır siteler",
-   "text": "Sitenizin nasıl görüneceğini şimdi görün: avukatlar, doktorlar, kuaförler, esnaf ve online mağazalar için hazırladığımız gerçek, çalışan demolar.",
+   "text": "Sitenizin nasıl görüneceğini şimdi görün: avukatlar, doktorlar, diş klinikleri, veterinerler, restoranlar, eczaneler, kuaförler, esnaf ve online mağazalar için hazırladığımız gerçek, çalışan demolar.",
    "live": "Canlı demoyu aç",
    "want": "Bu siteden istiyorum",
    "badge": "Canlı demo",
@@ -352,6 +360,50 @@ window.WEBINA_I18N = {
       "Sepet, ücretsiz kargo eşiği ve sipariş",
       "Ürün sayfaları ve benzer ürünler",
       "4 dil, Arapça dahil"
+     ]
+    },
+    "dental": {
+     "tab": "Diş kliniği",
+     "name": "Lumière Dental",
+     "desc": "Boğaz manzaralı, yurt dışından hasta çeken prestijli bir diş kliniği sitesi.",
+     "feats": [
+      "Online muayene randevusu",
+      "İmplant, zirkonyum, Hollywood gülüşü",
+      "Yurt dışı hastalar için sağlık turizmi",
+      "Türkçe, İngilizce & Fransızca"
+     ]
+    },
+    "vet": {
+     "tab": "Veteriner",
+     "name": "İstanbul Veteriner",
+     "desc": "Hayvan sahiplerine güven veren, sıcak ve modern bir veteriner kliniği sitesi.",
+     "feats": [
+      "7/24 acil hat ve online randevu",
+      "Aşı, cerrahi, diş bakımı, görüntüleme",
+      "Ekip ve klinik tanıtımı",
+      "Türkçe & İngilizce, WhatsApp"
+     ]
+    },
+    "restaurant": {
+     "tab": "Restoran",
+     "name": "L'Étoile du Bosphore",
+     "desc": "Boğaz kıyısında gastronomi restoranı için şık ve iştah açıcı bir site.",
+     "feats": [
+      "Online masa rezervasyonu",
+      "Menüler, şarap ve şef sunumu",
+      "Özel salon ve etkinlikler",
+      "Fransızca, İngilizce & Türkçe"
+     ]
+    },
+    "pharmacy": {
+     "tab": "Eczane",
+     "name": "Eczane Lale",
+     "desc": "Mahallenin güvendiği, modern ve sıcak bir eczane sitesi.",
+     "feats": [
+      "Nöbetçi eczaneler ve çalışma saatleri",
+      "Reçete, dermokozmetik, majistral",
+      "Turistlere yardım, SSS",
+      "Türkçe & İngilizce, WhatsApp"
      ]
     }
    }
@@ -1294,7 +1346,11 @@ window.WEBINA_I18N = {
    "auto": "Automotive & Auto electrics",
    "health": "Healthcare & Doctors",
    "beauty": "Hair & Beauty",
-   "ecommerce": "E-commerce"
+   "ecommerce": "E-commerce",
+   "dental": "Dental clinic",
+   "vet": "Veterinary",
+   "restaurant": "Restaurant",
+   "pharmacy": "Pharmacy"
   },
   "tags": {
    "media": "Media platform",
@@ -1311,13 +1367,17 @@ window.WEBINA_I18N = {
    "demo": "Demo",
    "finder": "Battery finder",
    "shop": "Online store",
-   "cart": "Cart & checkout"
+   "cart": "Cart & checkout",
+   "tourism": "Health tourism",
+   "emergency": "24/7 emergency",
+   "menu": "Menu",
+   "duty": "On-duty pharmacy"
   },
   "demo": {
    "eyebrow": "Live demos",
    "t1": "Ready-made sites",
    "t2": "for your profession",
-   "text": "See how your site could look right now: real, working demos we built for lawyers, doctors, hair salons, local shops and online stores.",
+   "text": "See how your site could look right now: real, working demos we built for lawyers, doctors, dental clinics, vets, restaurants, pharmacies, hair salons, local shops and online stores.",
    "live": "Open live demo",
    "want": "I want this site",
    "badge": "Live demo",
@@ -1375,6 +1435,50 @@ window.WEBINA_I18N = {
       "Cart, free-shipping threshold and checkout",
       "Product pages with related items",
       "4 languages, Arabic included"
+     ]
+    },
+    "dental": {
+     "tab": "Dental clinic",
+     "name": "Lumière Dental",
+     "desc": "A prestigious dental clinic site with Bosphorus views that attracts patients from abroad.",
+     "feats": [
+      "Online consultation booking",
+      "Implants, zirconia crowns, Hollywood smile",
+      "Dental tourism for international patients",
+      "Turkish, English & French"
+     ]
+    },
+    "vet": {
+     "tab": "Veterinary",
+     "name": "İstanbul Veteriner",
+     "desc": "A warm, modern veterinary clinic site that pet owners trust.",
+     "feats": [
+      "24/7 emergency line and online booking",
+      "Vaccines, surgery, dental care, imaging",
+      "Team and clinic presentation",
+      "Turkish & English, WhatsApp"
+     ]
+    },
+    "restaurant": {
+     "tab": "Restaurant",
+     "name": "L'Étoile du Bosphore",
+     "desc": "An elegant, mouth-watering site for a fine-dining restaurant on the Bosphorus.",
+     "feats": [
+      "Online table reservations",
+      "Menus, wine list and the chef",
+      "Private dining room and events",
+      "French, English & Turkish"
+     ]
+    },
+    "pharmacy": {
+     "tab": "Pharmacy",
+     "name": "Eczane Lale",
+     "desc": "A modern, friendly site for the neighbourhood pharmacy.",
+     "feats": [
+      "On-duty pharmacies and opening hours",
+      "Prescriptions, dermocosmetics, compounding",
+      "Help for tourists, FAQ",
+      "Turkish & English, WhatsApp"
      ]
     }
    }
@@ -2317,7 +2421,11 @@ window.WEBINA_I18N = {
    "auto": "Automobile & Électricité auto",
    "health": "Santé & Médecins",
    "beauty": "Coiffure & Beauté",
-   "ecommerce": "E-commerce"
+   "ecommerce": "E-commerce",
+   "dental": "Cabinet dentaire",
+   "vet": "Vétérinaire",
+   "restaurant": "Restaurant",
+   "pharmacy": "Pharmacie"
   },
   "tags": {
    "media": "Plateforme média",
@@ -2334,13 +2442,17 @@ window.WEBINA_I18N = {
    "demo": "Démo",
    "finder": "Recherche de batterie",
    "shop": "Boutique en ligne",
-   "cart": "Panier & commande"
+   "cart": "Panier & commande",
+   "tourism": "Tourisme médical",
+   "emergency": "Urgences 24/7",
+   "menu": "Carte & menus",
+   "duty": "Pharmacie de garde"
   },
   "demo": {
    "eyebrow": "Démos en ligne",
    "t1": "Des sites prêts",
    "t2": "pour votre métier",
-   "text": "Voyez dès maintenant à quoi ressemblera votre site : de vraies démos fonctionnelles pour avocats, médecins, coiffeurs, commerçants et boutiques en ligne.",
+   "text": "Voyez dès maintenant à quoi ressemblera votre site : de vraies démos fonctionnelles pour avocats, médecins, dentistes, vétérinaires, restaurants, pharmacies, coiffeurs, commerçants et boutiques en ligne.",
    "live": "Voir la démo en ligne",
    "want": "Je veux ce site",
    "badge": "Démo en ligne",
@@ -2398,6 +2510,50 @@ window.WEBINA_I18N = {
       "Panier, seuil de livraison offerte et commande",
       "Fiches produit et suggestions",
       "4 langues, arabe compris"
+     ]
+    },
+    "dental": {
+     "tab": "Dentiste",
+     "name": "Lumière Dental",
+     "desc": "Un site de cabinet dentaire prestigieux, vue sur le Bosphore, qui attire des patients de l’étranger.",
+     "feats": [
+      "Prise de rendez-vous en ligne",
+      "Implants, couronnes zircone, sourire Hollywood",
+      "Tourisme dentaire pour patients étrangers",
+      "Turc, anglais & français"
+     ]
+    },
+    "vet": {
+     "tab": "Vétérinaire",
+     "name": "İstanbul Veteriner",
+     "desc": "Un site de clinique vétérinaire chaleureux et moderne, qui rassure les propriétaires.",
+     "feats": [
+      "Urgences 24/7 et rendez-vous en ligne",
+      "Vaccins, chirurgie, soins dentaires, imagerie",
+      "Présentation de l’équipe et de la clinique",
+      "Turc & anglais, WhatsApp"
+     ]
+    },
+    "restaurant": {
+     "tab": "Restaurant",
+     "name": "L'Étoile du Bosphore",
+     "desc": "Un site élégant et appétissant pour un restaurant gastronomique au bord du Bosphore.",
+     "feats": [
+      "Réservation de table en ligne",
+      "Menus, sommellerie et chef",
+      "Salon privé et événements",
+      "Français, anglais & turc"
+     ]
+    },
+    "pharmacy": {
+     "tab": "Pharmacie",
+     "name": "Eczane Lale",
+     "desc": "Un site moderne et chaleureux pour la pharmacie de quartier.",
+     "feats": [
+      "Pharmacies de garde et horaires",
+      "Ordonnances, dermocosmétique, préparations",
+      "Aide aux touristes, FAQ",
+      "Turc & anglais, WhatsApp"
      ]
     }
    }
@@ -3340,7 +3496,11 @@ window.WEBINA_I18N = {
    "auto": "السيارات وكهرباء السيارات",
    "health": "الصحة والأطباء",
    "beauty": "الحلاقة والتجميل",
-   "ecommerce": "التجارة الإلكترونية"
+   "ecommerce": "التجارة الإلكترونية",
+   "dental": "عيادة أسنان",
+   "vet": "طب بيطري",
+   "restaurant": "مطعم",
+   "pharmacy": "صيدلية"
   },
   "tags": {
    "media": "منصة إعلامية",
@@ -3357,13 +3517,17 @@ window.WEBINA_I18N = {
    "demo": "نسخة تجريبية",
    "finder": "باحث البطاريات",
    "shop": "متجر إلكتروني",
-   "cart": "السلة والطلب"
+   "cart": "السلة والطلب",
+   "tourism": "سياحة علاجية",
+   "emergency": "طوارئ 24/7",
+   "menu": "قائمة الطعام",
+   "duty": "صيدلية مناوبة"
   },
   "demo": {
    "eyebrow": "عروض تجريبية مباشرة",
    "t1": "مواقع جاهزة",
    "t2": "لمهنتكم",
-   "text": "شاهدوا الآن كيف سيبدو موقعكم: عروض حقيقية تعمل، صمّمناها للمحامين والأطباء وصالونات الحلاقة والمحلات والمتاجر الإلكترونية.",
+   "text": "شاهدوا الآن كيف سيبدو موقعكم: عروض حقيقية تعمل، صمّمناها للمحامين والأطباء وعيادات الأسنان والأطباء البيطريين والمطاعم والصيدليات وصالونات الحلاقة والمحلات والمتاجر الإلكترونية.",
    "live": "افتح العرض المباشر",
    "want": "أريد هذا الموقع",
    "badge": "عرض مباشر",
@@ -3421,6 +3585,50 @@ window.WEBINA_I18N = {
       "سلة وحد الشحن المجاني وإتمام الطلب",
       "صفحات منتجات واقتراحات",
       "4 لغات بما فيها العربية"
+     ]
+    },
+    "dental": {
+     "tab": "طبيب أسنان",
+     "name": "Lumière Dental",
+     "desc": "موقع عيادة أسنان راقية بإطلالة على البوسفور تستقطب المرضى من الخارج.",
+     "feats": [
+      "حجز موعد استشارة عبر الإنترنت",
+      "زراعة، تيجان زيركونيا، ابتسامة هوليوود",
+      "السياحة العلاجية للمرضى الأجانب",
+      "التركية والإنجليزية والفرنسية"
+     ]
+    },
+    "vet": {
+     "tab": "بيطري",
+     "name": "İstanbul Veteriner",
+     "desc": "موقع عيادة بيطرية دافئ وعصري يطمئن أصحاب الحيوانات.",
+     "feats": [
+      "خط طوارئ 24/7 وحجز عبر الإنترنت",
+      "لقاحات، جراحة، عناية بالأسنان، تصوير",
+      "تقديم الفريق والعيادة",
+      "التركية والإنجليزية، واتساب"
+     ]
+    },
+    "restaurant": {
+     "tab": "مطعم",
+     "name": "L'Étoile du Bosphore",
+     "desc": "موقع أنيق وشهي لمطعم فاخر على ضفاف البوسفور.",
+     "feats": [
+      "حجز طاولة عبر الإنترنت",
+      "قوائم الطعام والنبيذ والشيف",
+      "صالون خاص وفعاليات",
+      "الفرنسية والإنجليزية والتركية"
+     ]
+    },
+    "pharmacy": {
+     "tab": "صيدلية",
+     "name": "Eczane Lale",
+     "desc": "موقع عصري ودافئ لصيدلية الحي.",
+     "feats": [
+      "الصيدليات المناوبة وساعات العمل",
+      "الوصفات، مستحضرات التجميل، التركيبات",
+      "مساعدة السياح، الأسئلة الشائعة",
+      "التركية والإنجليزية، واتساب"
      ]
     }
    }

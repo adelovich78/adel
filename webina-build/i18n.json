@@ -289,7 +289,11 @@
    "auto": "Otomotiv & Oto elektrik",
    "health": "Sağlık & Doktor",
    "beauty": "Kuaför & Güzellik",
-   "ecommerce": "E-ticaret"
+   "ecommerce": "E-ticaret",
+   "dental": "Diş kliniği",
+   "vet": "Veteriner",
+   "restaurant": "Restoran",
+   "pharmacy": "Eczane"
   },
   "tags": {
    "media": "Medya platformu",
@@ -306,7 +310,11 @@
    "demo": "Demo",
    "finder": "Akü bulucu",
    "shop": "Online mağaza",
-   "cart": "Sepet & sipariş"
+   "cart": "Sepet & sipariş",
+   "tourism": "Sağlık turizmi",
+   "emergency": "7/24 acil",
+   "menu": "Menü",
+   "duty": "Nöbetçi eczane"
   },
   "contact": {
    "eyebrow": "İletişim",
@@ -662,7 +670,11 @@
    "auto": "Automotive & Auto electrics",
    "health": "Healthcare & Doctors",
    "beauty": "Hair & Beauty",
-   "ecommerce": "E-commerce"
+   "ecommerce": "E-commerce",
+   "dental": "Dental clinic",
+   "vet": "Veterinary",
+   "restaurant": "Restaurant",
+   "pharmacy": "Pharmacy"
   },
   "tags": {
    "media": "Media platform",
@@ -679,7 +691,11 @@
    "demo": "Demo",
    "finder": "Battery finder",
    "shop": "Online store",
-   "cart": "Cart & checkout"
+   "cart": "Cart & checkout",
+   "tourism": "Health tourism",
+   "emergency": "24/7 emergency",
+   "menu": "Menu",
+   "duty": "On-duty pharmacy"
   },
   "contact": {
    "eyebrow": "Contact",
@@ -1035,7 +1051,11 @@
    "auto": "Automobile & Électricité auto",
    "health": "Santé & Médecins",
    "beauty": "Coiffure & Beauté",
-   "ecommerce": "E-commerce"
+   "ecommerce": "E-commerce",
+   "dental": "Cabinet dentaire",
+   "vet": "Vétérinaire",
+   "restaurant": "Restaurant",
+   "pharmacy": "Pharmacie"
   },
   "tags": {
    "media": "Plateforme média",
@@ -1052,7 +1072,11 @@
    "demo": "Démo",
    "finder": "Recherche de batterie",
    "shop": "Boutique en ligne",
-   "cart": "Panier & commande"
+   "cart": "Panier & commande",
+   "tourism": "Tourisme médical",
+   "emergency": "Urgences 24/7",
+   "menu": "Carte & menus",
+   "duty": "Pharmacie de garde"
   },
   "contact": {
    "eyebrow": "Contact",
@@ -1408,7 +1432,11 @@
    "auto": "السيارات وكهرباء السيارات",
    "health": "الصحة والأطباء",
    "beauty": "الحلاقة والتجميل",
-   "ecommerce": "التجارة الإلكترونية"
+   "ecommerce": "التجارة الإلكترونية",
+   "dental": "عيادة أسنان",
+   "vet": "طب بيطري",
+   "restaurant": "مطعم",
+   "pharmacy": "صيدلية"
   },
   "tags": {
    "media": "منصة إعلامية",
@@ -1425,7 +1453,11 @@
    "demo": "نسخة تجريبية",
    "finder": "باحث البطاريات",
    "shop": "متجر إلكتروني",
-   "cart": "السلة والطلب"
+   "cart": "السلة والطلب",
+   "tourism": "سياحة علاجية",
+   "emergency": "طوارئ 24/7",
+   "menu": "قائمة الطعام",
+   "duty": "صيدلية مناوبة"
   },
   "contact": {
    "eyebrow": "اتصل بنا",

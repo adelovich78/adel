@@ -184,6 +184,10 @@ PROJECTS = [
     {'title': 'Yıldız Berber', 'cat': 'beauty', 'tags': ['booking', 'multi', 'vitrine'], 'img': 'w-kuafor-BFD-VWN0.webp', 'url': 'https://my.webina.com.tr/', 'demo': True},
     {'title': 'Dr. Karim Haddad', 'cat': 'health', 'tags': ['booking', 'multi', 'vitrine'], 'img': 'w-doktor-Ckhg_LFM.webp', 'url': 'https://test.webina.com.tr/', 'demo': True},
     {'title': 'Bio&Baio', 'cat': 'ecommerce', 'tags': ['shop', 'cart', 'multi'], 'img': 'w-biobaio.webp', 'url': 'https://eticaret.webina.com.tr/', 'demo': True},
+    {'title': 'Lumière Dental', 'cat': 'dental', 'tags': ['booking', 'tourism', 'multi'], 'img': 'w-dental.webp', 'url': 'https://dental.webina.com.tr/', 'demo': True},
+    {'title': 'İstanbul Veteriner', 'cat': 'vet', 'tags': ['booking', 'emergency', 'multi'], 'img': 'w-veteriner.webp', 'url': 'https://veteriner.webina.com.tr/', 'demo': True},
+    {'title': "L'Étoile du Bosphore", 'cat': 'restaurant', 'tags': ['menu', 'reserve', 'multi'], 'img': 'w-restoran.webp', 'url': 'https://restoran.webina.com.tr/', 'demo': True},
+    {'title': 'Eczane Lale', 'cat': 'pharmacy', 'tags': ['duty', 'vitrine', 'multi'], 'img': 'w-eczane.webp', 'url': 'https://ezcane.webina.com.tr/', 'demo': True},
 ]
 for p in PROJECTS:
     p['host'] = re.sub(r'^https?://(www\.)?|/$', '', p['url'])
@@ -205,6 +209,10 @@ DEMOS = [
     {'key': 'shop', 'img': 'long-yildiz-Ce8JzrvT.webp', 'h': 3835, 'url': 'https://demo.webina.com.tr/', 'host': 'demo.webina.com.tr', 'icon': 'i-store'},
     {'key': 'barber', 'img': 'long-kuafor-Cd_bigEo.webp', 'h': 1723, 'url': 'https://my.webina.com.tr/', 'host': 'my.webina.com.tr', 'icon': 'i-scissors'},
     {'key': 'ecommerce', 'img': 'long-biobaio.webp', 'h': 2527, 'url': 'https://eticaret.webina.com.tr/', 'host': 'eticaret.webina.com.tr', 'icon': 'i-bag'},
+    {'key': 'dental', 'img': 'long-dental.webp', 'h': 3750, 'url': 'https://dental.webina.com.tr/', 'host': 'dental.webina.com.tr', 'icon': 'i-tooth'},
+    {'key': 'vet', 'img': 'long-veteriner.webp', 'h': 3011, 'url': 'https://veteriner.webina.com.tr/', 'host': 'veteriner.webina.com.tr', 'icon': 'i-paw'},
+    {'key': 'restaurant', 'img': 'long-restoran.webp', 'h': 3750, 'url': 'https://restoran.webina.com.tr/', 'host': 'restoran.webina.com.tr', 'icon': 'i-utensils'},
+    {'key': 'pharmacy', 'img': 'long-eczane.webp', 'h': 2722, 'url': 'https://ezcane.webina.com.tr/', 'host': 'ezcane.webina.com.tr', 'icon': 'i-pill'},
 ]
 DEPTS = ['strategy', 'design', 'dev', 'marketing', 'support']
 CITIES = ["İstanbul", "Ankara", "İzmir", "Bursa", "Antalya", "Kocaeli", "Konya", "Adana", "Gaziantep", "Eskişehir", "Muğla", "Trabzon"]
