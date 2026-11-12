@@ -8,10 +8,11 @@
   var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   var finePointer = window.matchMedia('(hover: hover) and (pointer: fine)');
 
+  // Langue et thème : gardés pendant la visite seulement. Chaque nouvelle visite s'ouvre en turc et en clair.
   function store(key, value) {
     try {
-      if (value === undefined) return localStorage.getItem(key);
-      localStorage.setItem(key, value);
+      if (value === undefined) return sessionStorage.getItem(key);
+      sessionStorage.setItem(key, value);
     } catch (e) { return null; }
   }
 
@@ -67,8 +68,7 @@
   var themeBtn = document.querySelector('[data-theme-toggle]');
   if (themeBtn) {
     themeBtn.addEventListener('click', function () {
-      var isDark = root.getAttribute('data-theme') === 'dark' ||
-        (!root.getAttribute('data-theme') && window.matchMedia('(prefers-color-scheme: dark)').matches);
+      var isDark = root.getAttribute('data-theme') === 'dark';
       var next = isDark ? 'light' : 'dark';
       root.setAttribute('data-theme', next);
       store('webina-theme', next);

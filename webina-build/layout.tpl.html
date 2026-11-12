@@ -7,8 +7,7 @@
   <meta name="description" content="{{DESC}}">
   <link rel="canonical" href="https://webina.com.tr{{PATH}}">
   <link rel="icon" type="image/png" href="/images/favicon.png">
-  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
-  <meta name="theme-color" content="#0e100f" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#ffffff">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Webina">
   <meta property="og:url" content="https://webina.com.tr{{PATH}}">
@@ -29,7 +28,7 @@
     (function () {
       var d = document.documentElement;
       try {
-        var th = localStorage.getItem('webina-theme');
+        var th = sessionStorage.getItem('webina-theme');
         if (th) d.setAttribute('data-theme', th);
       } catch (e) {}
       d.classList.add('js');
@@ -47,7 +46,7 @@
       <svg class="intro_svg" viewBox="0 0 240 240">
         <g transform="translate(0 4)">
           <polyline class="intro_stroke" data-intro-w points="14,18 46,128 79,52 112,128 144,18" pathLength="1"/>
-          <path class="intro_stroke" data-intro-b d="M166 128 V18 H190 A25 25 0 0 1 190 68 H166 M166 68 H196 A30 30 0 0 1 196 128 H166" pathLength="1"/>
+          <path class="intro_stroke" data-intro-b d="M166 128 V18 H190 A25 25 0 0 1 190 68 H166 M166 68 H196 A30 30 0 0 1 196 128 H155" pathLength="1"/>
           <rect class="intro_dot" data-intro-dot x="122" y="104" width="26" height="26" rx="2"/>
         </g>
         <g class="intro_name" data-intro-name>
@@ -155,7 +154,7 @@
             <a href="/" class="wb_logo" data-wb-logo aria-label="Webina">
               <svg class="wb_mark" viewBox="0 0 240 150" aria-hidden="true">
                 <polyline class="wb_stroke wb_w" points="14,18 46,128 79,52 112,128 144,18" pathLength="1"/>
-                <path class="wb_stroke wb_b" d="M166 128 V18 H190 A25 25 0 0 1 190 68 H166 M166 68 H196 A30 30 0 0 1 196 128 H166" pathLength="1"/>
+                <path class="wb_stroke wb_b" d="M166 128 V18 H190 A25 25 0 0 1 190 68 H166 M166 68 H196 A30 30 0 0 1 196 128 H155" pathLength="1"/>
                 <g class="wb_dot-wrap"><rect class="wb_dot" x="122" y="104" width="26" height="26" rx="2"/></g>
               </svg>
               <span class="wb_name" aria-hidden="true"><span>W</span><span>E</span><span>B</span><span>I</span><span>N</span><span>A</span></span>

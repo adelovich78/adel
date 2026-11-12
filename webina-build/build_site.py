@@ -94,7 +94,7 @@ V2 = {
         'clients': {'label': 'Bize güvenenler'},
         'manifesto': {'eyebrow': 'Yaklaşımımız',
                       'text': 'Web sitesi bir kartvizit değil, sizin için çalışan bir ekip arkadaşıdır: randevu alır, teklif hazırlar, dört dilde konuşur ve siz uyurken müşteri karşılar.'},
-        'facts': ['yayında müşteri sitesi', 'canlı sektör demosu', 'dilde yayın: TR, EN, FR, AR', 'uzmanlık, tek ekipte'],
+        'facts': ['Google PageSpeed puanı (100 üzerinden)', 'canlı sektör demosu', 'dilde yayın: TR, EN, FR, AR', 'uzmanlık, tek ekipte'],
     },
     'en': {
         'stage': {'aria': 'Featured projects', 'prev': 'Previous project', 'next': 'Next project',
@@ -103,7 +103,7 @@ V2 = {
         'clients': {'label': 'Trusted by'},
         'manifesto': {'eyebrow': 'Our approach',
                       'text': 'A website is not a business card. It is a teammate that works for you: it books appointments, prepares quotes, speaks four languages and welcomes customers while you sleep.'},
-        'facts': ['client sites live', 'live industry demos', 'languages: TR, EN, FR, AR', 'disciplines in one team'],
+        'facts': ['Google PageSpeed score (out of 100)', 'live industry demos', 'languages: TR, EN, FR, AR', 'disciplines in one team'],
     },
     'fr': {
         'stage': {'aria': 'Projets à la une', 'prev': 'Projet précédent', 'next': 'Projet suivant',
@@ -112,7 +112,7 @@ V2 = {
         'clients': {'label': 'Ils nous font confiance'},
         'manifesto': {'eyebrow': 'Notre approche',
                       'text': "Un site web n'est pas une carte de visite. C'est un collègue qui travaille pour vous : il prend les rendez-vous, prépare les devis, parle quatre langues et accueille vos clients pendant que vous dormez."},
-        'facts': ['sites clients en ligne', 'démos métier en ligne', 'langues : TR, EN, FR, AR', 'expertises dans une seule équipe'],
+        'facts': ['score Google PageSpeed (sur 100)', 'démos métier en ligne', 'langues : TR, EN, FR, AR', 'expertises dans une seule équipe'],
     },
     'ar': {
         'stage': {'aria': 'مشاريع مختارة', 'prev': 'المشروع السابق', 'next': 'المشروع التالي',
@@ -121,7 +121,7 @@ V2 = {
         'clients': {'label': 'يثقون بنا'},
         'manifesto': {'eyebrow': 'نهجنا',
                       'text': 'الموقع الإلكتروني ليس بطاقة عمل، بل زميل يعمل لأجلك: يحجز المواعيد، يجهّز عروض الأسعار، يتحدث أربع لغات ويستقبل عملاءك وأنت نائم.'},
-        'facts': ['مواقع عملاء على الإنترنت', 'عروض تجريبية حية', 'لغات: التركية والإنجليزية والفرنسية والعربية', 'تخصصاً في فريق واحد'],
+        'facts': ['نتيجة Google PageSpeed (من 100)', 'عروض تجريبية حية', 'لغات: التركية والإنجليزية والفرنسية والعربية', 'تخصصاً في فريق واحد'],
     },
 }
 
@@ -282,7 +282,8 @@ def home_fragments():
         return ''.join(f'''
               <li class="clients_item"><a href="{p['url']}" target="_blank" rel="noopener" class="clients_link"{' tabindex="-1"' if clone else ''}>{html.escape(p['title'])}</a><span class="brand-square" aria-hidden="true"></span></li>''' for p in CLIENTS)
     # Chiffres : calculés à partir du contenu du site, donc toujours exacts
-    numbers = [len(CLIENTS), len(DEMOS), len(LANGS), len(TR['team']['roles'])]
+    # 99 : score Google PageSpeed mesuré sur la page d'accueil (mobile et ordinateur)
+    numbers = [99, len(DEMOS), len(LANGS), len(TR['team']['roles'])]
     facts = ''.join(f'''
                 <li class="facts_item" data-reveal style="--d:{i}"><span class="facts_number" data-count="{n}">{n}</span>{tx(f"facts.{i}", 'span', 'facts_label text-color-secondary')}</li>''' for i, n in enumerate(numbers))
     # Projets clients : index typographique ; l'aperçu suit le curseur (vignette en ligne sur mobile)

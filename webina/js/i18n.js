@@ -1015,7 +1015,7 @@ window.WEBINA_I18N = {
    "text": "Web sitesi bir kartvizit değil, sizin için çalışan bir ekip arkadaşıdır: randevu alır, teklif hazırlar, dört dilde konuşur ve siz uyurken müşteri karşılar."
   },
   "facts": [
-   "yayında müşteri sitesi",
+   "Google PageSpeed puanı (100 üzerinden)",
    "canlı sektör demosu",
    "dilde yayın: TR, EN, FR, AR",
    "uzmanlık, tek ekipte"
@@ -2036,7 +2036,7 @@ window.WEBINA_I18N = {
    "text": "A website is not a business card. It is a teammate that works for you: it books appointments, prepares quotes, speaks four languages and welcomes customers while you sleep."
   },
   "facts": [
-   "client sites live",
+   "Google PageSpeed score (out of 100)",
    "live industry demos",
    "languages: TR, EN, FR, AR",
    "disciplines in one team"
@@ -3057,7 +3057,7 @@ window.WEBINA_I18N = {
    "text": "Un site web n'est pas une carte de visite. C'est un collègue qui travaille pour vous : il prend les rendez-vous, prépare les devis, parle quatre langues et accueille vos clients pendant que vous dormez."
   },
   "facts": [
-   "sites clients en ligne",
+   "score Google PageSpeed (sur 100)",
    "démos métier en ligne",
    "langues : TR, EN, FR, AR",
    "expertises dans une seule équipe"
@@ -4078,7 +4078,7 @@ window.WEBINA_I18N = {
    "text": "الموقع الإلكتروني ليس بطاقة عمل، بل زميل يعمل لأجلك: يحجز المواعيد، يجهّز عروض الأسعار، يتحدث أربع لغات ويستقبل عملاءك وأنت نائم."
   },
   "facts": [
-   "مواقع عملاء على الإنترنت",
+   "نتيجة Google PageSpeed (من 100)",
    "عروض تجريبية حية",
    "لغات: التركية والإنجليزية والفرنسية والعربية",
    "تخصصاً في فريق واحد"
