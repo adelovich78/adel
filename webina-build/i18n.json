@@ -293,7 +293,8 @@
    "dental": "Diş kliniği",
    "vet": "Veteriner",
    "restaurant": "Restoran",
-   "pharmacy": "Eczane"
+   "pharmacy": "Eczane",
+   "moving": "Nakliyat & Temizlik"
   },
   "tags": {
    "media": "Medya platformu",
@@ -314,7 +315,8 @@
    "tourism": "Sağlık turizmi",
    "emergency": "7/24 acil",
    "menu": "Menü",
-   "duty": "Nöbetçi eczane"
+   "duty": "Nöbetçi eczane",
+   "quote": "Ücretsiz teklif"
   },
   "contact": {
    "eyebrow": "İletişim",
@@ -674,7 +676,8 @@
    "dental": "Dental clinic",
    "vet": "Veterinary",
    "restaurant": "Restaurant",
-   "pharmacy": "Pharmacy"
+   "pharmacy": "Pharmacy",
+   "moving": "Moving & Cleaning"
   },
   "tags": {
    "media": "Media platform",
@@ -695,7 +698,8 @@
    "tourism": "Health tourism",
    "emergency": "24/7 emergency",
    "menu": "Menu",
-   "duty": "On-duty pharmacy"
+   "duty": "On-duty pharmacy",
+   "quote": "Free quote"
   },
   "contact": {
    "eyebrow": "Contact",
@@ -1055,7 +1059,8 @@
    "dental": "Cabinet dentaire",
    "vet": "Vétérinaire",
    "restaurant": "Restaurant",
-   "pharmacy": "Pharmacie"
+   "pharmacy": "Pharmacie",
+   "moving": "Déménagement & Nettoyage"
   },
   "tags": {
    "media": "Plateforme média",
@@ -1076,7 +1081,8 @@
    "tourism": "Tourisme médical",
    "emergency": "Urgences 24/7",
    "menu": "Carte & menus",
-   "duty": "Pharmacie de garde"
+   "duty": "Pharmacie de garde",
+   "quote": "Devis gratuit"
   },
   "contact": {
    "eyebrow": "Contact",
@@ -1436,7 +1442,8 @@
    "dental": "عيادة أسنان",
    "vet": "طب بيطري",
    "restaurant": "مطعم",
-   "pharmacy": "صيدلية"
+   "pharmacy": "صيدلية",
+   "moving": "نقل الأثاث والتنظيف"
   },
   "tags": {
    "media": "منصة إعلامية",
@@ -1457,7 +1464,8 @@
    "tourism": "سياحة علاجية",
    "emergency": "طوارئ 24/7",
    "menu": "قائمة الطعام",
-   "duty": "صيدلية مناوبة"
+   "duty": "صيدلية مناوبة",
+   "quote": "عرض سعر مجاني"
   },
   "contact": {
    "eyebrow": "اتصل بنا",

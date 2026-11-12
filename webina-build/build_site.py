@@ -188,6 +188,7 @@ PROJECTS = [
     {'title': 'İstanbul Veteriner', 'cat': 'vet', 'tags': ['booking', 'emergency', 'multi'], 'img': 'w-veteriner.webp', 'url': 'https://veteriner.webina.com.tr/', 'demo': True},
     {'title': "L'Étoile du Bosphore", 'cat': 'restaurant', 'tags': ['menu', 'reserve', 'multi'], 'img': 'w-restoran.webp', 'url': 'https://restoran.webina.com.tr/', 'demo': True},
     {'title': 'Eczane Lale', 'cat': 'pharmacy', 'tags': ['duty', 'vitrine', 'multi'], 'img': 'w-eczane.webp', 'url': 'https://ezcane.webina.com.tr/', 'demo': True},
+    {'title': 'Bosphora', 'cat': 'moving', 'tags': ['quote', 'leads', 'vitrine'], 'img': 'w-nakliyat.webp', 'url': 'https://nakliyet.webina.com.tr/', 'demo': True},
 ]
 for p in PROJECTS:
     p['host'] = re.sub(r'^https?://(www\.)?|/$', '', p['url'])
@@ -213,6 +214,7 @@ DEMOS = [
     {'key': 'vet', 'img': 'long-veteriner.webp', 'h': 3011, 'url': 'https://veteriner.webina.com.tr/', 'host': 'veteriner.webina.com.tr', 'icon': 'i-paw'},
     {'key': 'restaurant', 'img': 'long-restoran.webp', 'h': 3750, 'url': 'https://restoran.webina.com.tr/', 'host': 'restoran.webina.com.tr', 'icon': 'i-utensils'},
     {'key': 'pharmacy', 'img': 'long-eczane.webp', 'h': 2722, 'url': 'https://ezcane.webina.com.tr/', 'host': 'ezcane.webina.com.tr', 'icon': 'i-pill'},
+    {'key': 'moving', 'img': 'long-nakliyat.webp', 'h': 2556, 'url': 'https://nakliyet.webina.com.tr/', 'host': 'nakliyet.webina.com.tr', 'icon': 'i-truck'},
 ]
 DEPTS = ['strategy', 'design', 'dev', 'marketing', 'support']
 CITIES = ["İstanbul", "Ankara", "İzmir", "Bursa", "Antalya", "Kocaeli", "Konya", "Adana", "Gaziantep", "Eskişehir", "Muğla", "Trabzon"]

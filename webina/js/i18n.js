@@ -275,7 +275,8 @@ window.WEBINA_I18N = {
    "dental": "Diş kliniği",
    "vet": "Veteriner",
    "restaurant": "Restoran",
-   "pharmacy": "Eczane"
+   "pharmacy": "Eczane",
+   "moving": "Nakliyat & Temizlik"
   },
   "tags": {
    "media": "Medya platformu",
@@ -296,13 +297,14 @@ window.WEBINA_I18N = {
    "tourism": "Sağlık turizmi",
    "emergency": "7/24 acil",
    "menu": "Menü",
-   "duty": "Nöbetçi eczane"
+   "duty": "Nöbetçi eczane",
+   "quote": "Ücretsiz teklif"
   },
   "demo": {
    "eyebrow": "Canlı demolar",
    "t1": "Mesleğinize özel",
    "t2": "hazır siteler",
-   "text": "Sitenizin nasıl görüneceğini şimdi görün: avukatlar, doktorlar, diş klinikleri, veterinerler, restoranlar, eczaneler, kuaförler, esnaf ve online mağazalar için hazırladığımız gerçek, çalışan demolar.",
+   "text": "Sitenizin nasıl görüneceğini şimdi görün: avukatlar, doktorlar, diş klinikleri, veterinerler, restoranlar, eczaneler, nakliyat firmaları, kuaförler, esnaf ve online mağazalar için hazırladığımız gerçek, çalışan demolar.",
    "live": "Canlı demoyu aç",
    "want": "Bu siteden istiyorum",
    "badge": "Canlı demo",
@@ -404,6 +406,17 @@ window.WEBINA_I18N = {
       "Reçete, dermokozmetik, majistral",
       "Turistlere yardım, SSS",
       "Türkçe & İngilizce, WhatsApp"
+     ]
+    },
+    "moving": {
+     "tab": "Nakliyat",
+     "name": "Bosphora",
+     "desc": "Nakliyat ve temizlik hizmetlerini tek çatı altında sunan, güven veren bir firma sitesi.",
+     "feats": [
+      "Ücretsiz teklif ve ekspertiz formu",
+      "Evden eve, ofis taşıma, depolama",
+      "Temizlik, dezenfeksiyon, ilaçlama",
+      "Tek tıkla arama & WhatsApp"
      ]
     }
    }
@@ -1350,7 +1363,8 @@ window.WEBINA_I18N = {
    "dental": "Dental clinic",
    "vet": "Veterinary",
    "restaurant": "Restaurant",
-   "pharmacy": "Pharmacy"
+   "pharmacy": "Pharmacy",
+   "moving": "Moving & Cleaning"
   },
   "tags": {
    "media": "Media platform",
@@ -1371,13 +1385,14 @@ window.WEBINA_I18N = {
    "tourism": "Health tourism",
    "emergency": "24/7 emergency",
    "menu": "Menu",
-   "duty": "On-duty pharmacy"
+   "duty": "On-duty pharmacy",
+   "quote": "Free quote"
   },
   "demo": {
    "eyebrow": "Live demos",
    "t1": "Ready-made sites",
    "t2": "for your profession",
-   "text": "See how your site could look right now: real, working demos we built for lawyers, doctors, dental clinics, vets, restaurants, pharmacies, hair salons, local shops and online stores.",
+   "text": "See how your site could look right now: real, working demos we built for lawyers, doctors, dental clinics, vets, restaurants, pharmacies, moving companies, hair salons, local shops and online stores.",
    "live": "Open live demo",
    "want": "I want this site",
    "badge": "Live demo",
@@ -1479,6 +1494,17 @@ window.WEBINA_I18N = {
       "Prescriptions, dermocosmetics, compounding",
       "Help for tourists, FAQ",
       "Turkish & English, WhatsApp"
+     ]
+    },
+    "moving": {
+     "tab": "Moving",
+     "name": "Bosphora",
+     "desc": "A trustworthy company site bringing moving and cleaning services under one roof.",
+     "feats": [
+      "Free quote and survey form",
+      "Home and office moves, storage",
+      "Cleaning, disinfection, pest control",
+      "One-tap call & WhatsApp"
      ]
     }
    }
@@ -2425,7 +2451,8 @@ window.WEBINA_I18N = {
    "dental": "Cabinet dentaire",
    "vet": "Vétérinaire",
    "restaurant": "Restaurant",
-   "pharmacy": "Pharmacie"
+   "pharmacy": "Pharmacie",
+   "moving": "Déménagement & Nettoyage"
   },
   "tags": {
    "media": "Plateforme média",
@@ -2446,13 +2473,14 @@ window.WEBINA_I18N = {
    "tourism": "Tourisme médical",
    "emergency": "Urgences 24/7",
    "menu": "Carte & menus",
-   "duty": "Pharmacie de garde"
+   "duty": "Pharmacie de garde",
+   "quote": "Devis gratuit"
   },
   "demo": {
    "eyebrow": "Démos en ligne",
    "t1": "Des sites prêts",
    "t2": "pour votre métier",
-   "text": "Voyez dès maintenant à quoi ressemblera votre site : de vraies démos fonctionnelles pour avocats, médecins, dentistes, vétérinaires, restaurants, pharmacies, coiffeurs, commerçants et boutiques en ligne.",
+   "text": "Voyez dès maintenant à quoi ressemblera votre site : de vraies démos fonctionnelles pour avocats, médecins, dentistes, vétérinaires, restaurants, pharmacies, déménageurs, coiffeurs, commerçants et boutiques en ligne.",
    "live": "Voir la démo en ligne",
    "want": "Je veux ce site",
    "badge": "Démo en ligne",
@@ -2554,6 +2582,17 @@ window.WEBINA_I18N = {
       "Ordonnances, dermocosmétique, préparations",
       "Aide aux touristes, FAQ",
       "Turc & anglais, WhatsApp"
+     ]
+    },
+    "moving": {
+     "tab": "Déménagement",
+     "name": "Bosphora",
+     "desc": "Un site d’entreprise rassurant qui réunit déménagement et nettoyage sous un même toit.",
+     "feats": [
+      "Formulaire de devis et d’expertise gratuits",
+      "Déménagement maison et bureau, garde-meuble",
+      "Nettoyage, désinfection, désinsectisation",
+      "Appel & WhatsApp en un clic"
      ]
     }
    }
@@ -3500,7 +3539,8 @@ window.WEBINA_I18N = {
    "dental": "عيادة أسنان",
    "vet": "طب بيطري",
    "restaurant": "مطعم",
-   "pharmacy": "صيدلية"
+   "pharmacy": "صيدلية",
+   "moving": "نقل الأثاث والتنظيف"
   },
   "tags": {
    "media": "منصة إعلامية",
@@ -3521,13 +3561,14 @@ window.WEBINA_I18N = {
    "tourism": "سياحة علاجية",
    "emergency": "طوارئ 24/7",
    "menu": "قائمة الطعام",
-   "duty": "صيدلية مناوبة"
+   "duty": "صيدلية مناوبة",
+   "quote": "عرض سعر مجاني"
   },
   "demo": {
    "eyebrow": "عروض تجريبية مباشرة",
    "t1": "مواقع جاهزة",
    "t2": "لمهنتكم",
-   "text": "شاهدوا الآن كيف سيبدو موقعكم: عروض حقيقية تعمل، صمّمناها للمحامين والأطباء وعيادات الأسنان والأطباء البيطريين والمطاعم والصيدليات وصالونات الحلاقة والمحلات والمتاجر الإلكترونية.",
+   "text": "شاهدوا الآن كيف سيبدو موقعكم: عروض حقيقية تعمل، صمّمناها للمحامين والأطباء وعيادات الأسنان والأطباء البيطريين والمطاعم والصيدليات وشركات نقل الأثاث وصالونات الحلاقة والمحلات والمتاجر الإلكترونية.",
    "live": "افتح العرض المباشر",
    "want": "أريد هذا الموقع",
    "badge": "عرض مباشر",
@@ -3629,6 +3670,17 @@ window.WEBINA_I18N = {
       "الوصفات، مستحضرات التجميل، التركيبات",
       "مساعدة السياح، الأسئلة الشائعة",
       "التركية والإنجليزية، واتساب"
+     ]
+    },
+    "moving": {
+     "tab": "نقل الأثاث",
+     "name": "Bosphora",
+     "desc": "موقع شركة موثوق يجمع خدمات نقل الأثاث والتنظيف تحت سقف واحد.",
+     "feats": [
+      "نموذج عرض سعر ومعاينة مجانية",
+      "نقل المنازل والمكاتب والتخزين",
+      "التنظيف والتعقيم ومكافحة الحشرات",
+      "اتصال وواتساب بنقرة واحدة"
      ]
     }
    }

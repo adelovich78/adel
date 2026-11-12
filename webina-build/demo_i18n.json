@@ -3,7 +3,7 @@
   "eyebrow": "Canlı demolar",
   "t1": "Mesleğinize özel",
   "t2": "hazır siteler.",
-  "text": "Sitenizin nasıl görüneceğini şimdi görün: avukatlar, doktorlar, diş klinikleri, veterinerler, restoranlar, eczaneler, kuaförler, esnaf ve online mağazalar için hazırladığımız gerçek, çalışan demolar.",
+  "text": "Sitenizin nasıl görüneceğini şimdi görün: avukatlar, doktorlar, diş klinikleri, veterinerler, restoranlar, eczaneler, nakliyat firmaları, kuaförler, esnaf ve online mağazalar için hazırladığımız gerçek, çalışan demolar.",
   "live": "Canlı demoyu aç",
   "want": "Bu siteden istiyorum",
   "badge": "Canlı demo",
@@ -106,6 +106,17 @@
      "Turistlere yardım, SSS",
      "Türkçe & İngilizce, WhatsApp"
     ]
+   },
+   "moving": {
+    "tab": "Nakliyat",
+    "name": "Bosphora",
+    "desc": "Nakliyat ve temizlik hizmetlerini tek çatı altında sunan, güven veren bir firma sitesi.",
+    "feats": [
+     "Ücretsiz teklif ve ekspertiz formu",
+     "Evden eve, ofis taşıma, depolama",
+     "Temizlik, dezenfeksiyon, ilaçlama",
+     "Tek tıkla arama & WhatsApp"
+    ]
    }
   }
  },
@@ -113,7 +124,7 @@
   "eyebrow": "Live demos",
   "t1": "Ready-made sites",
   "t2": "for your profession.",
-  "text": "See how your site could look right now: real, working demos we built for lawyers, doctors, dental clinics, vets, restaurants, pharmacies, hair salons, local shops and online stores.",
+  "text": "See how your site could look right now: real, working demos we built for lawyers, doctors, dental clinics, vets, restaurants, pharmacies, moving companies, hair salons, local shops and online stores.",
   "live": "Open live demo",
   "want": "I want this site",
   "badge": "Live demo",
@@ -216,6 +227,17 @@
      "Help for tourists, FAQ",
      "Turkish & English, WhatsApp"
     ]
+   },
+   "moving": {
+    "tab": "Moving",
+    "name": "Bosphora",
+    "desc": "A trustworthy company site bringing moving and cleaning services under one roof.",
+    "feats": [
+     "Free quote and survey form",
+     "Home and office moves, storage",
+     "Cleaning, disinfection, pest control",
+     "One-tap call & WhatsApp"
+    ]
    }
   }
  },
@@ -223,7 +245,7 @@
   "eyebrow": "Démos en ligne",
   "t1": "Des sites prêts",
   "t2": "pour votre métier.",
-  "text": "Voyez dès maintenant à quoi ressemblera votre site : de vraies démos fonctionnelles pour avocats, médecins, dentistes, vétérinaires, restaurants, pharmacies, coiffeurs, commerçants et boutiques en ligne.",
+  "text": "Voyez dès maintenant à quoi ressemblera votre site : de vraies démos fonctionnelles pour avocats, médecins, dentistes, vétérinaires, restaurants, pharmacies, déménageurs, coiffeurs, commerçants et boutiques en ligne.",
   "live": "Voir la démo en ligne",
   "want": "Je veux ce site",
   "badge": "Démo en ligne",
@@ -326,6 +348,17 @@
      "Aide aux touristes, FAQ",
      "Turc & anglais, WhatsApp"
     ]
+   },
+   "moving": {
+    "tab": "Déménagement",
+    "name": "Bosphora",
+    "desc": "Un site d’entreprise rassurant qui réunit déménagement et nettoyage sous un même toit.",
+    "feats": [
+     "Formulaire de devis et d’expertise gratuits",
+     "Déménagement maison et bureau, garde-meuble",
+     "Nettoyage, désinfection, désinsectisation",
+     "Appel & WhatsApp en un clic"
+    ]
    }
   }
  },
@@ -333,7 +366,7 @@
   "eyebrow": "عروض تجريبية مباشرة",
   "t1": "مواقع جاهزة",
   "t2": "لمهنتكم.",
-  "text": "شاهدوا الآن كيف سيبدو موقعكم: عروض حقيقية تعمل، صمّمناها للمحامين والأطباء وعيادات الأسنان والأطباء البيطريين والمطاعم والصيدليات وصالونات الحلاقة والمحلات والمتاجر الإلكترونية.",
+  "text": "شاهدوا الآن كيف سيبدو موقعكم: عروض حقيقية تعمل، صمّمناها للمحامين والأطباء وعيادات الأسنان والأطباء البيطريين والمطاعم والصيدليات وشركات نقل الأثاث وصالونات الحلاقة والمحلات والمتاجر الإلكترونية.",
   "live": "افتح العرض المباشر",
   "want": "أريد هذا الموقع",
   "badge": "عرض مباشر",
@@ -435,6 +468,17 @@
      "الوصفات، مستحضرات التجميل، التركيبات",
      "مساعدة السياح، الأسئلة الشائعة",
      "التركية والإنجليزية، واتساب"
+    ]
+   },
+   "moving": {
+    "tab": "نقل الأثاث",
+    "name": "Bosphora",
+    "desc": "موقع شركة موثوق يجمع خدمات نقل الأثاث والتنظيف تحت سقف واحد.",
+    "feats": [
+     "نموذج عرض سعر ومعاينة مجانية",
+     "نقل المنازل والمكاتب والتخزين",
+     "التنظيف والتعقيم ومكافحة الحشرات",
+     "اتصال وواتساب بنقرة واحدة"
     ]
    }
   }
