@@ -823,7 +823,14 @@
     });
     document.querySelectorAll('[data-cookie-open]').forEach(function (b) { b.addEventListener('click', function () { open('settings'); }); });
 
-    if (!read()) setTimeout(function () { open('main'); }, 900);
+    // La fenêtre attend la fin de l'animation du logo : sinon son fond gris la recouvre
+    if (!read()) {
+      var askLater = function () {
+        if (root.classList.contains('has-intro')) { setTimeout(askLater, 200); return; }
+        setTimeout(function () { open('main'); }, 800);
+      };
+      setTimeout(askLater, 900);
+    }
   })();
 
   /* ---------- İletişim : formulaire ---------- */
