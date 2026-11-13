@@ -360,7 +360,7 @@ def home_fragments():
                 <li data-reveal style="--d:{i}"><a href="/cozumler#{s}" class="solution_card">{icon(C.SOL_ICONS[s], 'icon solution_icon')}{tx(f"sol.items.{s}.t", 'h3', 'heading-style-h5')}{tx(f"sol.items.{s}.p", 'p', 'text-size-small text-color-secondary')}</a></li>''' for i, s in enumerate(C.SOLUTIONS))
     return {
         'STAGE_CARDS': ''.join(cards), 'STAGE_TOTAL': f'{len(HERO):02d}', 'STAGE_SEGS': ''.join(segs), 'STAGE_LABELS': ''.join(labels),
-        'PICK': pick, 'STEPS': steps, 'SOLUTION_CARDS': sol, 'PLANS': plan_cards(),
+        'PICK': pick, 'STEPS': steps, 'SOLUTION_CARDS': sol,
         'CLIENTS': clients_items(False), 'CLIENTS_CLONE': clients_items(True), 'PRICE_HOME': tpl('home.price', 'base'),
     }
 

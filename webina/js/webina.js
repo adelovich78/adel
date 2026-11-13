@@ -775,15 +775,15 @@
       var c = window.webinaConsent();
       switches.forEach(function (sw) { sw.setAttribute('aria-checked', String(!!c[sw.dataset.cookieSwitch])); });
     }
-    function open(view) {
-      lastFocus = document.activeElement;
+    function open(view, quiet) {
+      lastFocus = quiet ? null : document.activeElement;
       show(view || 'main');
       box.hidden = false;
       if (!reduceMotion.matches) {
         box.classList.add('is-entering');
         requestAnimationFrame(function () { requestAnimationFrame(function () { box.classList.remove('is-entering'); }); });
       }
-      dialog.focus({ preventScroll: true });
+      if (!quiet) dialog.focus({ preventScroll: true });
     }
     function close() {
       if (reduceMotion.matches) { box.hidden = true; }
@@ -813,21 +813,13 @@
     switches.forEach(function (sw) {
       sw.addEventListener('click', function () { sw.setAttribute('aria-checked', String(sw.getAttribute('aria-checked') !== 'true')); });
     });
-    // Garde le focus dans la fenêtre au clavier
-    box.addEventListener('keydown', function (e) {
-      if (e.key !== 'Tab') return;
-      var f = Array.prototype.filter.call(dialog.querySelectorAll('button, a[href]'), function (el) { return el.offsetParent !== null; });
-      if (!f.length) return;
-      if (e.shiftKey && document.activeElement === f[0]) { e.preventDefault(); f[f.length - 1].focus(); }
-      else if (!e.shiftKey && document.activeElement === f[f.length - 1]) { e.preventDefault(); f[0].focus(); }
-    });
     document.querySelectorAll('[data-cookie-open]').forEach(function (b) { b.addEventListener('click', function () { open('settings'); }); });
 
     // La fenêtre attend la fin de l'animation du logo : sinon son fond gris la recouvre
     if (!read()) {
       var askLater = function () {
         if (root.classList.contains('has-intro')) { setTimeout(askLater, 200); return; }
-        setTimeout(function () { open('main'); }, 800);
+        setTimeout(function () { open('main', true); }, 800);
       };
       setTimeout(askLater, 900);
     }
@@ -996,6 +988,9 @@
     var el = document.querySelector('[data-manifesto]');
     if (!el) return;
     var words = [], lit = -1, inView = false, queued = false;
+    // Progression minimale dans le temps : une fois visible, le texte finit toujours de s'éclairer,
+    // même si le visiteur ne défile plus (texte placé en haut de page)
+    var timeStart = 0, timer = 0, WORD_MS = 110;
     function split() {
       var text = el.textContent;
       el.textContent = '';
@@ -1022,12 +1017,16 @@
       }
       var r = el.getBoundingClientRect();
       var vh = window.innerHeight;
-      // 0 quand le haut du texte entre par le bas de l'écran, 1 quand le texte arrive vers le milieu
-      var p = (vh * 0.88 - r.top) / (vh * 0.5 + r.height * 0.6);
+      // Défilement : 0 quand le haut du texte entre par le bas, 1 quand le bas du texte atteint 70 % de l'écran
+      var p = (vh * 0.95 - r.top) / (vh * 0.25 + r.height);
+      // Temps : un mot de plus toutes les WORD_MS ms depuis l'entrée à l'écran
+      if (timeStart) p = Math.max(p, (performance.now() - timeStart) / (WORD_MS * count));
       var n = Math.round(Math.max(0, Math.min(1, p)) * count);
-      if (n === lit) return;
-      for (var i = 0; i < count; i++) words[i].classList.toggle('is-lit', i < n);
-      lit = n;
+      if (n > lit || !timeStart) {
+        for (var i = 0; i < count; i++) words[i].classList.toggle('is-lit', i < n);
+        lit = n;
+      }
+      if (timeStart && lit < count && !timer) timer = setTimeout(function () { timer = 0; update(); }, WORD_MS);
     }
     function onScroll() {
       if (!inView || queued) return;
@@ -1037,7 +1036,11 @@
     split();
     document.addEventListener('webina:lang', split);
     if ('IntersectionObserver' in window && !reduceMotion.matches) {
-      new IntersectionObserver(function (en) { inView = en[0].isIntersecting; if (inView) update(); }, { rootMargin: '10% 0px 10% 0px' }).observe(el);
+      new IntersectionObserver(function (en) {
+        inView = en[0].isIntersecting;
+        if (inView && !timeStart && en[0].intersectionRatio > 0) timeStart = performance.now();
+        if (inView) update();
+      }, { threshold: [0, 0.6] }).observe(el);
       window.addEventListener('scroll', onScroll, { passive: true });
       window.addEventListener('resize', onScroll);
     } else {

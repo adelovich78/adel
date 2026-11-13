@@ -110,7 +110,7 @@ T['tr'] = {
            'text': 'Webina, İstanbul\'da işletmelere sektörlerine göre hazırlanmış profesyonel web siteleri sunar: tasarım, alan adı, hosting ve bakım tek ekipte.'},
  'demos': {'eyebrow': 'Demolar', 't1': 'Canlı demolar', 'text': 'Her meslek için hazırladığımız çalışan siteler. Birini açın, kendi sitenizi hayal edin.',
            'all': 'Tümü', 'open': 'Demoyu aç', 'clientsT': 'Müşteri projeleri', 'clientsP': 'Yayındaki sitelerden bir seçki.'},
- 'meta': {'home': 'Webina — Mesleğinize özel web siteleri', 'solutions': 'Çözümler', 'sectors': 'Sektörler', 'demos': 'Demolar', 'pricing': 'Fiyatlar', 'about': 'Hakkımızda'},
+ 'meta': {'home': 'Webina — Mesleğinize özel web sitesi, alan adı ve hosting', 'solutions': 'Çözümler', 'sectors': 'Sektörler', 'demos': 'Demolar', 'pricing': 'Fiyatlar', 'about': 'Hakkımızda'},
  'sectorsPage': {'eyebrow': 'Sektörler', 't1': 'Mesleğiniz için', 't2': 'hazır bir çözüm.', 'text': 'Mesleğinizi seçin: sitenizin ne içereceğini okuyun ya da canlı demoyu hemen açın.'},
 }
 
@@ -189,7 +189,7 @@ T['en'] = {
            'text': 'Webina gives Istanbul businesses professional websites designed for their industry: design, domain, hosting and maintenance from one team.'},
  'demos': {'eyebrow': 'Demos', 't1': 'Live demos', 'text': 'Working sites we built for each profession. Open one and picture your own.',
            'all': 'All', 'open': 'Open the demo', 'clientsT': 'Client projects', 'clientsP': 'A selection of sites already live.'},
- 'meta': {'home': 'Webina — Websites made for your profession', 'solutions': 'Solutions', 'sectors': 'Industries', 'demos': 'Demos', 'pricing': 'Pricing', 'about': 'About'},
+ 'meta': {'home': 'Webina — Websites made for your profession, domain and hosting', 'solutions': 'Solutions', 'sectors': 'Industries', 'demos': 'Demos', 'pricing': 'Pricing', 'about': 'About'},
  'sectorsPage': {'eyebrow': 'Industries', 't1': 'A ready-made solution', 't2': 'for your profession.', 'text': 'Choose your profession: read what your site will include, or open the live demo right away.'},
 }
 
@@ -268,7 +268,7 @@ T['fr'] = {
            'text': 'Webina propose aux entreprises d’Istanbul des sites web professionnels pensés pour leur secteur : design, domaine, hébergement et maintenance par une seule équipe.'},
  'demos': {'eyebrow': 'Démos', 't1': 'Démos en ligne', 'text': 'Des sites fonctionnels réalisés pour chaque métier. Ouvrez-en un et imaginez le vôtre.',
            'all': 'Toutes', 'open': 'Ouvrir la démo', 'clientsT': 'Projets clients', 'clientsP': 'Une sélection de sites déjà en ligne.'},
- 'meta': {'home': 'Webina — Des sites web pensés pour votre métier', 'solutions': 'Solutions', 'sectors': 'Secteurs', 'demos': 'Démos', 'pricing': 'Tarifs', 'about': 'À propos'},
+ 'meta': {'home': 'Webina — Sites web pour votre métier, domaine et hébergement', 'solutions': 'Solutions', 'sectors': 'Secteurs', 'demos': 'Démos', 'pricing': 'Tarifs', 'about': 'À propos'},
  'sectorsPage': {'eyebrow': 'Secteurs', 't1': 'Une solution prête', 't2': 'pour votre métier.', 'text': 'Choisissez votre métier : découvrez ce que contiendra votre site, ou ouvrez directement la démo en ligne.'},
 }
 
@@ -347,7 +347,7 @@ T['ar'] = {
            'text': 'تقدم Webina لشركات إسطنبول مواقع احترافية مصممة حسب قطاعها: التصميم والنطاق والاستضافة والصيانة من فريق واحد.'},
  'demos': {'eyebrow': 'العروض', 't1': 'عروض حية', 'text': 'مواقع تعمل صممناها لكل مهنة. افتح أحدها وتخيّل موقعك.',
            'all': 'الكل', 'open': 'افتح العرض', 'clientsT': 'مشاريع العملاء', 'clientsP': 'مختارات من مواقع منشورة.'},
- 'meta': {'home': 'Webina — مواقع مصممة لمهنتك', 'solutions': 'الحلول', 'sectors': 'القطاعات', 'demos': 'العروض', 'pricing': 'الأسعار', 'about': 'من نحن'},
+ 'meta': {'home': 'Webina — مواقع ويب مصممة لمهنتك مع النطاق والاستضافة', 'solutions': 'الحلول', 'sectors': 'القطاعات', 'demos': 'العروض', 'pricing': 'الأسعار', 'about': 'من نحن'},
  'sectorsPage': {'eyebrow': 'القطاعات', 't1': 'حل جاهز', 't2': 'لمهنتك.', 'text': 'اختر مهنتك: اطّلع على ما سيتضمنه موقعك أو افتح العرض الحي مباشرة.'},
 }
 

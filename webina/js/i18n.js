@@ -1065,7 +1065,7 @@ window.WEBINA_I18N = {
    "clientsP": "Yayındaki sitelerden bir seçki."
   },
   "meta": {
-   "home": "Webina — Mesleğinize özel web siteleri",
+   "home": "Webina — Mesleğinize özel web sitesi, alan adı ve hosting",
    "solutions": "Çözümler",
    "sectors": "Sektörler",
    "demos": "Demolar",
@@ -2167,7 +2167,7 @@ window.WEBINA_I18N = {
    "clientsP": "A selection of sites already live."
   },
   "meta": {
-   "home": "Webina — Websites made for your profession",
+   "home": "Webina — Websites made for your profession, domain and hosting",
    "solutions": "Solutions",
    "sectors": "Industries",
    "demos": "Demos",
@@ -3269,7 +3269,7 @@ window.WEBINA_I18N = {
    "clientsP": "Une sélection de sites déjà en ligne."
   },
   "meta": {
-   "home": "Webina — Des sites web pensés pour votre métier",
+   "home": "Webina — Sites web pour votre métier, domaine et hébergement",
    "solutions": "Solutions",
    "sectors": "Secteurs",
    "demos": "Démos",
@@ -4371,7 +4371,7 @@ window.WEBINA_I18N = {
    "clientsP": "مختارات من مواقع منشورة."
   },
   "meta": {
-   "home": "Webina — مواقع مصممة لمهنتك",
+   "home": "Webina — مواقع ويب مصممة لمهنتك مع النطاق والاستضافة",
    "solutions": "الحلول",
    "sectors": "القطاعات",
    "demos": "العروض",
