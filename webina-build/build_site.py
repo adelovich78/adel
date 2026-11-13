@@ -216,7 +216,7 @@ def tpl(key, *keys):
 # Navigation : 7 entrées, menus déroulants courts (4 éléments + lien « tout »)
 # ==========================================================================
 NAV = [('home', '/'), ('solutions', '/cozumler'), ('sectors', '/sektorler'), ('demos', '/demolar'),
-       ('pricing', '/fiyatlar'), ('about', '/hakkimizda'), ('contact', '/iletisim')]
+       ('pricing', '/teklif'), ('about', '/hakkimizda'), ('contact', '/iletisim')]
 
 def dropdown(k):
     if k == 'solutions':
@@ -488,10 +488,9 @@ PAGES = [
     ('solutions', 'cozumler/index.html', '/cozumler', 'solutions', 'meta.solutions', TR['sol']['text']),
     ('sectors', 'sektorler/index.html', '/sektorler', 'sectors', 'meta.sectors', TR['sectorsPage']['text']),
     ('demos', 'demolar/index.html', '/demolar', 'demos', 'meta.demos', TR['demos']['text']),
-    ('pricing', 'fiyatlar/index.html', '/fiyatlar', 'pricing', 'meta.pricing', TR['price']['text']),
     ('about', 'hakkimizda/index.html', '/hakkimizda', 'about', 'meta.about', TR['about']['text']),
     ('contact', 'iletisim/index.html', '/iletisim', 'contact', 'contact.eyebrow', TR['contact']['text']),
-    ('teklif', 'teklif/index.html', '/teklif', None, 'quote.eyebrow', TR['quote']['lead']),
+    ('teklif', 'teklif/index.html', '/teklif', 'pricing', 'quote.eyebrow', TR['quote']['lead']),
 ] + [(f'sector:{s["key"]}', f'sektorler/{s["slug"]}/index.html', s['page'], 'sectors', f'sec.{s["key"]}.title', TR['sec'][s['key']]['why']) for s in SECTORS]
 
 def render(name, out, path, navkey, titlekey, desc):
@@ -532,7 +531,7 @@ for p in PAGES:
 
 # Anciennes pages : remplacées par des redirections 301 (.htaccess), leurs dossiers ne sont plus livrés
 import shutil
-for old in ['services', 'secteurs', 'portfolio', 'contact']:
+for old in ['services', 'secteurs', 'portfolio', 'contact', 'fiyatlar']:
     shutil.rmtree(os.path.join(OUT, old), ignore_errors=True)
 
 open(os.path.join(OUT, 'js', 'i18n.js'), 'w', encoding='utf-8').write(
