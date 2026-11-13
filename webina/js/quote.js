@@ -454,6 +454,9 @@
     }
     sel.value = val;
   }
+  // Formule choisie sur la page Fiyatlar : /teklif?paket=randevu | eticaret
+  if (params.get('paket') === 'randevu' && state.booking.indexOf('calendar') < 0) state.booking.push('calendar');
+  if (params.get('paket') === 'eticaret' && state.pages.indexOf('shop') < 0) state.pages.push('shop');
   personalise();
   syncInputs();
 

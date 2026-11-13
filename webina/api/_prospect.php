@@ -100,7 +100,7 @@ function prospect_seed_templates(PDO $pdo): void {
         ['realestate', 'Emlak', '{isletme} için ilanlarınızı gösteren bir web sitesi',
             "Merhaba,\n\nAlıcılar ve kiracılar ilan sitelerinin yanında, güvendikleri ofisin kendi sitesine de bakıyor. Kendi siteniz, portföyünüzü kendi markanızla göstermenizi sağlar.\n\n"
             . $common . "Emlak ofisleri için ayrıca: ilan sayfaları, çok dilli içerik (yabancı alıcılar için), WhatsApp ile hızlı iletişim.\n\n"
-            . str_replace('{demo}', 'https://webina.com.tr/portfolio', $close)],
+            . str_replace('{demo}', 'https://webina.com.tr/demolar', $close)],
         ['vet', 'Veterinerler', '{isletme} için randevu alan bir web sitesi',
             "Merhaba,\n\nEvcil hayvan sahipleri yeni bir veteriner ararken önce internette kliniğin hizmetlerine, saatlerine ve yerine bakıyor. Acil durumlarda da telefon ve konum bilgisine hızla ulaşmak istiyorlar.\n\n"
             . $common . "Veteriner klinikleri için ayrıca: online randevu talebi, hizmetler, acil iletişim butonu.\n\n" . $close],
@@ -110,7 +110,7 @@ function prospect_seed_templates(PDO $pdo): void {
         ['events', 'Düğün ve etkinlik', '{isletme} için rezervasyon alan bir web sitesi',
             "Merhaba,\n\nÇiftler ve şirketler etkinlik hazırlığına internette başlıyor: fotoğraflar, paketler ve müsait tarihler. Bunları gösteren bir site, sizi tekliflerin başına taşır.\n\n"
             . $common . "Etkinlik işletmeleri için ayrıca: galeri, menü ve paketler, rezervasyon talep formu.\n\n"
-            . str_replace('{demo}', 'https://webina.com.tr/portfolio', $close)],
+            . str_replace('{demo}', 'https://webina.com.tr/demolar', $close)],
         ['cleaning', 'Temizlik', '{isletme} için teklif toplayan bir web sitesi',
             "Merhaba,\n\nEv ve ofis temizliği arayan müşteriler, hizmetleri ve fiyatları internette karşılaştırıyor. Kendi siteniz, teklif taleplerini doğrudan size getirir.\n\n"
             . $common . "Temizlik firmaları için ayrıca: hizmetler, bölgeler, online teklif formu.\n\n" . $close],
@@ -128,11 +128,12 @@ function prospect_seed_templates(PDO $pdo): void {
 // Lien vers l'exemple le plus proche du métier
 function prospect_demo(string $trade): string {
     return [
-        'dentist' => 'https://test.webina.com.tr/', 'doctor' => 'https://test.webina.com.tr/', 'vet' => 'https://test.webina.com.tr/',
-        'lawyer' => 'https://test2.webina.com.tr/', 'accountant' => 'https://test2.webina.com.tr/',
-        'beauty' => 'https://my.webina.com.tr/', 'auto' => 'https://demo.webina.com.tr/', 'cleaning' => 'https://demo.webina.com.tr/',
+        'dentist' => 'https://dental.webina.com.tr/', 'doctor' => 'https://doktor.webina.com.tr/', 'vet' => 'https://veteriner.webina.com.tr/',
+        'lawyer' => 'https://avukat.webina.com.tr/', 'accountant' => 'https://avukat.webina.com.tr/',
+        'beauty' => 'https://kuafor.webina.com.tr/', 'auto' => 'https://otoelektrik.webina.com.tr/', 'cleaning' => 'https://nakliyet.webina.com.tr/',
+        'realestate' => 'https://emlak.webina.com.tr/', 'events' => 'https://restoran.webina.com.tr/',
         'photo' => 'https://adelbenelli.webina.com.tr/', 'shop' => 'https://eticaret.webina.com.tr/',
-    ][$trade] ?? 'https://webina.com.tr/portfolio';
+    ][$trade] ?? 'https://webina.com.tr/demolar';
 }
 
 function prospect_fill(string $text, array $client): string {

@@ -1,16 +1,20 @@
-// Textes du site en 4 langues (repris du site actuel)
+// Textes du site en 4 langues
 window.WEBINA_I18N = {
  "tr": {
   "nav": {
    "home": "Ana Sayfa",
-   "services": "Hizmetler",
+   "solutions": "Çözümler",
    "sectors": "Sektörler",
-   "portfolio": "Portfolyo",
+   "demos": "Demolar",
+   "pricing": "Fiyatlar",
+   "about": "Hakkımızda",
    "contact": "İletişim",
    "quote": "Teklif Al",
-   "admin": "Yönetici paneli"
+   "panel": "Müşteri Paneli",
+   "allSectors": "Tüm sektörler",
+   "allDemos": "Tüm demolar"
   },
-  "cta": "Proje başlat",
+  "cta": "Teklif al",
   "footer": {
    "title1": "Projenizi",
    "title2": "konuşalım",
@@ -27,39 +31,54 @@ window.WEBINA_I18N = {
    "address": "Maslak, İstanbul"
   },
   "home": {
-   "badge": "Dijital Kreasyon Ajansı",
-   "h1a": "Size benzeyen",
-   "h1b": "dijitali",
-   "h1c": "biz",
-   "h1d": "yaratıyoruz",
-   "lead": "Web siteleri, özel yazılımlar, CRM ve SEO — kliniklerden hukuk bürolarına, medya kuruluşlarından mahalle esnafına kadar mesleğinize özel tasarlanır.",
-   "words": [
-    "Web siteleri",
-    "CRM",
-    "SEO",
-    "Yazılım",
-    "E-ticaret",
-    "UI/UX",
-    "Paneller",
-    "Marka"
-   ],
-   "whatA": "Neler",
-   "whatB": "yapıyoruz",
-   "allServices": "Tüm hizmetler →",
-   "projA": "Son",
-   "projB": "projeler",
-   "seeAll": "Tümünü gör →",
-   "sectorsA": "Her mesleğe",
-   "sectorsB": "uygun çözüm",
+   "eyebrow": "Mesleğinize özel web siteleri",
+   "h1a": "",
+   "h1c": "için hazır",
+   "h1d": "web siteleri.",
    "rotate": [
-    "mağazayı",
-    "portfolyoyu",
-    "büro sitesini",
-    "vitrini",
-    "haber sitesini",
-    "kurumsal siteyi",
-    "markayı"
-   ]
+    "Avukatlar",
+    "Doktorlar",
+    "Oto elektrikçiler",
+    "Kuaförler",
+    "Diş klinikleri",
+    "Restoranlar",
+    "Oteller"
+   ],
+   "lead": "Mesleğinizi seçin, canlı demoyu inceleyin, paketinizi sipariş edin. Siteniz birkaç gün içinde kendi alan adınızda yayında.",
+   "price": "{x}'den başlayan fiyatlarla · alan adı, hosting ve SSL ilk yıl dahil",
+   "btnSector": "Sektörünüzü seçin",
+   "btnPrice": "Fiyatları gör",
+   "sectorsT": "Mesleğinizi seçin",
+   "sectorsP": "Her meslek için hazırlanmış bir çözüm ve canlı bir demo.",
+   "stepsT": "Nasıl çalışır?",
+   "stepsP": "Siparişten yayına kadar her adımı birlikte yürütüyoruz.",
+   "steps": [
+    {
+     "t": "Sektörünüzü seçin",
+     "p": "Çözümü okuyun, canlı demoyu inceleyin."
+    },
+    {
+     "t": "Paketinizi sipariş edin",
+     "p": "Formülü seçin, birkaç soruyu yanıtlayın."
+    },
+    {
+     "t": "Sitenizi hazırlıyoruz",
+     "p": "Metinler, fotoğraflar ve bilgilerinizle."
+    },
+    {
+     "t": "Önizleyin ve onaylayın",
+     "p": "Siteniz önce test.webina.com.tr adresinde."
+    },
+    {
+     "t": "Yayında",
+     "p": "Alan adınızda yayına alırız; aboneliğinizi my.webina.com.tr'den takip edersiniz."
+    }
+   ],
+   "solT": "Her şey tek pakette",
+   "solP": "Site, alan adı, hosting ve bakım: tek muhatap, tek fatura.",
+   "plansT": "Basit ve net fiyatlar",
+   "plansP": "Tek seferlik ödeme, avans yok. Ödeme teslimde ve onayınızla.",
+   "h1b": "Avukatlar"
   },
   "team": {
    "eyebrow": "Ekibimiz",
@@ -194,72 +213,6 @@ window.WEBINA_I18N = {
     "text": "Tanıtım filmleri, ürün çekimleri ve sosyal medya içerikleri."
    }
   ],
-  "sectors": [
-   {
-    "title": "Haber ajansları",
-    "text": "Editoryal platformlar, çok yazarlı CMS, bültenler ve hızlı yayın."
-   },
-   {
-    "title": "Doktorlar & klinikler",
-    "text": "Online randevu, hekim profilleri, güvenli hasta yönetimi."
-   },
-   {
-    "title": "Mimarlar",
-    "text": "Projelerinizi öne çıkaran etkileyici portfolyolar."
-   },
-   {
-    "title": "Avukatlar",
-    "text": "Güven veren siteler, nitelikli iletişim, dosya yönetimi."
-   },
-   {
-    "title": "Muhasebeciler",
-    "text": "Müşteri alanları, belge yükleme, takip ve faturalama araçları."
-   },
-   {
-    "title": "Esnaf & mağazalar",
-    "text": "Online mağazalar, gel-al, sadakat ve stok yönetimi."
-   },
-   {
-    "title": "Restoran & kafeler",
-    "text": "Online menü, rezervasyon, paket sipariş ve QR menü."
-   },
-   {
-    "title": "Otel & turizm",
-    "text": "Online rezervasyon motoru, oda galerileri ve çok dilli siteler."
-   },
-   {
-    "title": "Emlak",
-    "text": "İlan portalları, gelişmiş arama, sanal tur ve müşteri takibi."
-   },
-   {
-    "title": "Eğitim & okullar",
-    "text": "Okul siteleri, öğrenci portalları, online kurslar (LMS)."
-   },
-   {
-    "title": "Güzellik & spa",
-    "text": "Online randevu, hizmet menüsü ve sadakat programları."
-   },
-   {
-    "title": "Spor salonları",
-    "text": "Üyelik yönetimi, ders programı ve online ödeme."
-   },
-   {
-    "title": "İnşaat & sanayi",
-    "text": "Kurumsal siteler, proje referansları ve teklif formları."
-   },
-   {
-    "title": "Otomotiv",
-    "text": "Araç galerisi, servis randevusu ve stok yönetimi."
-   },
-   {
-    "title": "Dernek & STK",
-    "text": "Bağış sistemi, etkinlik yönetimi ve gönüllü kayıtları."
-   },
-   {
-    "title": "Lojistik & taşımacılık",
-    "text": "Gönderi takibi, teklif hesaplama ve müşteri paneli."
-   }
-  ],
   "cats": {
    "design": "Mimarlık & Tasarım",
    "press": "Haber ajansı",
@@ -267,56 +220,9 @@ window.WEBINA_I18N = {
    "media": "Medya & Yayın",
    "trade": "İthalat / İhracat",
    "consult": "Danışmanlık",
-   "accounting": "Mali müşavirlik",
-   "auto": "Otomotiv & Oto elektrik",
-   "health": "Sağlık & Doktor",
-   "beauty": "Kuaför & Güzellik",
-   "ecommerce": "E-ticaret",
-   "dental": "Diş kliniği",
-   "vet": "Veteriner",
-   "restaurant": "Restoran",
-   "pharmacy": "Eczane",
-   "moving": "Nakliyat & Temizlik",
-   "optic": "Optik & Gözlük",
-   "hotel": "Otel & Konaklama",
-   "realestate": "Emlak",
-   "travel": "Turizm & Seyahat",
-   "education": "Eğitim & Okul"
-  },
-  "tags": {
-   "media": "Medya platformu",
-   "news": "Haber",
-   "multi": "Çok dilli",
-   "vitrine": "Kurumsal site",
-   "seo": "SEO",
-   "booking": "Randevu",
-   "corporate": "Kurumsal",
-   "reserve": "Rezervasyon",
-   "leads": "Müşteri kazanımı",
-   "uiux": "UI/UX",
-   "live": "Canlı yayın",
-   "demo": "Demo",
-   "finder": "Akü bulucu",
-   "shop": "Online mağaza",
-   "cart": "Sepet & sipariş",
-   "tourism": "Sağlık turizmi",
-   "emergency": "7/24 acil",
-   "menu": "Menü",
-   "duty": "Nöbetçi eczane",
-   "quote": "Ücretsiz teklif",
-   "listing": "İlan & filtreler",
-   "search": "Arama & tarih seçimi",
-   "portal": "Öğrenci & veli portalı",
-   "stock": "Araç stoku"
+   "accounting": "Mali müşavirlik"
   },
   "demo": {
-   "eyebrow": "Canlı demolar",
-   "t1": "Mesleğinize özel",
-   "t2": "hazır siteler",
-   "text": "Sitenizin nasıl görüneceğini şimdi görün: avukatlar, doktorlar, diş klinikleri, veterinerler, restoranlar, eczaneler, nakliyat firmaları, optikler, oteller, emlak ofisleri, seyahat acenteleri, okullar, otomobil bayileri, kuaförler, güzellik salonları ve spalar, esnaf ve online mağazalar için hazırladığımız gerçek, çalışan demolar.",
-   "live": "Canlı demoyu aç",
-   "want": "Bu siteden istiyorum",
-   "badge": "Canlı demo",
    "items": {
     "law": {
      "tab": "Avukat",
@@ -338,17 +244,6 @@ window.WEBINA_I18N = {
       "Ameliyatlar ve tedaviler",
       "Foto & video galerisi, blog",
       "Türkçe & İngilizce"
-     ]
-    },
-    "shop": {
-     "tab": "Esnaf",
-     "name": "Yıldız Oto Elektrik",
-     "desc": "Müşteri getiren, mahallenin en modern dükkân sitesi.",
-     "feats": [
-      "Araca göre akü bulucu",
-      "Hizmetler ve müşteri yorumları",
-      "Harita, çalışma saatleri",
-      "Tek tıkla WhatsApp & arama"
      ]
     },
     "barber": {
@@ -504,8 +399,20 @@ window.WEBINA_I18N = {
       "Kişisel bakım danışmanlığı",
       "Türkçe, İngilizce & Fransızca"
      ]
+    },
+    "autoelec": {
+     "tab": "Oto Elektrik",
+     "name": "Yıldız Oto Elektrik",
+     "desc": "Müşteri getiren, mahallenin en modern dükkân sitesi.",
+     "feats": [
+      "Araca göre akü bulucu",
+      "Hizmetler ve müşteri yorumları",
+      "Harita, çalışma saatleri",
+      "Tek tıkla WhatsApp & arama"
+     ]
     }
-   }
+   },
+   "badge": "Canlı demo"
   },
   "ui": {
    "menu": "Menü",
@@ -521,34 +428,6 @@ window.WEBINA_I18N = {
    "visit": "Siteyi aç",
    "filter": "Kategoriye göre filtrele"
   },
-  "servicesPage": {
-   "eyebrow": "Hizmetler",
-   "t1": "Tüm dijitaliniz,",
-   "t2": "tek çatı altında",
-   "text": "Fikirden lansmana kadar dijital araçlarınızı tasarlıyor, geliştiriyor ve büyütüyoruz.",
-   "methodA": "Yöntemimiz",
-   "step": "Adım",
-   "steps": [
-    "Dinleme & analiz",
-    "Tasarım & prototip",
-    "Geliştirme",
-    "Lansman & takip"
-   ]
-  },
-  "sectorsPage": {
-   "eyebrow": "Sektörler",
-   "t1": "Mesleğinize",
-   "t2": "özel tasarım",
-   "text": "Her işin kendi kuralları var. Onlara uyan yazılımlar ve siteler yapıyoruz.",
-   "talk": "Projemi konuşalım"
-  },
-  "portfolioPage": {
-   "eyebrow": "Portfolyo",
-   "t1": "Kreasyonlarımız",
-   "text": "Çok farklı meslekler için tasarlanmış projelerden bir seçki.",
-   "all": "Tümü",
-   "demoBadge": "Canlı demo"
-  },
   "contact": {
    "eyebrow": "İletişim",
    "t1": "Projeniz",
@@ -563,39 +442,32 @@ window.WEBINA_I18N = {
    "budget": "Tahmini bütçe",
    "message": "Projenizden bahsedin *",
    "sectorOpts": [
-    "Haber ajansı",
-    "Doktor / Klinik",
-    "Mimar",
     "Avukat",
-    "Muhasebeci",
-    "Esnaf",
-    "Restoran / Kafe",
-    "Otel / Turizm",
+    "Doktor",
+    "Diş kliniği",
+    "Veteriner",
+    "Eczane",
+    "Optik",
+    "Restoran",
+    "Otel",
+    "Turizm",
+    "Kuaför",
+    "Güzellik & Spa",
+    "Okul",
     "Emlak",
-    "Eğitim",
-    "Güzellik / Spa",
-    "Spor salonu",
-    "İnşaat / Sanayi",
-    "Otomotiv",
-    "Dernek / STK",
-    "Lojistik",
+    "Nakliyat",
+    "Oto Elektrik",
+    "Otomobil",
+    "E-ticaret",
     "Diğer"
    ],
    "serviceOpts": [
     "Web sitesi",
-    "Özel yazılım",
-    "CRM",
-    "SEO",
-    "Yönetim paneli",
-    "Kurumsal kimlik",
+    "Alan adı & hosting",
+    "Bakım",
     "E-ticaret",
-    "Mobil uygulama",
-    "Sosyal medya",
-    "Dijital reklam",
-    "ERP / Stok",
-    "Rezervasyon sistemi",
-    "Hosting & bakım",
-    "Video & fotoğraf"
+    "SEO & görünürlük",
+    "Diğer"
    ],
    "budgetOpts": [
     "Belirlenecek",
@@ -777,134 +649,6 @@ window.WEBINA_I18N = {
     "more": "Detaylar",
     "wa": "WhatsApp ile yazın"
    },
-   "services": [
-    {
-     "intro": "Markanıza özel tasarlanmış, hızlı açılan ve her ekranda düzgün görünen bir site. Ziyaretçiyi doğru sayfaya ve iletişime yönlendirecek şekilde kurgulanır.",
-     "points": [
-      "Size özel tasarım, hazır şablon yok",
-      "Mobil uyum, SSL ve hız optimizasyonu",
-      "Temel SEO ayarları ve Google Analytics kurulumu",
-      "Kendi içeriğinizi düzenleyebileceğiniz yönetim paneli"
-     ]
-    },
-    {
-     "intro": "İşinizin akışına göre yazılan, Excel tablolarının ve dağınık araçların yerini alan web tabanlı yazılımlar.",
-     "points": [
-      "İhtiyaç analizi ve süreç haritası",
-      "Kullanıcı rolleri ve yetkilendirme",
-      "Rezervasyon, faturalama, müşteri dosyası gibi modüller",
-      "Eğitim ve kullanım sonrası destek"
-     ]
-    },
-    {
-     "intro": "Müşterilerinizi, teklif ve satışlarınızı tek bir yerde toplayan, ekibinize göre şekillenen bir CRM.",
-     "points": [
-      "Müşteri kartları ve tüm geçmiş",
-      "Teklif, satış ve takip hatırlatmaları",
-      "E-posta ve WhatsApp bildirimleri",
-      "Satış ve performans raporları"
-     ]
-    },
-    {
-     "intro": "Doğru aramalarda görünmeniz için teknik altyapıdan içeriğe kadar düzenli bir çalışma.",
-     "points": [
-      "Teknik SEO denetimi ve düzeltmeler",
-      "Anahtar kelime ve rakip analizi",
-      "Google İşletme profili optimizasyonu",
-      "Aylık sıralama ve trafik raporu"
-     ]
-    },
-    {
-     "intro": "Sitenizden gelen talepleri, formları ve içerikleri tek ekrandan yönetmeniz için.",
-     "points": [
-      "Gelen talepler ve durum takibi",
-      "Özel formlar ve otomatik e-posta bildirimleri",
-      "İçerik, görsel ve sayfa düzenleme",
-      "Anlık istatistikler"
-     ]
-    },
-    {
-     "intro": "Markanızın her yerde aynı şekilde tanınması için görsel kimlik.",
-     "points": [
-      "Logo ve varyasyonları",
-      "Renk, yazı tipi ve kullanım kılavuzu",
-      "Kartvizit ve kurumsal belgeler",
-      "Sosyal medya şablonları"
-     ]
-    },
-    {
-     "intro": "Ürününüzü görmekten satın almaya kadar akıcı ilerleyen bir online mağaza.",
-     "points": [
-      "Ürün, varyant ve stok yönetimi",
-      "Online ödeme entegrasyonu",
-      "Kargo entegrasyonu ve sipariş takibi",
-      "Kampanya ve indirim kodları"
-     ]
-    },
-    {
-     "intro": "Müşterilerinizin cebinde duran, hızlı ve kullanımı kolay uygulamalar.",
-     "points": [
-      "iOS ve Android için uygulama",
-      "Anlık bildirimler",
-      "Mevcut sitenize veya panelinize bağlantı",
-      "App Store ve Google Play yayını"
-     ]
-    },
-    {
-     "intro": "Hesaplarınızın düzenli, tutarlı ve markanıza uygun paylaşımlarla yönetilmesi.",
-     "points": [
-      "Aylık içerik planı",
-      "Gönderi ve hikâye tasarımları",
-      "Paylaşım takvimi ve yayın",
-      "Aylık performans raporu"
-     ]
-    },
-    {
-     "intro": "Bütçenizi doğru kişilere ulaştırmak için ölçülebilir reklam kampanyaları.",
-     "points": [
-      "Google Ads, Meta ve TikTok kampanyaları",
-      "Hedef kitle ve bütçe planlaması",
-      "Dönüşüm takibi kurulumu",
-      "Düzenli optimizasyon ve rapor"
-     ]
-    },
-    {
-     "intro": "Satış, satın alma, stok ve muhasebeyi tek sistemde birleştirerek çift girişi ortadan kaldırır.",
-     "points": [
-      "Stok ve depo takibi",
-      "Satın alma ve tedarikçi yönetimi",
-      "Fatura ve cari hesaplar",
-      "Yönetici raporları"
-     ]
-    },
-    {
-     "intro": "Randevu, masa veya oda rezervasyonunu 7/24 online alın, telefon trafiğini azaltın.",
-     "points": [
-      "Online takvim ve uygun saatler",
-      "Otomatik onay ve hatırlatma mesajları",
-      "Personel ve hizmet bazlı planlama",
-      "İsteğe bağlı online ödeme"
-     ]
-    },
-    {
-     "intro": "Sitenizin güvenli, hızlı ve sürekli açık kalması için arka planda çalışıyoruz.",
-     "points": [
-      "Hızlı ve güvenli barındırma",
-      "Düzenli yedekleme",
-      "Güncellemeler ve güvenlik takibi",
-      "Teknik destek"
-     ]
-    },
-    {
-     "intro": "Sitenizi ve sosyal medyanızı besleyecek gerçek görseller ve videolar.",
-     "points": [
-      "Kurumsal ve ürün fotoğrafçılığı",
-      "Tanıtım ve sosyal medya videoları",
-      "Kurgu ve renk düzenleme",
-      "Web için optimize teslim"
-     ]
-    }
-   ],
    "roles": [
     {
      "intro": "Projenizdeki tek muhatabınız: takvimi kurar, ekibi koordine eder ve her adımda sizi bilgilendirir.",
@@ -1002,153 +746,294 @@ window.WEBINA_I18N = {
       "Teknik destek"
      ]
     }
+   ]
+  },
+  "groups": {
+   "saglik": "Sağlık",
+   "hizmet": "Hukuk & hizmetler",
+   "konaklama": "Yeme-içme & turizm",
+   "guzellik": "Güzellik",
+   "ticaret": "Ticaret & otomotiv"
+  },
+  "sec": {
+   "law": {
+    "name": "Avukat",
+    "title": "Avukatlar için web sitesi",
+    "why": "Müvekkil bir avukatı seçmeden önce internette araştırır. Sade ve güven veren bir site, uzmanlık alanlarınızı anlatır ve görüşme taleplerini doğrudan size getirir."
+   },
+   "doctor": {
+    "name": "Doktor",
+    "title": "Doktorlar için web sitesi",
+    "why": "Hastalar hekimlerini Google'da arar, yorumları ve deneyimi inceler. Siteniz tedavilerinizi açıkça anlatır, güven verir ve randevu talebini kolaylaştırır."
+   },
+   "dental": {
+    "name": "Diş kliniği",
+    "title": "Diş klinikleri için web sitesi",
+    "why": "İmplant, estetik ve sağlık turizmi hastaları klinikleri karşılaştırarak seçer. Fotoğraflı, çok dilli bir site sizi öne çıkarır."
+   },
+   "vet": {
+    "name": "Veteriner",
+    "title": "Veteriner klinikleri için web sitesi",
+    "why": "Hayvan sahipleri acil durumda hızlıca en yakın kliniği arar. Siteniz telefonunuzu, çalışma saatlerinizi ve hizmetlerinizi tek dokunuşta gösterir."
+   },
+   "pharmacy": {
+    "name": "Eczane",
+    "title": "Eczaneler için web sitesi",
+    "why": "Nöbetçi eczane, ürün sorusu, reçete: mahalle sakinleri önce internete bakar. Siteniz eczanenizi görünür kılar ve WhatsApp'tan ulaşılmasını sağlar."
+   },
+   "optic": {
+    "name": "Optik",
+    "title": "Optik mağazaları için web sitesi",
+    "why": "Gözlük almadan önce müşteriler modelleri ve fiyatları online inceler. Siteniz koleksiyonunuzu gösterir, muayene randevusu ve online satış getirir."
+   },
+   "restaurant": {
+    "name": "Restoran",
+    "title": "Restoranlar için web sitesi",
+    "why": "Misafirler menüye, fotoğraflara ve rezervasyon imkânına bakarak karar verir. Siteniz masalarınızı doldurur, komisyonsuz rezervasyon alır."
+   },
+   "hotel": {
+    "name": "Otel",
+    "title": "Oteller için web sitesi",
+    "why": "Doğrudan rezervasyon, rezervasyon sitelerine ödenen komisyonu kurtarır. Etkileyici bir otel sitesi misafiri sizinle doğrudan buluşturur."
+   },
+   "travel": {
+    "name": "Turizm",
+    "title": "Seyahat acenteleri için web sitesi",
+    "why": "Yolcular otel, tur ve transferi tek yerden aramak ister. Booking tarzı bir site, tekliflerinizi listeler ve rezervasyon talebi toplar."
+   },
+   "barber": {
+    "name": "Kuaför",
+    "title": "Kuaförler için web sitesi",
+    "why": "Yeni müşteriler salonları Instagram'da ve Google'da keşfeder. Siteniz işlerinizi, fiyatlarınızı gösterir ve online randevuyu kolaylaştırır."
+   },
+   "spa": {
+    "name": "Güzellik & Spa",
+    "title": "Güzellik salonları ve spalar için web sitesi",
+    "why": "Lüks bir deneyim, lüks bir vitrin ister. Siteniz hizmetlerinizi şıkça sunar, fiyat listesini ve online randevuyu tek yerde toplar."
+   },
+   "school": {
+    "name": "Okul",
+    "title": "Okullar ve kurslar için web sitesi",
+    "why": "Veliler ve öğrenciler okul seçmeden önce programları, kadroyu ve kayıt koşullarını inceler. Siteniz güven verir ve ön kayıt toplar."
+   },
+   "realestate": {
+    "name": "Emlak",
+    "title": "Emlak ofisleri için web sitesi",
+    "why": "Alıcılar ilanları filtreleyerek arar. Kendi siteniz portföyünüzü öne çıkarır ve müşteriyi doğrudan danışmanınıza bağlar."
+   },
+   "moving": {
+    "name": "Nakliyat",
+    "title": "Nakliyat ve temizlik firmaları için web sitesi",
+    "why": "Taşınacak müşteri teklifleri karşılaştırır. Teklif formu ve tek tıkla arama ile siteniz talepleri doğrudan size getirir."
+   },
+   "autoelec": {
+    "name": "Oto Elektrik",
+    "title": "Oto elektrik servisleri için web sitesi",
+    "why": "Aküsü biten ya da arıza lambası yanan sürücü, en yakın servisi telefonundan arar. Siteniz hizmetlerinizi, konumunuzu ve WhatsApp hattınızı hemen gösterir."
+   },
+   "dealer": {
+    "name": "Otomobil",
+    "title": "Oto galeri ve bayiler için web sitesi",
+    "why": "Araç alıcıları stoğu, fiyatları ve servis imkânlarını online inceler. Siteniz araçlarınızı sergiler, test sürüşü ve servis randevusu toplar."
+   },
+   "ecommerce": {
+    "name": "E-ticaret",
+    "title": "Online mağaza",
+    "why": "Ürünlerinizi 7/24 satmak için kendi mağazanız: komisyon yok, markanız ön planda, müşteri verisi sizde."
+   }
+  },
+  "sp": {
+   "eyebrow": "Sektör çözümü",
+   "demoBtn": "DEMO'YU GÖR",
+   "whyT": "Neden bir web sitesi?",
+   "provideT": "Webina size ne sağlar?",
+   "provide": [
+    "Mesleğinize özel tasarım, hazır şablon yok",
+    "Alan adı, hosting ve SSL ilk yıl dahil",
+    "Mobil uyumlu ve hızlı açılan sayfalar",
+    "Google'a hazır temel SEO ayarları",
+    "İletişim formu ve WhatsApp butonu"
    ],
-   "sectors": [
+   "featsT": "Sitenizde neler var?",
+   "benefitsT": "Avantajlar",
+   "benefits": [
     {
-     "intro": "Haberin hızına yetişen, çok yazarlı ve çok dilli yayın platformları.",
-     "points": [
-      "Çok yazarlı içerik yönetimi",
-      "Son dakika ve kategori sayfaları",
-      "Bülten ve sosyal medya paylaşımı",
-      "Yüksek trafiğe dayanıklı altyapı"
-     ]
+     "t": "7/24 müşteri kazanın",
+     "p": "Siteniz siz kapalıyken de talep toplar."
     },
     {
-     "intro": "Hastalarınıza güven veren ve randevuyu kolaylaştıran siteler.",
-     "points": [
-      "Online randevu talebi",
-      "Hekim profilleri ve tedaviler",
-      "Foto ve video galerisi, blog",
-      "Çok dilli yapı"
-     ]
+     "t": "Güven verin",
+     "p": "Profesyonel bir site, ilk izlenimde farkı yaratır."
     },
     {
-     "intro": "Projelerinizi büyük görsellerle öne çıkaran portfolyo siteleri.",
+     "t": "Zaman kazanın",
+     "p": "Sık sorulan sorular, fiyatlar ve konum tek yerde."
+    }
+   ],
+   "typeT": "Size önerilen site",
+   "pages": "4 sayfa · 2 dil · iletişim formu · WhatsApp",
+   "from": "{x}'den başlayan fiyatlarla",
+   "otherT": "Diğer sektörler",
+   "demoOf": "Canlı demo"
+  },
+  "sol": {
+   "eyebrow": "Çözümler",
+   "t1": "Siteniz, alan adınız, hosting'iniz",
+   "t2": "ve bakımı tek yerden.",
+   "text": "Sitenizin yayında kalması için gereken her şeyi biz üstleniyoruz.",
+   "items": {
+    "web-sitesi": {
+     "t": "Web sitesi",
+     "p": "Mesleğinize özel, mobil uyumlu ve hızlı bir site. 4 sayfa, 2 dil, iletişim formu ve WhatsApp dahil.",
      "points": [
-      "Proje galerileri",
-      "Yüksek kaliteli görsel sunumu",
-      "Ofis ve ekip sayfası",
-      "Teklif formu"
+      "Size özel tasarım",
+      "Mobil uyum ve hız optimizasyonu",
+      "Temel SEO ve Google İşletme profili",
+      "İletişim formu ve WhatsApp"
      ]
     },
-    {
-     "intro": "Güven veren, sade ve prestijli hukuk bürosu siteleri.",
+    "alan-adi": {
+     "t": "Alan adı",
+     "p": "firmaniz.com veya .com.tr: adınızı biz kaydeder, ilk yıl paketinize dahil ederiz.",
      "points": [
-      "Uzmanlık alanları",
-      "Online danışmanlık randevusu",
-      "Makale ve duyurular",
-      "WhatsApp ile hızlı iletişim"
+      ".com, .com.tr, .net…",
+      "Kayıt ve yönlendirme bizden",
+      "Kurumsal e-posta (info@firmaniz.com)",
+      "Yenileme öncesi hatırlatma"
      ]
     },
-    {
-     "intro": "Müşterilerinizle belge alışverişini kolaylaştıran siteler ve araçlar.",
+    "hosting": {
+     "t": "Hosting",
+     "p": "Siteniz hızlı ve güvenli sunucularda yayında; SSL sertifikası ve yedekleme dahil.",
      "points": [
-      "Müşteri alanı",
-      "Belge yükleme",
-      "Takip ve faturalama araçları",
-      "Mevzuat duyuruları"
+      "SSL sertifikası (https)",
+      "Düzenli yedekleme",
+      "Erişilebilirlik takibi",
+      "İlk yıl dahil, sonra yıllık yenileme"
      ]
     },
-    {
-     "intro": "Mahallenizin müşterilerini sitenize ve dükkânınıza getiren çözümler.",
+    "bakim": {
+     "t": "Bakım",
+     "p": "Yayından sonra da yanınızdayız: güncellemeler, güvenlik ve küçük değişiklikler.",
      "points": [
-      "Online mağaza veya ürün kataloğu",
-      "Gel-al ve sipariş",
-      "Sadakat ve kampanyalar",
-      "Harita ve çalışma saatleri"
-     ]
-    },
-    {
-     "intro": "Menüden rezervasyona, misafiri kapıdan önce karşılayan siteler.",
-     "points": [
-      "Online ve QR menü",
-      "Masa rezervasyonu",
-      "Paket sipariş",
-      "Google haritada görünürlük"
-     ]
-    },
-    {
-     "intro": "Doğrudan rezervasyon alan, çok dilli otel ve turizm siteleri.",
-     "points": [
-      "Online rezervasyon motoru",
-      "Oda ve tesis galerileri",
-      "Çok dilli içerik",
-      "Yorumlar ve konum"
-     ]
-    },
-    {
-     "intro": "İlanlarınızı kolayca bulunur hale getiren emlak portalları.",
-     "points": [
-      "İlan yönetimi",
-      "Gelişmiş arama ve filtreler",
-      "Sanal tur ve galeri",
-      "Müşteri talebi takibi"
-     ]
-    },
-    {
-     "intro": "Okul ve kurs siteleri, öğrenci portalları ve online eğitim.",
-     "points": [
-      "Okul ve program sayfaları",
-      "Öğrenci ve veli portalı",
-      "Online kurs (LMS)",
-      "Kayıt formları"
-     ]
-    },
-    {
-     "intro": "Randevu defterini dolduran salon ve spa siteleri.",
-     "points": [
-      "Online randevu",
-      "Hizmet menüsü ve fiyatlar",
-      "Sadakat programı",
-      "Öncesi / sonrası galerisi"
-     ]
-    },
-    {
-     "intro": "Üyelikten ders programına, salonunuzu online yönetin.",
-     "points": [
-      "Üyelik yönetimi",
-      "Ders programı ve rezervasyon",
-      "Online ödeme",
-      "Eğitmen profilleri"
-     ]
-    },
-    {
-     "intro": "Referanslarınızı ve kapasitenizi gösteren kurumsal siteler.",
-     "points": [
-      "Proje referansları",
-      "Ürün ve hizmet katalogları",
-      "Teklif formları",
-      "Çok dilli yapı"
-     ]
-    },
-    {
-     "intro": "Galeriden servise, müşteriyi doğrudan size getiren siteler.",
-     "points": [
-      "Araç galerisi ve stok",
-      "Servis randevusu",
-      "Parça veya akü bulucu",
-      "WhatsApp ve telefonla hızlı iletişim"
-     ]
-    },
-    {
-     "intro": "Bağışçılar ve gönüllülerle bağ kuran dernek siteleri.",
-     "points": [
-      "Online bağış sistemi",
-      "Etkinlik yönetimi",
-      "Gönüllü kaydı",
-      "Faaliyet raporları"
-     ]
-    },
-    {
-     "intro": "Gönderilerinizi ve tekliflerinizi dijitalleştiren çözümler.",
-     "points": [
-      "Gönderi takibi",
-      "Teklif hesaplama",
-      "Müşteri paneli",
-      "Filo ve operasyon raporları"
+      "Güvenlik ve yazılım güncellemeleri",
+      "Metin ve fotoğraf değişiklikleri",
+      "WhatsApp ile destek",
+      "my.webina.com.tr müşteri paneli"
      ]
     }
+   },
+   "extraT": "Ek hizmetler",
+   "extraP": "İhtiyacınız olursa sitenize eklenebilir.",
+   "more": "Detay"
+  },
+  "price": {
+   "eyebrow": "Fiyatlar",
+   "t1": "Net fiyat,",
+   "t2": "sürpriz yok.",
+   "text": "Tek seferlik ödeme. Alan adı, hosting ve SSL ilk yıl dahil.",
+   "once": "tek seferlik",
+   "order": "Sipariş ver",
+   "popular": "En çok tercih edilen",
+   "plans": {
+    "vitrin": {
+     "t": "Vitrin",
+     "p": "Kendinizi tanıtın, müşteriler size ulaşsın.",
+     "items": [
+      "4 sayfa, 2 dil",
+      "İletişim formu ve WhatsApp",
+      "Alan adı, hosting, SSL (1. yıl)",
+      "Temel SEO"
+     ]
+    },
+    "randevu": {
+     "t": "Randevu",
+     "p": "Müşterileriniz online randevu alsın.",
+     "items": [
+      "Vitrin paketindeki her şey",
+      "Online randevu takvimi",
+      "Randevu yönetim paneli",
+      "Otomatik e-posta bildirimi"
+     ]
+    },
+    "eticaret": {
+     "t": "E-ticaret",
+     "p": "Ürünlerinizi online satın.",
+     "items": [
+      "Vitrin paketindeki her şey",
+      "Online mağaza ve sepet",
+      "Ürün ve sipariş yönetimi",
+      "Ödeme ve kargo entegrasyonu"
+     ]
+    }
+   },
+   "renewal": "2. yıldan itibaren alan adı + hosting + bakım: {x} / yıl",
+   "deposit": "Avans yok: ödeme teslimde ve onayınızla",
+   "depositP": "Siparişte %{p} avans, kalanı teslimde",
+   "optT": "İsteğe bağlı eklemeler",
+   "opts": {
+    "extraPage": "Ek sayfa",
+    "extraLanguage": "Ek dil",
+    "gallery": "Galeri sayfası",
+    "blog": "Blog sayfası",
+    "contentFull": "Tüm metinlerin hazırlanması",
+    "photographer": "Profesyonel fotoğrafçı (1 gün, İstanbul)",
+    "logoValue": "Logo tasarımı"
+   },
+   "calc": "Kendi paketinizi hesaplayın",
+   "calcP": "Seçenekleri işaretleyin, fiyat anında güncellensin.",
+   "faqT": "Sık sorulan sorular",
+   "faq": [
+    {
+     "q": "Sitem ne zaman yayında olur?",
+     "a": "Bilgileriniz ve fotoğraflarınız hazırsa genellikle 5 ila 10 iş günü içinde."
+    },
+    {
+     "q": "Ödemeyi ne zaman yapıyorum?",
+     "a": "Siteyi test.webina.com.tr adresinde inceleyip onayladığınızda."
+    },
+    {
+     "q": "Zaten bir alan adım var, ne olur?",
+     "a": "Mevcut alan adınızı kullanırız; ilk yıl hosting yine pakete dahildir."
+    },
+    {
+     "q": "İkinci yıldan itibaren ne ödüyorum?",
+     "a": "Yalnızca alan adı, hosting ve bakımın yıllık yenilemesini. Tarihi my.webina.com.tr'den takip edersiniz."
+    },
+    {
+     "q": "Sonradan değişiklik yapabilir miyim?",
+     "a": "Evet. Küçük metin ve fotoğraf değişiklikleri bakıma dahildir."
+    }
    ]
+  },
+  "about": {
+   "eyebrow": "Hakkımızda",
+   "t1": "Mesleklere özel",
+   "t2": "siteler yapan bir ekip.",
+   "text": "Webina, İstanbul'da işletmelere sektörlerine göre hazırlanmış profesyonel web siteleri sunar: tasarım, alan adı, hosting ve bakım tek ekipte."
+  },
+  "demos": {
+   "eyebrow": "Demolar",
+   "t1": "Canlı demolar",
+   "text": "Her meslek için hazırladığımız çalışan siteler. Birini açın, kendi sitenizi hayal edin.",
+   "all": "Tümü",
+   "open": "Demoyu aç",
+   "clientsT": "Müşteri projeleri",
+   "clientsP": "Yayındaki sitelerden bir seçki."
+  },
+  "meta": {
+   "home": "Webina — Mesleğinize özel web siteleri",
+   "solutions": "Çözümler",
+   "sectors": "Sektörler",
+   "demos": "Demolar",
+   "pricing": "Fiyatlar",
+   "about": "Hakkımızda"
+  },
+  "sectorsPage": {
+   "eyebrow": "Sektörler",
+   "t1": "Mesleğiniz için",
+   "t2": "hazır bir çözüm.",
+   "text": "Mesleğinizi seçin: sitenizin ne içereceğini okuyun, canlı demoyu inceleyin."
   },
   "stage": {
    "aria": "Öne çıkan projeler",
@@ -1177,14 +1062,18 @@ window.WEBINA_I18N = {
  "en": {
   "nav": {
    "home": "Home",
-   "services": "Services",
+   "solutions": "Solutions",
    "sectors": "Industries",
-   "portfolio": "Portfolio",
+   "demos": "Demos",
+   "pricing": "Pricing",
+   "about": "About",
    "contact": "Contact",
    "quote": "Get a quote",
-   "admin": "Admin area"
+   "panel": "Client area",
+   "allSectors": "All industries",
+   "allDemos": "All demos"
   },
-  "cta": "Start a project",
+  "cta": "Get a quote",
   "footer": {
    "title1": "Let's talk about",
    "title2": "your project",
@@ -1201,39 +1090,54 @@ window.WEBINA_I18N = {
    "address": "Maslak, Istanbul"
   },
   "home": {
-   "badge": "Digital Creation Agency",
-   "h1a": "We create the",
-   "h1b": "digital",
-   "h1c": "that looks",
-   "h1d": "like you",
-   "lead": "Websites, custom software, CRM and SEO — built for your profession, from clinics to law firms, from media to local shops.",
-   "words": [
-    "Websites",
-    "CRM",
-    "SEO",
-    "Software",
-    "E-commerce",
-    "UI/UX",
-    "Dashboards",
-    "Branding"
-   ],
-   "whatA": "What we",
-   "whatB": "do",
-   "allServices": "All services →",
-   "projA": "Recent",
-   "projB": "projects",
-   "seeAll": "See all →",
-   "sectorsA": "A solution for",
-   "sectorsB": "every profession",
+   "eyebrow": "Websites made for your profession",
+   "h1a": "Websites for",
+   "h1c": "ready",
+   "h1d": "in a few days.",
    "rotate": [
-    "online store",
-    "portfolio",
-    "firm website",
-    "showcase",
-    "news site",
-    "corporate site",
-    "brand"
-   ]
+    "lawyers",
+    "doctors",
+    "auto electricians",
+    "hair salons",
+    "dental clinics",
+    "restaurants",
+    "hotels"
+   ],
+   "lead": "Choose your profession, explore the live demo and order your package. Your site goes live on your own domain within days.",
+   "price": "From {x} · domain, hosting and SSL included for year one",
+   "btnSector": "Choose your industry",
+   "btnPrice": "See pricing",
+   "sectorsT": "Choose your profession",
+   "sectorsP": "A ready-made solution and a live demo for every profession.",
+   "stepsT": "How it works",
+   "stepsP": "We walk you through every step, from order to launch.",
+   "steps": [
+    {
+     "t": "Choose your industry",
+     "p": "Read the solution and explore the live demo."
+    },
+    {
+     "t": "Order your package",
+     "p": "Pick a plan and answer a few questions."
+    },
+    {
+     "t": "We build your site",
+     "p": "With your texts, photos and details."
+    },
+    {
+     "t": "Preview and approve",
+     "p": "Your site first appears on test.webina.com.tr."
+    },
+    {
+     "t": "Live",
+     "p": "We launch it on your domain; you follow your subscription on my.webina.com.tr."
+    }
+   ],
+   "solT": "Everything in one package",
+   "solP": "Website, domain, hosting and maintenance: one contact, one invoice.",
+   "plansT": "Simple, clear pricing",
+   "plansP": "One-off payment, no deposit. You pay on delivery, once you approve.",
+   "h1b": "lawyers"
   },
   "team": {
    "eyebrow": "Our team",
@@ -1368,72 +1272,6 @@ window.WEBINA_I18N = {
     "text": "Promo films, product shoots and social media content."
    }
   ],
-  "sectors": [
-   {
-    "title": "News agencies",
-    "text": "Editorial platforms, multi-author CMS, newsletters and fast publishing."
-   },
-   {
-    "title": "Doctors & clinics",
-    "text": "Online booking, practitioner profiles, secure patient management."
-   },
-   {
-    "title": "Architects",
-    "text": "Immersive portfolios that showcase your work."
-   },
-   {
-    "title": "Lawyers",
-    "text": "Trustworthy sites, qualified enquiries, case management."
-   },
-   {
-    "title": "Accountants",
-    "text": "Client portals, document upload, tracking and invoicing tools."
-   },
-   {
-    "title": "Retailers",
-    "text": "Online shops, click & collect, loyalty and stock management."
-   },
-   {
-    "title": "Restaurants & cafés",
-    "text": "Online menus, reservations, takeaway ordering and QR menus."
-   },
-   {
-    "title": "Hotels & tourism",
-    "text": "Booking engines, room galleries and multilingual sites."
-   },
-   {
-    "title": "Real estate",
-    "text": "Listing portals, advanced search, virtual tours and lead tracking."
-   },
-   {
-    "title": "Education & schools",
-    "text": "School sites, student portals, online courses (LMS)."
-   },
-   {
-    "title": "Beauty & spa",
-    "text": "Online booking, service menus and loyalty programmes."
-   },
-   {
-    "title": "Gyms & fitness",
-    "text": "Membership management, class schedules and online payments."
-   },
-   {
-    "title": "Construction & industry",
-    "text": "Corporate sites, project references and quote forms."
-   },
-   {
-    "title": "Automotive",
-    "text": "Vehicle showrooms, service booking and stock management."
-   },
-   {
-    "title": "Associations & NGOs",
-    "text": "Donations, event management and volunteer sign-ups."
-   },
-   {
-    "title": "Logistics & transport",
-    "text": "Shipment tracking, quote calculators and client portals."
-   }
-  ],
   "cats": {
    "design": "Architecture & Design",
    "press": "News agency",
@@ -1441,56 +1279,9 @@ window.WEBINA_I18N = {
    "media": "Media & Broadcast",
    "trade": "Import / Export",
    "consult": "Consulting",
-   "accounting": "Accounting firm",
-   "auto": "Automotive & Auto electrics",
-   "health": "Healthcare & Doctors",
-   "beauty": "Hair & Beauty",
-   "ecommerce": "E-commerce",
-   "dental": "Dental clinic",
-   "vet": "Veterinary",
-   "restaurant": "Restaurant",
-   "pharmacy": "Pharmacy",
-   "moving": "Moving & Cleaning",
-   "optic": "Optician & Eyewear",
-   "hotel": "Hotels & Stays",
-   "realestate": "Real estate",
-   "travel": "Travel & Tourism",
-   "education": "Education & Schools"
-  },
-  "tags": {
-   "media": "Media platform",
-   "news": "News",
-   "multi": "Multilingual",
-   "vitrine": "Showcase site",
-   "seo": "SEO",
-   "booking": "Booking",
-   "corporate": "Corporate",
-   "reserve": "Reservations",
-   "leads": "Lead generation",
-   "uiux": "UI/UX",
-   "live": "Live streaming",
-   "demo": "Demo",
-   "finder": "Battery finder",
-   "shop": "Online store",
-   "cart": "Cart & checkout",
-   "tourism": "Health tourism",
-   "emergency": "24/7 emergency",
-   "menu": "Menu",
-   "duty": "On-duty pharmacy",
-   "quote": "Free quote",
-   "listing": "Listings & filters",
-   "search": "Search & date picker",
-   "portal": "Student & parent portal",
-   "stock": "Vehicle stock"
+   "accounting": "Accounting firm"
   },
   "demo": {
-   "eyebrow": "Live demos",
-   "t1": "Ready-made sites",
-   "t2": "for your profession",
-   "text": "See how your site could look right now: real, working demos we built for lawyers, doctors, dental clinics, vets, restaurants, pharmacies, moving companies, opticians, hotels, real estate agencies, travel agencies, schools, car dealers, hair salons, beauty salons and spas, local shops and online stores.",
-   "live": "Open live demo",
-   "want": "I want this site",
-   "badge": "Live demo",
    "items": {
     "law": {
      "tab": "Lawyer",
@@ -1512,17 +1303,6 @@ window.WEBINA_I18N = {
       "Procedures and treatments",
       "Photo & video gallery, blog",
       "Turkish & English"
-     ]
-    },
-    "shop": {
-     "tab": "Local shop",
-     "name": "Yıldız Auto Electric",
-     "desc": "The most modern shop site in the neighbourhood — built to bring customers.",
-     "feats": [
-      "Battery finder by vehicle",
-      "Services and customer reviews",
-      "Map and opening hours",
-      "One-tap WhatsApp & call"
      ]
     },
     "barber": {
@@ -1678,8 +1458,20 @@ window.WEBINA_I18N = {
       "Personal beauty consultation",
       "Turkish, English & French"
      ]
+    },
+    "autoelec": {
+     "tab": "Auto electrics",
+     "name": "Yıldız Auto Electric",
+     "desc": "The most modern shop site in the neighbourhood — built to bring customers.",
+     "feats": [
+      "Battery finder by vehicle",
+      "Services and customer reviews",
+      "Map and opening hours",
+      "One-tap WhatsApp & call"
+     ]
     }
-   }
+   },
+   "badge": "Live demo"
   },
   "ui": {
    "menu": "Menu",
@@ -1695,34 +1487,6 @@ window.WEBINA_I18N = {
    "visit": "Open site",
    "filter": "Filter by category"
   },
-  "servicesPage": {
-   "eyebrow": "Services",
-   "t1": "All your digital,",
-   "t2": "under one roof",
-   "text": "From idea to launch, we design, build and grow your digital tools.",
-   "methodA": "Our method",
-   "step": "Step",
-   "steps": [
-    "Listening & audit",
-    "Design & prototype",
-    "Development",
-    "Launch & support"
-   ]
-  },
-  "sectorsPage": {
-   "eyebrow": "Industries",
-   "t1": "Built for",
-   "t2": "your profession",
-   "text": "Every business has its own rules. We build software and sites that respect them.",
-   "talk": "Discuss my project"
-  },
-  "portfolioPage": {
-   "eyebrow": "Portfolio",
-   "t1": "Our work",
-   "text": "A selection of projects built for very different professions.",
-   "all": "All",
-   "demoBadge": "Live demo"
-  },
   "contact": {
    "eyebrow": "Contact",
    "t1": "Your project",
@@ -1737,39 +1501,32 @@ window.WEBINA_I18N = {
    "budget": "Estimated budget",
    "message": "Tell us about your project *",
    "sectorOpts": [
-    "News agency",
-    "Doctor / Clinic",
-    "Architect",
     "Lawyer",
-    "Accountant",
-    "Retailer",
-    "Restaurant / Café",
-    "Hotel / Tourism",
+    "Doctor",
+    "Dental clinic",
+    "Vet",
+    "Pharmacy",
+    "Optician",
+    "Restaurant",
+    "Hotel",
+    "Travel",
+    "Hair salon",
+    "Beauty & Spa",
+    "School",
     "Real estate",
-    "Education",
-    "Beauty / Spa",
-    "Gym",
-    "Construction / Industry",
-    "Automotive",
-    "Association / NGO",
-    "Logistics",
+    "Moving",
+    "Auto electrics",
+    "Car dealer",
+    "E-commerce",
     "Other"
    ],
    "serviceOpts": [
     "Website",
-    "Custom software",
-    "CRM",
-    "SEO",
-    "Admin area",
-    "Brand identity",
+    "Domain & hosting",
+    "Maintenance",
     "E-commerce",
-    "Mobile app",
-    "Social media",
-    "Online ads",
-    "ERP / Stock",
-    "Booking system",
-    "Hosting & maintenance",
-    "Video & photo"
+    "SEO & visibility",
+    "Other"
    ],
    "budgetOpts": [
     "To be defined",
@@ -1951,134 +1708,6 @@ window.WEBINA_I18N = {
     "more": "Details",
     "wa": "Message us on WhatsApp"
    },
-   "services": [
-    {
-     "intro": "A site designed for your brand that loads fast and looks right on every screen, built to lead visitors to the right page and to contact you.",
-     "points": [
-      "Custom design, no off-the-shelf template",
-      "Mobile-ready, SSL and speed optimisation",
-      "Basic SEO setup and Google Analytics",
-      "Admin panel to edit your own content"
-     ]
-    },
-    {
-     "intro": "Web-based software written around how your business works, replacing spreadsheets and scattered tools.",
-     "points": [
-      "Needs analysis and process mapping",
-      "User roles and permissions",
-      "Modules such as booking, invoicing or client files",
-      "Training and support after launch"
-     ]
-    },
-    {
-     "intro": "A CRM shaped around your team that brings clients, quotes and sales into one place.",
-     "points": [
-      "Client records with full history",
-      "Quotes, sales and follow-up reminders",
-      "Email and WhatsApp notifications",
-      "Sales and performance reports"
-     ]
-    },
-    {
-     "intro": "Steady work, from technical foundations to content, so you show up for the right searches.",
-     "points": [
-      "Technical SEO audit and fixes",
-      "Keyword and competitor research",
-      "Google Business Profile optimisation",
-      "Monthly ranking and traffic report"
-     ]
-    },
-    {
-     "intro": "Manage the requests, forms and content coming from your site from a single screen.",
-     "points": [
-      "Incoming requests with status tracking",
-      "Custom forms and automatic email alerts",
-      "Edit content, images and pages",
-      "Real-time statistics"
-     ]
-    },
-    {
-     "intro": "A visual identity so your brand is recognised the same way everywhere.",
-     "points": [
-      "Logo and its variations",
-      "Colours, typefaces and usage guide",
-      "Business cards and company documents",
-      "Social media templates"
-     ]
-    },
-    {
-     "intro": "An online shop where going from seeing a product to buying it feels effortless.",
-     "points": [
-      "Products, variants and stock",
-      "Online payment integration",
-      "Shipping integration and order tracking",
-      "Promotions and discount codes"
-     ]
-    },
-    {
-     "intro": "Fast, easy-to-use apps that sit in your clients' pockets.",
-     "points": [
-      "Apps for iOS and Android",
-      "Push notifications",
-      "Connection to your existing site or admin",
-      "Publishing on the App Store and Google Play"
-     ]
-    },
-    {
-     "intro": "Your accounts run with regular, consistent posts that fit your brand.",
-     "points": [
-      "Monthly content plan",
-      "Post and story designs",
-      "Publishing calendar",
-      "Monthly performance report"
-     ]
-    },
-    {
-     "intro": "Measurable ad campaigns that put your budget in front of the right people.",
-     "points": [
-      "Google Ads, Meta and TikTok campaigns",
-      "Audience and budget planning",
-      "Conversion tracking setup",
-      "Regular optimisation and reporting"
-     ]
-    },
-    {
-     "intro": "Sales, purchasing, stock and accounting in one system, with no double entry.",
-     "points": [
-      "Stock and warehouse tracking",
-      "Purchasing and supplier management",
-      "Invoices and accounts",
-      "Management reports"
-     ]
-    },
-    {
-     "intro": "Take appointments, tables or rooms online around the clock and spend less time on the phone.",
-     "points": [
-      "Online calendar with available slots",
-      "Automatic confirmations and reminders",
-      "Planning by staff and service",
-      "Optional online payment"
-     ]
-    },
-    {
-     "intro": "We work in the background so your site stays secure, fast and online.",
-     "points": [
-      "Fast, secure hosting",
-      "Regular backups",
-      "Updates and security monitoring",
-      "Technical support"
-     ]
-    },
-    {
-     "intro": "Real photos and videos to feed your website and social media.",
-     "points": [
-      "Corporate and product photography",
-      "Promotional and social media videos",
-      "Editing and colour grading",
-      "Web-optimised delivery"
-     ]
-    }
-   ],
    "roles": [
     {
      "intro": "Your single point of contact: sets the schedule, coordinates the team and keeps you informed at every step.",
@@ -2176,153 +1805,294 @@ window.WEBINA_I18N = {
       "Technical support"
      ]
     }
+   ]
+  },
+  "groups": {
+   "saglik": "Healthcare",
+   "hizmet": "Legal & services",
+   "konaklama": "Food & travel",
+   "guzellik": "Beauty",
+   "ticaret": "Retail & automotive"
+  },
+  "sec": {
+   "law": {
+    "name": "Lawyer",
+    "title": "Websites for lawyers",
+    "why": "Clients research a lawyer online before they call. A clear, trustworthy site explains your practice areas and brings consultation requests straight to you."
+   },
+   "doctor": {
+    "name": "Doctor",
+    "title": "Websites for doctors",
+    "why": "Patients look up their doctor on Google, reading reviews and experience. Your site explains your treatments clearly, builds trust and makes booking easy."
+   },
+   "dental": {
+    "name": "Dental clinic",
+    "title": "Websites for dental clinics",
+    "why": "Implant, cosmetic and dental-tourism patients compare clinics before choosing. A multilingual site with real photos puts you ahead."
+   },
+   "vet": {
+    "name": "Vet",
+    "title": "Websites for veterinary clinics",
+    "why": "Pet owners search fast for the nearest clinic in an emergency. Your site shows your number, hours and services in one tap."
+   },
+   "pharmacy": {
+    "name": "Pharmacy",
+    "title": "Websites for pharmacies",
+    "why": "On-duty hours, product questions, prescriptions: neighbours check online first. Your site makes your pharmacy visible and reachable on WhatsApp."
+   },
+   "optic": {
+    "name": "Optician",
+    "title": "Websites for opticians",
+    "why": "Customers browse frames and prices online before buying glasses. Your site shows your collection and brings eye-test bookings and online sales."
+   },
+   "restaurant": {
+    "name": "Restaurant",
+    "title": "Websites for restaurants",
+    "why": "Guests decide from the menu, the photos and how easy it is to book. Your site fills your tables with commission-free reservations."
+   },
+   "hotel": {
+    "name": "Hotel",
+    "title": "Websites for hotels",
+    "why": "Direct bookings save the commission paid to booking platforms. A striking hotel site connects guests directly with you."
+   },
+   "travel": {
+    "name": "Travel",
+    "title": "Websites for travel agencies",
+    "why": "Travellers want hotels, tours and transfers in one place. A Booking-style site lists your offers and collects booking requests."
+   },
+   "barber": {
+    "name": "Hair salon",
+    "title": "Websites for hair salons",
+    "why": "New clients discover salons on Instagram and Google. Your site shows your work and prices and makes online booking easy."
+   },
+   "spa": {
+    "name": "Beauty & Spa",
+    "title": "Websites for beauty salons and spas",
+    "why": "A luxury experience deserves a luxury showcase. Your site presents your treatments, price list and online booking in one place."
+   },
+   "school": {
+    "name": "School",
+    "title": "Websites for schools and courses",
+    "why": "Parents and students review programmes, staff and admission terms before choosing. Your site builds trust and collects pre-registrations."
+   },
+   "realestate": {
+    "name": "Real estate",
+    "title": "Websites for real estate agencies",
+    "why": "Buyers search listings with filters. Your own site showcases your portfolio and connects buyers directly with your agents."
+   },
+   "moving": {
+    "name": "Moving",
+    "title": "Websites for moving and cleaning companies",
+    "why": "Customers compare quotes before they move. With a quote form and one-tap calling, your site brings requests straight to you."
+   },
+   "autoelec": {
+    "name": "Auto electrics",
+    "title": "Websites for auto electricians",
+    "why": "A driver with a flat battery or a warning light searches for the nearest garage on their phone. Your site shows your services, location and WhatsApp at once."
+   },
+   "dealer": {
+    "name": "Car dealer",
+    "title": "Websites for car dealers",
+    "why": "Buyers check stock, prices and servicing online. Your site showcases your cars and collects test-drive and service bookings."
+   },
+   "ecommerce": {
+    "name": "E-commerce",
+    "title": "Online store",
+    "why": "Your own store to sell 24/7: no commission, your brand first, your customer data."
+   }
+  },
+  "sp": {
+   "eyebrow": "Industry solution",
+   "demoBtn": "SEE THE DEMO",
+   "whyT": "Why a website?",
+   "provideT": "What Webina provides",
+   "provide": [
+    "A design made for your profession, no off-the-shelf template",
+    "Domain, hosting and SSL included for year one",
+    "Fast, mobile-friendly pages",
+    "SEO basics ready for Google",
+    "Contact form and WhatsApp button"
    ],
-   "sectors": [
+   "featsT": "What your site includes",
+   "benefitsT": "Benefits",
+   "benefits": [
     {
-     "intro": "Multi-author, multilingual publishing platforms that keep up with the news.",
-     "points": [
-      "Multi-author content management",
-      "Breaking news and category pages",
-      "Newsletter and social sharing",
-      "Infrastructure built for high traffic"
-     ]
+     "t": "Win clients 24/7",
+     "p": "Your site collects requests even when you are closed."
     },
     {
-     "intro": "Sites that reassure patients and make booking easy.",
-     "points": [
-      "Online appointment requests",
-      "Doctor profiles and treatments",
-      "Photo and video gallery, blog",
-      "Multilingual setup"
-     ]
+     "t": "Build trust",
+     "p": "A professional site makes the difference at first glance."
     },
     {
-     "intro": "Portfolio sites that put your projects forward with large imagery.",
+     "t": "Save time",
+     "p": "FAQs, prices and location in one place."
+    }
+   ],
+   "typeT": "The site we suggest",
+   "pages": "4 pages · 2 languages · contact form · WhatsApp",
+   "from": "From {x}",
+   "otherT": "Other industries",
+   "demoOf": "Live demo"
+  },
+  "sol": {
+   "eyebrow": "Solutions",
+   "t1": "Your website, domain and hosting",
+   "t2": "plus maintenance, in one place.",
+   "text": "We take care of everything your site needs to stay online.",
+   "items": {
+    "web-sitesi": {
+     "t": "Website",
+     "p": "A fast, mobile-friendly site made for your profession. 4 pages, 2 languages, contact form and WhatsApp included.",
      "points": [
-      "Project galleries",
-      "High-quality image presentation",
-      "Studio and team page",
-      "Quote request form"
+      "Custom design",
+      "Mobile-friendly and fast",
+      "SEO basics and Google Business profile",
+      "Contact form and WhatsApp"
      ]
     },
-    {
-     "intro": "Reassuring, clean and prestigious law firm websites.",
+    "alan-adi": {
+     "t": "Domain",
+     "p": "yourcompany.com or .com.tr: we register it and include the first year in your package.",
      "points": [
-      "Practice areas",
-      "Online consultation booking",
-      "Articles and news",
-      "Quick contact via WhatsApp"
+      ".com, .com.tr, .net…",
+      "Registration and DNS handled",
+      "Business email (info@yourcompany.com)",
+      "Reminder before renewal"
      ]
     },
-    {
-     "intro": "Sites and tools that make exchanging documents with clients easy.",
+    "hosting": {
+     "t": "Hosting",
+     "p": "Your site runs on fast, secure servers, with SSL and backups included.",
      "points": [
-      "Client area",
-      "Document upload",
-      "Tracking and invoicing tools",
-      "Regulatory news"
+      "SSL certificate (https)",
+      "Regular backups",
+      "Uptime monitoring",
+      "First year included, then yearly renewal"
      ]
     },
-    {
-     "intro": "Solutions that bring local customers to your site and your shop.",
+    "bakim": {
+     "t": "Maintenance",
+     "p": "We stay with you after launch: updates, security and small changes.",
      "points": [
-      "Online shop or product catalogue",
-      "Click & collect and orders",
-      "Loyalty and promotions",
-      "Map and opening hours"
-     ]
-    },
-    {
-     "intro": "From menu to booking, sites that welcome guests before they arrive.",
-     "points": [
-      "Online and QR menu",
-      "Table booking",
-      "Takeaway orders",
-      "Visibility on Google Maps"
-     ]
-    },
-    {
-     "intro": "Multilingual hotel and tourism sites that take direct bookings.",
-     "points": [
-      "Online booking engine",
-      "Room and facility galleries",
-      "Multilingual content",
-      "Reviews and location"
-     ]
-    },
-    {
-     "intro": "Real estate portals that make your listings easy to find.",
-     "points": [
-      "Listing management",
-      "Advanced search and filters",
-      "Virtual tour and gallery",
-      "Lead tracking"
-     ]
-    },
-    {
-     "intro": "School and course sites, student portals and online learning.",
-     "points": [
-      "School and programme pages",
-      "Student and parent portal",
-      "Online courses (LMS)",
-      "Enrolment forms"
-     ]
-    },
-    {
-     "intro": "Salon and spa sites that fill your appointment book.",
-     "points": [
-      "Online booking",
-      "Service menu and prices",
-      "Loyalty programme",
-      "Before / after gallery"
-     ]
-    },
-    {
-     "intro": "Run your gym online, from memberships to class schedules.",
-     "points": [
-      "Membership management",
-      "Class schedule and booking",
-      "Online payment",
-      "Trainer profiles"
-     ]
-    },
-    {
-     "intro": "Corporate sites that show your references and capacity.",
-     "points": [
-      "Project references",
-      "Product and service catalogues",
-      "Quote request forms",
-      "Multilingual setup"
-     ]
-    },
-    {
-     "intro": "From showroom to service, sites that bring customers straight to you.",
-     "points": [
-      "Vehicle gallery and stock",
-      "Service booking",
-      "Part or battery finder",
-      "Quick contact by WhatsApp and phone"
-     ]
-    },
-    {
-     "intro": "Association sites that connect you with donors and volunteers.",
-     "points": [
-      "Online donations",
-      "Event management",
-      "Volunteer sign-up",
-      "Activity reports"
-     ]
-    },
-    {
-     "intro": "Solutions that digitise your shipments and quotes.",
-     "points": [
-      "Shipment tracking",
-      "Quote calculator",
-      "Client portal",
-      "Fleet and operations reports"
+      "Security and software updates",
+      "Text and photo changes",
+      "Support on WhatsApp",
+      "my.webina.com.tr client area"
      ]
     }
+   },
+   "extraT": "Additional services",
+   "extraP": "Can be added to your site whenever you need them.",
+   "more": "Details"
+  },
+  "price": {
+   "eyebrow": "Pricing",
+   "t1": "Clear prices,",
+   "t2": "no surprises.",
+   "text": "One-off payment. Domain, hosting and SSL included for year one.",
+   "once": "one-off",
+   "order": "Order",
+   "popular": "Most popular",
+   "plans": {
+    "vitrin": {
+     "t": "Showcase",
+     "p": "Present your business and get contacted.",
+     "items": [
+      "4 pages, 2 languages",
+      "Contact form and WhatsApp",
+      "Domain, hosting, SSL (year 1)",
+      "SEO basics"
+     ]
+    },
+    "randevu": {
+     "t": "Booking",
+     "p": "Let clients book online.",
+     "items": [
+      "Everything in Showcase",
+      "Online booking calendar",
+      "Booking management panel",
+      "Automatic email notifications"
+     ]
+    },
+    "eticaret": {
+     "t": "E-commerce",
+     "p": "Sell your products online.",
+     "items": [
+      "Everything in Showcase",
+      "Online store and cart",
+      "Product and order management",
+      "Payment and shipping integration"
+     ]
+    }
+   },
+   "renewal": "From year 2, domain + hosting + maintenance: {x} / year",
+   "deposit": "No deposit: you pay on delivery, once you approve",
+   "depositP": "{p}% deposit on order, balance on delivery",
+   "optT": "Optional extras",
+   "opts": {
+    "extraPage": "Extra page",
+    "extraLanguage": "Extra language",
+    "gallery": "Gallery page",
+    "blog": "Blog page",
+    "contentFull": "Copywriting for all pages",
+    "photographer": "Professional photographer (1 day, Istanbul)",
+    "logoValue": "Logo design"
+   },
+   "calc": "Build your own package",
+   "calcP": "Tick the options and see the price update instantly.",
+   "faqT": "Frequently asked questions",
+   "faq": [
+    {
+     "q": "When will my site be live?",
+     "a": "Usually within 5 to 10 working days once your texts and photos are ready."
+    },
+    {
+     "q": "When do I pay?",
+     "a": "Once you have reviewed the site on test.webina.com.tr and approved it."
+    },
+    {
+     "q": "I already have a domain. What happens?",
+     "a": "We use your existing domain; first-year hosting is still included."
+    },
+    {
+     "q": "What do I pay from year two?",
+     "a": "Only the yearly renewal of domain, hosting and maintenance. You can track the date on my.webina.com.tr."
+    },
+    {
+     "q": "Can I make changes later?",
+     "a": "Yes. Small text and photo changes are part of maintenance."
+    }
    ]
+  },
+  "about": {
+   "eyebrow": "About",
+   "t1": "A team building",
+   "t2": "websites for professions.",
+   "text": "Webina gives Istanbul businesses professional websites designed for their industry: design, domain, hosting and maintenance from one team."
+  },
+  "demos": {
+   "eyebrow": "Demos",
+   "t1": "Live demos",
+   "text": "Working sites we built for each profession. Open one and picture your own.",
+   "all": "All",
+   "open": "Open the demo",
+   "clientsT": "Client projects",
+   "clientsP": "A selection of sites already live."
+  },
+  "meta": {
+   "home": "Webina — Websites made for your profession",
+   "solutions": "Solutions",
+   "sectors": "Industries",
+   "demos": "Demos",
+   "pricing": "Pricing",
+   "about": "About"
+  },
+  "sectorsPage": {
+   "eyebrow": "Industries",
+   "t1": "A ready-made solution",
+   "t2": "for your profession.",
+   "text": "Choose your profession: read what your site will include and explore the live demo."
   },
   "stage": {
    "aria": "Featured projects",
@@ -2351,14 +2121,18 @@ window.WEBINA_I18N = {
  "fr": {
   "nav": {
    "home": "Accueil",
-   "services": "Services",
+   "solutions": "Solutions",
    "sectors": "Secteurs",
-   "portfolio": "Portfolio",
+   "demos": "Démos",
+   "pricing": "Tarifs",
+   "about": "À propos",
    "contact": "Contact",
    "quote": "Devis",
-   "admin": "Espace admin"
+   "panel": "Espace client",
+   "allSectors": "Tous les secteurs",
+   "allDemos": "Toutes les démos"
   },
-  "cta": "Démarrer un projet",
+  "cta": "Obtenir un devis",
   "footer": {
    "title1": "Parlons de votre",
    "title2": "projet",
@@ -2375,39 +2149,54 @@ window.WEBINA_I18N = {
    "address": "Maslak, Istanbul"
   },
   "home": {
-   "badge": "Digital Creation Agency",
-   "h1a": "On crée",
-   "h1b": "le digital",
-   "h1c": "qui vous",
-   "h1d": "ressemble",
-   "lead": "Sites web, programmes sur mesure, CRM et SEO — conçus pour votre métier, de la clinique au cabinet d'avocats, du média au commerce de quartier.",
-   "words": [
-    "Sites web",
-    "CRM",
-    "SEO",
-    "Logiciels",
-    "E-commerce",
-    "UI/UX",
-    "Dashboards",
-    "Branding"
-   ],
-   "whatA": "Ce qu'on",
-   "whatB": "fait",
-   "allServices": "Tous les services →",
-   "projA": "Projets",
-   "projB": "récents",
-   "seeAll": "Voir tout →",
-   "sectorsA": "Une solution adaptée à",
-   "sectorsB": "chaque métier",
+   "eyebrow": "Des sites web pensés pour votre métier",
+   "h1a": "Des sites web pour",
+   "h1c": "prêts",
+   "h1d": "en quelques jours.",
    "rotate": [
-    "la boutique",
-    "le portfolio",
-    "le site du cabinet",
-    "la vitrine",
-    "le site d'actualités",
-    "le site d'entreprise",
-    "la marque"
-   ]
+    "les avocats",
+    "les médecins",
+    "les électriciens auto",
+    "les coiffeurs",
+    "les dentistes",
+    "les restaurants",
+    "les hôtels"
+   ],
+   "lead": "Choisissez votre métier, découvrez la démo en ligne et commandez votre formule. Votre site est en ligne sur votre propre domaine en quelques jours.",
+   "price": "À partir de {x} · domaine, hébergement et SSL inclus la 1re année",
+   "btnSector": "Choisir mon secteur",
+   "btnPrice": "Voir les tarifs",
+   "sectorsT": "Choisissez votre métier",
+   "sectorsP": "Une solution prête et une démo en ligne pour chaque métier.",
+   "stepsT": "Comment ça marche ?",
+   "stepsP": "Nous vous accompagnons à chaque étape, de la commande à la mise en ligne.",
+   "steps": [
+    {
+     "t": "Choisissez votre secteur",
+     "p": "Lisez la solution, découvrez la démo en ligne."
+    },
+    {
+     "t": "Commandez votre formule",
+     "p": "Choisissez la formule, répondez à quelques questions."
+    },
+    {
+     "t": "Nous créons votre site",
+     "p": "Avec vos textes, vos photos et vos informations."
+    },
+    {
+     "t": "Prévisualisez et validez",
+     "p": "Votre site apparaît d’abord sur test.webina.com.tr."
+    },
+    {
+     "t": "En ligne",
+     "p": "Nous le publions sur votre domaine ; vous suivez votre abonnement sur my.webina.com.tr."
+    }
+   ],
+   "solT": "Tout dans une seule formule",
+   "solP": "Site, domaine, hébergement et maintenance : un seul interlocuteur, une seule facture.",
+   "plansT": "Des tarifs simples et clairs",
+   "plansP": "Paiement unique, sans acompte. Vous payez à la livraison, après validation.",
+   "h1b": "les avocats"
   },
   "team": {
    "eyebrow": "Notre équipe",
@@ -2542,72 +2331,6 @@ window.WEBINA_I18N = {
     "text": "Films promotionnels, shootings produits et contenus réseaux sociaux."
    }
   ],
-  "sectors": [
-   {
-    "title": "Agences de presse",
-    "text": "Plateformes éditoriales, CMS multi-rédacteurs, newsletters et diffusion rapide."
-   },
-   {
-    "title": "Médecins & cliniques",
-    "text": "Prise de rendez-vous en ligne, fiches praticiens, gestion patients sécurisée."
-   },
-   {
-    "title": "Architectes",
-    "text": "Portfolios immersifs qui subliment vos réalisations."
-   },
-   {
-    "title": "Avocats",
-    "text": "Sites de confiance, prise de contact qualifiée, gestion de dossiers."
-   },
-   {
-    "title": "Comptables",
-    "text": "Espaces clients, dépôt de documents, outils de suivi et de facturation."
-   },
-   {
-    "title": "Commerçants",
-    "text": "Boutiques en ligne, click & collect, fidélité et gestion de stock."
-   },
-   {
-    "title": "Restaurants & cafés",
-    "text": "Menu en ligne, réservation, commande à emporter et menu QR."
-   },
-   {
-    "title": "Hôtels & tourisme",
-    "text": "Moteur de réservation, galeries de chambres et sites multilingues."
-   },
-   {
-    "title": "Immobilier",
-    "text": "Portails d'annonces, recherche avancée, visites virtuelles et suivi des prospects."
-   },
-   {
-    "title": "Éducation & écoles",
-    "text": "Sites d'écoles, portails élèves, formations en ligne (LMS)."
-   },
-   {
-    "title": "Beauté & spa",
-    "text": "Prise de RDV en ligne, carte des soins et programmes de fidélité."
-   },
-   {
-    "title": "Salles de sport",
-    "text": "Gestion des abonnements, planning des cours et paiement en ligne."
-   },
-   {
-    "title": "BTP & industrie",
-    "text": "Sites corporate, références chantiers et formulaires de devis."
-   },
-   {
-    "title": "Automobile",
-    "text": "Showroom de véhicules, RDV atelier et gestion de stock."
-   },
-   {
-    "title": "Associations & ONG",
-    "text": "Dons en ligne, gestion d'événements et inscriptions bénévoles."
-   },
-   {
-    "title": "Logistique & transport",
-    "text": "Suivi des envois, calcul de devis et espace client."
-   }
-  ],
   "cats": {
    "design": "Architecture & Design",
    "press": "Agence de presse",
@@ -2615,56 +2338,9 @@ window.WEBINA_I18N = {
    "media": "Médias & Broadcast",
    "trade": "Import / Export",
    "consult": "Conseil & Services",
-   "accounting": "Expertise comptable",
-   "auto": "Automobile & Électricité auto",
-   "health": "Santé & Médecins",
-   "beauty": "Coiffure & Beauté",
-   "ecommerce": "E-commerce",
-   "dental": "Cabinet dentaire",
-   "vet": "Vétérinaire",
-   "restaurant": "Restaurant",
-   "pharmacy": "Pharmacie",
-   "moving": "Déménagement & Nettoyage",
-   "optic": "Opticien & Lunettes",
-   "hotel": "Hôtellerie",
-   "realestate": "Immobilier",
-   "travel": "Voyage & Tourisme",
-   "education": "Éducation & Écoles"
-  },
-  "tags": {
-   "media": "Plateforme média",
-   "news": "Actualités",
-   "multi": "Multilingue",
-   "vitrine": "Site vitrine",
-   "seo": "SEO",
-   "booking": "Prise de RDV",
-   "corporate": "Site corporate",
-   "reserve": "Réservation",
-   "leads": "Génération de leads",
-   "uiux": "UI/UX",
-   "live": "Live streaming",
-   "demo": "Démo",
-   "finder": "Recherche de batterie",
-   "shop": "Boutique en ligne",
-   "cart": "Panier & commande",
-   "tourism": "Tourisme médical",
-   "emergency": "Urgences 24/7",
-   "menu": "Carte & menus",
-   "duty": "Pharmacie de garde",
-   "quote": "Devis gratuit",
-   "listing": "Annonces & filtres",
-   "search": "Recherche & dates",
-   "portal": "Portail élèves & parents",
-   "stock": "Stock de véhicules"
+   "accounting": "Expertise comptable"
   },
   "demo": {
-   "eyebrow": "Démos en ligne",
-   "t1": "Des sites prêts",
-   "t2": "pour votre métier",
-   "text": "Voyez dès maintenant à quoi ressemblera votre site : de vraies démos fonctionnelles pour avocats, médecins, dentistes, vétérinaires, restaurants, pharmacies, déménageurs, opticiens, hôtels, agences immobilières, agences de voyage, écoles, concessions automobiles, coiffeurs, instituts de beauté et spas, commerçants et boutiques en ligne.",
-   "live": "Voir la démo en ligne",
-   "want": "Je veux ce site",
-   "badge": "Démo en ligne",
    "items": {
     "law": {
      "tab": "Avocat",
@@ -2686,17 +2362,6 @@ window.WEBINA_I18N = {
       "Interventions et traitements",
       "Galerie photo & vidéo, blog",
       "Turc & anglais"
-     ]
-    },
-    "shop": {
-     "tab": "Commerçant",
-     "name": "Yıldız Oto Elektrik",
-     "desc": "Le site de boutique le plus moderne du quartier, pensé pour attirer des clients.",
-     "feats": [
-      "Recherche de batterie par véhicule",
-      "Services et avis clients",
-      "Carte et horaires",
-      "WhatsApp & appel en un clic"
      ]
     },
     "barber": {
@@ -2852,8 +2517,20 @@ window.WEBINA_I18N = {
       "Conseil beauté personnalisé",
       "Turc, anglais & français"
      ]
+    },
+    "autoelec": {
+     "tab": "Électricien auto",
+     "name": "Yıldız Oto Elektrik",
+     "desc": "Le site de boutique le plus moderne du quartier, pensé pour attirer des clients.",
+     "feats": [
+      "Recherche de batterie par véhicule",
+      "Services et avis clients",
+      "Carte et horaires",
+      "WhatsApp & appel en un clic"
+     ]
     }
-   }
+   },
+   "badge": "Démo en ligne"
   },
   "ui": {
    "menu": "Menu",
@@ -2869,34 +2546,6 @@ window.WEBINA_I18N = {
    "visit": "Ouvrir le site",
    "filter": "Filtrer par catégorie"
   },
-  "servicesPage": {
-   "eyebrow": "Services",
-   "t1": "Tout votre digital,",
-   "t2": "sous un même toit",
-   "text": "De l'idée au lancement, on conçoit, développe et fait grandir vos outils numériques.",
-   "methodA": "Notre méthode",
-   "step": "Étape",
-   "steps": [
-    "Écoute & audit",
-    "Design & prototype",
-    "Développement",
-    "Lancement & suivi"
-   ]
-  },
-  "sectorsPage": {
-   "eyebrow": "Secteurs",
-   "t1": "Conçu pour",
-   "t2": "votre métier",
-   "text": "Chaque activité a ses règles. On crée des programmes et des sites qui les respectent.",
-   "talk": "Parler de mon projet"
-  },
-  "portfolioPage": {
-   "eyebrow": "Portfolio",
-   "t1": "Nos créations",
-   "text": "Une sélection de projets conçus pour des métiers très différents.",
-   "all": "Tous",
-   "demoBadge": "Démo en ligne"
-  },
   "contact": {
    "eyebrow": "Contact",
    "t1": "Votre projet",
@@ -2911,39 +2560,32 @@ window.WEBINA_I18N = {
    "budget": "Budget estimé",
    "message": "Parlez-nous de votre projet *",
    "sectorOpts": [
-    "Agence de presse",
-    "Médecin / Clinique",
-    "Architecte",
     "Avocat",
-    "Comptable",
-    "Commerçant",
-    "Restaurant / Café",
-    "Hôtel / Tourisme",
+    "Médecin",
+    "Cabinet dentaire",
+    "Vétérinaire",
+    "Pharmacie",
+    "Opticien",
+    "Restaurant",
+    "Hôtel",
+    "Voyage",
+    "Coiffeur",
+    "Beauté & Spa",
+    "École",
     "Immobilier",
-    "Éducation",
-    "Beauté / Spa",
-    "Salle de sport",
-    "BTP / Industrie",
+    "Déménagement",
+    "Électricien auto",
     "Automobile",
-    "Association / ONG",
-    "Logistique",
+    "E-commerce",
     "Autre"
    ],
    "serviceOpts": [
     "Site web",
-    "Programme sur mesure",
-    "CRM",
-    "SEO",
-    "Espace admin",
-    "Identité visuelle",
+    "Domaine & hébergement",
+    "Maintenance",
     "E-commerce",
-    "Application mobile",
-    "Réseaux sociaux",
-    "Publicité en ligne",
-    "ERP / Stock",
-    "Système de réservation",
-    "Hébergement & maintenance",
-    "Vidéo & photo"
+    "Référencement",
+    "Autre"
    ],
    "budgetOpts": [
     "À définir",
@@ -3125,134 +2767,6 @@ window.WEBINA_I18N = {
     "more": "Détails",
     "wa": "Écrivez-nous sur WhatsApp"
    },
-   "services": [
-    {
-     "intro": "Un site conçu pour votre marque, rapide et impeccable sur tous les écrans, pensé pour mener le visiteur vers la bonne page et vers votre contact.",
-     "points": [
-      "Design sur mesure, pas de modèle tout fait",
-      "Responsive, SSL et optimisation de la vitesse",
-      "Réglages SEO de base et Google Analytics",
-      "Espace admin pour modifier vos contenus"
-     ]
-    },
-    {
-     "intro": "Des logiciels web écrits selon le fonctionnement de votre activité, qui remplacent tableurs et outils dispersés.",
-     "points": [
-      "Analyse des besoins et cartographie des processus",
-      "Rôles utilisateurs et droits d'accès",
-      "Modules réservation, facturation, dossiers clients…",
-      "Formation et suivi après la mise en ligne"
-     ]
-    },
-    {
-     "intro": "Un CRM adapté à votre équipe, qui réunit clients, devis et ventes au même endroit.",
-     "points": [
-      "Fiches clients avec tout l'historique",
-      "Devis, ventes et relances",
-      "Notifications e-mail et WhatsApp",
-      "Rapports de ventes et de performance"
-     ]
-    },
-    {
-     "intro": "Un travail régulier, de la technique au contenu, pour apparaître sur les bonnes recherches.",
-     "points": [
-      "Audit SEO technique et corrections",
-      "Étude des mots-clés et des concurrents",
-      "Optimisation de la fiche Google Business",
-      "Rapport mensuel de positions et de trafic"
-     ]
-    },
-    {
-     "intro": "Gérez depuis un seul écran les demandes, formulaires et contenus de votre site.",
-     "points": [
-      "Demandes reçues et suivi de leur statut",
-      "Formulaires sur mesure et alertes e-mail",
-      "Modification des textes, images et pages",
-      "Statistiques en temps réel"
-     ]
-    },
-    {
-     "intro": "Une identité visuelle pour que votre marque soit reconnue partout de la même façon.",
-     "points": [
-      "Logo et ses déclinaisons",
-      "Couleurs, typographies et charte d'utilisation",
-      "Cartes de visite et documents",
-      "Modèles pour les réseaux sociaux"
-     ]
-    },
-    {
-     "intro": "Une boutique en ligne où l'on passe naturellement de la découverte à l'achat.",
-     "points": [
-      "Produits, variantes et stock",
-      "Paiement en ligne intégré",
-      "Intégration transporteur et suivi des commandes",
-      "Promotions et codes de réduction"
-     ]
-    },
-    {
-     "intro": "Des applications rapides et simples, dans la poche de vos clients.",
-     "points": [
-      "Application iOS et Android",
-      "Notifications push",
-      "Connexion à votre site ou votre espace admin",
-      "Publication sur l'App Store et Google Play"
-     ]
-    },
-    {
-     "intro": "Vos comptes animés avec des publications régulières, cohérentes et fidèles à votre marque.",
-     "points": [
-      "Planning éditorial mensuel",
-      "Visuels de posts et de stories",
-      "Calendrier et publication",
-      "Rapport mensuel de performance"
-     ]
-    },
-    {
-     "intro": "Des campagnes mesurables pour que votre budget touche les bonnes personnes.",
-     "points": [
-      "Campagnes Google Ads, Meta et TikTok",
-      "Ciblage et répartition du budget",
-      "Suivi des conversions",
-      "Optimisation et rapports réguliers"
-     ]
-    },
-    {
-     "intro": "Ventes, achats, stock et comptabilité dans un seul système, sans double saisie.",
-     "points": [
-      "Suivi du stock et des entrepôts",
-      "Achats et fournisseurs",
-      "Factures et comptes clients",
-      "Tableaux de bord de direction"
-     ]
-    },
-    {
-     "intro": "Prenez rendez-vous, tables ou chambres en ligne 24 h/24 et passez moins de temps au téléphone.",
-     "points": [
-      "Agenda en ligne et créneaux libres",
-      "Confirmations et rappels automatiques",
-      "Planning par collaborateur et prestation",
-      "Paiement en ligne en option"
-     ]
-    },
-    {
-     "intro": "Nous travaillons en coulisses pour que votre site reste sûr, rapide et en ligne.",
-     "points": [
-      "Hébergement rapide et sécurisé",
-      "Sauvegardes régulières",
-      "Mises à jour et surveillance de sécurité",
-      "Support technique"
-     ]
-    },
-    {
-     "intro": "De vraies photos et vidéos pour alimenter votre site et vos réseaux.",
-     "points": [
-      "Photos d'entreprise et de produits",
-      "Vidéos de présentation et pour les réseaux",
-      "Montage et étalonnage",
-      "Livraison optimisée pour le web"
-     ]
-    }
-   ],
    "roles": [
     {
      "intro": "Votre interlocuteur unique : il fixe le planning, coordonne l'équipe et vous tient informé à chaque étape.",
@@ -3350,153 +2864,294 @@ window.WEBINA_I18N = {
       "Support technique"
      ]
     }
+   ]
+  },
+  "groups": {
+   "saglik": "Santé",
+   "hizmet": "Droit & services",
+   "konaklama": "Restauration & tourisme",
+   "guzellik": "Beauté",
+   "ticaret": "Commerce & automobile"
+  },
+  "sec": {
+   "law": {
+    "name": "Avocat",
+    "title": "Sites web pour avocats",
+    "why": "Un client se renseigne en ligne avant de choisir son avocat. Un site sobre et rassurant présente vos domaines d’expertise et vous amène directement les demandes de rendez-vous."
+   },
+   "doctor": {
+    "name": "Médecin",
+    "title": "Sites web pour médecins",
+    "why": "Les patients cherchent leur médecin sur Google, lisent les avis et l’expérience. Votre site explique clairement vos traitements, rassure et facilite la prise de rendez-vous."
+   },
+   "dental": {
+    "name": "Cabinet dentaire",
+    "title": "Sites web pour cabinets dentaires",
+    "why": "Implants, esthétique, tourisme dentaire : les patients comparent les cabinets. Un site multilingue avec de vraies photos vous démarque."
+   },
+   "vet": {
+    "name": "Vétérinaire",
+    "title": "Sites web pour cliniques vétérinaires",
+    "why": "En cas d’urgence, les propriétaires cherchent vite la clinique la plus proche. Votre site affiche votre numéro, vos horaires et vos services en un geste."
+   },
+   "pharmacy": {
+    "name": "Pharmacie",
+    "title": "Sites web pour pharmacies",
+    "why": "Garde, question sur un produit, ordonnance : les habitants regardent d’abord en ligne. Votre site rend votre pharmacie visible et joignable sur WhatsApp."
+   },
+   "optic": {
+    "name": "Opticien",
+    "title": "Sites web pour opticiens",
+    "why": "Avant d’acheter des lunettes, les clients comparent modèles et prix en ligne. Votre site présente votre collection et apporte rendez-vous et ventes en ligne."
+   },
+   "restaurant": {
+    "name": "Restaurant",
+    "title": "Sites web pour restaurants",
+    "why": "Les clients choisissent sur la carte, les photos et la facilité de réservation. Votre site remplit vos tables, sans commission."
+   },
+   "hotel": {
+    "name": "Hôtel",
+    "title": "Sites web pour hôtels",
+    "why": "La réservation directe évite la commission des plateformes. Un site d’hôtel marquant met vos clients en relation directe avec vous."
+   },
+   "travel": {
+    "name": "Voyage",
+    "title": "Sites web pour agences de voyage",
+    "why": "Les voyageurs veulent hôtels, circuits et transferts au même endroit. Un site façon Booking liste vos offres et collecte les demandes de réservation."
+   },
+   "barber": {
+    "name": "Coiffeur",
+    "title": "Sites web pour salons de coiffure",
+    "why": "Les nouveaux clients découvrent les salons sur Instagram et Google. Votre site montre vos réalisations, vos tarifs et facilite la réservation en ligne."
+   },
+   "spa": {
+    "name": "Beauté & Spa",
+    "title": "Sites web pour instituts de beauté et spas",
+    "why": "Une expérience haut de gamme mérite une vitrine à la hauteur. Votre site présente vos soins, la grille tarifaire et la réservation en ligne."
+   },
+   "school": {
+    "name": "École",
+    "title": "Sites web pour écoles et centres de formation",
+    "why": "Parents et élèves comparent programmes, équipes et conditions d’admission. Votre site rassure et collecte les préinscriptions."
+   },
+   "realestate": {
+    "name": "Immobilier",
+    "title": "Sites web pour agences immobilières",
+    "why": "Les acheteurs filtrent les annonces. Votre propre site met votre portefeuille en avant et met l’acheteur en contact direct avec vos conseillers."
+   },
+   "moving": {
+    "name": "Déménagement",
+    "title": "Sites web pour déménageurs et sociétés de nettoyage",
+    "why": "Avant de déménager, le client compare les devis. Formulaire de devis et appel en un clic : votre site vous amène les demandes directement."
+   },
+   "autoelec": {
+    "name": "Électricien auto",
+    "title": "Sites web pour électriciens auto",
+    "why": "Batterie à plat, voyant allumé : le conducteur cherche le garage le plus proche sur son téléphone. Votre site affiche aussitôt vos services, votre adresse et votre WhatsApp."
+   },
+   "dealer": {
+    "name": "Automobile",
+    "title": "Sites web pour concessions automobiles",
+    "why": "Les acheteurs consultent stock, prix et atelier en ligne. Votre site expose vos véhicules et collecte essais et rendez-vous atelier."
+   },
+   "ecommerce": {
+    "name": "E-commerce",
+    "title": "Boutique en ligne",
+    "why": "Votre propre boutique pour vendre 24 h/24 : pas de commission, votre marque d’abord, vos données clients."
+   }
+  },
+  "sp": {
+   "eyebrow": "Solution métier",
+   "demoBtn": "VOIR LA DÉMO",
+   "whyT": "Pourquoi un site web ?",
+   "provideT": "Ce que Webina vous fournit",
+   "provide": [
+    "Un design pensé pour votre métier, sans modèle tout fait",
+    "Domaine, hébergement et SSL inclus la 1re année",
+    "Des pages rapides et adaptées au mobile",
+    "Les bases du référencement Google",
+    "Formulaire de contact et bouton WhatsApp"
    ],
-   "sectors": [
+   "featsT": "Ce que contient votre site",
+   "benefitsT": "Avantages",
+   "benefits": [
     {
-     "intro": "Des plateformes éditoriales multi-auteurs et multilingues qui suivent le rythme de l'actualité.",
-     "points": [
-      "Gestion de contenu multi-rédacteurs",
-      "Pages dernière minute et rubriques",
-      "Newsletter et partage sur les réseaux",
-      "Infrastructure pensée pour un fort trafic"
-     ]
+     "t": "Des clients 24 h/24",
+     "p": "Votre site collecte des demandes même quand vous êtes fermé."
     },
     {
-     "intro": "Des sites qui rassurent les patients et facilitent la prise de rendez-vous.",
-     "points": [
-      "Demande de rendez-vous en ligne",
-      "Fiches praticiens et traitements",
-      "Galerie photo et vidéo, blog",
-      "Version multilingue"
-     ]
+     "t": "Inspirez confiance",
+     "p": "Un site professionnel fait la différence au premier regard."
     },
     {
-     "intro": "Des portfolios qui mettent vos réalisations en avant avec de grandes images.",
+     "t": "Gagnez du temps",
+     "p": "Questions fréquentes, tarifs et adresse au même endroit."
+    }
+   ],
+   "typeT": "Le site que nous vous proposons",
+   "pages": "4 pages · 2 langues · formulaire · WhatsApp",
+   "from": "À partir de {x}",
+   "otherT": "Autres secteurs",
+   "demoOf": "Démo en ligne"
+  },
+  "sol": {
+   "eyebrow": "Solutions",
+   "t1": "Votre site, votre domaine, votre hébergement",
+   "t2": "et la maintenance, au même endroit.",
+   "text": "Nous prenons en charge tout ce dont votre site a besoin pour rester en ligne.",
+   "items": {
+    "web-sitesi": {
+     "t": "Site web",
+     "p": "Un site rapide, adapté au mobile et pensé pour votre métier. 4 pages, 2 langues, formulaire de contact et WhatsApp inclus.",
      "points": [
-      "Galeries de projets",
-      "Présentation d'images en haute qualité",
-      "Page agence et équipe",
-      "Formulaire de demande de devis"
+      "Design sur mesure",
+      "Adapté au mobile et rapide",
+      "Référencement de base et fiche Google",
+      "Formulaire de contact et WhatsApp"
      ]
     },
-    {
-     "intro": "Des sites de cabinet sobres, rassurants et prestigieux.",
+    "alan-adi": {
+     "t": "Nom de domaine",
+     "p": "votresociete.com ou .com.tr : nous l’enregistrons et la 1re année est incluse dans votre formule.",
      "points": [
-      "Domaines d'expertise",
-      "Prise de rendez-vous de consultation",
-      "Articles et actualités",
-      "Contact rapide par WhatsApp"
+      ".com, .com.tr, .net…",
+      "Enregistrement et DNS gérés",
+      "E-mail professionnel (info@votresociete.com)",
+      "Rappel avant le renouvellement"
      ]
     },
-    {
-     "intro": "Des sites et outils qui simplifient l'échange de documents avec vos clients.",
+    "hosting": {
+     "t": "Hébergement",
+     "p": "Votre site tourne sur des serveurs rapides et sécurisés, SSL et sauvegardes compris.",
      "points": [
-      "Espace client",
-      "Dépôt de documents",
-      "Outils de suivi et de facturation",
-      "Actualités réglementaires"
+      "Certificat SSL (https)",
+      "Sauvegardes régulières",
+      "Surveillance de disponibilité",
+      "1re année incluse, puis renouvellement annuel"
      ]
     },
-    {
-     "intro": "Des solutions qui amènent les clients du quartier sur votre site et dans votre boutique.",
+    "bakim": {
+     "t": "Maintenance",
+     "p": "Nous restons à vos côtés après la mise en ligne : mises à jour, sécurité et petites modifications.",
      "points": [
-      "Boutique en ligne ou catalogue",
-      "Click & collect et commandes",
-      "Fidélité et promotions",
-      "Plan d'accès et horaires"
-     ]
-    },
-    {
-     "intro": "Du menu à la réservation, des sites qui accueillent vos clients avant leur arrivée.",
-     "points": [
-      "Menu en ligne et QR",
-      "Réservation de table",
-      "Vente à emporter",
-      "Visibilité sur Google Maps"
-     ]
-    },
-    {
-     "intro": "Des sites d'hôtel et de tourisme multilingues qui prennent les réservations en direct.",
-     "points": [
-      "Moteur de réservation",
-      "Galeries des chambres et services",
-      "Contenu multilingue",
-      "Avis et accès"
-     ]
-    },
-    {
-     "intro": "Des portails immobiliers où vos annonces se trouvent facilement.",
-     "points": [
-      "Gestion des annonces",
-      "Recherche avancée et filtres",
-      "Visite virtuelle et galerie",
-      "Suivi des demandes"
-     ]
-    },
-    {
-     "intro": "Sites d'écoles et de formations, portails élèves et cours en ligne.",
-     "points": [
-      "Pages école et programmes",
-      "Portail élèves et parents",
-      "Cours en ligne (LMS)",
-      "Formulaires d'inscription"
-     ]
-    },
-    {
-     "intro": "Des sites de salons et spas qui remplissent votre agenda.",
-     "points": [
-      "Réservation en ligne",
-      "Carte des prestations et tarifs",
-      "Programme de fidélité",
-      "Galerie avant / après"
-     ]
-    },
-    {
-     "intro": "Gérez votre salle en ligne, des abonnements au planning des cours.",
-     "points": [
-      "Gestion des abonnements",
-      "Planning et réservation des cours",
-      "Paiement en ligne",
-      "Profils des coachs"
-     ]
-    },
-    {
-     "intro": "Des sites corporate qui montrent vos références et votre capacité.",
-     "points": [
-      "Références de chantiers",
-      "Catalogues produits et services",
-      "Formulaires de devis",
-      "Version multilingue"
-     ]
-    },
-    {
-     "intro": "Du showroom à l'atelier, des sites qui amènent les clients directement chez vous.",
-     "points": [
-      "Galerie et stock de véhicules",
-      "Rendez-vous atelier",
-      "Recherche de pièce ou de batterie",
-      "Contact rapide WhatsApp et téléphone"
-     ]
-    },
-    {
-     "intro": "Des sites d'association qui vous relient aux donateurs et bénévoles.",
-     "points": [
-      "Dons en ligne",
-      "Gestion des événements",
-      "Inscription des bénévoles",
-      "Rapports d'activité"
-     ]
-    },
-    {
-     "intro": "Des solutions qui numérisent vos envois et vos devis.",
-     "points": [
-      "Suivi des envois",
-      "Calcul de devis",
-      "Espace client",
-      "Rapports de flotte et d'exploitation"
+      "Mises à jour et sécurité",
+      "Modifications de textes et de photos",
+      "Assistance sur WhatsApp",
+      "Espace client my.webina.com.tr"
      ]
     }
+   },
+   "extraT": "Services complémentaires",
+   "extraP": "À ajouter à votre site quand vous en avez besoin.",
+   "more": "Détails"
+  },
+  "price": {
+   "eyebrow": "Tarifs",
+   "t1": "Des prix clairs,",
+   "t2": "sans surprise.",
+   "text": "Paiement unique. Domaine, hébergement et SSL inclus la 1re année.",
+   "once": "paiement unique",
+   "order": "Commander",
+   "popular": "Le plus choisi",
+   "plans": {
+    "vitrin": {
+     "t": "Vitrine",
+     "p": "Présentez votre activité, recevez des demandes.",
+     "items": [
+      "4 pages, 2 langues",
+      "Formulaire de contact et WhatsApp",
+      "Domaine, hébergement, SSL (1re année)",
+      "Référencement de base"
+     ]
+    },
+    "randevu": {
+     "t": "Rendez-vous",
+     "p": "Vos clients réservent en ligne.",
+     "items": [
+      "Tout le contenu de Vitrine",
+      "Agenda de réservation en ligne",
+      "Panneau de gestion des rendez-vous",
+      "Notifications e-mail automatiques"
+     ]
+    },
+    "eticaret": {
+     "t": "E-commerce",
+     "p": "Vendez vos produits en ligne.",
+     "items": [
+      "Tout le contenu de Vitrine",
+      "Boutique en ligne et panier",
+      "Gestion des produits et commandes",
+      "Paiement et livraison intégrés"
+     ]
+    }
+   },
+   "renewal": "À partir de la 2e année, domaine + hébergement + maintenance : {x} / an",
+   "deposit": "Sans acompte : vous payez à la livraison, après validation",
+   "depositP": "Acompte de {p} % à la commande, solde à la livraison",
+   "optT": "Options",
+   "opts": {
+    "extraPage": "Page supplémentaire",
+    "extraLanguage": "Langue supplémentaire",
+    "gallery": "Page galerie",
+    "blog": "Page blog",
+    "contentFull": "Rédaction de tous les textes",
+    "photographer": "Photographe professionnel (1 jour, Istanbul)",
+    "logoValue": "Création du logo"
+   },
+   "calc": "Composez votre formule",
+   "calcP": "Cochez les options, le prix se met à jour aussitôt.",
+   "faqT": "Questions fréquentes",
+   "faq": [
+    {
+     "q": "Quand mon site sera-t-il en ligne ?",
+     "a": "En général sous 5 à 10 jours ouvrés, une fois vos textes et photos prêts."
+    },
+    {
+     "q": "Quand dois-je payer ?",
+     "a": "Une fois que vous avez vu le site sur test.webina.com.tr et que vous l’avez validé."
+    },
+    {
+     "q": "J’ai déjà un nom de domaine, que se passe-t-il ?",
+     "a": "Nous utilisons votre domaine ; l’hébergement de la 1re année reste inclus."
+    },
+    {
+     "q": "Que dois-je payer à partir de la 2e année ?",
+     "a": "Uniquement le renouvellement annuel du domaine, de l’hébergement et de la maintenance. La date est visible sur my.webina.com.tr."
+    },
+    {
+     "q": "Puis-je modifier mon site ensuite ?",
+     "a": "Oui. Les petites modifications de textes et de photos sont comprises dans la maintenance."
+    }
    ]
+  },
+  "about": {
+   "eyebrow": "À propos",
+   "t1": "Une équipe qui crée",
+   "t2": "des sites pour chaque métier.",
+   "text": "Webina propose aux entreprises d’Istanbul des sites web professionnels pensés pour leur secteur : design, domaine, hébergement et maintenance par une seule équipe."
+  },
+  "demos": {
+   "eyebrow": "Démos",
+   "t1": "Démos en ligne",
+   "text": "Des sites fonctionnels réalisés pour chaque métier. Ouvrez-en un et imaginez le vôtre.",
+   "all": "Toutes",
+   "open": "Ouvrir la démo",
+   "clientsT": "Projets clients",
+   "clientsP": "Une sélection de sites déjà en ligne."
+  },
+  "meta": {
+   "home": "Webina — Des sites web pensés pour votre métier",
+   "solutions": "Solutions",
+   "sectors": "Secteurs",
+   "demos": "Démos",
+   "pricing": "Tarifs",
+   "about": "À propos"
+  },
+  "sectorsPage": {
+   "eyebrow": "Secteurs",
+   "t1": "Une solution prête",
+   "t2": "pour votre métier.",
+   "text": "Choisissez votre métier : découvrez ce que contiendra votre site et la démo en ligne."
   },
   "stage": {
    "aria": "Projets à la une",
@@ -3525,14 +3180,18 @@ window.WEBINA_I18N = {
  "ar": {
   "nav": {
    "home": "الرئيسية",
-   "services": "الخدمات",
+   "solutions": "الحلول",
    "sectors": "القطاعات",
-   "portfolio": "أعمالنا",
+   "demos": "العروض",
+   "pricing": "الأسعار",
+   "about": "من نحن",
    "contact": "اتصل بنا",
-   "quote": "عرض سعر",
-   "admin": "لوحة الإدارة"
+   "quote": "اطلب عرض سعر",
+   "panel": "منطقة العملاء",
+   "allSectors": "كل القطاعات",
+   "allDemos": "كل العروض"
   },
-  "cta": "ابدأ مشروعك",
+  "cta": "اطلب عرض سعر",
   "footer": {
    "title1": "لنتحدث عن",
    "title2": "مشروعك",
@@ -3549,39 +3208,54 @@ window.WEBINA_I18N = {
    "address": "ماسلاك، إسطنبول"
   },
   "home": {
-   "badge": "وكالة الإبداع الرقمي",
-   "h1a": "نصنع لك",
-   "h1b": "عالماً رقمياً",
-   "h1c": "يشبهك",
-   "h1d": "تماماً",
-   "lead": "مواقع إلكترونية، برامج مخصصة، أنظمة CRM وتحسين محركات البحث — مصممة لمهنتك، من العيادات إلى مكاتب المحاماة، ومن الإعلام إلى المتاجر المحلية.",
-   "words": [
-    "مواقع",
-    "CRM",
-    "SEO",
-    "برمجيات",
-    "متاجر",
-    "UI/UX",
-    "لوحات تحكم",
-    "هوية"
-   ],
-   "whatA": "ماذا",
-   "whatB": "نقدم",
-   "allServices": "كل الخدمات ←",
-   "projA": "أحدث",
-   "projB": "المشاريع",
-   "seeAll": "عرض الكل ←",
-   "sectorsA": "حل مناسب",
-   "sectorsB": "لكل مهنة",
+   "eyebrow": "مواقع مصممة لمهنتك",
+   "h1a": "مواقع إلكترونية",
+   "h1c": "جاهزة",
+   "h1d": "خلال أيام.",
    "rotate": [
-    "متجراً إلكترونياً",
-    "معرضاً رقمياً",
-    "موقعاً لمكتبك",
-    "حضوراً رقمياً",
-    "موقعاً إخبارياً",
-    "موقعاً لشركتك",
-    "موقعاً احترافياً"
-   ]
+    "للمحامين",
+    "للأطباء",
+    "لكهربائيي السيارات",
+    "لصالونات الحلاقة",
+    "لعيادات الأسنان",
+    "للمطاعم",
+    "للفنادق"
+   ],
+   "lead": "اختر مهنتك، تصفّح العرض الحي واطلب باقتك. يصبح موقعك متاحاً على نطاقك الخاص خلال أيام.",
+   "price": "ابتداءً من {x} · النطاق والاستضافة وSSL مشمولة في السنة الأولى",
+   "btnSector": "اختر قطاعك",
+   "btnPrice": "شاهد الأسعار",
+   "sectorsT": "اختر مهنتك",
+   "sectorsP": "حل جاهز وعرض حي لكل مهنة.",
+   "stepsT": "كيف يعمل؟",
+   "stepsP": "نرافقك في كل خطوة، من الطلب حتى الإطلاق.",
+   "steps": [
+    {
+     "t": "اختر قطاعك",
+     "p": "اقرأ الحل وتصفّح العرض الحي."
+    },
+    {
+     "t": "اطلب باقتك",
+     "p": "اختر الباقة وأجب عن بعض الأسئلة."
+    },
+    {
+     "t": "نصمم موقعك",
+     "p": "بنصوصك وصورك ومعلوماتك."
+    },
+    {
+     "t": "عاين ووافق",
+     "p": "يظهر موقعك أولاً على test.webina.com.tr."
+    },
+    {
+     "t": "على الإنترنت",
+     "p": "نطلقه على نطاقك، وتتابع اشتراكك عبر my.webina.com.tr."
+    }
+   ],
+   "solT": "كل شيء في باقة واحدة",
+   "solP": "الموقع والنطاق والاستضافة والصيانة: جهة واحدة وفاتورة واحدة.",
+   "plansT": "أسعار بسيطة وواضحة",
+   "plansP": "دفعة واحدة دون عربون. تدفع عند التسليم وبعد موافقتك.",
+   "h1b": "للمحامين"
   },
   "team": {
    "eyebrow": "فريقنا",
@@ -3716,72 +3390,6 @@ window.WEBINA_I18N = {
     "text": "أفلام ترويجية، تصوير منتجات ومحتوى للتواصل الاجتماعي."
    }
   ],
-  "sectors": [
-   {
-    "title": "وكالات الأنباء",
-    "text": "منصات تحريرية، أنظمة إدارة محتوى متعددة الكتّاب، نشرات ونشر سريع."
-   },
-   {
-    "title": "الأطباء والعيادات",
-    "text": "حجز مواعيد عبر الإنترنت، ملفات الأطباء، إدارة آمنة للمرضى."
-   },
-   {
-    "title": "المهندسون المعماريون",
-    "text": "معارض أعمال تفاعلية تبرز إنجازاتكم."
-   },
-   {
-    "title": "المحامون",
-    "text": "مواقع موثوقة، تواصل مؤهل، إدارة الملفات."
-   },
-   {
-    "title": "المحاسبون",
-    "text": "بوابات للعملاء، رفع المستندات، أدوات المتابعة والفوترة."
-   },
-   {
-    "title": "التجار",
-    "text": "متاجر إلكترونية، استلام من المتجر، برامج ولاء وإدارة المخزون."
-   },
-   {
-    "title": "المطاعم والمقاهي",
-    "text": "قوائم طعام إلكترونية، حجوزات، طلبات خارجية وقائمة QR."
-   },
-   {
-    "title": "الفنادق والسياحة",
-    "text": "محركات حجز، معارض للغرف ومواقع متعددة اللغات."
-   },
-   {
-    "title": "العقارات",
-    "text": "بوابات إعلانات، بحث متقدم، جولات افتراضية ومتابعة العملاء."
-   },
-   {
-    "title": "التعليم والمدارس",
-    "text": "مواقع مدارس، بوابات للطلاب ودورات عبر الإنترنت."
-   },
-   {
-    "title": "التجميل والسبا",
-    "text": "حجز مواعيد، قائمة الخدمات وبرامج الولاء."
-   },
-   {
-    "title": "الأندية الرياضية",
-    "text": "إدارة الاشتراكات، جدول الحصص والدفع الإلكتروني."
-   },
-   {
-    "title": "البناء والصناعة",
-    "text": "مواقع مؤسسية، مراجع المشاريع ونماذج طلب الأسعار."
-   },
-   {
-    "title": "السيارات",
-    "text": "معرض سيارات، حجز الصيانة وإدارة المخزون."
-   },
-   {
-    "title": "الجمعيات والمنظمات",
-    "text": "نظام تبرعات، إدارة الفعاليات وتسجيل المتطوعين."
-   },
-   {
-    "title": "اللوجستيات والنقل",
-    "text": "تتبع الشحنات، حساب الأسعار وبوابة للعملاء."
-   }
-  ],
   "cats": {
    "design": "عمارة وتصميم",
    "press": "وكالة أنباء",
@@ -3789,56 +3397,9 @@ window.WEBINA_I18N = {
    "media": "إعلام وبث",
    "trade": "استيراد / تصدير",
    "consult": "استشارات وخدمات",
-   "accounting": "خبرة محاسبية",
-   "auto": "السيارات وكهرباء السيارات",
-   "health": "الصحة والأطباء",
-   "beauty": "الحلاقة والتجميل",
-   "ecommerce": "التجارة الإلكترونية",
-   "dental": "عيادة أسنان",
-   "vet": "طب بيطري",
-   "restaurant": "مطعم",
-   "pharmacy": "صيدلية",
-   "moving": "نقل الأثاث والتنظيف",
-   "optic": "بصريات ونظارات",
-   "hotel": "فنادق وإقامة",
-   "realestate": "عقارات",
-   "travel": "سياحة وسفر",
-   "education": "تعليم ومدارس"
-  },
-  "tags": {
-   "media": "منصة إعلامية",
-   "news": "أخبار",
-   "multi": "متعدد اللغات",
-   "vitrine": "موقع تعريفي",
-   "seo": "SEO",
-   "booking": "حجز مواعيد",
-   "corporate": "موقع مؤسسي",
-   "reserve": "حجوزات",
-   "leads": "جذب العملاء",
-   "uiux": "UI/UX",
-   "live": "بث مباشر",
-   "demo": "نسخة تجريبية",
-   "finder": "باحث البطاريات",
-   "shop": "متجر إلكتروني",
-   "cart": "السلة والطلب",
-   "tourism": "سياحة علاجية",
-   "emergency": "طوارئ 24/7",
-   "menu": "قائمة الطعام",
-   "duty": "صيدلية مناوبة",
-   "quote": "عرض سعر مجاني",
-   "listing": "إعلانات وفلاتر",
-   "search": "بحث واختيار التواريخ",
-   "portal": "بوابة الطلاب وأولياء الأمور",
-   "stock": "مخزون السيارات"
+   "accounting": "خبرة محاسبية"
   },
   "demo": {
-   "eyebrow": "عروض تجريبية مباشرة",
-   "t1": "مواقع جاهزة",
-   "t2": "لمهنتكم",
-   "text": "شاهدوا الآن كيف سيبدو موقعكم: عروض حقيقية تعمل، صمّمناها للمحامين والأطباء وعيادات الأسنان والأطباء البيطريين والمطاعم والصيدليات وشركات نقل الأثاث ومحلات البصريات والفنادق والمكاتب العقارية ووكالات السفر والمدارس ووكالات السيارات وصالونات الحلاقة وصالونات التجميل والسبا والمحلات والمتاجر الإلكترونية.",
-   "live": "افتح العرض المباشر",
-   "want": "أريد هذا الموقع",
-   "badge": "عرض مباشر",
    "items": {
     "law": {
      "tab": "محامٍ",
@@ -3860,17 +3421,6 @@ window.WEBINA_I18N = {
       "العمليات والعلاجات",
       "معرض صور وفيديو، مدونة",
       "التركية والإنجليزية"
-     ]
-    },
-    "shop": {
-     "tab": "محل تجاري",
-     "name": "يلدز لكهرباء السيارات",
-     "desc": "أحدث موقع محل في الحي، مصمّم لجذب الزبائن.",
-     "feats": [
-      "باحث البطاريات حسب السيارة",
-      "الخدمات وآراء العملاء",
-      "الخريطة وساعات العمل",
-      "واتساب واتصال بنقرة"
      ]
     },
     "barber": {
@@ -4026,8 +3576,20 @@ window.WEBINA_I18N = {
       "استشارة تجميل شخصية",
       "التركية والإنجليزية والفرنسية"
      ]
+    },
+    "autoelec": {
+     "tab": "كهرباء السيارات",
+     "name": "يلدز لكهرباء السيارات",
+     "desc": "أحدث موقع محل في الحي، مصمّم لجذب الزبائن.",
+     "feats": [
+      "باحث البطاريات حسب السيارة",
+      "الخدمات وآراء العملاء",
+      "الخريطة وساعات العمل",
+      "واتساب واتصال بنقرة"
+     ]
     }
-   }
+   },
+   "badge": "عرض مباشر"
   },
   "ui": {
    "menu": "القائمة",
@@ -4043,34 +3605,6 @@ window.WEBINA_I18N = {
    "visit": "افتح الموقع",
    "filter": "تصفية حسب الفئة"
   },
-  "servicesPage": {
-   "eyebrow": "الخدمات",
-   "t1": "كل عالمك الرقمي،",
-   "t2": "تحت سقف واحد",
-   "text": "من الفكرة إلى الإطلاق، نصمم ونطوّر وننمّي أدواتك الرقمية.",
-   "methodA": "منهجيتنا",
-   "step": "المرحلة",
-   "steps": [
-    "الاستماع والتحليل",
-    "التصميم والنموذج",
-    "التطوير",
-    "الإطلاق والمتابعة"
-   ]
-  },
-  "sectorsPage": {
-   "eyebrow": "القطاعات",
-   "t1": "مصمم",
-   "t2": "لمهنتك",
-   "text": "لكل نشاط قواعده. نصنع برامج ومواقع تحترمها.",
-   "talk": "ناقش مشروعي"
-  },
-  "portfolioPage": {
-   "eyebrow": "أعمالنا",
-   "t1": "إبداعاتنا",
-   "text": "مجموعة مختارة من المشاريع لمهن مختلفة.",
-   "all": "الكل",
-   "demoBadge": "عرض تجريبي مباشر"
-  },
   "contact": {
    "eyebrow": "اتصل بنا",
    "t1": "مشروعك",
@@ -4085,39 +3619,32 @@ window.WEBINA_I18N = {
    "budget": "الميزانية التقديرية",
    "message": "حدثنا عن مشروعك *",
    "sectorOpts": [
-    "وكالة أنباء",
-    "طبيب / عيادة",
-    "مهندس معماري",
     "محامٍ",
-    "محاسب",
-    "تاجر",
-    "مطعم / مقهى",
-    "فندق / سياحة",
+    "طبيب",
+    "عيادة أسنان",
+    "بيطري",
+    "صيدلية",
+    "بصريات",
+    "مطعم",
+    "فندق",
+    "سفر",
+    "صالون حلاقة",
+    "تجميل وسبا",
+    "مدرسة",
     "عقارات",
-    "تعليم",
-    "تجميل / سبا",
-    "نادي رياضي",
-    "بناء / صناعة",
+    "نقل الأثاث",
+    "كهرباء السيارات",
     "سيارات",
-    "جمعية / منظمة",
-    "لوجستيات",
+    "متجر إلكتروني",
     "أخرى"
    ],
    "serviceOpts": [
     "موقع إلكتروني",
-    "برنامج مخصص",
-    "CRM",
-    "SEO",
-    "لوحة إدارة",
-    "هوية بصرية",
-    "تجارة إلكترونية",
-    "تطبيق جوال",
-    "وسائل التواصل",
-    "إعلانات رقمية",
-    "ERP / مخزون",
-    "نظام حجز",
-    "استضافة وصيانة",
-    "فيديو وصور"
+    "النطاق والاستضافة",
+    "الصيانة",
+    "متجر إلكتروني",
+    "SEO والظهور",
+    "أخرى"
    ],
    "budgetOpts": [
     "لم تحدد بعد",
@@ -4299,134 +3826,6 @@ window.WEBINA_I18N = {
     "more": "التفاصيل",
     "wa": "راسلونا عبر واتساب"
    },
-   "services": [
-    {
-     "intro": "موقع مصمم لعلامتكم، سريع التحميل ويظهر بشكل صحيح على كل الشاشات، ومبني ليقود الزائر إلى الصفحة المناسبة وإلى التواصل معكم.",
-     "points": [
-      "تصميم خاص بكم دون قوالب جاهزة",
-      "توافق مع الجوال وشهادة SSL وتحسين السرعة",
-      "إعدادات SEO أساسية وGoogle Analytics",
-      "لوحة تحكم لتعديل محتواكم بأنفسكم"
-     ]
-    },
-    {
-     "intro": "برمجيات ويب مكتوبة حسب سير عملكم، تحل محل جداول Excel والأدوات المتفرقة.",
-     "points": [
-      "تحليل الاحتياجات ورسم العمليات",
-      "أدوار المستخدمين والصلاحيات",
-      "وحدات مثل الحجز والفوترة وملفات العملاء",
-      "تدريب ودعم بعد الإطلاق"
-     ]
-    },
-    {
-     "intro": "نظام CRM مصمم حسب فريقكم يجمع العملاء والعروض والمبيعات في مكان واحد.",
-     "points": [
-      "بطاقات العملاء مع السجل الكامل",
-      "العروض والمبيعات وتذكيرات المتابعة",
-      "إشعارات البريد وواتساب",
-      "تقارير المبيعات والأداء"
-     ]
-    },
-    {
-     "intro": "عمل منتظم من البنية التقنية إلى المحتوى لتظهروا في عمليات البحث المناسبة.",
-     "points": [
-      "تدقيق SEO تقني وإصلاحات",
-      "تحليل الكلمات المفتاحية والمنافسين",
-      "تحسين ملف Google التجاري",
-      "تقرير شهري للترتيب والزيارات"
-     ]
-    },
-    {
-     "intro": "لإدارة الطلبات والنماذج والمحتوى القادم من موقعكم من شاشة واحدة.",
-     "points": [
-      "الطلبات الواردة ومتابعة حالتها",
-      "نماذج مخصصة وتنبيهات بريد تلقائية",
-      "تعديل النصوص والصور والصفحات",
-      "إحصائيات فورية"
-     ]
-    },
-    {
-     "intro": "هوية بصرية لتُعرف علامتكم بالشكل نفسه في كل مكان.",
-     "points": [
-      "الشعار ونسخه المختلفة",
-      "الألوان والخطوط ودليل الاستخدام",
-      "بطاقات العمل والمستندات",
-      "قوالب لوسائل التواصل"
-     ]
-    },
-    {
-     "intro": "متجر إلكتروني ينتقل فيه العميل من رؤية المنتج إلى شرائه بسلاسة.",
-     "points": [
-      "المنتجات والخيارات والمخزون",
-      "ربط الدفع الإلكتروني",
-      "ربط الشحن وتتبع الطلبات",
-      "العروض ورموز الخصم"
-     ]
-    },
-    {
-     "intro": "تطبيقات سريعة وسهلة الاستخدام في جيب عملائكم.",
-     "points": [
-      "تطبيق لـ iOS وAndroid",
-      "إشعارات فورية",
-      "ربط بموقعكم أو لوحة التحكم",
-      "النشر على App Store وGoogle Play"
-     ]
-    },
-    {
-     "intro": "إدارة حساباتكم بمنشورات منتظمة ومتسقة تناسب علامتكم.",
-     "points": [
-      "خطة محتوى شهرية",
-      "تصاميم المنشورات والقصص",
-      "تقويم النشر",
-      "تقرير أداء شهري"
-     ]
-    },
-    {
-     "intro": "حملات إعلانية قابلة للقياس لتصل ميزانيتكم إلى الأشخاص المناسبين.",
-     "points": [
-      "حملات Google Ads وMeta وTikTok",
-      "تخطيط الجمهور والميزانية",
-      "إعداد تتبع التحويلات",
-      "تحسين وتقارير منتظمة"
-     ]
-    },
-    {
-     "intro": "المبيعات والمشتريات والمخزون والمحاسبة في نظام واحد دون إدخال مزدوج.",
-     "points": [
-      "تتبع المخزون والمستودعات",
-      "المشتريات والموردون",
-      "الفواتير والحسابات",
-      "تقارير للإدارة"
-     ]
-    },
-    {
-     "intro": "استقبلوا حجوزات المواعيد أو الطاولات أو الغرف عبر الإنترنت على مدار الساعة.",
-     "points": [
-      "تقويم إلكتروني بالأوقات المتاحة",
-      "تأكيدات وتذكيرات تلقائية",
-      "تخطيط حسب الموظف والخدمة",
-      "دفع إلكتروني اختياري"
-     ]
-    },
-    {
-     "intro": "نعمل في الخلفية ليبقى موقعكم آمناً وسريعاً ومتاحاً دائماً.",
-     "points": [
-      "استضافة سريعة وآمنة",
-      "نسخ احتياطي منتظم",
-      "تحديثات ومراقبة أمنية",
-      "دعم تقني"
-     ]
-    },
-    {
-     "intro": "صور وفيديوهات حقيقية لموقعكم وحساباتكم على وسائل التواصل.",
-     "points": [
-      "تصوير مؤسسي وتصوير منتجات",
-      "فيديوهات تعريفية ولوسائل التواصل",
-      "المونتاج وتصحيح الألوان",
-      "تسليم محسّن للويب"
-     ]
-    }
-   ],
    "roles": [
     {
      "intro": "جهة التواصل الوحيدة معكم: يضع الجدول الزمني وينسق الفريق ويطلعكم على كل خطوة.",
@@ -4524,153 +3923,294 @@ window.WEBINA_I18N = {
       "الدعم التقني"
      ]
     }
+   ]
+  },
+  "groups": {
+   "saglik": "الصحة",
+   "hizmet": "القانون والخدمات",
+   "konaklama": "المطاعم والسياحة",
+   "guzellik": "التجميل",
+   "ticaret": "التجارة والسيارات"
+  },
+  "sec": {
+   "law": {
+    "name": "محامٍ",
+    "title": "مواقع للمحامين",
+    "why": "يبحث الموكل عن المحامي عبر الإنترنت قبل أن يتصل. موقع واضح وموثوق يعرض مجالات تخصصك ويجلب إليك طلبات الاستشارة مباشرة."
+   },
+   "doctor": {
+    "name": "طبيب",
+    "title": "مواقع للأطباء",
+    "why": "يبحث المرضى عن طبيبهم في Google ويقرؤون التقييمات. يشرح موقعك علاجاتك بوضوح ويمنح الثقة ويسهّل حجز الموعد."
+   },
+   "dental": {
+    "name": "عيادة أسنان",
+    "title": "مواقع لعيادات الأسنان",
+    "why": "يقارن مرضى الزراعة والتجميل والسياحة العلاجية بين العيادات قبل الاختيار. موقع متعدد اللغات بصور حقيقية يميّزك."
+   },
+   "vet": {
+    "name": "بيطري",
+    "title": "مواقع للعيادات البيطرية",
+    "why": "في الطوارئ يبحث أصحاب الحيوانات بسرعة عن أقرب عيادة. يعرض موقعك رقمك وساعات العمل وخدماتك بلمسة واحدة."
+   },
+   "pharmacy": {
+    "name": "صيدلية",
+    "title": "مواقع للصيدليات",
+    "why": "المناوبة، سؤال عن منتج، وصفة طبية: يبحث سكان الحي أولاً عبر الإنترنت. يجعل موقعك صيدليتك ظاهرة ويمكن التواصل معها عبر واتساب."
+   },
+   "optic": {
+    "name": "بصريات",
+    "title": "مواقع لمحلات البصريات",
+    "why": "يتصفح الزبائن الإطارات والأسعار عبر الإنترنت قبل الشراء. يعرض موقعك مجموعتك ويجلب مواعيد الفحص والمبيعات."
+   },
+   "restaurant": {
+    "name": "مطعم",
+    "title": "مواقع للمطاعم",
+    "why": "يختار الضيوف من القائمة والصور وسهولة الحجز. يملأ موقعك طاولاتك بحجوزات بلا عمولة."
+   },
+   "hotel": {
+    "name": "فندق",
+    "title": "مواقع للفنادق",
+    "why": "الحجز المباشر يوفّر العمولة التي تُدفع لمنصات الحجز. موقع فندق مميز يربط الضيوف بك مباشرة."
+   },
+   "travel": {
+    "name": "سفر",
+    "title": "مواقع لوكالات السفر",
+    "why": "يريد المسافرون الفنادق والجولات والتنقلات في مكان واحد. موقع على طريقة Booking يعرض عروضك ويجمع طلبات الحجز."
+   },
+   "barber": {
+    "name": "صالون حلاقة",
+    "title": "مواقع لصالونات الحلاقة",
+    "why": "يكتشف الزبائن الجدد الصالونات عبر Instagram وGoogle. يعرض موقعك أعمالك وأسعارك ويسهّل الحجز عبر الإنترنت."
+   },
+   "spa": {
+    "name": "تجميل وسبا",
+    "title": "مواقع لصالونات التجميل والسبا",
+    "why": "التجربة الفاخرة تستحق واجهة فاخرة. يعرض موقعك خدماتك وقائمة الأسعار والحجز عبر الإنترنت في مكان واحد."
+   },
+   "school": {
+    "name": "مدرسة",
+    "title": "مواقع للمدارس ومراكز التدريب",
+    "why": "يطّلع الأهل والطلاب على البرامج والكادر وشروط القبول قبل الاختيار. يمنح موقعك الثقة ويجمع طلبات التسجيل المسبق."
+   },
+   "realestate": {
+    "name": "عقارات",
+    "title": "مواقع للمكاتب العقارية",
+    "why": "يبحث المشترون في الإعلانات باستخدام الفلاتر. يبرز موقعك الخاص عروضك ويربط المشتري مباشرة بمستشاريك."
+   },
+   "moving": {
+    "name": "نقل الأثاث",
+    "title": "مواقع لشركات النقل والتنظيف",
+    "why": "يقارن الزبون العروض قبل الانتقال. بنموذج طلب عرض سعر واتصال بنقرة، يجلب موقعك الطلبات إليك مباشرة."
+   },
+   "autoelec": {
+    "name": "كهرباء السيارات",
+    "title": "مواقع لخدمات كهرباء السيارات",
+    "why": "عندما تفرغ البطارية أو يضيء مؤشر عطل، يبحث السائق عن أقرب ورشة من هاتفه. يعرض موقعك خدماتك وموقعك وواتساب فوراً."
+   },
+   "dealer": {
+    "name": "سيارات",
+    "title": "مواقع لمعارض ووكالات السيارات",
+    "why": "يطّلع المشترون على المخزون والأسعار والصيانة عبر الإنترنت. يعرض موقعك سياراتك ويجمع طلبات التجربة ومواعيد الصيانة."
+   },
+   "ecommerce": {
+    "name": "متجر إلكتروني",
+    "title": "متجر إلكتروني",
+    "why": "متجرك الخاص للبيع على مدار الساعة: بلا عمولة، علامتك أولاً، وبيانات عملائك لك."
+   }
+  },
+  "sp": {
+   "eyebrow": "حل حسب القطاع",
+   "demoBtn": "شاهد العرض",
+   "whyT": "لماذا موقع إلكتروني؟",
+   "provideT": "ما تقدمه Webina",
+   "provide": [
+    "تصميم خاص بمهنتك دون قوالب جاهزة",
+    "النطاق والاستضافة وSSL مشمولة في السنة الأولى",
+    "صفحات سريعة ومتوافقة مع الجوال",
+    "إعدادات SEO أساسية جاهزة لـ Google",
+    "نموذج تواصل وزر واتساب"
    ],
-   "sectors": [
+   "featsT": "ماذا يتضمن موقعك؟",
+   "benefitsT": "المزايا",
+   "benefits": [
     {
-     "intro": "منصات نشر متعددة الكتّاب واللغات تواكب سرعة الأخبار.",
-     "points": [
-      "إدارة محتوى متعددة الكتّاب",
-      "صفحات الأخبار العاجلة والأقسام",
-      "النشرة البريدية والمشاركة",
-      "بنية تتحمل الزيارات الكبيرة"
-     ]
+     "t": "عملاء على مدار الساعة",
+     "p": "يجمع موقعك الطلبات حتى وأنت مغلق."
     },
     {
-     "intro": "مواقع تبني ثقة المرضى وتسهّل حجز المواعيد.",
-     "points": [
-      "طلب موعد عبر الإنترنت",
-      "ملفات الأطباء والعلاجات",
-      "معرض صور وفيديو ومدونة",
-      "دعم عدة لغات"
-     ]
+     "t": "امنح الثقة",
+     "p": "الموقع الاحترافي يصنع الفرق من النظرة الأولى."
     },
     {
-     "intro": "مواقع أعمال تبرز مشاريعكم بصور كبيرة.",
+     "t": "وفّر وقتك",
+     "p": "الأسئلة الشائعة والأسعار والعنوان في مكان واحد."
+    }
+   ],
+   "typeT": "الموقع الذي نقترحه",
+   "pages": "4 صفحات · لغتان · نموذج تواصل · واتساب",
+   "from": "ابتداءً من {x}",
+   "otherT": "قطاعات أخرى",
+   "demoOf": "عرض حي"
+  },
+  "sol": {
+   "eyebrow": "الحلول",
+   "t1": "موقعك ونطاقك واستضافتك",
+   "t2": "وصيانته في مكان واحد.",
+   "text": "نتولى كل ما يحتاجه موقعك ليبقى متاحاً.",
+   "items": {
+    "web-sitesi": {
+     "t": "الموقع الإلكتروني",
+     "p": "موقع سريع ومتوافق مع الجوال ومصمم لمهنتك. 4 صفحات ولغتان ونموذج تواصل وواتساب.",
      "points": [
-      "معارض المشاريع",
-      "عرض صور عالي الجودة",
-      "صفحة المكتب والفريق",
-      "نموذج طلب عرض سعر"
+      "تصميم خاص",
+      "متوافق مع الجوال وسريع",
+      "SEO أساسي وملف Google التجاري",
+      "نموذج تواصل وواتساب"
      ]
     },
-    {
-     "intro": "مواقع مكاتب محاماة أنيقة وموثوقة.",
+    "alan-adi": {
+     "t": "النطاق",
+     "p": "شركتك.com أو .com.tr: نسجّله لك والسنة الأولى مشمولة في باقتك.",
      "points": [
-      "مجالات الاختصاص",
-      "حجز استشارة عبر الإنترنت",
-      "مقالات وأخبار",
-      "تواصل سريع عبر واتساب"
+      ".com و.com.tr و.net…",
+      "التسجيل والإعداد علينا",
+      "بريد مهني (info@شركتك.com)",
+      "تذكير قبل التجديد"
      ]
     },
-    {
-     "intro": "مواقع وأدوات تسهّل تبادل المستندات مع عملائكم.",
+    "hosting": {
+     "t": "الاستضافة",
+     "p": "يعمل موقعك على خوادم سريعة وآمنة مع SSL ونسخ احتياطي.",
      "points": [
-      "مساحة للعملاء",
-      "رفع المستندات",
-      "أدوات المتابعة والفوترة",
-      "أخبار الأنظمة واللوائح"
+      "شهادة SSL (https)",
+      "نسخ احتياطي منتظم",
+      "مراقبة التوفر",
+      "السنة الأولى مشمولة ثم تجديد سنوي"
      ]
     },
-    {
-     "intro": "حلول تجلب عملاء الحي إلى موقعكم ومتجركم.",
+    "bakim": {
+     "t": "الصيانة",
+     "p": "نبقى معك بعد الإطلاق: تحديثات وأمان وتعديلات صغيرة.",
      "points": [
-      "متجر إلكتروني أو كتالوج",
-      "الطلب والاستلام من المتجر",
-      "الولاء والعروض",
-      "الخريطة وساعات العمل"
-     ]
-    },
-    {
-     "intro": "من القائمة إلى الحجز، مواقع تستقبل الضيوف قبل وصولهم.",
-     "points": [
-      "قائمة إلكترونية وQR",
-      "حجز الطاولات",
-      "الطلبات الخارجية",
-      "الظهور على خرائط Google"
-     ]
-    },
-    {
-     "intro": "مواقع فنادق وسياحة متعددة اللغات تستقبل الحجز المباشر.",
-     "points": [
-      "محرك حجز إلكتروني",
-      "معارض الغرف والمرافق",
-      "محتوى بعدة لغات",
-      "التقييمات والموقع"
-     ]
-    },
-    {
-     "intro": "بوابات عقارية تجعل إعلاناتكم سهلة الوصول.",
-     "points": [
-      "إدارة الإعلانات",
-      "بحث متقدم وفلاتر",
-      "جولة افتراضية ومعرض",
-      "متابعة طلبات العملاء"
-     ]
-    },
-    {
-     "intro": "مواقع المدارس والدورات وبوابات الطلاب والتعليم الإلكتروني.",
-     "points": [
-      "صفحات المدرسة والبرامج",
-      "بوابة الطلاب وأولياء الأمور",
-      "دورات عبر الإنترنت (LMS)",
-      "نماذج التسجيل"
-     ]
-    },
-    {
-     "intro": "مواقع صالونات وسبا تملأ جدول مواعيدكم.",
-     "points": [
-      "حجز عبر الإنترنت",
-      "قائمة الخدمات والأسعار",
-      "برنامج ولاء",
-      "معرض قبل / بعد"
-     ]
-    },
-    {
-     "intro": "أديروا ناديكم عبر الإنترنت من الاشتراكات إلى جدول الحصص.",
-     "points": [
-      "إدارة الاشتراكات",
-      "جدول الحصص والحجز",
-      "دفع إلكتروني",
-      "ملفات المدربين"
-     ]
-    },
-    {
-     "intro": "مواقع مؤسسية تعرض مراجعكم وقدراتكم.",
-     "points": [
-      "مراجع المشاريع",
-      "كتالوجات المنتجات والخدمات",
-      "نماذج طلب العروض",
-      "دعم عدة لغات"
-     ]
-    },
-    {
-     "intro": "من صالة العرض إلى الصيانة، مواقع تجلب العملاء إليكم مباشرة.",
-     "points": [
-      "معرض السيارات والمخزون",
-      "حجز موعد صيانة",
-      "البحث عن قطعة أو بطارية",
-      "تواصل سريع عبر واتساب والهاتف"
-     ]
-    },
-    {
-     "intro": "مواقع جمعيات تربطكم بالمتبرعين والمتطوعين.",
-     "points": [
-      "التبرع عبر الإنترنت",
-      "إدارة الفعاليات",
-      "تسجيل المتطوعين",
-      "تقارير الأنشطة"
-     ]
-    },
-    {
-     "intro": "حلول ترقمن شحناتكم وعروض أسعاركم.",
-     "points": [
-      "تتبع الشحنات",
-      "حساب عروض الأسعار",
-      "لوحة للعملاء",
-      "تقارير الأسطول والتشغيل"
+      "تحديثات الأمان والبرمجيات",
+      "تعديل النصوص والصور",
+      "دعم عبر واتساب",
+      "منطقة العملاء my.webina.com.tr"
      ]
     }
+   },
+   "extraT": "خدمات إضافية",
+   "extraP": "تضاف إلى موقعك عند الحاجة.",
+   "more": "التفاصيل"
+  },
+  "price": {
+   "eyebrow": "الأسعار",
+   "t1": "أسعار واضحة",
+   "t2": "بلا مفاجآت.",
+   "text": "دفعة واحدة. النطاق والاستضافة وSSL مشمولة في السنة الأولى.",
+   "once": "دفعة واحدة",
+   "order": "اطلب الآن",
+   "popular": "الأكثر طلباً",
+   "plans": {
+    "vitrin": {
+     "t": "واجهة",
+     "p": "عرّف بنشاطك واستقبل الطلبات.",
+     "items": [
+      "4 صفحات ولغتان",
+      "نموذج تواصل وواتساب",
+      "النطاق والاستضافة وSSL (السنة 1)",
+      "SEO أساسي"
+     ]
+    },
+    "randevu": {
+     "t": "مواعيد",
+     "p": "يحجز عملاؤك عبر الإنترنت.",
+     "items": [
+      "كل ما في باقة الواجهة",
+      "تقويم حجز عبر الإنترنت",
+      "لوحة إدارة المواعيد",
+      "إشعارات بريد تلقائية"
+     ]
+    },
+    "eticaret": {
+     "t": "متجر إلكتروني",
+     "p": "بع منتجاتك عبر الإنترنت.",
+     "items": [
+      "كل ما في باقة الواجهة",
+      "متجر وسلة مشتريات",
+      "إدارة المنتجات والطلبات",
+      "تكامل الدفع والشحن"
+     ]
+    }
+   },
+   "renewal": "ابتداءً من السنة الثانية، النطاق + الاستضافة + الصيانة: {x} / سنة",
+   "deposit": "بلا عربون: الدفع عند التسليم وبعد موافقتك",
+   "depositP": "عربون {p}% عند الطلب والباقي عند التسليم",
+   "optT": "إضافات اختيارية",
+   "opts": {
+    "extraPage": "صفحة إضافية",
+    "extraLanguage": "لغة إضافية",
+    "gallery": "صفحة معرض",
+    "blog": "صفحة مدونة",
+    "contentFull": "كتابة كل النصوص",
+    "photographer": "مصور محترف (يوم واحد، إسطنبول)",
+    "logoValue": "تصميم الشعار"
+   },
+   "calc": "احسب باقتك",
+   "calcP": "اختر الخيارات ويتحدّث السعر فوراً.",
+   "faqT": "أسئلة شائعة",
+   "faq": [
+    {
+     "q": "متى يصبح موقعي متاحاً؟",
+     "a": "عادةً خلال 5 إلى 10 أيام عمل عندما تكون النصوص والصور جاهزة."
+    },
+    {
+     "q": "متى أدفع؟",
+     "a": "بعد أن تطّلع على الموقع في test.webina.com.tr وتوافق عليه."
+    },
+    {
+     "q": "لدي نطاق بالفعل، ماذا يحدث؟",
+     "a": "نستخدم نطاقك الحالي، والاستضافة في السنة الأولى تبقى مشمولة."
+    },
+    {
+     "q": "ماذا أدفع ابتداءً من السنة الثانية؟",
+     "a": "التجديد السنوي للنطاق والاستضافة والصيانة فقط. تتابع التاريخ على my.webina.com.tr."
+    },
+    {
+     "q": "هل يمكنني التعديل لاحقاً؟",
+     "a": "نعم، التعديلات الصغيرة على النصوص والصور مشمولة في الصيانة."
+    }
    ]
+  },
+  "about": {
+   "eyebrow": "من نحن",
+   "t1": "فريق يصمم",
+   "t2": "مواقع لكل مهنة.",
+   "text": "تقدم Webina لشركات إسطنبول مواقع احترافية مصممة حسب قطاعها: التصميم والنطاق والاستضافة والصيانة من فريق واحد."
+  },
+  "demos": {
+   "eyebrow": "العروض",
+   "t1": "عروض حية",
+   "text": "مواقع تعمل صممناها لكل مهنة. افتح أحدها وتخيّل موقعك.",
+   "all": "الكل",
+   "open": "افتح العرض",
+   "clientsT": "مشاريع العملاء",
+   "clientsP": "مختارات من مواقع منشورة."
+  },
+  "meta": {
+   "home": "Webina — مواقع مصممة لمهنتك",
+   "solutions": "الحلول",
+   "sectors": "القطاعات",
+   "demos": "العروض",
+   "pricing": "الأسعار",
+   "about": "من نحن"
+  },
+  "sectorsPage": {
+   "eyebrow": "القطاعات",
+   "t1": "حل جاهز",
+   "t2": "لمهنتك.",
+   "text": "اختر مهنتك: اطّلع على ما سيتضمنه موقعك وعلى العرض الحي."
   },
   "stage": {
    "aria": "مشاريع مختارة",

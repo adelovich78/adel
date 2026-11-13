@@ -1,0 +1,47 @@
+    <main class="main-wrapper" id="main">
+{{HEADER:about}}
+      <section class="section_manifesto">
+        <div class="padding-global">
+          <div class="container-large">
+            <div class="padding-section-medium">
+              <div class="manifesto_component">
+                <p class="text-style-mono text-color-accent" data-reveal>{{t:manifesto.eyebrow}}</p>
+                <p class="manifesto_text" data-manifesto data-i18n="manifesto.text">{{raw:manifesto.text}}</p>
+              </div>
+              <ul class="facts_component" role="list">{{FACTS}}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section_team">
+        <div class="padding-global">
+          <div class="container-large">
+            <div class="padding-section-large">
+              <div class="section-header is-split">
+                <div>
+                  <p class="text-style-mono text-color-accent" data-reveal>{{t:team.eyebrow}}</p>
+                  <h2 class="heading-style-h2" data-reveal style="--d:1">{{t:team.t1}} {{t:team.t2}}</h2>
+                </div>
+                <p class="text-size-medium text-color-secondary max-width-medium" data-reveal style="--d:2">{{t:team.text}}</p>
+              </div>
+              <div class="team_component">{{TEAM}}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section_clients">
+        <div class="clients_component">
+          <p class="clients_label text-style-mono">{{t:clients.label}}</p>
+          <div class="clients_marquee">
+            <ul class="clients_track" role="list">{{CLIENTS}}
+            </ul>
+            <ul class="clients_track" role="list" aria-hidden="true">{{CLIENTS_CLONE}}
+            </ul>
+          </div>
+        </div>
+      </section>
+    </main>

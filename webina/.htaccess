@@ -16,8 +16,12 @@ ServerSignature Off
   RewriteCond %{HTTP_HOST} ^www\. [NC]
   RewriteRule ^ https://webina.com.tr%{REQUEST_URI} [R=301,L,NE]
 
-  # Anciennes pages .html -> nouvelles URL
-  RewriteRule ^(services|secteurs|portfolio|contact|teklif)\.html$ /$1/ [R=301,L]
+  # Anciennes pages -> nouvelle structure (Çözümler, Sektörler, Demolar, İletişim)
+  RewriteRule ^services(/|\.html)?$ /cozumler/ [R=301,L]
+  RewriteRule ^secteurs(/|\.html)?$ /sektorler/ [R=301,L]
+  RewriteRule ^portfolio(/|\.html)?$ /demolar/ [R=301,L]
+  RewriteRule ^contact(/|\.html)?$ /iletisim/ [R=301,L]
+  RewriteRule ^teklif\.html$ /teklif/ [R=301,L]
   RewriteRule ^index\.html$ / [R=301,L]
 
   # Bloquer fichiers cachés, sauvegardes, archives, journaux, sources

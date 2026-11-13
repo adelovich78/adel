@@ -1,0 +1,66 @@
+    <main class="main-wrapper" id="main">
+      <!-- Solution métier : pourquoi, ce que Webina fournit, fonctionnalités, avantages, type de site. Un seul bouton : la démo -->
+      <section class="section_sector-hero">
+        <div class="padding-global">
+          <div class="container-large">
+            <nav class="crumbs text-size-small" aria-label="Breadcrumb"><a href="/sektorler" {{i18n:nav.sectors}}>{{raw:nav.sectors}}</a><span aria-hidden="true">/</span><span {{i18n:groups.GROUP}}>{{raw:groups.GROUP}}</span></nav>
+            <div class="sector-hero_component">
+              <div class="sector-hero_text">
+                <p class="sector-hero_eyebrow text-style-mono text-color-accent" data-enter style="--d:0"><svg class="icon" aria-hidden="true"><use href="#ICON"/></svg>{{t:sp.eyebrow}}</p>
+                <h1 class="heading-style-h1" data-enter style="--d:1">{{t:sec.KEY.title}}</h1>
+                <p class="text-size-large text-color-secondary" data-enter style="--d:2">{{t:sec.KEY.why}}</p>
+                <div class="sector-hero_cta" data-enter style="--d:3">
+                  <a href="DEMO_URL" target="_blank" rel="noopener" class="button is-large is-demo" data-demo-btn>{{t:sp.demoBtn}}<svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+                  <p class="sector-hero_price text-size-small text-color-secondary"><span data-tpl="sp.from" data-amount="base">{{PRICE_FROM}}</span></p>
+                </div>
+              </div>
+              <div class="demos_frame sector-hero_frame" data-enter style="--d:2">
+                <span class="crop-mark is-tl" aria-hidden="true"></span><span class="crop-mark is-tr" aria-hidden="true"></span><span class="crop-mark is-bl" aria-hidden="true"></span><span class="crop-mark is-br" aria-hidden="true"></span>
+                <div class="browser_bar"><span class="browser_dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="browser_url" dir="ltr">HOST</span><span class="browser_live text-style-mono"><span class="live-dot" aria-hidden="true"></span>{{t:sp.demoOf}}</span></div>
+                <div class="demos_screen" tabindex="0" data-scroll-screen><img src="/images/LONG_IMG" alt="" width="800" height="LONG_H" decoding="async" fetchpriority="high"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section_sector-body">
+        <div class="padding-global">
+          <div class="container-large">
+            <div class="padding-section-medium">
+              <div class="sector-body_grid">
+                <div class="sector-card" data-reveal>
+                  <h2 class="heading-style-h4">{{t:sp.provideT}}</h2>
+                  <ul class="check_list" role="list">{{PROVIDE}}
+                  </ul>
+                </div>
+                <div class="sector-card" data-reveal style="--d:1">
+                  <h2 class="heading-style-h4">{{t:sp.featsT}}</h2>
+                  <ul class="check_list is-accent" role="list">{{FEATS}}
+                  </ul>
+                </div>
+                <div class="sector-card is-type" data-reveal style="--d:2">
+                  <h2 class="heading-style-h4">{{t:sp.typeT}}</h2>
+                  <p class="sector-type_name">{{t:demo.items.KEY.name}}</p>
+                  <p class="text-color-secondary">{{t:demo.items.KEY.desc}}</p>
+                  <p class="sector-type_meta text-style-mono text-color-muted">{{t:sp.pages}}</p>
+                </div>
+              </div>
+              <div class="benefits_component">
+                <h2 class="heading-style-h3" data-reveal>{{t:sp.benefitsT}}</h2>
+                <ul class="benefits_list" role="list">{{BENEFITS}}
+                </ul>
+              </div>
+              <div class="sector-others">
+                <p class="text-style-mono text-color-muted">{{t:sp.otherT}}</p>
+                <div class="sector-others_list">{{OTHERS}}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Mobile : le bouton démo reste sous le pouce -->
+      <div class="sector-dock" data-sector-dock>
+        <a href="DEMO_URL" target="_blank" rel="noopener" class="button is-block is-demo">{{t:sp.demoBtn}}<svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      </div>
+    </main>

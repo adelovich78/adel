@@ -12,7 +12,7 @@
   <meta property="og:site_name" content="Webina">
   <meta property="og:url" content="https://webina.com.tr/teklif">
   <meta property="og:title" content="Fiyat hesaplayıcı — Webina">
-  <meta property="og:description" content="Web siteleri, özel yazılımlar, CRM ve SEO. İstanbul merkezli, dünya çapında hizmet.">
+  <meta property="og:description" content="Mesleğinize özel web siteleri: canlı demolar, net fiyatlar, alan adı ve hosting dahil.">
   <meta property="og:image" content="https://webina.com.tr/images/og-image.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
@@ -22,7 +22,7 @@
   
   <link rel="preload" href="/fonts/schibsted-grotesk-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/fonts/schibsted-grotesk-latin-ext-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="/css/webina.css?v=4245f87a69">
+  <link rel="stylesheet" href="/css/webina.css?v=14d832e4a9">
   <script>
     // Thème et langue appliqués avant le premier rendu (évite le flash)
     (function () {
@@ -58,6 +58,16 @@
     </div>
   </div>
   <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="i-arrow-down" viewBox="0 0 24 24"><path d="M12 5v14M5 12l7 7 7-7"/></symbol>
+    <symbol id="i-chevron-down" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+    <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></symbol>
+    <symbol id="i-layout" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></symbol>
+    <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 0 20M12 2a15.3 15.3 0 0 0 0 20"/></symbol>
+    <symbol id="i-server" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="8" rx="2"/><rect x="2" y="13" width="20" height="8" rx="2"/><path d="M6 7h.01M6 17h.01"/></symbol>
+    <symbol id="i-wrench" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></symbol>
+    <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M21 12a9 9 0 0 1-15.5 6.2L3 16M3 12A9 9 0 0 1 18.5 5.8L21 8M21 3v5h-5M3 21v-5h5"/></symbol>
+    <symbol id="i-calc" viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M8 6h8M8 11h.01M12 11h.01M16 11h.01M8 15h.01M12 15h.01M16 15h.01M8 19h8"/></symbol>
+    <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></symbol>
     <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M7 17 17 7M7 7h10v10"/></symbol>
     <symbol id="i-pause" viewBox="0 0 24 24"><path d="M9 6v12M15 6v12"/></symbol>
     <symbol id="i-play" viewBox="0 0 24 24"><path d="M8 5.5v13l10-6.5z"/></symbol>
@@ -114,11 +124,12 @@
             </a>
             <nav class="nav_menu" aria-label="Main">
               <a href="/" class="nav_link" data-i18n="nav.home">Ana Sayfa</a>
-<a href="/services" class="nav_link" data-i18n="nav.services">Hizmetler</a>
-<a href="/secteurs" class="nav_link" data-i18n="nav.sectors">Sektörler</a>
-<a href="/portfolio" class="nav_link" data-i18n="nav.portfolio">Portfolyo</a>
-<a href="/contact" class="nav_link" data-i18n="nav.contact">İletişim</a>
-<a href="/teklif" class="nav_link" aria-current="page" data-i18n="nav.quote">Teklif Al</a>
+              <div class="nav_item"><a href="/cozumler" class="nav_link" data-i18n="nav.solutions">Çözümler<svg class="icon nav_caret" aria-hidden="true"><use href="#i-chevron-down"/></svg></a><div class="nav_drop"><div class="nav_drop-inner"><a href="/cozumler#web-sitesi" class="nav_drop-link"><svg class="icon" aria-hidden="true"><use href="#i-layout"/></svg><span data-i18n="sol.items.web-sitesi.t">Web sitesi</span></a><a href="/cozumler#alan-adi" class="nav_drop-link"><svg class="icon" aria-hidden="true"><use href="#i-globe"/></svg><span data-i18n="sol.items.alan-adi.t">Alan adı</span></a><a href="/cozumler#hosting" class="nav_drop-link"><svg class="icon" aria-hidden="true"><use href="#i-server"/></svg><span data-i18n="sol.items.hosting.t">Hosting</span></a><a href="/cozumler#bakim" class="nav_drop-link"><svg class="icon" aria-hidden="true"><use href="#i-wrench"/></svg><span data-i18n="sol.items.bakim.t">Bakım</span></a></div></div></div>
+              <div class="nav_item"><a href="/sektorler" class="nav_link" data-i18n="nav.sectors">Sektörler<svg class="icon nav_caret" aria-hidden="true"><use href="#i-chevron-down"/></svg></a><div class="nav_drop"><div class="nav_drop-inner"><a href="/sektorler/avukat" class="nav_drop-link"><svg class="icon" aria-hidden="true"><use href="#i-scale"/></svg><span data-i18n="sec.law.name">Avukat</span></a><a href="/sektorler/doktor" class="nav_drop-link"><svg class="icon" aria-hidden="true"><use href="#i-stethoscope"/></svg><span data-i18n="sec.doctor.name">Doktor</span></a><a href="/sektorler/oto-elektrik" class="nav_drop-link"><svg class="icon" aria-hidden="true"><use href="#i-bolt"/></svg><span data-i18n="sec.autoelec.name">Oto Elektrik</span></a><a href="/sektorler/kuafor" class="nav_drop-link"><svg class="icon" aria-hidden="true"><use href="#i-scissors"/></svg><span data-i18n="sec.barber.name">Kuaför</span></a><a href="/sektorler" class="nav_drop-more"><span data-i18n="nav.allSectors">Tüm sektörler</span><svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a></div></div></div>
+              <div class="nav_item"><a href="/demolar" class="nav_link" data-i18n="nav.demos">Demolar<svg class="icon nav_caret" aria-hidden="true"><use href="#i-chevron-down"/></svg></a><div class="nav_drop"><div class="nav_drop-inner"><a href="https://avukat.webina.com.tr/" class="nav_drop-link" target="_blank" rel="noopener"><svg class="icon" aria-hidden="true"><use href="#i-scale"/></svg><span data-i18n="sec.law.name">Avukat</span><svg class="icon is-ext" aria-hidden="true"><use href="#i-arrow"/></svg></a><a href="https://doktor.webina.com.tr/" class="nav_drop-link" target="_blank" rel="noopener"><svg class="icon" aria-hidden="true"><use href="#i-stethoscope"/></svg><span data-i18n="sec.doctor.name">Doktor</span><svg class="icon is-ext" aria-hidden="true"><use href="#i-arrow"/></svg></a><a href="https://otoelektrik.webina.com.tr/" class="nav_drop-link" target="_blank" rel="noopener"><svg class="icon" aria-hidden="true"><use href="#i-bolt"/></svg><span data-i18n="sec.autoelec.name">Oto Elektrik</span><svg class="icon is-ext" aria-hidden="true"><use href="#i-arrow"/></svg></a><a href="https://kuafor.webina.com.tr/" class="nav_drop-link" target="_blank" rel="noopener"><svg class="icon" aria-hidden="true"><use href="#i-scissors"/></svg><span data-i18n="sec.barber.name">Kuaför</span><svg class="icon is-ext" aria-hidden="true"><use href="#i-arrow"/></svg></a><a href="/demolar" class="nav_drop-more"><span data-i18n="nav.allDemos">Tüm demolar</span><svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a></div></div></div>
+              <a href="/fiyatlar" class="nav_link" data-i18n="nav.pricing">Fiyatlar</a>
+              <a href="/hakkimizda" class="nav_link" data-i18n="nav.about">Hakkımızda</a>
+              <a href="/iletisim" class="nav_link" data-i18n="nav.contact">İletişim</a>
               <span class="nav_indicator" aria-hidden="true"></span>
             </nav>
             <div class="nav_actions">
@@ -132,7 +143,8 @@
                 <svg class="icon is-sun" aria-hidden="true"><use href="#i-sun"/></svg>
                 <svg class="icon is-moon" aria-hidden="true"><use href="#i-moon"/></svg>
               </button>
-              <a href="/teklif" class="button is-small is-nav"><span data-i18n="cta">Proje başlat</span></a>
+              <a href="https://my.webina.com.tr/" class="nav_panel" aria-label="Müşteri Paneli" data-i18n-aria="nav.panel"><svg class="icon" aria-hidden="true"><use href="#i-user"/></svg><span class="nav_panel-label"><span data-i18n="nav.panel">Müşteri Paneli</span></span></a>
+              <a href="/teklif" class="button is-small is-nav"><span data-i18n="cta">Teklif al</span></a>
               <button type="button" class="nav_toggle" aria-expanded="false" aria-controls="nav-mobile" aria-label="Menü" data-i18n-aria="ui.menu">
                 <span class="nav_toggle-line"></span><span class="nav_toggle-line"></span>
               </button>
@@ -143,18 +155,20 @@
       <div class="nav_mobile" id="nav-mobile" hidden>
         <div class="nav_mobile-inner">
           <a href="/" class="nav_mobile-link" data-i18n="nav.home">Ana Sayfa</a>
-<a href="/services" class="nav_mobile-link" data-i18n="nav.services">Hizmetler</a>
-<a href="/secteurs" class="nav_mobile-link" data-i18n="nav.sectors">Sektörler</a>
-<a href="/portfolio" class="nav_mobile-link" data-i18n="nav.portfolio">Portfolyo</a>
-<a href="/contact" class="nav_mobile-link" data-i18n="nav.contact">İletişim</a>
-<a href="/teklif" class="nav_mobile-link" aria-current="page" data-i18n="nav.quote">Teklif Al</a>
+<a href="/cozumler" class="nav_mobile-link" data-i18n="nav.solutions">Çözümler</a>
+<a href="/sektorler" class="nav_mobile-link" data-i18n="nav.sectors">Sektörler</a>
+<a href="/demolar" class="nav_mobile-link" data-i18n="nav.demos">Demolar</a>
+<a href="/fiyatlar" class="nav_mobile-link" data-i18n="nav.pricing">Fiyatlar</a>
+<a href="/hakkimizda" class="nav_mobile-link" data-i18n="nav.about">Hakkımızda</a>
+<a href="/iletisim" class="nav_mobile-link" data-i18n="nav.contact">İletişim</a>
           <div class="lang_switch is-mobile" role="group" aria-label="Dil" data-i18n-aria="ui.lang">
             <button type="button" class="lang_button" data-lang="tr" aria-pressed="true">TR</button>
             <button type="button" class="lang_button" data-lang="en" aria-pressed="false">EN</button>
             <button type="button" class="lang_button" data-lang="fr" aria-pressed="false">FR</button>
             <button type="button" class="lang_button" data-lang="ar" aria-pressed="false">AR</button>
           </div>
-          <a href="/teklif" class="button"><span data-i18n="cta">Proje başlat</span><svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+          <a href="https://my.webina.com.tr/" class="nav_mobile-link is-panel"><svg class="icon" aria-hidden="true"><use href="#i-user"/></svg><span data-i18n="nav.panel">Müşteri Paneli</span></a>
+          <a href="/teklif" class="button"><span data-i18n="cta">Teklif al</span><svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
         </div>
       </div>
     </header>
@@ -291,7 +305,7 @@
                     <div class="form_field"><label class="form_label" for="q-email"><span data-i18n="quote.q.email">E-posta *</span></label><input class="form_input" id="q-email" name="email" type="email" inputmode="email" autocomplete="email" dir="ltr" maxlength="255"></div>
                     <div class="form_field"><label class="form_label" for="q-phone"><span data-i18n="quote.q.phone">Telefon / WhatsApp</span></label><input class="form_input" id="q-phone" name="phone" type="tel" autocomplete="tel" dir="ltr" maxlength="40"></div>
                     <div class="form_field"><label class="form_label" for="q-company"><span data-i18n="quote.q.company">Şirket / Muayenehane</span></label><input class="form_input" id="q-company" name="company" autocomplete="organization" maxlength="120"></div>
-                    <div class="form_field"><label class="form_label" for="q-sector"><span data-i18n="quote.q.sector">Faaliyet alanınız</span></label><select class="form_input is-select" id="q-sector" name="sector" data-options="contact.sectorOpts" data-empty="quote.q.sectorPh"><option value="" data-i18n="quote.q.sectorPh">Faaliyet alanınızı seçin</option><option value="Haber ajansı" data-i18n="contact.sectorOpts.0">Haber ajansı</option><option value="Doktor / Klinik" data-i18n="contact.sectorOpts.1">Doktor / Klinik</option><option value="Mimar" data-i18n="contact.sectorOpts.2">Mimar</option><option value="Avukat" data-i18n="contact.sectorOpts.3">Avukat</option><option value="Muhasebeci" data-i18n="contact.sectorOpts.4">Muhasebeci</option><option value="Esnaf" data-i18n="contact.sectorOpts.5">Esnaf</option><option value="Restoran / Kafe" data-i18n="contact.sectorOpts.6">Restoran / Kafe</option><option value="Otel / Turizm" data-i18n="contact.sectorOpts.7">Otel / Turizm</option><option value="Emlak" data-i18n="contact.sectorOpts.8">Emlak</option><option value="Eğitim" data-i18n="contact.sectorOpts.9">Eğitim</option><option value="Güzellik / Spa" data-i18n="contact.sectorOpts.10">Güzellik / Spa</option><option value="Spor salonu" data-i18n="contact.sectorOpts.11">Spor salonu</option><option value="İnşaat / Sanayi" data-i18n="contact.sectorOpts.12">İnşaat / Sanayi</option><option value="Otomotiv" data-i18n="contact.sectorOpts.13">Otomotiv</option><option value="Dernek / STK" data-i18n="contact.sectorOpts.14">Dernek / STK</option><option value="Lojistik" data-i18n="contact.sectorOpts.15">Lojistik</option><option value="Diğer" data-i18n="contact.sectorOpts.16">Diğer</option></select></div>
+                    <div class="form_field"><label class="form_label" for="q-sector"><span data-i18n="quote.q.sector">Faaliyet alanınız</span></label><select class="form_input is-select" id="q-sector" name="sector" data-options="contact.sectorOpts" data-empty="quote.q.sectorPh"><option value="" data-i18n="quote.q.sectorPh">Faaliyet alanınızı seçin</option><option value="Avukat" data-i18n="contact.sectorOpts.0">Avukat</option><option value="Doktor" data-i18n="contact.sectorOpts.1">Doktor</option><option value="Diş kliniği" data-i18n="contact.sectorOpts.2">Diş kliniği</option><option value="Veteriner" data-i18n="contact.sectorOpts.3">Veteriner</option><option value="Eczane" data-i18n="contact.sectorOpts.4">Eczane</option><option value="Optik" data-i18n="contact.sectorOpts.5">Optik</option><option value="Restoran" data-i18n="contact.sectorOpts.6">Restoran</option><option value="Otel" data-i18n="contact.sectorOpts.7">Otel</option><option value="Turizm" data-i18n="contact.sectorOpts.8">Turizm</option><option value="Kuaför" data-i18n="contact.sectorOpts.9">Kuaför</option><option value="Güzellik &amp; Spa" data-i18n="contact.sectorOpts.10">Güzellik &amp; Spa</option><option value="Okul" data-i18n="contact.sectorOpts.11">Okul</option><option value="Emlak" data-i18n="contact.sectorOpts.12">Emlak</option><option value="Nakliyat" data-i18n="contact.sectorOpts.13">Nakliyat</option><option value="Oto Elektrik" data-i18n="contact.sectorOpts.14">Oto Elektrik</option><option value="Otomobil" data-i18n="contact.sectorOpts.15">Otomobil</option><option value="E-ticaret" data-i18n="contact.sectorOpts.16">E-ticaret</option><option value="Diğer" data-i18n="contact.sectorOpts.17">Diğer</option></select></div>
                     <div class="form_field"><label class="form_label" for="q-il"><span data-i18n="quote.q.city">İl *</span></label><select class="form_input is-select" id="q-il" data-il autocomplete="address-level1"><option value="" data-i18n="quote.q.cityPh">İl seçin</option></select></div>
                     <div class="form_field"><label class="form_label" for="q-ilce"><span data-i18n="quote.q.district">İlçe</span></label><select class="form_input is-select" id="q-ilce" data-ilce autocomplete="address-level2" disabled><option value="" data-i18n="quote.q.districtPh">İlçe seçin (isteğe bağlı)</option></select></div>
                     <div class="form_field"><label class="form_label" for="q-mahalle"><span data-i18n="quote.q.mahalle">Mahalle</span></label><select class="form_input is-select" id="q-mahalle" data-mahalle autocomplete="address-level3" disabled><option value="" data-i18n="quote.q.mahallePh">Mahalle seçin (isteğe bağlı)</option></select></div>
@@ -367,7 +381,7 @@
             <div class="footer_cta-text">
               <h2 class="heading-style-display" data-reveal><span data-i18n="footer.title1">Projenizi</span> <span class="text-color-accent"><span data-i18n="footer.title2">konuşalım</span></span></h2>
               <div class="button-group" data-reveal style="--d:1">
-                <a href="/contact" class="button is-large"><span data-i18n="footer.btn">Bize ulaşın</span><svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+                <a href="/iletisim" class="button is-large"><span data-i18n="footer.btn">Bize ulaşın</span><svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
                 <a href="https://wa.me/905399662557" target="_blank" rel="noopener" class="button is-large is-secondary"><svg class="icon" aria-hidden="true"><use href="#i-chat"/></svg><span data-i18n="ui.whatsapp">WhatsApp</span></a>
               </div>
             </div>
@@ -411,11 +425,12 @@
           <div class="footer_bottom">
             <p class="text-size-small text-color-muted">© <span data-year>2026</span> Webina — <span data-i18n="footer.rights">Dijital Kreasyon Ajansı</span> · <button type="button" class="footer_cookie" data-cookie-open><span data-i18n="cookie.settings">Çerez ayarları</span></button></p>
             <nav class="footer_nav" aria-label="Footer"><a href="/" class="footer_nav-link" data-i18n="nav.home">Ana Sayfa</a>
-<a href="/services" class="footer_nav-link" data-i18n="nav.services">Hizmetler</a>
-<a href="/secteurs" class="footer_nav-link" data-i18n="nav.sectors">Sektörler</a>
-<a href="/portfolio" class="footer_nav-link" data-i18n="nav.portfolio">Portfolyo</a>
-<a href="/contact" class="footer_nav-link" data-i18n="nav.contact">İletişim</a>
-<a href="/teklif" class="footer_nav-link" data-i18n="nav.quote">Teklif Al</a></nav>
+<a href="/cozumler" class="footer_nav-link" data-i18n="nav.solutions">Çözümler</a>
+<a href="/sektorler" class="footer_nav-link" data-i18n="nav.sectors">Sektörler</a>
+<a href="/demolar" class="footer_nav-link" data-i18n="nav.demos">Demolar</a>
+<a href="/fiyatlar" class="footer_nav-link" data-i18n="nav.pricing">Fiyatlar</a>
+<a href="/hakkimizda" class="footer_nav-link" data-i18n="nav.about">Hakkımızda</a>
+<a href="/iletisim" class="footer_nav-link" data-i18n="nav.contact">İletişim</a><a href="https://my.webina.com.tr/" class="footer_nav-link"><span data-i18n="nav.panel">Müşteri Paneli</span></a></nav>
           </div>
         </div>
       </div>
@@ -469,8 +484,8 @@
     </div>
   </div>
 
-  <script src="/js/i18n.js?v=bb2688d119" defer></script>
-  <script src="/js/tr-cities.js?v=362f0ba783" defer></script><script src="/js/quote.js?v=3e0b5be9f2" defer></script>
-  <script src="/js/webina.js?v=852891fdb3" defer></script>
+  <script src="/js/i18n.js?v=b85667e24d" defer></script>
+  <script src="/js/tr-cities.js?v=362f0ba783" defer></script><script src="/js/quote.js?v=3dd7476ac5" defer></script>
+  <script src="/js/webina.js?v=e4f6ea88c4" defer></script>
 </body>
 </html>

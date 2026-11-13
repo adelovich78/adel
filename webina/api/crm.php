@@ -54,7 +54,10 @@ $CLIENT_FIELDS = ['kind' => ['person', 'company'], 'parent_id' => 36, 'name' => 
 $DEAL_FIELDS = ['title' => 200, 'amount' => 'num', 'currency' => ['TRY', 'USD', 'EUR'], 'close_date' => 'date', 'notes' => 5000];
 $TASK_FIELDS = ['title' => 200, 'kind' => CRM_TASK_KINDS, 'due_at' => 'date', 'notes' => 5000, 'client_id' => 36, 'deal_id' => 36, 'project_id' => 36];
 $PROJECT_FIELDS = ['name' => 200, 'status' => CRM_PROJECT_STATUS, 'start_date' => 'date', 'delivery_date' => 'date', 'amount' => 'num',
-    'currency' => ['TRY', 'USD', 'EUR'], 'hosting_renewal' => 'date', 'hosting_amount' => 'num', 'notes' => 5000];
+    'currency' => ['TRY', 'USD', 'EUR'], 'hosting_renewal' => 'date', 'hosting_amount' => 'num', 'notes' => 5000,
+    // Espace client : ce que le client voit sur my.webina.com.tr
+    'domain' => 190, 'plan' => ['vitrin', 'randevu', 'eticaret', 'ozel'], 'site_status' => ['building', 'preview', 'live', 'suspended'],
+    'preview_url' => 255, 'domain_expires' => 'date', 'ssl_status' => ['active', 'pending', 'expired'], 'ssl_expires' => 'date'];
 
 switch ($r) {
 
@@ -126,7 +129,7 @@ case 'clients':
     if ($method === 'DELETE') {
         need_id($id);
         // Suppression complète de la fiche et de tout ce qui y est rattaché
-        foreach (['crm_tasks', 'crm_activity', 'crm_deals'] as $t) $pdo->prepare("DELETE FROM $t WHERE client_id = ?")->execute([$id]);
+        foreach (['crm_tasks', 'crm_activity', 'crm_deals', 'crm_invoices', 'crm_notices', 'portal_requests', 'portal_tokens'] as $t) $pdo->prepare("DELETE FROM $t WHERE client_id = ?")->execute([$id]);
         $pdo->prepare('DELETE pay FROM crm_payments pay JOIN crm_projects p ON p.id = pay.project_id WHERE p.client_id = ?')->execute([$id]);
         $pdo->prepare('DELETE FROM crm_projects WHERE client_id = ?')->execute([$id]);
         $pdo->prepare('UPDATE crm_clients SET parent_id = NULL WHERE parent_id = ?')->execute([$id]);

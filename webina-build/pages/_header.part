@@ -1,0 +1,14 @@
+      <section class="section_page-header">
+        <div class="padding-global">
+          <div class="container-large">
+            <div class="page-header_component">
+              <p class="text-style-mono text-color-accent" data-enter style="--d:0">{{t:NS.eyebrow}}</p>
+              <h1 class="heading-style-h1 page-header_title">
+                <span class="line-mask"><span class="line" data-enter-line style="--d:1">{{t:NS.t1}}</span></span>
+                <span class="line-mask"><span class="line text-color-accent" data-enter-line style="--d:2">{{t:NS.t2}}</span></span>
+              </h1>
+              <p class="text-size-large text-color-secondary page-header_text" data-enter style="--d:3">{{t:NS.text}}</p>
+            </div>
+          </div>
+        </div>
+      </section>

@@ -30,17 +30,6 @@
      "Türkçe & İngilizce"
     ]
    },
-   "shop": {
-    "tab": "Esnaf",
-    "name": "Yıldız Oto Elektrik",
-    "desc": "Müşteri getiren, mahallenin en modern dükkân sitesi.",
-    "feats": [
-     "Araca göre akü bulucu",
-     "Hizmetler ve müşteri yorumları",
-     "Harita, çalışma saatleri",
-     "Tek tıkla WhatsApp & arama"
-    ]
-   },
    "barber": {
     "tab": "Kuaför",
     "name": "Yıldız Berber",
@@ -194,6 +183,17 @@
      "Kişisel bakım danışmanlığı",
      "Türkçe, İngilizce & Fransızca"
     ]
+   },
+   "autoelec": {
+    "tab": "Oto Elektrik",
+    "name": "Yıldız Oto Elektrik",
+    "desc": "Müşteri getiren, mahallenin en modern dükkân sitesi.",
+    "feats": [
+     "Araca göre akü bulucu",
+     "Hizmetler ve müşteri yorumları",
+     "Harita, çalışma saatleri",
+     "Tek tıkla WhatsApp & arama"
+    ]
    }
   }
  },
@@ -226,17 +226,6 @@
      "Procedures and treatments",
      "Photo & video gallery, blog",
      "Turkish & English"
-    ]
-   },
-   "shop": {
-    "tab": "Local shop",
-    "name": "Yıldız Auto Electric",
-    "desc": "The most modern shop site in the neighbourhood — built to bring customers.",
-    "feats": [
-     "Battery finder by vehicle",
-     "Services and customer reviews",
-     "Map and opening hours",
-     "One-tap WhatsApp & call"
     ]
    },
    "barber": {
@@ -392,6 +381,17 @@
      "Personal beauty consultation",
      "Turkish, English & French"
     ]
+   },
+   "autoelec": {
+    "tab": "Auto electrics",
+    "name": "Yıldız Auto Electric",
+    "desc": "The most modern shop site in the neighbourhood — built to bring customers.",
+    "feats": [
+     "Battery finder by vehicle",
+     "Services and customer reviews",
+     "Map and opening hours",
+     "One-tap WhatsApp & call"
+    ]
    }
   }
  },
@@ -424,17 +424,6 @@
      "Interventions et traitements",
      "Galerie photo & vidéo, blog",
      "Turc & anglais"
-    ]
-   },
-   "shop": {
-    "tab": "Commerçant",
-    "name": "Yıldız Oto Elektrik",
-    "desc": "Le site de boutique le plus moderne du quartier, pensé pour attirer des clients.",
-    "feats": [
-     "Recherche de batterie par véhicule",
-     "Services et avis clients",
-     "Carte et horaires",
-     "WhatsApp & appel en un clic"
     ]
    },
    "barber": {
@@ -590,6 +579,17 @@
      "Conseil beauté personnalisé",
      "Turc, anglais & français"
     ]
+   },
+   "autoelec": {
+    "tab": "Électricien auto",
+    "name": "Yıldız Oto Elektrik",
+    "desc": "Le site de boutique le plus moderne du quartier, pensé pour attirer des clients.",
+    "feats": [
+     "Recherche de batterie par véhicule",
+     "Services et avis clients",
+     "Carte et horaires",
+     "WhatsApp & appel en un clic"
+    ]
    }
   }
  },
@@ -622,17 +622,6 @@
      "العمليات والعلاجات",
      "معرض صور وفيديو، مدونة",
      "التركية والإنجليزية"
-    ]
-   },
-   "shop": {
-    "tab": "محل تجاري",
-    "name": "يلدز لكهرباء السيارات",
-    "desc": "أحدث موقع محل في الحي، مصمّم لجذب الزبائن.",
-    "feats": [
-     "باحث البطاريات حسب السيارة",
-     "الخدمات وآراء العملاء",
-     "الخريطة وساعات العمل",
-     "واتساب واتصال بنقرة"
     ]
    },
    "barber": {
@@ -787,6 +776,17 @@
      "الخدمات وقائمة الأسعار",
      "استشارة تجميل شخصية",
      "التركية والإنجليزية والفرنسية"
+    ]
+   },
+   "autoelec": {
+    "tab": "كهرباء السيارات",
+    "name": "يلدز لكهرباء السيارات",
+    "desc": "أحدث موقع محل في الحي، مصمّم لجذب الزبائن.",
+    "feats": [
+     "باحث البطاريات حسب السيارة",
+     "الخدمات وآراء العملاء",
+     "الخريطة وساعات العمل",
+     "واتساب واتصال بنقرة"
     ]
    }
   }

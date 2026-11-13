@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="tr" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Müşteri Paneli — Webina</title>
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="icon" type="image/png" href="/images/favicon.png">
+  <link rel="preload" href="/fonts/schibsted-grotesk-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/css/portal.css">
+</head>
+<body>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+    <symbol id="i-alert" viewBox="0 0 24 24"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0zM12 9v4M12 17h.01"/></symbol>
+    <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></symbol>
+    <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 0 20M12 2a15.3 15.3 0 0 0 0 20"/></symbol>
+    <symbol id="i-server" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="8" rx="2"/><rect x="2" y="13" width="20" height="8" rx="2"/><path d="M6 7h.01M6 17h.01"/></symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></symbol>
+    <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></symbol>
+    <symbol id="i-card" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></symbol>
+    <symbol id="i-layout" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M7 17 17 7M7 7h10v10"/></symbol>
+    <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9M10.3 21a1.94 1.94 0 0 0 3.4 0"/></symbol>
+    <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></symbol>
+    <symbol id="i-chat" viewBox="0 0 24 24"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></symbol>
+    <symbol id="i-out" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></symbol>
+    <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M21 12a9 9 0 0 1-15.5 6.2L3 16M3 12A9 9 0 0 1 18.5 5.8L21 8M21 3v5h-5M3 21v-5h5"/></symbol>
+    <symbol id="i-swap" viewBox="0 0 24 24"><path d="M16 3h5v5M21 3l-7 7M8 21H3v-5M3 21l7-7"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></symbol>
+  </svg>
+
+  <header class="top_component">
+    <div class="top_wrapper">
+      <a href="https://webina.com.tr/" class="top_brand"><img src="/images/webina-logo-light.png" alt="" width="36" height="36"><span><b>Webina</b><span class="top_sub" data-t="panel">Müşteri Paneli</span></span></a>
+      <div class="top_actions">
+        <div class="lang_switch" role="group" aria-label="Dil">
+          <button type="button" data-lang="tr" aria-pressed="true">TR</button><button type="button" data-lang="en" aria-pressed="false">EN</button><button type="button" data-lang="fr" aria-pressed="false">FR</button><button type="button" data-lang="ar" aria-pressed="false">AR</button>
+        </div>
+        <button type="button" class="top_logout" data-logout hidden><svg class="icon" aria-hidden="true"><use href="#i-out"/></svg><span data-t="logout">Çıkış</span></button>
+      </div>
+    </div>
+  </header>
+
+  <main class="main_wrapper" id="main">
+    <!-- Connexion : e-mail, puis code reçu par e-mail -->
+    <section class="login_component" data-view="login" hidden>
+      <div class="login_card">
+        <h1 class="login_title" data-t="loginT">Müşteri paneline giriş</h1>
+        <p class="login_text" data-t="loginP">E-posta adresinizi yazın, size 6 haneli bir giriş kodu gönderelim.</p>
+        <form class="login_form" data-step="email" novalidate>
+          <label class="field_label" for="l-email" data-t="email">E-posta</label>
+          <input class="field_input" id="l-email" name="email" type="email" inputmode="email" autocomplete="email" dir="ltr" required>
+          <button type="submit" class="button is-block" data-t="sendCode">Kod gönder</button>
+        </form>
+        <form class="login_form" data-step="code" novalidate hidden>
+          <p class="login_sent"><span data-t="codeSent">Kod gönderildi:</span> <b data-sent-to dir="ltr"></b></p>
+          <label class="field_label" for="l-code" data-t="code">Giriş kodu</label>
+          <input class="field_input is-code" id="l-code" name="code" inputmode="numeric" autocomplete="one-time-code" maxlength="6" dir="ltr" required>
+          <button type="submit" class="button is-block" data-t="login">Giriş yap</button>
+          <button type="button" class="text_button" data-back data-t="changeEmail">E-postayı değiştir</button>
+        </form>
+        <p class="form_error" role="alert" data-login-error></p>
+        <p class="login_help"><span data-t="noAccess">Erişiminiz yok mu?</span> <a href="https://wa.me/905399662557" target="_blank" rel="noopener" data-t="contactUs">Bize yazın</a></p>
+      </div>
+    </section>
+
+    <!-- Tableau de bord -->
+    <section class="dash_component" data-view="dash" hidden>
+      <div class="dash_head">
+        <h1 class="dash_title"><span data-t="hello">Merhaba</span>, <span data-name></span></h1>
+        <p class="dash_date" data-today></p>
+      </div>
+      <div class="status_banner" data-banner></div>
+      <div class="services" data-services></div>
+
+      <div class="dash_grid">
+        <section class="panel_card is-wide">
+          <h2 class="panel_title"><svg class="icon" aria-hidden="true"><use href="#i-card"/></svg><span data-t="invoices">Faturalar</span></h2>
+          <div data-invoices></div>
+          <div class="bank_box" data-bank hidden></div>
+        </section>
+        <section class="panel_card">
+          <h2 class="panel_title"><svg class="icon" aria-hidden="true"><use href="#i-bell"/></svg><span data-t="notices">Bildirimler</span></h2>
+          <div data-notices></div>
+        </section>
+        <section class="panel_card">
+          <h2 class="panel_title"><svg class="icon" aria-hidden="true"><use href="#i-user"/></svg><span data-t="account">Hesap bilgileri</span></h2>
+          <form class="account_form" data-account novalidate>
+            <label class="field_label" for="a-name" data-t="name">Ad soyad</label>
+            <input class="field_input" id="a-name" name="name" autocomplete="name" required>
+            <label class="field_label" for="a-company" data-t="company">Firma</label>
+            <input class="field_input" id="a-company" name="company" autocomplete="organization">
+            <label class="field_label" for="a-phone" data-t="phone">Telefon</label>
+            <input class="field_input" id="a-phone" name="phone" type="tel" autocomplete="tel" dir="ltr">
+            <label class="field_label" for="a-email" data-t="email">E-posta</label>
+            <input class="field_input" id="a-email" name="email" type="email" dir="ltr" disabled>
+            <p class="field_hint" data-t="emailHint">E-posta adresinizi değiştirmek için bize yazın.</p>
+            <button type="submit" class="button is-secondary" data-t="save">Kaydet</button>
+          </form>
+        </section>
+        <section class="panel_card">
+          <h2 class="panel_title"><svg class="icon" aria-hidden="true"><use href="#i-chat"/></svg><span data-t="support">Destek</span></h2>
+          <p class="panel_text" data-t="supportP">Bir değişiklik mi istiyorsunuz, bir sorunuz mu var? Yazın, aynı gün dönelim.</p>
+          <form class="support_form" data-support novalidate>
+            <label class="sr-only" for="s-msg" data-t="message">Mesajınız</label>
+            <textarea class="field_input is-area" id="s-msg" name="detail" rows="4" required></textarea>
+            <button type="submit" class="button" data-t="send">Gönder</button>
+          </form>
+          <div class="support_links">
+            <a href="https://wa.me/905399662557" target="_blank" rel="noopener" data-wa><svg class="icon" aria-hidden="true"><use href="#i-chat"/></svg>WhatsApp</a>
+            <a href="mailto:info@webina.com.tr"><svg class="icon" aria-hidden="true"><use href="#i-mail"/></svg>info@webina.com.tr</a>
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <div class="loading" data-view="loading"><span class="spinner" aria-hidden="true"></span></div>
+  </main>
+
+  <!-- Changement de formule -->
+  <dialog class="dialog" data-plan-dialog>
+    <form method="dialog" class="dialog_inner" data-plan-form>
+      <div class="dialog_head"><h2 data-t="changePlan">Paketimi değiştir</h2><button type="submit" value="cancel" class="icon_button" aria-label="×"><svg class="icon" aria-hidden="true"><use href="#i-x"/></svg></button></div>
+      <p class="panel_text" data-t="changePlanP">Yeni paketinizi seçin. Farkı ve tarihi sizinle birlikte netleştiririz.</p>
+      <div class="plan_options" data-plan-options></div>
+      <label class="field_label" for="p-note" data-t="note">Not (isteğe bağlı)</label>
+      <textarea class="field_input is-area" id="p-note" name="note" rows="2"></textarea>
+      <button type="submit" value="ok" class="button is-block" data-t="sendRequest">Talebi gönder</button>
+    </form>
+  </dialog>
+
+  <div class="toast" role="status" aria-live="polite" data-toast></div>
+  <script src="/js/portal.js" defer></script>
+</body>
+</html>

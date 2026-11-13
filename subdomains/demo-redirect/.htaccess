@@ -1,0 +1,6 @@
+# demo.webina.com.tr — ancienne adresse de la démo auto-électricien : redirigée vers otoelektrik.webina.com.tr
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteRule ^\.well-known/ - [L]
+  RewriteRule ^(.*)$ https://otoelektrik.webina.com.tr/$1 [R=301,L,NE]
+</IfModule>

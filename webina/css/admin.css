@@ -489,3 +489,9 @@
 .pr_pv-nav { display: flex; align-items: center; gap: 8px; font-size: 0.875rem; color: var(--color-text-secondary); }
 .pr_pv-actions { justify-content: flex-end; }
 .pr_dialog-frame { height: 52vh; }
+
+/* ---------- Espace client dans la fiche ---------- */
+.crm_section-head.is-sub { margin-top: 18px; }
+.crm_sub-title { font-size: 0.875rem; font-weight: 600; margin: 14px 0 6px; }
+.crm_section-head.is-sub .crm_sub-title { margin: 0; }
+.crm_portal-line { margin: 4px 0 10px; color: var(--color-text-secondary); }

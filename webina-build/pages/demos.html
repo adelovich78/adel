@@ -1,0 +1,50 @@
+    <main class="main-wrapper" id="main">
+      <section class="section_page-header">
+        <div class="padding-global">
+          <div class="container-large">
+            <div class="page-header_component">
+              <p class="text-style-mono text-color-accent" data-enter style="--d:0">{{t:demos.eyebrow}}</p>
+              <h1 class="heading-style-h1 page-header_title">
+                <span class="line-mask"><span class="line" data-enter-line style="--d:1">{{t:demos.t1}}</span></span>
+              </h1>
+              <p class="text-size-large text-color-secondary page-header_text" data-enter style="--d:2">{{t:demos.text}}</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section_portfolio">
+        <div class="padding-global">
+          <div class="container-large">
+            <div class="padding-section-medium">
+              <div class="works_component">
+                <aside class="works_sidebar" data-enter style="--d:3">
+                  <p class="works_sidebar-title"><span class="works_sidebar-rule" aria-hidden="true"></span><span {{i18n:nav.sectors}}>{{raw:nav.sectors}}</span><span class="works_sidebar-rule" aria-hidden="true"></span></p>
+                  <div class="works_filters" role="group" aria-label="{{raw:ui.filter}}" data-i18n-aria="ui.filter">
+                    <button type="button" class="works_filter" data-filter="all" aria-pressed="true"><span {{i18n:demos.all}}>{{raw:demos.all}}</span><span class="works_filter-count">{{COUNT_ALL}}</span></button>{{FILTERS}}
+                  </div>
+                </aside>
+                <div class="works_grid is-wide" data-portfolio>{{DEMO_TILES}}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section_work">
+        <div class="padding-global">
+          <div class="container-large">
+            <div class="padding-section-large">
+              <div class="section-header">
+                <h2 class="heading-style-h2" data-reveal>{{t:demos.clientsT}}</h2>
+                <p class="text-size-medium text-color-secondary" data-reveal style="--d:1">{{t:demos.clientsP}}</p>
+              </div>
+              <ol class="worklist_component" role="list" data-worklist>{{WORKLIST}}
+              </ol>
+            </div>
+          </div>
+        </div>
+      </section>
+      <div class="worklist_preview" data-worklist-preview aria-hidden="true">{{WORKLIST_IMAGES}}</div>
+    </main>

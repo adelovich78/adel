@@ -89,7 +89,9 @@
     if (!link) { indicator.style.setProperty('--s', '0'); return; }
     if (animate === false) indicator.style.transition = 'none';
     var pad = parseFloat(getComputedStyle(link).paddingLeft) || 12;   // suit le resserrement de la barre sur petit écran
-    indicator.style.setProperty('--x', (link.offsetLeft + pad) + 'px');
+    // Position mesurée par rapport au menu : certains liens sont dans un bloc à menu déroulant
+    var x = link.getBoundingClientRect().left - navMenu.getBoundingClientRect().left;
+    indicator.style.setProperty('--x', (x + pad) + 'px');
     indicator.style.setProperty('--s', String((link.offsetWidth - pad * 2) / 100));
     if (animate === false) {
       indicator.getBoundingClientRect();
@@ -151,7 +153,7 @@
         toggle.focus();
       }
     });
-    window.matchMedia('(min-width: 992px)').addEventListener('change', function (m) {
+    window.matchMedia('(min-width: 1200px)').addEventListener('change', function (m) {
       if (m.matches) { toggle.setAttribute('aria-expanded', 'false'); mobile.hidden = true; }
     });
   }
@@ -1233,6 +1235,65 @@
     // Sécurité : quoi qu'il arrive, la page n'est jamais bloquée derrière l'animation
     setTimeout(function () { if (!done) { root.classList.remove('has-intro'); if (box.parentNode) box.parentNode.removeChild(box); resolve(); } }, 4500);
     return { finished: finished };
+  })();
+
+  /* ---------- Prix : relus dans pricing.json, convertis dans la devise de la langue ----------
+     Les montants sont écrits en TL dans la page (valeur sûre) puis recalculés en direct :
+     un changement de tarif dans l'admin apparaît partout sans regénérer le site. */
+  var prices = (function () {
+    var els = document.querySelectorAll('[data-amount]');
+    if (!els.length) return null;
+    var pricing = null;
+    var LOC = { tr: 'tr-TR', en: 'en-US', fr: 'fr-FR', ar: 'ar-EG' };
+    function amount(keys) {
+      var cur = pricing.currencyByLang[currentLang] || 'USD';
+      var rate = pricing.tlPer[cur] || 1, step = pricing.rounding[cur] || 1;
+      var tl = keys.split('+').reduce(function (s, k) { return s + (pricing.prices[k] || 0); }, 0);
+      var v = Math.round(tl / rate / step) * step;
+      if (cur === 'TRY') return new Intl.NumberFormat('tr-TR', { maximumFractionDigits: 0 }).format(v) + ' TL';
+      return new Intl.NumberFormat(LOC[currentLang] || 'en-US', { style: 'currency', currency: cur, maximumFractionDigits: 0 }).format(v);
+    }
+    function render() {
+      if (!pricing) return;
+      var dict = I18N[currentLang];
+      document.querySelectorAll('[data-amount]').forEach(function (el) {
+        var m = amount(el.getAttribute('data-amount'));
+        var tpl = el.getAttribute('data-tpl');
+        var text = tpl ? lookup(dict, tpl) : null;
+        el.textContent = typeof text === 'string' ? text.replace('{x}', m) : m;
+      });
+      var dep = document.querySelector('[data-deposit]');
+      if (dep) {
+        var p = Number(pricing.depositPercent) || 0;
+        dep.textContent = p > 0 ? dict.price.depositP.replace('{p}', p) : dict.price.deposit;
+      }
+    }
+    fetch('/pricing.json?v=' + Date.now()).then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (p) { if (p && p.prices) { pricing = p; render(); } }).catch(function () {});
+    document.addEventListener('webina:lang', render);
+    return { render: render };
+  })();
+
+  /* ---------- Page secteur : la capture de la démo défile au survol ; bouton démo sous le pouce ---------- */
+  (function () {
+    document.querySelectorAll('[data-scroll-screen]').forEach(function (screen) {
+      var img = screen.querySelector('img');
+      if (!img) return;
+      var set = function () {
+        var dist = Math.max(0, img.offsetHeight - screen.clientHeight);
+        screen.style.setProperty('--scroll', (-dist) + 'px');
+        screen.style.setProperty('--scroll-dur', Math.max(3, dist / 420).toFixed(2) + 's');
+      };
+      if (img.complete && img.naturalHeight) set(); else img.addEventListener('load', set, { once: true });
+      window.addEventListener('resize', set);
+    });
+    var dock = document.querySelector('[data-sector-dock]');
+    var btn = document.querySelector('[data-demo-btn]');
+    if (dock && btn && 'IntersectionObserver' in window) {
+      new IntersectionObserver(function (es) {
+        dock.classList.toggle('is-on', !es[0].isIntersecting && es[0].boundingClientRect.top < 0);
+      }).observe(btn);
+    }
   })();
 
   /* ---------- Démarrage ---------- */

@@ -393,7 +393,8 @@
   var sheet = $('[data-sheet]'), sheetPanel = $('[data-sheet-panel]'), lastFocus = null;
   function openClient(id, refresh) {
     state.sheetId = id;
-    return crm('r=clients&id=' + id).then(function (x) {
+    return Promise.all([crm('r=clients&id=' + id), api('clientarea.php?r=client&id=' + id).catch(function () { return null; })]).then(function (res) {
+      var x = res[0]; x.portal = res[1];
       sheetPanel.innerHTML = renderSheet(x);
       if (!refresh) {
         lastFocus = document.activeElement;
@@ -472,8 +473,11 @@
           '<span class="crm_progress"><span style="--w:' + (Number(p.amount) ? Math.min(100, Math.round(Number(p.paid) / Number(p.amount) * 100)) : 0) + '%"></span></span></div>' +
           '<p class="text-size-small text-color-secondary">' + [p.start_date ? 'Début ' + fmtDate(p.start_date) : '', p.delivery_date ? 'Livraison ' + fmtDate(p.delivery_date) : '', p.hosting_renewal ? 'Hébergement jusqu\'au ' + fmtDate(p.hosting_renewal) + (p.hosting_amount ? ' (' + money(p.hosting_amount, p.currency) + '/an)' : '') : ''].filter(Boolean).join(' · ') + '</p>' +
           (pays.length ? '<ul class="crm_pays" role="list">' + pays.map(function (pay) { return '<li><span>' + fmtDate(pay.paid_at) + (pay.method ? ' · ' + esc(pay.method) : '') + (pay.note ? ' · ' + esc(pay.note) : '') + '</span><b>' + money(pay.amount, pay.currency) + '</b><button type="button" class="icon-button is-danger" data-delete-payment="' + esc(pay.id) + '" aria-label="Supprimer le paiement">' + icon('i-trash') + '</button></li>'; }).join('') + '</ul>' : '') +
+          (p.domain || p.plan ? '<p class="text-size-small crm_portal-line">' + [p.domain ? '<b>' + esc(p.domain) + '</b>' : '', p.plan ? 'Formule ' + esc(PLAN[p.plan] || p.plan) : '', 'Site ' + esc(SITE[p.site_status] || p.site_status), 'SSL ' + esc(SSL[p.ssl_status] || p.ssl_status), p.domain_expires ? 'Domaine jusqu\'au ' + fmtDate(p.domain_expires) : ''].filter(Boolean).join(' · ') + '</p>' : '') +
           '<button type="button" class="button is-small is-secondary" data-crm-new="payment" data-project="' + esc(p.id) + '">' + icon('i-plus') + 'Paiement reçu</button></div>';
       }).join('') : '<p class="crm_empty">Aucun projet.</p>') + '</section>';
+
+    html += portalSection(c, x);
 
     // Historique
     html += '<section class="crm_section"><h3 class="crm_section-title">Historique</h3>' +
@@ -532,6 +536,9 @@
     } else if (t.closest('[data-edit-project]')) {
       var pid = t.closest('[data-project]').dataset.project;
       crm('r=clients&id=' + id).then(function (x) { editProject(x.projects.filter(function (p) { return p.id === pid; })[0]); });
+    } else if (t.closest('[data-portal-access],[data-portal-link],[data-portal-invoice],[data-portal-paid],[data-portal-del-invoice],[data-portal-notice],[data-portal-del-notice],[data-portal-done]')) {
+      var pr = portalAction(t, id);
+      if (pr && pr.catch) pr.catch(function (ex) { toast(ex.message); });
     }
   });
 
@@ -593,6 +600,93 @@
   });
 
   var CUR = [['TRY', 'TL'], ['USD', '$'], ['EUR', '€']];
+
+  /* ---------- Espace client (my.webina.com.tr) ---------- */
+  var PLAN = { vitrin: 'Vitrin', randevu: 'Randevu', eticaret: 'E-ticaret', ozel: 'Sur mesure' };
+  var SITE = { building: 'En création', preview: 'En prévisualisation', live: 'En ligne', suspended: 'Suspendu' };
+  var SSL = { active: 'Actif', pending: 'En attente', expired: 'Expiré' };
+  var REQ = { renew: 'Renouvellement', upgrade: 'Changement de formule', support: 'Assistance', approve: 'Site validé' };
+  var LEVEL = { info: 'Information', warning: 'Important', critical: 'Urgent' };
+  function portalSection(c, x) {
+    var pt = x.portal || { invoices: [], notices: [], requests: [] };
+    var on = Number(c.portal_enabled) === 1;
+    var today = new Date().toISOString().slice(0, 10);
+    var html = '<section class="crm_section"><div class="crm_section-head"><h3 class="crm_section-title">Espace client</h3>' +
+      '<span class="crm_inline"><button type="button" class="button is-small ' + (on ? 'is-secondary' : '') + '" data-portal-access="' + (on ? 0 : 1) + '">' + (on ? 'Fermer l\'accès' : 'Ouvrir l\'accès') + '</button>' +
+      (on ? '<button type="button" class="button is-small is-secondary" data-portal-link>' + icon('i-link') + 'Lien de connexion</button>' : '') + '</span></div>' +
+      '<p class="text-size-small text-color-secondary">' + (on ? 'Le client se connecte sur my.webina.com.tr avec ' + esc(c.email || '—') + (c.portal_last_login ? ' · dernière connexion ' + fmtDate(c.portal_last_login) : ' · jamais connecté') : 'Accès fermé. Le client a besoin d\'une adresse e-mail sur sa fiche.') + '</p>';
+    // Factures
+    html += '<div class="crm_section-head is-sub"><h4 class="crm_sub-title">Factures</h4><button type="button" class="button is-small is-secondary" data-portal-invoice>' + icon('i-plus') + 'Facture</button></div>' +
+      (pt.invoices.length ? '<ul class="crm_pays" role="list">' + pt.invoices.map(function (i) {
+        var st = i.paid_at ? 'Payée' : (i.due_on < today ? 'En retard' : 'À payer');
+        return '<li><span><b>' + esc(i.number) + '</b> · ' + esc(i.label) + ' · échéance ' + fmtDate(i.due_on) + ' · <span class="' + (i.paid_at ? 'is-muted' : 'crm_due') + '">' + st + '</span></span><b>' + money(i.amount, i.currency) + '</b>' +
+          '<span class="crm_inline"><button type="button" class="button is-small is-secondary" data-portal-paid="' + esc(i.id) + '" data-paid="' + (i.paid_at ? 0 : 1) + '">' + (i.paid_at ? 'Annuler' : 'Payée') + '</button>' +
+          (i.paid_at ? '' : '<button type="button" class="icon-button is-danger" data-portal-del-invoice="' + esc(i.id) + '" aria-label="Supprimer la facture">' + icon('i-trash') + '</button>') + '</span></li>';
+      }).join('') + '</ul>' : '<p class="crm_empty">Aucune facture.</p>');
+    // Messages affichés au client
+    html += '<div class="crm_section-head is-sub"><h4 class="crm_sub-title">Messages au client</h4><button type="button" class="button is-small is-secondary" data-portal-notice>' + icon('i-plus') + 'Message</button></div>' +
+      (pt.notices.length ? '<ul class="crm_pays" role="list">' + pt.notices.map(function (n) {
+        return '<li><span><b>' + esc(n.title) + '</b> · ' + esc(LEVEL[n.level] || n.level) + (n.expires_on ? ' · jusqu\'au ' + fmtDate(n.expires_on) : '') + '</span><span></span><button type="button" class="icon-button is-danger" data-portal-del-notice="' + esc(n.id) + '" aria-label="Supprimer le message">' + icon('i-trash') + '</button></li>';
+      }).join('') + '</ul>' : '<p class="crm_empty">Aucun message.</p>');
+    if (pt.requests.length) {
+      html += '<h4 class="crm_sub-title">Demandes du client</h4><ul class="crm_pays" role="list">' + pt.requests.map(function (q) {
+        return '<li><span><b>' + esc(REQ[q.kind] || q.kind) + '</b> · ' + fmtDate(q.created_at) + (q.detail ? ' · ' + esc(q.detail) : '') + '</span><span class="' + (q.status === 'open' ? 'crm_due' : 'is-muted') + '">' + (q.status === 'open' ? 'Ouverte' : 'Traitée') + '</span>' +
+          (q.status === 'open' ? '<button type="button" class="button is-small is-secondary" data-portal-done="' + esc(q.id) + '">Traitée</button>' : '<span></span>') + '</li>';
+      }).join('') + '</ul>';
+    }
+    return html + '</section>';
+  }
+  function portalApi(path, opts) { return api('clientarea.php?' + path, opts); }
+  function portalAction(t, id) {
+    var el;
+    if ((el = t.closest('[data-portal-access]'))) {
+      return portalApi('r=access', { method: 'POST', body: { client_id: id, enabled: el.dataset.portalAccess === '1' } }).then(function () { toast('Espace client mis à jour'); openClient(id, true); });
+    }
+    if (t.closest('[data-portal-link]')) {
+      return portalApi('r=link', { method: 'POST', body: { client_id: id } }).then(function (x) {
+        var msg = 'Merhaba, Webina müşteri panelinize bu bağlantıyla giriş yapabilirsiniz (7 gün geçerli): ' + x.url;
+        if (navigator.clipboard) navigator.clipboard.writeText(x.url).catch(function () {});
+        if (x.phone && W.confirm('Lien copié. L\'envoyer aussi sur WhatsApp ?')) window.open('https://wa.me/' + x.phone + '?text=' + encodeURIComponent(msg), '_blank', 'noopener');
+        else toast('Lien copié : valable 7 jours, une seule connexion');
+        openClient(id, true);
+      });
+    }
+    if (t.closest('[data-portal-invoice]')) {
+      return crm('r=clients&id=' + id).then(function (x) {
+        openModal('Nouvelle facture', [
+          { label: 'Service', name: 'project_id', type: 'select', options: [['', '—']].concat(x.projects.map(function (p) { return [p.id, p.name + (p.domain ? ' (' + p.domain + ')' : '')]; })), full: true },
+          { label: 'Libellé', name: 'label', required: true, value: 'Renouvellement annuel : domaine + hébergement + maintenance', full: true },
+          { label: 'Montant', name: 'amount', type: 'number', required: true, step: '1' }, { label: 'Devise', name: 'currency', type: 'select', options: CUR },
+          { label: 'Date', name: 'issued_on', type: 'date', value: new Date().toISOString().slice(0, 10) }, { label: 'Échéance', name: 'due_on', type: 'date' }
+        ], function (data) {
+          data.client_id = id;
+          return portalApi('r=invoices', { method: 'POST', body: data }).then(function () { toast('Facture créée'); openClient(id, true); });
+        });
+      });
+    }
+    if ((el = t.closest('[data-portal-paid]'))) {
+      return portalApi('r=invoices&id=' + el.dataset.portalPaid, { method: 'PATCH', body: { paid: el.dataset.paid === '1' } }).then(function () { toast('Facture mise à jour'); load(); openClient(id, true); });
+    }
+    if ((el = t.closest('[data-portal-del-invoice]'))) {
+      if (!W.confirm('Supprimer cette facture ?')) return;
+      return portalApi('r=invoices&id=' + el.dataset.portalDelInvoice, { method: 'DELETE' }).then(function () { openClient(id, true); });
+    }
+    if (t.closest('[data-portal-notice]')) {
+      return openModal('Message pour le client', [
+        { label: 'Titre', name: 'title', required: true, full: true }, { label: 'Texte', name: 'body', type: 'textarea', full: true },
+        { label: 'Niveau', name: 'level', type: 'select', options: Object.keys(LEVEL).map(function (k) { return [k, LEVEL[k]]; }) }, { label: 'Afficher jusqu\'au', name: 'expires_on', type: 'date' }
+      ], function (data) {
+        data.client_id = id;
+        return portalApi('r=notices', { method: 'POST', body: data }).then(function () { toast('Message publié'); openClient(id, true); });
+      });
+    }
+    if ((el = t.closest('[data-portal-del-notice]'))) {
+      return portalApi('r=notices&id=' + el.dataset.portalDelNotice, { method: 'DELETE' }).then(function () { openClient(id, true); });
+    }
+    if ((el = t.closest('[data-portal-done]'))) {
+      return portalApi('r=requests&id=' + el.dataset.portalDone, { method: 'PATCH', body: {} }).then(function () { openClient(id, true); });
+    }
+  }
   function newClient() {
     openModal('Nouveau client', [
       { label: 'Nom', name: 'name', required: true }, { label: 'Type', name: 'kind', type: 'select', options: [['person', 'Personne'], ['company', 'Société']] },
@@ -637,8 +731,17 @@
       { label: 'Nom', name: 'name', value: p.name, full: true }, { label: 'Montant', name: 'amount', type: 'number', value: Number(p.amount), step: '1' },
       { label: 'Devise', name: 'currency', type: 'select', options: CUR, value: p.currency }, { label: 'Début', name: 'start_date', type: 'date', value: p.start_date },
       { label: 'Livraison', name: 'delivery_date', type: 'date', value: p.delivery_date }, { label: 'Renouvellement hébergement', name: 'hosting_renewal', type: 'date', value: p.hosting_renewal },
-      { label: 'Prix hébergement / an', name: 'hosting_amount', type: 'number', value: p.hosting_amount, step: '1' }, { label: 'Notes', name: 'notes', type: 'textarea', value: p.notes, full: true }
+      { label: 'Prix hébergement / an', name: 'hosting_amount', type: 'number', value: p.hosting_amount, step: '1' },
+      { label: 'Domaine du site', name: 'domain', value: p.domain, placeholder: 'exemple.com' },
+      { label: 'Formule', name: 'plan', type: 'select', options: [['', '—']].concat(Object.keys(PLAN).map(function (k) { return [k, PLAN[k]]; })), value: p.plan },
+      { label: 'Statut du site', name: 'site_status', type: 'select', options: Object.keys(SITE).map(function (k) { return [k, SITE[k]]; }), value: p.site_status },
+      { label: 'Lien de prévisualisation', name: 'preview_url', value: p.preview_url, placeholder: 'https://test.webina.com.tr/…' },
+      { label: 'Expiration du domaine', name: 'domain_expires', type: 'date', value: p.domain_expires },
+      { label: 'SSL', name: 'ssl_status', type: 'select', options: Object.keys(SSL).map(function (k) { return [k, SSL[k]]; }), value: p.ssl_status },
+      { label: 'Expiration SSL', name: 'ssl_expires', type: 'date', value: p.ssl_expires },
+      { label: 'Notes', name: 'notes', type: 'textarea', value: p.notes, full: true }
     ], function (data) {
+      if (!data.plan) delete data.plan;
       return crm('r=projects&id=' + p.id, { method: 'PATCH', body: data }).then(function () { toast('Projet mis à jour'); load(); openClient(state.sheetId, true); });
     });
   }

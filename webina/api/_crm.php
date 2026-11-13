@@ -120,6 +120,64 @@ function crm_schema(PDO $pdo): void {
         INDEX idx_date (spent_on), INDEX idx_cat (category), INDEX idx_due (recurrence, next_due),
         UNIQUE KEY uq_occurrence (parent_id, spent_on)
     ) $o");
+    // ---------- Espace client (my.webina.com.tr) ----------
+    // Un projet = un service suivi par le client : domaine, hébergement, abonnement, statut du site et SSL
+    $pcols = array_column($pdo->query('SHOW COLUMNS FROM crm_projects')->fetchAll(), 'Field');
+    if (!in_array('domain', $pcols, true)) {
+        $pdo->exec("ALTER TABLE crm_projects ADD COLUMN domain VARCHAR(190) NULL, ADD COLUMN plan VARCHAR(20) NULL,
+            ADD COLUMN site_status VARCHAR(12) NOT NULL DEFAULT 'building', ADD COLUMN preview_url VARCHAR(255) NULL,
+            ADD COLUMN domain_expires DATE NULL, ADD COLUMN ssl_status VARCHAR(10) NOT NULL DEFAULT 'pending', ADD COLUMN ssl_expires DATE NULL");
+    }
+    $ccols = array_column($pdo->query('SHOW COLUMNS FROM crm_clients')->fetchAll(), 'Field');
+    if (!in_array('portal_enabled', $ccols, true)) {
+        $pdo->exec("ALTER TABLE crm_clients ADD COLUMN portal_enabled TINYINT(1) NOT NULL DEFAULT 0, ADD COLUMN portal_last_login DATETIME NULL, ADD COLUMN lang VARCHAR(5) NULL");
+    }
+    $pdo->exec("CREATE TABLE IF NOT EXISTS crm_invoices (
+        id CHAR(36) NOT NULL PRIMARY KEY,
+        client_id CHAR(36) NOT NULL,
+        project_id CHAR(36) NULL,
+        number VARCHAR(20) NOT NULL UNIQUE,
+        label VARCHAR(200) NOT NULL,
+        amount DECIMAL(12,2) NOT NULL,
+        currency CHAR(3) NOT NULL DEFAULT 'TRY',
+        issued_on DATE NOT NULL,
+        due_on DATE NOT NULL,
+        paid_at DATE NULL,
+        created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        INDEX idx_client (client_id), INDEX idx_due (paid_at, due_on)
+    ) $o");
+    $pdo->exec("CREATE TABLE IF NOT EXISTS crm_notices (
+        id CHAR(36) NOT NULL PRIMARY KEY,
+        client_id CHAR(36) NULL,
+        level VARCHAR(10) NOT NULL DEFAULT 'info',
+        title VARCHAR(160) NOT NULL,
+        body TEXT NULL,
+        expires_on DATE NULL,
+        created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        INDEX idx_client (client_id)
+    ) $o");
+    $pdo->exec("CREATE TABLE IF NOT EXISTS portal_requests (
+        id CHAR(36) NOT NULL PRIMARY KEY,
+        client_id CHAR(36) NOT NULL,
+        project_id CHAR(36) NULL,
+        kind VARCHAR(12) NOT NULL,
+        detail TEXT NULL,
+        status VARCHAR(10) NOT NULL DEFAULT 'open',
+        created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        done_at DATETIME NULL,
+        INDEX idx_status (status, created_at), INDEX idx_client (client_id)
+    ) $o");
+    $pdo->exec("CREATE TABLE IF NOT EXISTS portal_tokens (
+        id CHAR(36) NOT NULL PRIMARY KEY,
+        client_id CHAR(36) NOT NULL,
+        kind VARCHAR(6) NOT NULL,
+        token_hash CHAR(64) NOT NULL,
+        attempts TINYINT NOT NULL DEFAULT 0,
+        expires_at DATETIME NOT NULL,
+        used_at DATETIME NULL,
+        created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        INDEX idx_hash (token_hash), INDEX idx_client (client_id, kind)
+    ) $o");
     $pdo->exec("CREATE TABLE IF NOT EXISTS crm_activity (
         id CHAR(36) NOT NULL PRIMARY KEY,
         client_id CHAR(36) NULL,

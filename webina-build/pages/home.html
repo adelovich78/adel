@@ -1,18 +1,21 @@
     <main class="main-wrapper" id="main">
-      <!-- Hero : titre + scène 3D des réalisations (glissable) -->
+      <!-- Héro : métier → démo. Le mot vert suit la démo affichée dans la scène -->
       <section class="section_hero">
         <div class="padding-global">
           <div class="container-large">
-            <p class="hero_eyebrow text-style-mono" data-enter style="--d:0">{{t:home.badge}}</p>
+            <p class="hero_eyebrow text-style-mono" data-enter style="--d:0">{{t:home.eyebrow}}</p>
             <h1 class="hero_heading heading-style-display" data-hero-title>
               <span class="line-mask"><span class="line" data-enter-line style="--d:1">{{t:home.h1a}} <span class="hero_rotator text-color-accent" data-rotator><span data-i18n="home.h1b">{{raw:home.h1b}}</span></span></span></span>
               <span class="line-mask"><span class="line" data-enter-line style="--d:2">{{t:home.h1c}} {{t:home.h1d}}</span></span>
             </h1>
             <div class="hero_intro">
-              <p class="hero_lead text-size-large text-color-secondary" data-enter style="--d:3">{{t:home.lead}}</p>
+              <div class="hero_text" data-enter style="--d:3">
+                <p class="hero_lead text-size-large text-color-secondary">{{t:home.lead}}</p>
+                <p class="hero_price text-size-small"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span data-tpl="home.price" data-amount="base">{{PRICE_HOME}}</span></p>
+              </div>
               <div class="button-group" data-enter style="--d:4">
-                <a href="/teklif" class="button is-large">{{t:cta}}<svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
-                <a href="/portfolio" class="button is-large is-secondary">{{t:nav.portfolio}}</a>
+                <a href="#sektorler" class="button is-large">{{t:home.btnSector}}<svg class="icon" aria-hidden="true"><use href="#i-arrow-down"/></svg></a>
+                <a href="/fiyatlar" class="button is-large is-secondary">{{t:home.btnPrice}}</a>
               </div>
             </div>
           </div>
@@ -44,6 +47,79 @@
         </div>
       </section>
 
+      <!-- 1. Choix du métier -->
+      <section class="section_pick" id="sektorler">
+        <div class="padding-global">
+          <div class="container-large">
+            <div class="padding-section-large">
+              <div class="section-header is-row">
+                <div>
+                  <h2 class="heading-style-h2" data-reveal>{{t:home.sectorsT}}</h2>
+                  <p class="text-size-medium text-color-secondary" data-reveal style="--d:1">{{t:home.sectorsP}}</p>
+                </div>
+                <a href="/demolar" class="text-link" data-reveal style="--d:1">{{t:nav.allDemos}}<svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+              </div>
+              <div class="pick_component" data-reveal style="--d:2">{{PICK}}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2. Parcours : du choix du secteur à l'espace client -->
+      <section class="section_steps">
+        <div class="padding-global">
+          <div class="container-large">
+            <div class="padding-section-large">
+              <div class="section-header">
+                <h2 class="heading-style-h2" data-reveal>{{t:home.stepsT}}</h2>
+                <p class="text-size-medium text-color-secondary max-width-medium" data-reveal style="--d:1">{{t:home.stepsP}}</p>
+              </div>
+              <ol class="steps_component" role="list">{{STEPS}}
+              </ol>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3. Ce qui est inclus -->
+      <section class="section_solutions">
+        <div class="padding-global">
+          <div class="container-large">
+            <div class="padding-section-large">
+              <div class="section-header is-row">
+                <div>
+                  <h2 class="heading-style-h2" data-reveal>{{t:home.solT}}</h2>
+                  <p class="text-size-medium text-color-secondary" data-reveal style="--d:1">{{t:home.solP}}</p>
+                </div>
+                <a href="/cozumler" class="text-link" data-reveal style="--d:1">{{t:nav.solutions}}<svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+              </div>
+              <ul class="solution_grid" role="list">{{SOLUTION_CARDS}}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4. Formules -->
+      <section class="section_plans">
+        <div class="padding-global">
+          <div class="container-large">
+            <div class="padding-section-large">
+              <div class="section-header is-row">
+                <div>
+                  <h2 class="heading-style-h2" data-reveal>{{t:home.plansT}}</h2>
+                  <p class="text-size-medium text-color-secondary" data-reveal style="--d:1">{{t:home.plansP}}</p>
+                </div>
+                <a href="/fiyatlar" class="text-link" data-reveal style="--d:1">{{t:nav.pricing}}<svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+              </div>
+              <div class="plan_grid">{{PLANS}}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <!-- Clients : bandeau défilant -->
       <section class="section_clients">
         <div class="clients_component">
@@ -56,116 +132,4 @@
           </div>
         </div>
       </section>
-
-      <!-- Manifeste : la phrase s'éclaire au défilement + chiffres vérifiables -->
-      <section class="section_manifesto">
-        <div class="padding-global">
-          <div class="container-large">
-            <div class="padding-section-large">
-              <div class="manifesto_component">
-                <p class="text-style-mono text-color-accent" data-reveal>{{t:manifesto.eyebrow}}</p>
-                <p class="manifesto_text" data-manifesto data-i18n="manifesto.text">{{raw:manifesto.text}}</p>
-              </div>
-              <ul class="facts_component" role="list">{{FACTS}}
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Services -->
-      <section class="section_services">
-        <div class="padding-global">
-          <div class="container-large">
-            <div class="padding-section-large">
-              <div class="services_component">
-                <div class="services_header">
-                  <h2 class="heading-style-h2" data-reveal>{{t:home.whatA}} {{t:home.whatB}}</h2>
-                  <a href="/services" class="text-link" data-reveal style="--d:1">{{t:ui.more}}<svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
-                </div>
-                <ol class="services_list" role="list">{{SERVICES}}
-                </ol>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Démos en ligne -->
-      <section class="section_demos">
-        <div class="padding-global">
-          <div class="container-large">
-            <div class="padding-section-large">
-              <div class="section-header">
-                <p class="text-style-mono text-color-accent" data-reveal>{{t:demo.eyebrow}}</p>
-                <h2 class="heading-style-h2" data-reveal style="--d:1">{{t:demo.t1}} {{t:demo.t2}}</h2>
-                <p class="text-size-medium text-color-secondary max-width-medium" data-reveal style="--d:2">{{t:demo.text}}</p>
-              </div>
-              <div class="demos_component" data-demos>
-                <div class="demos_tabs-wrapper" data-reveal style="--d:3">
-                  <div class="demos_tabs" role="tablist" aria-label="Demo seç" data-i18n-aria="ui.demoTab">
-                    {{DEMO_TABS}}
-                  </div>
-                  <div class="demos_tabs is-overlay" aria-hidden="true"></div>
-                </div>
-                <div class="demos_panels" data-reveal style="--d:4">{{DEMO_PANELS}}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Équipe -->
-      <section class="section_team">
-        <div class="padding-global">
-          <div class="container-large">
-            <div class="padding-section-large">
-              <div class="section-header is-split">
-                <div>
-                  <p class="text-style-mono text-color-accent" data-reveal>{{t:team.eyebrow}}</p>
-                  <h2 class="heading-style-h2" data-reveal style="--d:1">{{t:team.t1}} {{t:team.t2}}</h2>
-                </div>
-                <p class="text-size-medium text-color-secondary max-width-medium" data-reveal style="--d:2">{{t:team.text}}</p>
-              </div>
-              <div class="team_component">{{TEAM}}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Projets récents -->
-      <section class="section_work">
-        <div class="padding-global">
-          <div class="container-large">
-            <div class="padding-section-large">
-              <div class="section-header is-row">
-                <h2 class="heading-style-h2" data-reveal>{{t:home.projA}} {{t:home.projB}}</h2>
-                <a href="/portfolio" class="text-link" data-reveal style="--d:1">{{t:ui.seeAll}}<svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
-              </div>
-              <ol class="worklist_component" role="list" data-worklist>{{WORKLIST}}
-              </ol>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Secteurs -->
-      <section class="section_sectors">
-        <div class="padding-global">
-          <div class="container-large">
-            <div class="padding-section-large">
-              <div class="section-header is-row">
-                <h2 class="heading-style-h2" data-reveal>{{t:home.sectorsA}} <span class="text-color-accent">{{t:home.sectorsB}}</span></h2>
-                <a href="/secteurs" class="text-link" data-reveal style="--d:1">{{t:nav.sectors}}<svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
-              </div>
-              <ul class="sectors_component" role="list">{{SECTORS}}
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
-      <!-- Aperçu flottant de l'index des projets (hors des sections : il suit le curseur dans toute la page) -->
-      <div class="worklist_preview" data-worklist-preview aria-hidden="true">{{WORKLIST_IMAGES}}</div>
     </main>
