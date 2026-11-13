@@ -1097,9 +1097,9 @@ window.WEBINA_I18N = {
    "rotate": [
     "lawyers",
     "doctors",
-    "auto electricians",
+    "garages",
     "hair salons",
-    "dental clinics",
+    "dentists",
     "restaurants",
     "hotels"
    ],
@@ -2150,17 +2150,17 @@ window.WEBINA_I18N = {
   },
   "home": {
    "eyebrow": "Des sites web pensés pour votre métier",
-   "h1a": "Des sites web pour",
+   "h1a": "Sites web pour",
    "h1c": "prêts",
    "h1d": "en quelques jours.",
    "rotate": [
-    "les avocats",
-    "les médecins",
-    "les électriciens auto",
-    "les coiffeurs",
-    "les dentistes",
-    "les restaurants",
-    "les hôtels"
+    "avocats",
+    "médecins",
+    "garagistes",
+    "coiffeurs",
+    "dentistes",
+    "restaurants",
+    "hôtels"
    ],
    "lead": "Choisissez votre métier, découvrez la démo en ligne et commandez votre formule. Votre site est en ligne sur votre propre domaine en quelques jours.",
    "price": "À partir de {x} · domaine, hébergement et SSL inclus la 1re année",
@@ -2196,7 +2196,7 @@ window.WEBINA_I18N = {
    "solP": "Site, domaine, hébergement et maintenance : un seul interlocuteur, une seule facture.",
    "plansT": "Des tarifs simples et clairs",
    "plansP": "Paiement unique, sans acompte. Vous payez à la livraison, après validation.",
-   "h1b": "les avocats"
+   "h1b": "avocats"
   },
   "team": {
    "eyebrow": "Notre équipe",
@@ -3209,15 +3209,15 @@ window.WEBINA_I18N = {
   },
   "home": {
    "eyebrow": "مواقع مصممة لمهنتك",
-   "h1a": "مواقع إلكترونية",
+   "h1a": "مواقع",
    "h1c": "جاهزة",
    "h1d": "خلال أيام.",
    "rotate": [
     "للمحامين",
     "للأطباء",
-    "لكهربائيي السيارات",
-    "لصالونات الحلاقة",
-    "لعيادات الأسنان",
+    "لورش السيارات",
+    "للحلاقين",
+    "لأطباء الأسنان",
     "للمطاعم",
     "للفنادق"
    ],
