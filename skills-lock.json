@@ -13,6 +13,12 @@
       "skillPath": "skills/find-skills/SKILL.md",
       "computedHash": "7bc223e2aafbdbf6e50ea243ba6ef67fe432bb069ab439fea0390795dac0bf7f"
     },
+    "instagram-scraper": {
+      "source": "apidojo-io/social-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/instagram-scraper/SKILL.md",
+      "computedHash": "b9380c8838293b8c86b19f88dab4a0d33067aca93cb73cb6f7e64536cb98d91b"
+    },
     "svg-character-animation": {
       "source": "openmontageinc/openmontage",
       "sourceType": "github",
