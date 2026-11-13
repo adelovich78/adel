@@ -19,6 +19,12 @@
       "skillPath": "skills/instagram-scraper/SKILL.md",
       "computedHash": "b9380c8838293b8c86b19f88dab4a0d33067aca93cb73cb6f7e64536cb98d91b"
     },
+    "product-marketing": {
+      "source": "coreyhaines31/marketingskills",
+      "sourceType": "github",
+      "skillPath": "skills/product-marketing/SKILL.md",
+      "computedHash": "2b7f80ab415280e3e0a0bcc112af8e24059169642c70fb36e18e44a79f80f505"
+    },
     "social": {
       "source": "coreyhaines31/marketingskills",
       "sourceType": "github",
