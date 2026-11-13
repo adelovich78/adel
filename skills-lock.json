@@ -6,6 +6,12 @@
       "sourceType": "github",
       "skillPath": "skills/providers/speech-and-voice/azure-speech/SKILL.md",
       "computedHash": "3edfec40e22dee7f7bc58f6fec4a37f0ebb31cab5ebbb046dffeddc89f220df2"
+    },
+    "find-skills": {
+      "source": "vercel-labs/skills",
+      "sourceType": "github",
+      "skillPath": "skills/find-skills/SKILL.md",
+      "computedHash": "7bc223e2aafbdbf6e50ea243ba6ef67fe432bb069ab439fea0390795dac0bf7f"
     }
   }
 }
