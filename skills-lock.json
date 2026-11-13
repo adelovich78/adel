@@ -19,6 +19,12 @@
       "skillPath": "skills/instagram-scraper/SKILL.md",
       "computedHash": "b9380c8838293b8c86b19f88dab4a0d33067aca93cb73cb6f7e64536cb98d91b"
     },
+    "social": {
+      "source": "coreyhaines31/marketingskills",
+      "sourceType": "github",
+      "skillPath": "skills/social/SKILL.md",
+      "computedHash": "91bfb578ae1c1c1d488a59bc734ff1716b1d924a8451be31021d1cb3a411f241"
+    },
     "svg-character-animation": {
       "source": "openmontageinc/openmontage",
       "sourceType": "github",
