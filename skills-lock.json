@@ -1,11 +1,77 @@
 {
   "version": 2,
   "skills": {
+    "artifacts-builder": {
+      "source": "ComposioHQ/awesome-claude-skills",
+      "sourceType": "github",
+      "skillPath": "artifacts-builder/SKILL.md",
+      "computedHash": "33dc60616d22a55ad31aebc78585617eca6277c6702fdd2a876460f3e52259ab"
+    },
     "azure-speech": {
       "source": "calesthio/generative-media-skills",
       "sourceType": "github",
       "skillPath": "skills/providers/speech-and-voice/azure-speech/SKILL.md",
       "computedHash": "3edfec40e22dee7f7bc58f6fec4a37f0ebb31cab5ebbb046dffeddc89f220df2"
+    },
+    "brand-guidelines": {
+      "source": "ComposioHQ/awesome-claude-skills",
+      "sourceType": "github",
+      "skillPath": "brand-guidelines/SKILL.md",
+      "computedHash": "147109adc7e8fe6690b29598ec8162329e025274ca1c7e285b4f64d84df62528"
+    },
+    "canvas-design": {
+      "source": "ComposioHQ/awesome-claude-skills",
+      "sourceType": "github",
+      "skillPath": "canvas-design/SKILL.md",
+      "computedHash": "1c3f17b885db2db32e922904516156e07e18c75d63a85789de36176922035e11"
+    },
+    "changelog-generator": {
+      "source": "ComposioHQ/awesome-claude-skills",
+      "sourceType": "github",
+      "skillPath": "changelog-generator/SKILL.md",
+      "computedHash": "5434338dd0ea8f61988d1e9ab2a224a5b461c7ea2e7b7f33db56eab6fb6a4db1"
+    },
+    "competitive-ads-extractor": {
+      "source": "ComposioHQ/awesome-claude-skills",
+      "sourceType": "github",
+      "skillPath": "competitive-ads-extractor/SKILL.md",
+      "computedHash": "6529d6420855e7c2ffc977518e3045491e2ea5a0091a7a087c40f5594a942a6f"
+    },
+    "connect": {
+      "source": "ComposioHQ/awesome-claude-skills",
+      "sourceType": "github",
+      "skillPath": "connect/SKILL.md",
+      "computedHash": "e34ddcd2ffaf5ecf7731f50f64b28d42ede3bf1c70d102fa6d07e18600e2464f"
+    },
+    "connect-apps": {
+      "source": "ComposioHQ/awesome-claude-skills",
+      "sourceType": "github",
+      "skillPath": "connect-apps/SKILL.md",
+      "computedHash": "690b1e0498dc774be659346854d2c29809129239f7e2ccc9ec5ddccaeb1897c6"
+    },
+    "content-research-writer": {
+      "source": "ComposioHQ/awesome-claude-skills",
+      "sourceType": "github",
+      "skillPath": "content-research-writer/SKILL.md",
+      "computedHash": "8a2dc5dd62822a23284d1ec3196ac04ec85ac3d59a4934394856b54f19e67282"
+    },
+    "developer-growth-analysis": {
+      "source": "ComposioHQ/awesome-claude-skills",
+      "sourceType": "github",
+      "skillPath": "developer-growth-analysis/SKILL.md",
+      "computedHash": "b8af2034b0cc7529baa9efb6a25b864205267f20c35b631fe2a8dc34396c2054"
+    },
+    "domain-name-brainstormer": {
+      "source": "ComposioHQ/awesome-claude-skills",
+      "sourceType": "github",
+      "skillPath": "domain-name-brainstormer/SKILL.md",
+      "computedHash": "42c29a31b9e102d7589b8b90d8a248eb4b7f0c5adf5bbcc0fab20d4875ca5d00"
+    },
+    "file-organizer": {
+      "source": "ComposioHQ/awesome-claude-skills",
+      "sourceType": "github",
+      "skillPath": "file-organizer/SKILL.md",
+      "computedHash": "0fa1b8d807fcab9fec55632ea35dc213e869eb96bf3d41e38b93f2a47afaa13f"
     },
     "find-skills": {
       "source": "vercel-labs/skills",
@@ -97,17 +163,83 @@
       "skillPath": "skills/ig-viral/SKILL.md",
       "computedHash": "6f414b72b2b5eded49d607837abf82e8879f7756d0c948e18bd0d499764cf31e"
     },
+    "image-enhancer": {
+      "source": "ComposioHQ/awesome-claude-skills",
+      "sourceType": "github",
+      "skillPath": "image-enhancer/SKILL.md",
+      "computedHash": "e9b9a4135c41b1d5925245710308e8a6b58312e0f21b18c3bf650cf5c69852da"
+    },
     "instagram-scraper": {
       "source": "apidojo-io/social-media-skills",
       "sourceType": "github",
       "skillPath": "skills/instagram-scraper/SKILL.md",
       "computedHash": "b9380c8838293b8c86b19f88dab4a0d33067aca93cb73cb6f7e64536cb98d91b"
     },
+    "internal-comms": {
+      "source": "ComposioHQ/awesome-claude-skills",
+      "sourceType": "github",
+      "skillPath": "internal-comms/SKILL.md",
+      "computedHash": "8fb1b0a7e35267d2ee13204dddc235dd55ae10829fba422e84af774fcd6f3add"
+    },
+    "invoice-organizer": {
+      "source": "ComposioHQ/awesome-claude-skills",
+      "sourceType": "github",
+      "skillPath": "invoice-organizer/SKILL.md",
+      "computedHash": "8b5681b2df69f61992a395b7337b3b1a031ef142242aaaaa49f25bde521389d4"
+    },
+    "langsmith-fetch": {
+      "source": "ComposioHQ/awesome-claude-skills",
+      "sourceType": "github",
+      "skillPath": "langsmith-fetch/SKILL.md",
+      "computedHash": "845c69ed8fd356d22e01a3b043be8e7d128020b29b8d9d20669d7874e51fa29d"
+    },
+    "lead-research-assistant": {
+      "source": "ComposioHQ/awesome-claude-skills",
+      "sourceType": "github",
+      "skillPath": "lead-research-assistant/SKILL.md",
+      "computedHash": "ce8a26a2e8cfa51c5ecbaffe96ee05127c48643e6810311989239d389d43f8ea"
+    },
+    "mcp-builder": {
+      "source": "ComposioHQ/awesome-claude-skills",
+      "sourceType": "github",
+      "skillPath": "mcp-builder/SKILL.md",
+      "computedHash": "85ef8efd6e04dbd3a73c4af6ef8d1a549d263653de59cab7fa451ce01ac68e6c"
+    },
+    "meeting-insights-analyzer": {
+      "source": "ComposioHQ/awesome-claude-skills",
+      "sourceType": "github",
+      "skillPath": "meeting-insights-analyzer/SKILL.md",
+      "computedHash": "07290d48e9e3da97b145fbe85516ca32435c1141c8863e152da2b7d7543bb00a"
+    },
     "product-marketing": {
       "source": "coreyhaines31/marketingskills",
       "sourceType": "github",
       "skillPath": "skills/product-marketing/SKILL.md",
       "computedHash": "2b7f80ab415280e3e0a0bcc112af8e24059169642c70fb36e18e44a79f80f505"
+    },
+    "raffle-winner-picker": {
+      "source": "ComposioHQ/awesome-claude-skills",
+      "sourceType": "github",
+      "skillPath": "raffle-winner-picker/SKILL.md",
+      "computedHash": "f805f68727e3f67361906cfd0f7bf2c1364d571519671c4590d476b99daf6b5e"
+    },
+    "skill-creator": {
+      "source": "ComposioHQ/awesome-claude-skills",
+      "sourceType": "github",
+      "skillPath": "skill-creator/SKILL.md",
+      "computedHash": "3715fdeaadef5076d1036902bdd1b56811f01833a96d3dd90c8c720dcf6a7d63"
+    },
+    "skill-share": {
+      "source": "ComposioHQ/awesome-claude-skills",
+      "sourceType": "github",
+      "skillPath": "skill-share/SKILL.md",
+      "computedHash": "2f72cb76a78090b1a0d508fdd210577f408ea8b2e8f62e9aef47f98e9c6280a0"
+    },
+    "slack-gif-creator": {
+      "source": "ComposioHQ/awesome-claude-skills",
+      "sourceType": "github",
+      "skillPath": "slack-gif-creator/SKILL.md",
+      "computedHash": "d2d9f18797df481887dd71159045f9bfe52b6b3d05e49e20223b60a05cdd39f5"
     },
     "social": {
       "source": "coreyhaines31/marketingskills",
@@ -121,17 +253,53 @@
       "skillPath": ".agents/skills/svg-character-animation/SKILL.md",
       "computedHash": "f97194f882d070bb45b0f75730944ed166a885c143883d595e433da81f1ccf69"
     },
+    "tailored-resume-generator": {
+      "source": "ComposioHQ/awesome-claude-skills",
+      "sourceType": "github",
+      "skillPath": "tailored-resume-generator/SKILL.md",
+      "computedHash": "b1cd2d92827158d5759cdf31eed7e87314de1c6fec247c20a5c312f712e0f284"
+    },
+    "template-skill": {
+      "source": "ComposioHQ/awesome-claude-skills",
+      "sourceType": "github",
+      "skillPath": "template-skill/SKILL.md",
+      "computedHash": "143ecbef94ad1b41d05d13ed6a1f52a80aef7ae7114d9cfa88a3fdf2f2049754"
+    },
     "text-to-speech": {
       "source": "openmontageinc/openmontage",
       "sourceType": "github",
       "skillPath": ".agents/skills/text-to-speech/SKILL.md",
       "computedHash": "bb6f3b3629fc653843eaf0c096a3b862a3ea6f0be4736c469859f3f23f0f304f"
     },
+    "theme-factory": {
+      "source": "ComposioHQ/awesome-claude-skills",
+      "sourceType": "github",
+      "skillPath": "theme-factory/SKILL.md",
+      "computedHash": "41bee6f800f551daab9ee9f3a05f49d85301ceab499a5c830512757408171abb"
+    },
+    "twitter-algorithm-optimizer": {
+      "source": "ComposioHQ/awesome-claude-skills",
+      "sourceType": "github",
+      "skillPath": "twitter-algorithm-optimizer/SKILL.md",
+      "computedHash": "7a5bc12ccfc7185ec0899690e11013d665fd0ed88bdc8b070bd8ab61f7ab5f65"
+    },
     "web-design-guidelines": {
       "source": "vercel-labs/agent-skills",
       "sourceType": "github",
       "skillPath": "skills/web-design-guidelines/SKILL.md",
       "computedHash": "4f68ae07187fb0d1fb78c88b503d089da4cf5a9d9625d1f2e425b1590bf96d92"
+    },
+    "webapp-testing": {
+      "source": "ComposioHQ/awesome-claude-skills",
+      "sourceType": "github",
+      "skillPath": "webapp-testing/SKILL.md",
+      "computedHash": "6e8aefb199699a28f1437c3d16d57e8b7ef100b360f2de65e6b2c89f1d75de60"
+    },
+    "youtube-downloader": {
+      "source": "ComposioHQ/awesome-claude-skills",
+      "sourceType": "github",
+      "skillPath": "video-downloader/SKILL.md",
+      "computedHash": "e8cf80fa6e26381eee5757792bb68baa1c154266432a47b48805a3dd15f0aeb6"
     }
   }
 }
