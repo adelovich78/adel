@@ -193,9 +193,9 @@ CLIENTS = [
 for p in CLIENTS:
     p['host'] = re.sub(r'^https?://(www\.)?|/$', '', p['url'])
 
-# Scène du héro : les démos des métiers mis en avant (même ordre que home.rotate)
-HERO = [BY_KEY[k] for k in ['law', 'doctor', 'autoelec', 'barber', 'dental', 'restaurant', 'hotel']]
-HIRES = set()
+# Scène du héro : les vrais sites clients (même ordre que home.rotate) ; les démos ont leur propre page
+HERO = [CLIENTS[i] for i in [0, 2, 1, 5, 4, 6, 3]]
+HIRES = {p['img'] for p in HERO if os.path.exists(os.path.join(IMG, p['img'][:-5] + '-1024.webp'))}   # captures aussi en 1024 px (écrans haute densité)
 def hero_srcset(img):
     stem = img[:-5]
     big = f', /images/{stem}-1024.webp 1024w' if img in HIRES else ''
@@ -319,10 +319,10 @@ def home_fragments():
     cards, segs, labels = [], [], []
     for i, s in enumerate(HERO):
         near = i in (0, 1, len(HERO) - 1)
+        name = s['title']
         prio = 'fetchpriority="high"' if i == 0 else 'fetchpriority="low"'
         source = (f'src="/images/{s["img"]}" srcset="{hero_srcset(s["img"])}"' if near
                   else f'src="{BLANK}" data-src="/images/{s["img"]}" data-srcset="{hero_srcset(s["img"])}"')
-        name = TR['demo']['items'][s['key']]['name']
         cards.append(f'''
               <a href="{s['url']}" target="_blank" rel="noopener" class="stage_card" data-stage-card{'' if i == 0 else ' tabindex="-1"'}>
                 <span class="stage_bar" aria-hidden="true"><span class="browser_dots"><i></i><i></i><i></i></span><span class="stage_url" dir="ltr">{s['host']}</span></span>
@@ -332,18 +332,29 @@ def home_fragments():
         segs.append(f'''
                   <button type="button" class="stage_seg{' is-active' if i == 0 else ''}" data-stage-go="{i}" aria-label="{html.escape(name)}"><span class="stage_seg-line"><span class="stage_seg-fill"></span></span></button>''')
         labels.append(f'''
-                  <span class="stage_label-item{' is-active' if i == 0 else ''}"><span class="brand-square" aria-hidden="true"></span>{tx(f"sec.{s['key']}.name", 'span', 'stage_label-cat')}<span class="stage_label-title" {ti(f"demo.items.{s['key']}.name")}>{html.escape(name)}</span></span>''')
+                  <span class="stage_label-item{' is-active' if i == 0 else ''}"><span class="brand-square" aria-hidden="true"></span>{tx(f"cats.{s['cat']}", 'span', 'stage_label-cat')}<span class="stage_label-title">{html.escape(name)}</span></span>''')
     # Choix du métier : par univers
     pick = ''.join(f'''
                 <div class="pick_group">
                   <p class="pick_title text-style-mono text-color-muted">{tx(f"groups.{g}")}</p>
                   <div class="pick_list">{''.join(sector_link(s) for s in SECTORS if s['group'] == g)}</div>
                 </div>''' for g in C.GROUPS)
+    # Étapes : un « + » ouvre le détail dans une bulle sous la carte (survol, clic ou toucher)
+    def step_pop(i):
+        pts = ''.join(f'<li>{icon("i-check")}{tx(f"home.stepsD.{i}.points.{j}")}</li>' for j in range(len(TR['home']['stepsD'][i]['points'])))
+        return f'''<div class="detail_panel" id="steps-panel-{i}" role="region" aria-labelledby="ste-t-{i}">
+                    <div class="detail_panel-inner"><div class="detail_panel-body">
+                      {tx(f"home.stepsD.{i}.intro", 'p', 'detail_intro')}
+                      <ul class="detail_points" role="list">{pts}</ul>
+                    </div></div>
+                  </div>'''
     steps = ''.join(f'''
-                <li class="steps_item" data-reveal style="--d:{i}">
+                <li class="steps_item has-detail" data-reveal style="--d:{i}">
+                  <button type="button" class="detail_plus" data-detail-toggle aria-expanded="false" aria-controls="steps-panel-{i}" aria-labelledby="ste-t-{i}">{icon("i-plus")}</button>
                   <span class="steps_number text-style-mono">{i+1:02d}</span>
-                  {tx(f"home.steps.{i}.t", 'h3', 'heading-style-h5')}
+                  <h3 class="heading-style-h5" id="ste-t-{i}" {ti(f"home.steps.{i}.t")}>{t(f"home.steps.{i}.t")}</h3>
                   {tx(f"home.steps.{i}.p", 'p', 'text-size-small text-color-secondary')}
+                  {step_pop(i)}
                 </li>''' for i in range(len(TR['home']['steps'])))
     sol = ''.join(f'''
                 <li data-reveal style="--d:{i}"><a href="/cozumler#{s}" class="solution_card">{icon(C.SOL_ICONS[s], 'icon solution_icon')}{tx(f"sol.items.{s}.t", 'h3', 'heading-style-h5')}{tx(f"sol.items.{s}.p", 'p', 'text-size-small text-color-secondary')}</a></li>''' for i, s in enumerate(C.SOLUTIONS))

@@ -1936,7 +1936,7 @@ html[lang="ar"] .worklist_title { letter-spacing: 0; }
 }
 
 /* Performance : les grandes sections hors écran ne sont calculées qu'à l'approche du défilement */
-.main-wrapper > section:not(:first-child):not(.section_clients):not(.section_manifesto),
+.main-wrapper > section:not(:first-child):not(.section_clients):not(.section_manifesto):not(.section_steps),
 .footer_component { content-visibility: auto; contain-intrinsic-size: auto 900px; }
 
 /* ==========================================================================
@@ -2202,3 +2202,37 @@ body:has(.sector-dock.is-on) .wa_float { transform: translateY(-72px); }
 .works_grid.is-wide .works_tile { aspect-ratio: 840 / 472; }
 /* Le lien « espace client » passe dans le menu mobile sous 1200 px */
 @media (max-width: 1199px) { .nav_panel { display: none; } }
+/* ---------- Étapes : le détail s'ouvre dans une bulle sous la carte ---------- */
+.steps_item { padding-inline-end: 48px; transition: box-shadow var(--dur-hover) ease; }
+.steps_item.is-open { z-index: 6; box-shadow: 0 0 0 1px var(--color-hairline-strong); }
+.steps_item .detail_plus { top: 20px; inset-inline-end: 16px; width: 28px; height: 28px; transform: none; }
+.steps_item .detail_plus .icon { width: 14px; height: 14px; }
+.steps_item.is-open .detail_plus { transform: rotate(45deg); background-color: var(--color-ink); color: var(--color-bg); box-shadow: none; }
+@media (hover: hover) and (pointer: fine) {
+  .steps_item.has-detail:hover .detail_plus { transform: rotate(90deg); }
+  .steps_item.is-open:hover .detail_plus { transform: rotate(45deg); }
+}
+.steps_item .detail_panel {
+  position: absolute; top: calc(100% + 8px); inset-inline-start: 0; z-index: 6;
+  display: block; width: max(100%, 300px); padding: 18px 20px;
+  border-radius: var(--radius-card); background-color: var(--color-bg);
+  box-shadow: 0 0 0 1px var(--color-hairline), 0 18px 40px -16px rgba(10, 12, 11, 0.3);
+  opacity: 0; visibility: hidden; transform: translateY(-6px) scale(0.98); transform-origin: top left;
+  transition: opacity 180ms var(--ease-out), transform 220ms var(--ease-out), visibility 0s linear 220ms;
+}
+.steps_item.is-open .detail_panel { opacity: 1; visibility: visible; transform: none; transition: opacity 200ms var(--ease-out), transform 260ms var(--ease-out), visibility 0s; }
+/* Les dernières cartes ouvrent leur bulle vers l'intérieur de la page */
+.steps_item:nth-child(n+4) .detail_panel { inset-inline-start: auto; inset-inline-end: 0; transform-origin: top right; }
+.steps_item .detail_panel-inner { overflow: visible; }
+.steps_item .detail_panel-body { opacity: 1; transform: none; display: flex; flex-direction: column; gap: 12px; padding: 0; }
+.steps_item .detail_intro { font-size: 0.9375rem; color: var(--color-ink); }
+.steps_item .detail_points { grid-template-columns: 1fr; }
+@media (max-width: 991px) {
+  .steps_item:nth-child(n+4) .detail_panel { inset-inline-start: 0; inset-inline-end: auto; }
+  .steps_item:nth-child(even) .detail_panel { inset-inline-start: auto; inset-inline-end: 0; }
+}
+@media (max-width: 479px) {
+  .steps_item .detail_panel, .steps_item:nth-child(even) .detail_panel { width: 100%; inset-inline: 0; }
+}
+/* Les bulles des étapes débordent de leur section : pas de rendu différé ici (il les couperait) */
+.section_steps { content-visibility: visible; position: relative; z-index: 2; }

@@ -36,13 +36,13 @@ window.WEBINA_I18N = {
    "h1c": "için hazır",
    "h1d": "web siteleri.",
    "rotate": [
+    "Mimarlar",
     "Avukatlar",
-    "Doktorlar",
-    "Oto elektrikçiler",
-    "Kuaförler",
-    "Diş klinikleri",
-    "Restoranlar",
-    "Oteller"
+    "Haber ajansları",
+    "Danışmanlar",
+    "İhracatçılar",
+    "Mali müşavirler",
+    "Yayıncılar"
    ],
    "lead": "Mesleğinizi seçin, canlı demoyu inceleyin, paketinizi sipariş edin. Siteniz birkaç gün içinde kendi alan adınızda yayında.",
    "price": "{x}'den başlayan fiyatlarla · alan adı, hosting ve SSL ilk yıl dahil",
@@ -52,6 +52,49 @@ window.WEBINA_I18N = {
    "sectorsP": "Her meslek için hazırlanmış bir çözüm ve canlı bir demo.",
    "stepsT": "Nasıl çalışır?",
    "stepsP": "Siparişten yayına kadar her adımı birlikte yürütüyoruz.",
+   "stepsD": [
+    {
+     "intro": "Mesleğinizin sayfasında sitenizin neler içereceğini görürsünüz.",
+     "points": [
+      "17 meslek için hazır çözüm",
+      "Canlı demoyu telefonda ve bilgisayarda deneyin",
+      "Beğendiğiniz bir siteyi örnek gösterebilirsiniz"
+     ]
+    },
+    {
+     "intro": "Fiyat hesaplayıcıda seçenekleri işaretleyin, fiyatı anında görün.",
+     "points": [
+      "Avans yok",
+      "Özet teklif e-postanıza gelir",
+      "Aynı gün sizi arıyoruz"
+     ]
+    },
+    {
+     "intro": "Logonuz, metinleriniz ve fotoğraflarınızla sitenizi kuruyoruz.",
+     "points": [
+      "Metin yazımı ve fotoğraf çekimi isteğe bağlı",
+      "Alan adı ve hosting kurulumu bizden",
+      "Genellikle 5–10 iş günü"
+     ]
+    },
+    {
+     "intro": "Siteniz önce test.webina.com.tr adresinde açılır; istediğiniz değişikliği yaparız.",
+     "points": [
+      "Telefonda ve bilgisayarda inceleyin",
+      "Değişiklik talepleri dahil",
+      "Onayı müşteri panelinden verin"
+     ]
+    },
+    {
+     "intro": "Onayınızla siteyi alan adınızda yayına alırız; ödeme o zaman yapılır.",
+     "points": [
+      "SSL ve Google kaydı",
+      "Abonelik, faturalar ve yenileme my.webina.com.tr'de",
+      "WhatsApp ile destek"
+     ]
+    }
+   ],
+   "stepsMore": "Detaylar",
    "steps": [
     {
      "t": "Sektörünüzü seçin",
@@ -78,7 +121,7 @@ window.WEBINA_I18N = {
    "solP": "Site, alan adı, hosting ve bakım: tek muhatap, tek fatura.",
    "plansT": "Basit ve net fiyatlar",
    "plansP": "Tek seferlik ödeme, avans yok. Ödeme teslimde ve onayınızla.",
-   "h1b": "Avukatlar"
+   "h1b": "Mimarlar"
   },
   "team": {
    "eyebrow": "Ekibimiz",
@@ -1095,13 +1138,13 @@ window.WEBINA_I18N = {
    "h1c": "ready",
    "h1d": "in a few days.",
    "rotate": [
-    "lawyers",
-    "doctors",
-    "garages",
-    "hair salons",
-    "dentists",
-    "restaurants",
-    "hotels"
+    "architects",
+    "law firms",
+    "news agencies",
+    "consultants",
+    "exporters",
+    "accountants",
+    "TV channels"
    ],
    "lead": "Choose your profession, explore the live demo and order your package. Your site goes live on your own domain within days.",
    "price": "From {x} · domain, hosting and SSL included for year one",
@@ -1111,6 +1154,49 @@ window.WEBINA_I18N = {
    "sectorsP": "A ready-made solution and a live demo for every profession.",
    "stepsT": "How it works",
    "stepsP": "We walk you through every step, from order to launch.",
+   "stepsD": [
+    {
+     "intro": "Your profession's page shows exactly what your site will include.",
+     "points": [
+      "Ready-made solutions for 17 professions",
+      "Try the live demo on phone and desktop",
+      "You can also show us a site you like"
+     ]
+    },
+    {
+     "intro": "Tick the options in the price calculator and see the price instantly.",
+     "points": [
+      "No deposit",
+      "Quote summary sent to your email",
+      "We call you the same day"
+     ]
+    },
+    {
+     "intro": "We build your site with your logo, texts and photos.",
+     "points": [
+      "Copywriting and photo shoot optional",
+      "Domain and hosting set up for you",
+      "Usually 5–10 working days"
+     ]
+    },
+    {
+     "intro": "Your site first opens on test.webina.com.tr; we make any changes you ask for.",
+     "points": [
+      "Check it on phone and desktop",
+      "Change requests included",
+      "Approve it from your client area"
+     ]
+    },
+    {
+     "intro": "Once you approve, we publish it on your domain; you pay then.",
+     "points": [
+      "SSL and Google indexing",
+      "Subscription, invoices and renewal on my.webina.com.tr",
+      "Support on WhatsApp"
+     ]
+    }
+   ],
+   "stepsMore": "Details",
    "steps": [
     {
      "t": "Choose your industry",
@@ -1137,7 +1223,7 @@ window.WEBINA_I18N = {
    "solP": "Website, domain, hosting and maintenance: one contact, one invoice.",
    "plansT": "Simple, clear pricing",
    "plansP": "One-off payment, no deposit. You pay on delivery, once you approve.",
-   "h1b": "lawyers"
+   "h1b": "architects"
   },
   "team": {
    "eyebrow": "Our team",
@@ -2154,13 +2240,13 @@ window.WEBINA_I18N = {
    "h1c": "prêts",
    "h1d": "en quelques jours.",
    "rotate": [
+    "architectes",
     "avocats",
-    "médecins",
-    "garagistes",
-    "coiffeurs",
-    "dentistes",
-    "restaurants",
-    "hôtels"
+    "médias",
+    "consultants",
+    "exportateurs",
+    "comptables",
+    "chaînes TV"
    ],
    "lead": "Choisissez votre métier, découvrez la démo en ligne et commandez votre formule. Votre site est en ligne sur votre propre domaine en quelques jours.",
    "price": "À partir de {x} · domaine, hébergement et SSL inclus la 1re année",
@@ -2170,6 +2256,49 @@ window.WEBINA_I18N = {
    "sectorsP": "Une solution prête et une démo en ligne pour chaque métier.",
    "stepsT": "Comment ça marche ?",
    "stepsP": "Nous vous accompagnons à chaque étape, de la commande à la mise en ligne.",
+   "stepsD": [
+    {
+     "intro": "La page de votre métier montre exactement ce que contiendra votre site.",
+     "points": [
+      "Une solution prête pour 17 métiers",
+      "Essayez la démo sur téléphone et ordinateur",
+      "Vous pouvez aussi nous montrer un site qui vous plaît"
+     ]
+    },
+    {
+     "intro": "Cochez les options dans le calculateur et voyez le prix aussitôt.",
+     "points": [
+      "Sans acompte",
+      "Le récapitulatif arrive par e-mail",
+      "Nous vous appelons le jour même"
+     ]
+    },
+    {
+     "intro": "Nous créons votre site avec votre logo, vos textes et vos photos.",
+     "points": [
+      "Rédaction et photos en option",
+      "Domaine et hébergement installés par nos soins",
+      "En général 5 à 10 jours ouvrés"
+     ]
+    },
+    {
+     "intro": "Votre site s’ouvre d’abord sur test.webina.com.tr ; nous faisons les modifications demandées.",
+     "points": [
+      "Vérifiez-le sur téléphone et ordinateur",
+      "Demandes de modification incluses",
+      "Validez depuis votre espace client"
+     ]
+    },
+    {
+     "intro": "Après validation, nous le publions sur votre domaine ; vous payez à ce moment-là.",
+     "points": [
+      "SSL et référencement Google",
+      "Abonnement, factures et renouvellement sur my.webina.com.tr",
+      "Assistance sur WhatsApp"
+     ]
+    }
+   ],
+   "stepsMore": "Détails",
    "steps": [
     {
      "t": "Choisissez votre secteur",
@@ -2196,7 +2325,7 @@ window.WEBINA_I18N = {
    "solP": "Site, domaine, hébergement et maintenance : un seul interlocuteur, une seule facture.",
    "plansT": "Des tarifs simples et clairs",
    "plansP": "Paiement unique, sans acompte. Vous payez à la livraison, après validation.",
-   "h1b": "avocats"
+   "h1b": "architectes"
   },
   "team": {
    "eyebrow": "Notre équipe",
@@ -3213,13 +3342,13 @@ window.WEBINA_I18N = {
    "h1c": "جاهزة",
    "h1d": "خلال أيام.",
    "rotate": [
+    "للمعماريين",
     "للمحامين",
-    "للأطباء",
-    "لورش السيارات",
-    "للحلاقين",
-    "لأطباء الأسنان",
-    "للمطاعم",
-    "للفنادق"
+    "لوكالات الأنباء",
+    "للمستشارين",
+    "للمصدّرين",
+    "للمحاسبين",
+    "للإعلام"
    ],
    "lead": "اختر مهنتك، تصفّح العرض الحي واطلب باقتك. يصبح موقعك متاحاً على نطاقك الخاص خلال أيام.",
    "price": "ابتداءً من {x} · النطاق والاستضافة وSSL مشمولة في السنة الأولى",
@@ -3229,6 +3358,49 @@ window.WEBINA_I18N = {
    "sectorsP": "حل جاهز وعرض حي لكل مهنة.",
    "stepsT": "كيف يعمل؟",
    "stepsP": "نرافقك في كل خطوة، من الطلب حتى الإطلاق.",
+   "stepsD": [
+    {
+     "intro": "تعرض صفحة مهنتك بالضبط ما سيتضمنه موقعك.",
+     "points": [
+      "حلول جاهزة لـ 17 مهنة",
+      "جرّب العرض الحي على الجوال والحاسوب",
+      "يمكنك أيضاً أن ترينا موقعاً يعجبك"
+     ]
+    },
+    {
+     "intro": "اختر الخيارات في حاسبة السعر وشاهد السعر فوراً.",
+     "points": [
+      "بلا عربون",
+      "يصلك ملخص العرض بالبريد",
+      "نتصل بك في اليوم نفسه"
+     ]
+    },
+    {
+     "intro": "نصمم موقعك بشعارك ونصوصك وصورك.",
+     "points": [
+      "كتابة النصوص والتصوير اختيارية",
+      "نتولى إعداد النطاق والاستضافة",
+      "عادةً من 5 إلى 10 أيام عمل"
+     ]
+    },
+    {
+     "intro": "يظهر موقعك أولاً على test.webina.com.tr، ونجري التعديلات التي تطلبها.",
+     "points": [
+      "راجعه على الجوال والحاسوب",
+      "طلبات التعديل مشمولة",
+      "وافق عليه من منطقة العملاء"
+     ]
+    },
+    {
+     "intro": "بعد موافقتك ننشره على نطاقك، وتدفع حينها.",
+     "points": [
+      "SSL والفهرسة في Google",
+      "الاشتراك والفواتير والتجديد على my.webina.com.tr",
+      "دعم عبر واتساب"
+     ]
+    }
+   ],
+   "stepsMore": "التفاصيل",
    "steps": [
     {
      "t": "اختر قطاعك",
@@ -3255,7 +3427,7 @@ window.WEBINA_I18N = {
    "solP": "الموقع والنطاق والاستضافة والصيانة: جهة واحدة وفاتورة واحدة.",
    "plansT": "أسعار بسيطة وواضحة",
    "plansP": "دفعة واحدة دون عربون. تدفع عند التسليم وبعد موافقتك.",
-   "h1b": "للمحامين"
+   "h1b": "للمعماريين"
   },
   "team": {
    "eyebrow": "فريقنا",
