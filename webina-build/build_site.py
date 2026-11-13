@@ -215,7 +215,7 @@ def tpl(key, *keys):
 # ==========================================================================
 # Navigation : 7 entrées, menus déroulants courts (4 éléments + lien « tout »)
 # ==========================================================================
-NAV = [('home', '/'), ('solutions', '/cozumler'), ('sectors', '/sektorler'), ('demos', '/demolar'),
+NAV = [('home', '/'), ('solutions', '/cozumler'), ('sectors', '/sektorler'),
        ('pricing', '/teklif'), ('about', '/hakkimizda'), ('contact', '/iletisim')]
 
 def dropdown(k):
@@ -382,10 +382,13 @@ def sectors_fragments():
     out = []
     for g in C.GROUPS:
         cards = ''.join(f'''
-                    <a href="{s['page']}" class="sector-tile" data-reveal style="--d:{n % 3}">
-                      <span class="sector-tile_media"><img src="/images/{s['img']}" alt="" width="840" height="472" loading="lazy" decoding="async"></span>
-                      <span class="sector-tile_body">{icon(s['icon'], 'icon sector-tile_icon')}<span class="sector-tile_name" {ti("sec."+s['key']+".title")}>{t("sec."+s['key']+".title")}</span>{icon("i-arrow", "icon sector-tile_arrow")}</span>
-                    </a>''' for n, s in enumerate(x for x in SECTORS if x['group'] == g))
+                    <div class="sector-tile" data-reveal style="--d:{n % 3}">
+                      <a href="{s['page']}" class="sector-tile_link">
+                        <span class="sector-tile_media"><img src="/images/{s['img']}" alt="" width="840" height="472" loading="lazy" decoding="async"></span>
+                        <span class="sector-tile_body">{icon(s['icon'], 'icon sector-tile_icon')}<span class="sector-tile_text"><span class="sector-tile_name" {ti("sec."+s['key']+".title")}>{t("sec."+s['key']+".title")}</span><span class="sector-tile_demo-name text-color-muted" {ti("demo.items."+s['key']+".name")}>{t("demo.items."+s['key']+".name")}</span></span>{icon("i-arrow", "icon sector-tile_arrow")}</span>
+                      </a>
+                      <a href="{s['url']}" target="_blank" rel="noopener" class="sector-tile_demo"><span class="live-dot" aria-hidden="true"></span>{tx("demo.badge")}{icon("i-arrow")}</a>
+                    </div>''' for n, s in enumerate(x for x in SECTORS if x['group'] == g))
         out.append(f'''
                 <div class="sector-index_group">
                   <h2 class="sector-index_title text-style-mono">{tx(f"groups.{g}")}</h2>
@@ -442,7 +445,8 @@ def pricing_fragments():
     return {'PLANS': plan_cards(), 'OPTIONS': opts, 'FAQ': faq, 'PRICE_RENEWAL': tpl('price.renewal', 'renewalYearly')}
 
 def about_fragments():
-    return {'FACTS': facts(), 'TEAM': team(), 'CLIENTS': clients_items(False), 'CLIENTS_CLONE': clients_items(True)}
+    d = demos_fragments()
+    return {'FACTS': facts(), 'TEAM': team(), 'WORKLIST': d['WORKLIST'], 'WORKLIST_IMAGES': d['WORKLIST_IMAGES']}
 
 def sector_body(s):
     k = s['key']
@@ -498,7 +502,6 @@ PAGES = [
     ('home', 'index.html', '/', 'home', 'meta.home', TR['home']['lead']),
     ('solutions', 'cozumler/index.html', '/cozumler', 'solutions', 'meta.solutions', TR['sol']['text']),
     ('sectors', 'sektorler/index.html', '/sektorler', 'sectors', 'meta.sectors', TR['sectorsPage']['text']),
-    ('demos', 'demolar/index.html', '/demolar', 'demos', 'meta.demos', TR['demos']['text']),
     ('about', 'hakkimizda/index.html', '/hakkimizda', 'about', 'meta.about', TR['about']['text']),
     ('contact', 'iletisim/index.html', '/iletisim', 'contact', 'contact.eyebrow', TR['contact']['text']),
     ('teklif', 'teklif/index.html', '/teklif', 'pricing', 'quote.eyebrow', TR['quote']['lead']),
@@ -542,7 +545,7 @@ for p in PAGES:
 
 # Anciennes pages : remplacées par des redirections 301 (.htaccess), leurs dossiers ne sont plus livrés
 import shutil
-for old in ['services', 'secteurs', 'portfolio', 'contact', 'fiyatlar']:
+for old in ['services', 'secteurs', 'portfolio', 'contact', 'fiyatlar', 'demolar']:
     shutil.rmtree(os.path.join(OUT, old), ignore_errors=True)
 
 open(os.path.join(OUT, 'js', 'i18n.js'), 'w', encoding='utf-8').write(

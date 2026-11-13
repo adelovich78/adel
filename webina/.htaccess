@@ -23,6 +23,7 @@ ServerSignature Off
   RewriteRule ^contact(/|\.html)?$ /iletisim/ [R=301,L]
   RewriteRule ^teklif\.html$ /teklif/ [R=301,L]
   RewriteRule ^fiyatlar/?$ /teklif/ [R=301,L]
+  RewriteRule ^demolar/?$ /sektorler/ [R=301,L]
   RewriteRule ^index\.html$ / [R=301,L]
 
   # Bloquer fichiers cachés, sauvegardes, archives, journaux, sources

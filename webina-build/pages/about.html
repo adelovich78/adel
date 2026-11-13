@@ -33,15 +33,20 @@
         </div>
       </section>
 
-      <section class="section_clients">
-        <div class="clients_component">
-          <p class="clients_label text-style-mono">{{t:clients.label}}</p>
-          <div class="clients_marquee">
-            <ul class="clients_track" role="list">{{CLIENTS}}
-            </ul>
-            <ul class="clients_track" role="list" aria-hidden="true">{{CLIENTS_CLONE}}
-            </ul>
+      <!-- Sites clients réalisés : index typographique, la capture suit le curseur -->
+      <section class="section_work">
+        <div class="padding-global">
+          <div class="container-large">
+            <div class="padding-section-large">
+              <div class="section-header">
+                <h2 class="heading-style-h2" data-reveal>{{t:demos.clientsT}}</h2>
+                <p class="text-size-medium text-color-secondary" data-reveal style="--d:1">{{t:demos.clientsP}}</p>
+              </div>
+              <ol class="worklist_component" role="list" data-worklist>{{WORKLIST}}
+              </ol>
+            </div>
           </div>
         </div>
       </section>
+      <div class="worklist_preview" data-worklist-preview aria-hidden="true">{{WORKLIST_IMAGES}}</div>
     </main>

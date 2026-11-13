@@ -1076,7 +1076,7 @@ window.WEBINA_I18N = {
    "eyebrow": "Sektörler",
    "t1": "Mesleğiniz için",
    "t2": "hazır bir çözüm.",
-   "text": "Mesleğinizi seçin: sitenizin ne içereceğini okuyun, canlı demoyu inceleyin."
+   "text": "Mesleğinizi seçin: sitenizin ne içereceğini okuyun ya da canlı demoyu hemen açın."
   },
   "stage": {
    "aria": "Öne çıkan projeler",
@@ -2178,7 +2178,7 @@ window.WEBINA_I18N = {
    "eyebrow": "Industries",
    "t1": "A ready-made solution",
    "t2": "for your profession.",
-   "text": "Choose your profession: read what your site will include and explore the live demo."
+   "text": "Choose your profession: read what your site will include, or open the live demo right away."
   },
   "stage": {
    "aria": "Featured projects",
@@ -3280,7 +3280,7 @@ window.WEBINA_I18N = {
    "eyebrow": "Secteurs",
    "t1": "Une solution prête",
    "t2": "pour votre métier.",
-   "text": "Choisissez votre métier : découvrez ce que contiendra votre site et la démo en ligne."
+   "text": "Choisissez votre métier : découvrez ce que contiendra votre site, ou ouvrez directement la démo en ligne."
   },
   "stage": {
    "aria": "Projets à la une",
@@ -4382,7 +4382,7 @@ window.WEBINA_I18N = {
    "eyebrow": "القطاعات",
    "t1": "حل جاهز",
    "t2": "لمهنتك.",
-   "text": "اختر مهنتك: اطّلع على ما سيتضمنه موقعك وعلى العرض الحي."
+   "text": "اختر مهنتك: اطّلع على ما سيتضمنه موقعك أو افتح العرض الحي مباشرة."
   },
   "stage": {
    "aria": "مشاريع مختارة",
