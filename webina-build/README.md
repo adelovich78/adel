@@ -17,4 +17,4 @@ Les anciennes adresses (`/services`, `/secteurs`, `/portfolio`, `/contact`) sont
 
 Le CSS, le JS, les images, les polices, l'API PHP et `pricing.json` se modifient directement dans `webina/`.
 Espace client : `my/` (sous-domaine my.webina.com.tr), logique PHP dans `webina/api/_portal*.php`.
-Prévisualisation : `subdomains/onizleme/` (test et test2), ancienne démo : `subdomains/demo-redirect/`.
+Prévisualisation : `subdomains/onizleme/` (test et test2).
