@@ -983,6 +983,14 @@
     return { syncClip: syncClip };
   })();
 
+  /* ---------- E-mail : adresse reconstituée au chargement (pas d'adresse en clair pour les robots) ---------- */
+  document.querySelectorAll('[data-mail]').forEach(function (a) {
+    var addr = a.dataset.mail + '@' + a.dataset.mailHost;
+    a.href = 'mailto:' + addr;
+    var t = a.querySelector('[data-mail-text]');
+    if (t) t.textContent = addr;
+  });
+
   /* ---------- Manifeste : les mots s'éclairent au fil du défilement ---------- */
   (function () {
     var el = document.querySelector('[data-manifesto]');
