@@ -13,6 +13,90 @@
       "skillPath": "skills/find-skills/SKILL.md",
       "computedHash": "7bc223e2aafbdbf6e50ea243ba6ef67fe432bb069ab439fea0390795dac0bf7f"
     },
+    "ig-audit": {
+      "source": "postzen-dev/instagram-agent-skill",
+      "sourceType": "github",
+      "skillPath": "skills/ig-audit/SKILL.md",
+      "computedHash": "82ba24f999c21b5ea6aff7cd4c5c8426985a2ccacdf9ccc65d118eb681b937b3"
+    },
+    "ig-caption": {
+      "source": "postzen-dev/instagram-agent-skill",
+      "sourceType": "github",
+      "skillPath": "skills/ig-caption/SKILL.md",
+      "computedHash": "ac918c50aae15100a2a8c3bb038dc15b34cbd2ca16fd66ff2a2e5de30a91583f"
+    },
+    "ig-carousel": {
+      "source": "postzen-dev/instagram-agent-skill",
+      "sourceType": "github",
+      "skillPath": "skills/ig-carousel/SKILL.md",
+      "computedHash": "593ccfe497183d4316e872695c730a18e2581012e97c5f451b151a45bc83a732"
+    },
+    "ig-comment": {
+      "source": "postzen-dev/instagram-agent-skill",
+      "sourceType": "github",
+      "skillPath": "skills/ig-comment/SKILL.md",
+      "computedHash": "84809c4e7c9b31c51f5219fadf0b9a1727ec25f3bc0f19cde3e957597f9f2e82"
+    },
+    "ig-dm": {
+      "source": "postzen-dev/instagram-agent-skill",
+      "sourceType": "github",
+      "skillPath": "skills/ig-dm/SKILL.md",
+      "computedHash": "d6c745d9cb36fde459272f59eefea1adacb26edcb03fa52521984244a497fb56"
+    },
+    "ig-human": {
+      "source": "postzen-dev/instagram-agent-skill",
+      "sourceType": "github",
+      "skillPath": "skills/ig-human/SKILL.md",
+      "computedHash": "c3970397e0a189ac1726cd4cd29163802b40dc99d304c438a945fd5a0d5f6ec8"
+    },
+    "ig-plan": {
+      "source": "postzen-dev/instagram-agent-skill",
+      "sourceType": "github",
+      "skillPath": "skills/ig-plan/SKILL.md",
+      "computedHash": "b124c6674d7f3029524b68799346432b72884114a7b2adc61f789bccd5b20fb9"
+    },
+    "ig-profile": {
+      "source": "postzen-dev/instagram-agent-skill",
+      "sourceType": "github",
+      "skillPath": "skills/ig-profile/SKILL.md",
+      "computedHash": "6182f07343269b3d81c9b5fc2ee86341af6f86abc954ffd29668e47954886c0b"
+    },
+    "ig-publish": {
+      "source": "postzen-dev/instagram-agent-skill",
+      "sourceType": "github",
+      "skillPath": "skills/ig-publish/SKILL.md",
+      "computedHash": "e60fc40c4888748a4a8992e9822b40bb3f4f3c132a93c31d104af63b434921de"
+    },
+    "ig-reel": {
+      "source": "postzen-dev/instagram-agent-skill",
+      "sourceType": "github",
+      "skillPath": "skills/ig-reel/SKILL.md",
+      "computedHash": "c715ddd0404d3678a02635a176aee733ee5763318e6f3e66bed4cbebdff92c54"
+    },
+    "ig-reply": {
+      "source": "postzen-dev/instagram-agent-skill",
+      "sourceType": "github",
+      "skillPath": "skills/ig-reply/SKILL.md",
+      "computedHash": "4fed7c8fbc3611e4ddc249b325d94ac15f4b31c4e65143a081e7c06ef879ca85"
+    },
+    "ig-repurpose": {
+      "source": "postzen-dev/instagram-agent-skill",
+      "sourceType": "github",
+      "skillPath": "skills/ig-repurpose/SKILL.md",
+      "computedHash": "e9a83ddfbf6df48c0d135bcb785f224b930e2d23c1aeb518e6fa03187d181043"
+    },
+    "ig-story": {
+      "source": "postzen-dev/instagram-agent-skill",
+      "sourceType": "github",
+      "skillPath": "skills/ig-story/SKILL.md",
+      "computedHash": "4fc9af8d9f5b4a28ebfb580d4b9e4337cfd6d0ca8505f79ebaa30d3d598343b9"
+    },
+    "ig-viral": {
+      "source": "postzen-dev/instagram-agent-skill",
+      "sourceType": "github",
+      "skillPath": "skills/ig-viral/SKILL.md",
+      "computedHash": "6f414b72b2b5eded49d607837abf82e8879f7756d0c948e18bd0d499764cf31e"
+    },
     "instagram-scraper": {
       "source": "apidojo-io/social-media-skills",
       "sourceType": "github",
