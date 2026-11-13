@@ -18,6 +18,12 @@
       "sourceType": "github",
       "skillPath": ".agents/skills/svg-character-animation/SKILL.md",
       "computedHash": "f97194f882d070bb45b0f75730944ed166a885c143883d595e433da81f1ccf69"
+    },
+    "text-to-speech": {
+      "source": "openmontageinc/openmontage",
+      "sourceType": "github",
+      "skillPath": ".agents/skills/text-to-speech/SKILL.md",
+      "computedHash": "bb6f3b3629fc653843eaf0c096a3b862a3ea6f0be4736c469859f3f23f0f304f"
     }
   }
 }
