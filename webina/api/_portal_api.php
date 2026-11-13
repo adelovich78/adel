@@ -24,8 +24,16 @@ case 'code':
     $email = strtolower(trim((string)($in['email'] ?? '')));
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) fail('E-posta geçersiz.', 422);
     $lang = in_array($in['lang'] ?? '', ['tr', 'en', 'fr', 'ar'], true) ? $in['lang'] : 'tr';
-    $c = portal_one($pdo, 'SELECT * FROM crm_clients WHERE LOWER(email) = ? AND portal_enabled = 1 ORDER BY created_at LIMIT 1', [$email]);
-    if ($c) portal_send_code($c, portal_token($pdo, $c['id'], 'code'), $c['lang'] ?: $lang);
+    $c = portal_one($pdo, 'SELECT * FROM crm_clients WHERE LOWER(email) = ? ORDER BY portal_enabled DESC, created_at LIMIT 1', [$email]);
+    if ($c && (int)$c['portal_enabled'] === 1) {
+        $sent = portal_send_code($c, portal_token($pdo, $c['id'], 'code'), $c['lang'] ?: $lang);
+    } else {
+        // Fiche existante sans accès : trace dans le CRM pour que Webina puisse ouvrir l'accès
+        if ($c) crm_log($pdo, $c['id'], null, 'portal', 'Tentative de connexion à l\'espace client (accès non ouvert)');
+        $sent = portal_send_noaccess($email, $lang);
+    }
+    // Échec d'envoi (SMTP) : on le dit, sinon la personne attend un code qui n'arrivera jamais
+    if (!$sent) fail('E-posta gönderilemedi. Lütfen biraz sonra tekrar deneyin veya bize WhatsApp\'tan yazın.', 502);
     json_out(['ok' => true]);
 
 case 'verify':

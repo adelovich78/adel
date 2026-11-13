@@ -7,7 +7,7 @@
   var T = {
     tr: {
       panel: 'Müşteri Paneli', logout: 'Çıkış', loginT: 'Müşteri paneline giriş', loginP: 'E-posta adresinizi yazın, size 6 haneli bir giriş kodu gönderelim.',
-      email: 'E-posta', sendCode: 'Kod gönder', codeSent: 'Kod gönderildi:', code: 'Giriş kodu', login: 'Giriş yap', changeEmail: 'E-postayı değiştir',
+      email: 'E-posta', sendCode: 'Kod gönder', codeSent: 'E-posta gönderildi:', code: 'Giriş kodu', login: 'Giriş yap', changeEmail: 'E-postayı değiştir',
       noAccess: 'Erişiminiz yok mu?', contactUs: 'Bize yazın', hello: 'Merhaba', invoices: 'Faturalar', notices: 'Bildirimler', account: 'Hesap bilgileri',
       name: 'Ad soyad', company: 'Firma', phone: 'Telefon', emailHint: 'E-posta adresinizi değiştirmek için bize yazın.', save: 'Kaydet',
       support: 'Destek', supportP: 'Bir değişiklik mi istiyorsunuz, bir sorunuz mu var? Yazın, aynı gün dönelim.', message: 'Mesajınız', send: 'Gönder',
@@ -30,7 +30,7 @@
     },
     en: {
       panel: 'Client area', logout: 'Log out', loginT: 'Sign in to your client area', loginP: 'Enter your email address and we will send you a 6-digit login code.',
-      email: 'Email', sendCode: 'Send code', codeSent: 'Code sent to:', code: 'Login code', login: 'Sign in', changeEmail: 'Change email',
+      email: 'Email', sendCode: 'Send code', codeSent: 'Email sent to:', code: 'Login code', login: 'Sign in', changeEmail: 'Change email',
       noAccess: 'No access?', contactUs: 'Message us', hello: 'Hello', invoices: 'Invoices', notices: 'Notifications', account: 'Account details',
       name: 'Full name', company: 'Company', phone: 'Phone', emailHint: 'To change your email address, message us.', save: 'Save',
       support: 'Support', supportP: 'Need a change or have a question? Write to us and we will reply the same day.', message: 'Your message', send: 'Send',
@@ -53,7 +53,7 @@
     },
     fr: {
       panel: 'Espace client', logout: 'Déconnexion', loginT: 'Connexion à votre espace client', loginP: 'Saisissez votre adresse e-mail, nous vous envoyons un code de connexion à 6 chiffres.',
-      email: 'E-mail', sendCode: 'Recevoir le code', codeSent: 'Code envoyé à :', code: 'Code de connexion', login: 'Se connecter', changeEmail: 'Changer d’adresse',
+      email: 'E-mail', sendCode: 'Recevoir le code', codeSent: 'E-mail envoyé à :', code: 'Code de connexion', login: 'Se connecter', changeEmail: 'Changer d’adresse',
       noAccess: 'Pas d’accès ?', contactUs: 'Écrivez-nous', hello: 'Bonjour', invoices: 'Factures', notices: 'Notifications', account: 'Mon compte',
       name: 'Nom et prénom', company: 'Société', phone: 'Téléphone', emailHint: 'Pour changer d’adresse e-mail, écrivez-nous.', save: 'Enregistrer',
       support: 'Assistance', supportP: 'Une modification, une question ? Écrivez-nous, nous répondons dans la journée.', message: 'Votre message', send: 'Envoyer',
@@ -76,7 +76,7 @@
     },
     ar: {
       panel: 'منطقة العملاء', logout: 'خروج', loginT: 'الدخول إلى منطقة العملاء', loginP: 'اكتب بريدك الإلكتروني وسنرسل إليك رمز دخول من 6 أرقام.',
-      email: 'البريد الإلكتروني', sendCode: 'أرسل الرمز', codeSent: 'تم إرسال الرمز إلى:', code: 'رمز الدخول', login: 'دخول', changeEmail: 'تغيير البريد',
+      email: 'البريد الإلكتروني', sendCode: 'أرسل الرمز', codeSent: 'تم إرسال رسالة إلى:', code: 'رمز الدخول', login: 'دخول', changeEmail: 'تغيير البريد',
       noAccess: 'ليس لديك وصول؟', contactUs: 'راسلنا', hello: 'مرحباً', invoices: 'الفواتير', notices: 'الإشعارات', account: 'بيانات الحساب',
       name: 'الاسم الكامل', company: 'الشركة', phone: 'الهاتف', emailHint: 'لتغيير بريدك الإلكتروني راسلنا.', save: 'حفظ',
       support: 'الدعم', supportP: 'تريد تعديلاً أو لديك سؤال؟ اكتب لنا ونرد في اليوم نفسه.', message: 'رسالتك', send: 'إرسال',

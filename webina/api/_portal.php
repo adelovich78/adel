@@ -175,6 +175,22 @@ function portal_request(PDO $pdo, array $c, string $kind, ?string $projectId, st
 }
 
 /* ---------- E-mail du code de connexion ---------- */
+// Adresse sans espace client ouvert : on prévient quand même la personne (même réponse côté écran,
+// donc on ne révèle pas quelles adresses sont clientes)
+function portal_send_noaccess(string $email, string $lang): bool {
+    $L = [
+        'tr' => ['Webina müşteri paneli', 'Bu e-posta adresi için açılmış bir müşteri paneli bulunmuyor.', 'Webina müşterisiyseniz, kayıtlı e-posta adresinizle deneyin veya bize yazın, erişiminizi hemen açalım.'],
+        'en' => ['Webina client area', 'There is no client area open for this email address.', 'If you are a Webina client, try the email address we have on file or contact us and we will open your access.'],
+        'fr' => ['Espace client Webina', 'Aucun espace client n’est ouvert pour cette adresse e-mail.', 'Si vous êtes client Webina, essayez l’adresse que nous avons enregistrée ou écrivez-nous : nous ouvrirons votre accès.'],
+        'ar' => ['منطقة عملاء Webina', 'لا توجد منطقة عملاء مفتوحة لهذا البريد الإلكتروني.', 'إذا كنت من عملاء Webina فجرّب البريد المسجّل لدينا أو راسلنا لنفتح لك الوصول.'],
+    ][$lang] ?? null;
+    if (!$L) return false;
+    $html = '<p style="margin:0 0 12px;font-weight:600">' . h($L[1]) . '</p>'
+        . '<p style="margin:0 0 16px;color:#555">' . h($L[2]) . '</p>'
+        . '<p style="margin:0"><a href="https://wa.me/905399662557" style="color:#1f6f2a">WhatsApp</a> · <a href="https://webina.com.tr/iletisim" style="color:#1f6f2a">webina.com.tr/iletisim</a></p>';
+    return send_html_mail($email, $L[0], mail_layout($html, $lang === 'ar'));
+}
+
 function portal_send_code(array $c, string $code, string $lang): bool {
     $L = [
         'tr' => ['Webina müşteri paneli giriş kodunuz', 'Giriş kodunuz', PORTAL_CODE_TTL . ' dakika geçerlidir. Bu isteği siz yapmadıysanız bu e-postayı yok sayın.'],
