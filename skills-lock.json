@@ -24,6 +24,12 @@
       "sourceType": "github",
       "skillPath": ".agents/skills/text-to-speech/SKILL.md",
       "computedHash": "bb6f3b3629fc653843eaf0c096a3b862a3ea6f0be4736c469859f3f23f0f304f"
+    },
+    "web-design-guidelines": {
+      "source": "vercel-labs/agent-skills",
+      "sourceType": "github",
+      "skillPath": "skills/web-design-guidelines/SKILL.md",
+      "computedHash": "4f68ae07187fb0d1fb78c88b503d089da4cf5a9d9625d1f2e425b1590bf96d92"
     }
   }
 }
