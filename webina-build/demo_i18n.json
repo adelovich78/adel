@@ -118,6 +118,17 @@
      "Türkçe & İngilizce"
     ]
    },
+   "gym": {
+    "tab": "Spor Salonu",
+    "name": "FORGE",
+    "desc": "Güç ve cross-training odaklı modern bir spor salonu sitesi: ders programı, üyelik fiyatları ve ücretsiz deneme kaydı.",
+    "feats": [
+     "Haftalık ders programı",
+     "Üyelik paketleri ve fiyatlar",
+     "Ücretsiz deneme formu",
+     "Türkçe & İngilizce"
+    ]
+   },
    "hotel": {
     "tab": "Otel",
     "name": "Maison Lycia",
@@ -313,6 +324,17 @@
      "Online store and cart",
      "Style finder by face shape",
      "Free eye exam booking",
+     "Turkish & English"
+    ]
+   },
+   "gym": {
+    "tab": "Gym",
+    "name": "FORGE",
+    "desc": "A modern strength and cross-training gym site: class schedule, membership prices and a free-trial sign-up.",
+    "feats": [
+     "Weekly class schedule",
+     "Membership plans and prices",
+     "Free-trial form",
      "Turkish & English"
     ]
    },
@@ -514,6 +536,17 @@
      "Turc & anglais"
     ]
    },
+   "gym": {
+    "tab": "Salle de sport",
+    "name": "FORGE",
+    "desc": "Un site de salle de sport moderne, axé force et cross-training : planning des cours, tarifs d’abonnement et inscription à l’essai gratuit.",
+    "feats": [
+     "Planning des cours",
+     "Formules et tarifs d’abonnement",
+     "Formulaire d’essai gratuit",
+     "Turc & anglais"
+    ]
+   },
    "hotel": {
     "tab": "Hôtel",
     "name": "Maison Lycia",
@@ -709,6 +742,17 @@
      "متجر إلكتروني وسلة",
      "أداة اختيار الطراز حسب شكل الوجه",
      "حجز فحص نظر مجاني",
+     "التركية والإنجليزية"
+    ]
+   },
+   "gym": {
+    "tab": "نادٍ رياضي",
+    "name": "FORGE",
+    "desc": "موقع عصري لنادٍ رياضي يركّز على القوة والتدريب المتقاطع: جدول الحصص، أسعار الاشتراك والتسجيل للتجربة المجانية.",
+    "feats": [
+     "جدول الحصص الأسبوعي",
+     "باقات الاشتراك والأسعار",
+     "نموذج التجربة المجانية",
      "التركية والإنجليزية"
     ]
    },

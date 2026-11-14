@@ -377,6 +377,17 @@ window.WEBINA_I18N = {
       "Türkçe & İngilizce"
      ]
     },
+    "gym": {
+     "tab": "Spor Salonu",
+     "name": "FORGE",
+     "desc": "Güç ve cross-training odaklı modern bir spor salonu sitesi: ders programı, üyelik fiyatları ve ücretsiz deneme kaydı.",
+     "feats": [
+      "Haftalık ders programı",
+      "Üyelik paketleri ve fiyatlar",
+      "Ücretsiz deneme formu",
+      "Türkçe & İngilizce"
+     ]
+    },
     "hotel": {
      "tab": "Otel",
      "name": "Maison Lycia",
@@ -491,6 +502,7 @@ window.WEBINA_I18N = {
     "Veteriner",
     "Eczane",
     "Optik",
+    "Spor Salonu",
     "Restoran",
     "Otel",
     "Turizm",
@@ -828,6 +840,11 @@ window.WEBINA_I18N = {
     "name": "Optik",
     "title": "Optik mağazaları için web sitesi",
     "why": "Gözlük almadan önce müşteriler modelleri ve fiyatları online inceler. Siteniz koleksiyonunuzu gösterir, muayene randevusu ve online satış getirir."
+   },
+   "gym": {
+    "name": "Spor Salonu",
+    "title": "Spor salonları için web sitesi",
+    "why": "Yeni üyeler salonları, dersleri ve fiyatları internette karşılaştırır. Siteniz ders programınızı gösterir, üyelik paketlerini anlatır ve ücretsiz deneme kaydı alır."
    },
    "restaurant": {
     "name": "Restoran",
@@ -1479,6 +1496,17 @@ window.WEBINA_I18N = {
       "Turkish & English"
      ]
     },
+    "gym": {
+     "tab": "Gym",
+     "name": "FORGE",
+     "desc": "A modern strength and cross-training gym site: class schedule, membership prices and a free-trial sign-up.",
+     "feats": [
+      "Weekly class schedule",
+      "Membership plans and prices",
+      "Free-trial form",
+      "Turkish & English"
+     ]
+    },
     "hotel": {
      "tab": "Hotel",
      "name": "Maison Lycia",
@@ -1593,6 +1621,7 @@ window.WEBINA_I18N = {
     "Vet",
     "Pharmacy",
     "Optician",
+    "Gym",
     "Restaurant",
     "Hotel",
     "Travel",
@@ -1930,6 +1959,11 @@ window.WEBINA_I18N = {
     "name": "Optician",
     "title": "Websites for opticians",
     "why": "Customers browse frames and prices online before buying glasses. Your site shows your collection and brings eye-test bookings and online sales."
+   },
+   "gym": {
+    "name": "Gym",
+    "title": "Websites for gyms",
+    "why": "New members compare gyms, classes and prices online. Your site shows your schedule, explains membership plans and signs people up for a free trial."
    },
    "restaurant": {
     "name": "Restaurant",
@@ -2581,6 +2615,17 @@ window.WEBINA_I18N = {
       "Turc & anglais"
      ]
     },
+    "gym": {
+     "tab": "Salle de sport",
+     "name": "FORGE",
+     "desc": "Un site de salle de sport moderne, axé force et cross-training : planning des cours, tarifs d’abonnement et inscription à l’essai gratuit.",
+     "feats": [
+      "Planning des cours",
+      "Formules et tarifs d’abonnement",
+      "Formulaire d’essai gratuit",
+      "Turc & anglais"
+     ]
+    },
     "hotel": {
      "tab": "Hôtel",
      "name": "Maison Lycia",
@@ -2695,6 +2740,7 @@ window.WEBINA_I18N = {
     "Vétérinaire",
     "Pharmacie",
     "Opticien",
+    "Salle de sport",
     "Restaurant",
     "Hôtel",
     "Voyage",
@@ -3032,6 +3078,11 @@ window.WEBINA_I18N = {
     "name": "Opticien",
     "title": "Sites web pour opticiens",
     "why": "Avant d’acheter des lunettes, les clients comparent modèles et prix en ligne. Votre site présente votre collection et apporte rendez-vous et ventes en ligne."
+   },
+   "gym": {
+    "name": "Salle de sport",
+    "title": "Sites web pour salles de sport",
+    "why": "Les nouveaux membres comparent salles, cours et tarifs en ligne. Votre site montre votre planning, présente les abonnements et enregistre les inscriptions à la séance d’essai."
    },
    "restaurant": {
     "name": "Restaurant",
@@ -3683,6 +3734,17 @@ window.WEBINA_I18N = {
       "التركية والإنجليزية"
      ]
     },
+    "gym": {
+     "tab": "نادٍ رياضي",
+     "name": "FORGE",
+     "desc": "موقع عصري لنادٍ رياضي يركّز على القوة والتدريب المتقاطع: جدول الحصص، أسعار الاشتراك والتسجيل للتجربة المجانية.",
+     "feats": [
+      "جدول الحصص الأسبوعي",
+      "باقات الاشتراك والأسعار",
+      "نموذج التجربة المجانية",
+      "التركية والإنجليزية"
+     ]
+    },
     "hotel": {
      "tab": "فندق",
      "name": "Maison Lycia",
@@ -3797,6 +3859,7 @@ window.WEBINA_I18N = {
     "بيطري",
     "صيدلية",
     "بصريات",
+    "نادٍ رياضي",
     "مطعم",
     "فندق",
     "سفر",
@@ -4134,6 +4197,11 @@ window.WEBINA_I18N = {
     "name": "بصريات",
     "title": "مواقع لمحلات البصريات",
     "why": "يتصفح الزبائن الإطارات والأسعار عبر الإنترنت قبل الشراء. يعرض موقعك مجموعتك ويجلب مواعيد الفحص والمبيعات."
+   },
+   "gym": {
+    "name": "نادٍ رياضي",
+    "title": "مواقع للأندية الرياضية",
+    "why": "الأعضاء الجدد يقارنون الأندية والحصص والأسعار عبر الإنترنت. يعرض موقعك جدول الحصص، يشرح باقات الاشتراك ويستقبل التسجيل للحصة التجريبية."
    },
    "restaurant": {
     "name": "مطعم",
