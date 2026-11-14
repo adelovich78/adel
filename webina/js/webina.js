@@ -1319,7 +1319,20 @@
 
   /* ---------- Démarrage ---------- */
   var params = new URLSearchParams(location.search);
-  var initial = params.get('lang') || store('webina-lang') || 'tr';
+  // Langue au premier passage : choix explicite (?lang= ou mémorisé), sinon celle du navigateur.
+  // Un visiteur en France ou en Tunisie arrive ainsi en français, en Turquie en turc,
+  // et toute autre langue étrangère bascule en anglais. Les robots d'indexation gardent
+  // le turc pour ne pas changer la langue référencée sur Google.
+  function browserLang() {
+    if (/bot|crawl|spider|slurp|lighthouse|headless/i.test(navigator.userAgent)) return null;
+    var prefs = (navigator.languages && navigator.languages.length) ? navigator.languages : [navigator.language || ''];
+    for (var i = 0; i < prefs.length; i++) {
+      var c = String(prefs[i]).slice(0, 2).toLowerCase();
+      if (LANGS.indexOf(c) !== -1) return c;
+    }
+    return 'en';
+  }
+  var initial = params.get('lang') || store('webina-lang') || browserLang() || 'tr';
   if (initial !== 'tr') setLang(initial, false);
   else syncNavIndicator(activeNavLink(), false);
 

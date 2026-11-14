@@ -105,7 +105,13 @@
   var lang = 'tr', data = null;
   var savedLang = null;
   try { savedLang = localStorage.getItem('wb-portal-lang'); } catch (e) {}
-  lang = savedLang || 'tr';
+  // Sans choix mémorisé : la langue du navigateur (client en France → français, etc.)
+  var navLang = null;
+  try {
+    var prefs = (navigator.languages && navigator.languages.length) ? navigator.languages : [navigator.language || ''];
+    for (var pi = 0; pi < prefs.length; pi++) { var pc = String(prefs[pi]).slice(0, 2).toLowerCase(); if (T[pc]) { navLang = pc; break; } }
+  } catch (e) {}
+  lang = savedLang || navLang || 'tr';
   if (!T[lang]) lang = 'tr';
   function L() { return T[lang]; }
   function fill(s, o) { return String(s).replace(/\{(\w+)\}/g, function (m, k) { return o[k] != null ? o[k] : m; }); }
