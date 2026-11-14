@@ -378,6 +378,7 @@ html[lang="ar"] .heading-style-h3 { font-weight: 600; letter-spacing: 0; line-he
 
 .nav_mobile {
   position: absolute; top: 100%; inset-inline: 0;
+  max-height: calc(100svh - 64px); overflow-y: auto; overscroll-behavior: contain;
   padding: 8px 16px 24px;
   background-color: var(--color-bg);
   border-bottom: 1px solid var(--color-hairline);
@@ -388,6 +389,17 @@ html[lang="ar"] .heading-style-h3 { font-weight: 600; letter-spacing: 0; line-he
 .nav_mobile[hidden] { display: none; }
 .nav_mobile.is-entering { opacity: 0; transform: translateY(-8px); }
 .nav_mobile-inner { display: flex; flex-direction: column; gap: 4px; }
+/* Tous les métiers en pastilles sous « Sektörler » */
+.nav_mobile-sectors {
+  display: flex; flex-wrap: wrap; gap: 8px;
+  padding: 14px 0 18px; border-bottom: 1px solid var(--color-hairline);
+}
+.nav_mobile-chip {
+  display: inline-flex; align-items: center; min-height: 44px; padding-inline: 15px;
+  border-radius: 999px; box-shadow: inset 0 0 0 1px var(--color-hairline-strong);
+  font-size: 0.875rem; color: var(--color-text-secondary);
+}
+.nav_mobile-chip:active { background-color: var(--color-raised); color: var(--color-ink); }
 .nav_mobile-link {
   display: flex; align-items: center; height: 48px;
   font-size: 1.25rem; border-bottom: 1px solid var(--color-hairline);
@@ -871,13 +883,12 @@ html[lang="ar"] .hero_heading { line-height: 1.22; letter-spacing: 0; }
     transition-delay: calc(var(--d, 0) * 70ms);
   }
   .js [data-enter] {
-    opacity: 0; transform: translateY(12px);
-    transition: opacity var(--dur-enter) var(--ease-out), transform var(--dur-enter) var(--ease-out);
+    transform: translateY(12px); filter: blur(12px);
+    transition: filter var(--dur-enter) ease, transform var(--dur-enter) var(--ease-out);
     transition-delay: calc(var(--d, 0) * 70ms + 120ms);
   }
-  .js.is-loaded [data-enter-line],
-  .js.is-loaded [data-enter] { transform: none; opacity: 1; }
-  .js .hero_lead[data-enter] { opacity: 1; }
+  .js.is-loaded [data-enter-line] { transform: none; }
+  .js.is-loaded [data-enter] { transform: none; filter: none; }
 
   /* Scène du héro : les repères de coupe et la légende n'apparaissent qu'une fois les fenêtres en place */
   .js .stage_crop, .js .stage_meta { opacity: 0; transition: opacity 500ms ease; }
@@ -885,11 +896,11 @@ html[lang="ar"] .hero_heading { line-height: 1.22; letter-spacing: 0; }
 
   /* Révélations au défilement */
   .js [data-reveal] {
-    opacity: 0; transform: translateY(16px);
-    transition: opacity 700ms var(--ease-out), transform 700ms var(--ease-out);
+    transform: translateY(16px); filter: blur(12px);
+    transition: filter 700ms ease, transform 700ms var(--ease-out);
     transition-delay: calc(var(--d, 0) * 60ms);
   }
-  .js [data-reveal].is-in { opacity: 1; transform: none; }
+  .js [data-reveal].is-in { transform: none; filter: none; }
 
   /* Images de projet : dévoilées de bas en haut */
   .js [data-clip] {
@@ -905,7 +916,7 @@ html[lang="ar"] .hero_heading { line-height: 1.22; letter-spacing: 0; }
     transition-duration: 0.01ms !important;
     animation-duration: 0.01ms !important;
   }
-  .js [data-reveal], .js [data-enter] { opacity: 1; }
+  .js [data-reveal], .js [data-enter] { opacity: 1; filter: none; }
   .stage_seg.is-active .stage_seg-fill { animation-duration: var(--stage-dur, 3000ms) !important; }
 }
 
@@ -1716,7 +1727,7 @@ html[lang="ar"] .drawer_title { font-weight: 600; letter-spacing: 0; line-height
   /* Le titre du héro s'anime lettre par lettre (plus de montée de ligne entière) */
   .js .hero_heading [data-enter-line] { transform: none; transition: none; }
   .js .hero_heading .char {
-    opacity: 0; transform: translateY(0.55em); filter: blur(8px);
+    transform: translateY(0.55em); filter: blur(8px);
     transition: opacity 520ms ease, transform 820ms var(--ease-out), filter 620ms ease;
     transition-delay: calc(var(--ci, 0) * 16ms + 40ms);
   }
@@ -1998,6 +2009,29 @@ html[lang="ar"] .worklist_title { letter-spacing: 0; }
 .nav_drop-link .is-ext { width: 14px; height: 14px; margin-inline-start: auto; color: var(--color-text-muted); }
 .nav_drop-more { justify-content: space-between; margin-top: 4px; border-top: 1px solid var(--color-hairline); border-radius: 0 0 8px 8px; color: var(--color-text-secondary); font-size: 0.875rem; }
 .nav_drop-more .icon { width: 14px; height: 14px; }
+
+/* Méga-panneau « Sektörler » : les 17 métiers groupés, centré sous le menu */
+.nav_drop.is-mega {
+  left: 50%;
+  transform: translate(-50%, -4px);
+  min-width: 0;
+}
+.nav_item:hover .nav_drop.is-mega, .nav_item:focus-within .nav_drop.is-mega { transform: translate(-50%, 0); }
+.nav_drop.is-mega .nav_drop-inner { padding: 16px 16px 8px; }
+.nav_mega { display: grid; grid-template-columns: repeat(5, max-content); gap: 4px 28px; padding-inline: 4px; }
+.nav_mega-group { display: flex; flex-direction: column; gap: 2px; }
+.nav_mega-label {
+  padding: 6px 10px 8px; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--color-text-muted); white-space: nowrap;
+}
+.nav_mega-link {
+  display: flex; align-items: center; gap: 8px; padding: 8px 10px; border-radius: 8px;
+  font-size: 0.9375rem; color: var(--color-ink); white-space: nowrap;
+  transition: background-color var(--dur-hover) ease;
+}
+.nav_mega-link .icon { width: 17px; height: 17px; color: var(--color-accent-ink); flex: none; }
+@media (hover: hover) and (pointer: fine) { .nav_mega-link:hover { background-color: var(--color-raised); } }
+.nav_drop.is-mega .nav_drop-more { margin-top: 10px; }
 @media (hover: hover) and (pointer: fine) {
   .nav_drop-link:hover, .nav_drop-more:hover { background-color: var(--color-raised); }
 }

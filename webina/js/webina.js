@@ -519,7 +519,10 @@
     document.addEventListener('visibilitychange', updatePaused);
     document.addEventListener('webina:lang', function () { syncToggle(); layout(); });
     if ('IntersectionObserver' in window) {
-      new IntersectionObserver(function (en) { visible = en[0].isIntersecting; updatePaused(); }, { threshold: 0.2 }).observe(el);
+      // Le tempo suit tout le héros, titre compris : sur mobile la scène est sous le pli,
+      // mais le mot vert doit continuer à tourner tant que le titre est à l'écran
+      var zone = el.closest('.section_hero') || el;
+      new IntersectionObserver(function (en) { visible = en[0].isIntersecting; updatePaused(); }, { threshold: 0.01 }).observe(zone);
     }
 
     measure();
@@ -1205,20 +1208,20 @@
       anims.push(a);
       return a;
     }
-    play(q('[data-intro-w]'), [{ strokeDashoffset: 1 }, { strokeDashoffset: 0 }], { duration: 640, delay: 80, easing: EASE_IO });
-    play(q('[data-intro-b]'), [{ strokeDashoffset: 1 }, { strokeDashoffset: 0 }], { duration: 640, delay: 320, easing: EASE_IO });
+    play(q('[data-intro-w]'), [{ strokeDashoffset: 1 }, { strokeDashoffset: 0 }], { duration: 560, delay: 60, easing: EASE_IO });
+    play(q('[data-intro-b]'), [{ strokeDashoffset: 1 }, { strokeDashoffset: 0 }], { duration: 560, delay: 260, easing: EASE_IO });
     play(q('[data-intro-dot]'), [
       { opacity: 0, transform: 'translateY(-70px) scale(0.6)' },
       { opacity: 1, transform: 'translateY(0) scale(1.1, 0.86)', offset: 0.55 },
       { transform: 'translateY(-8px) scale(0.96, 1.05)', offset: 0.78 },
       { opacity: 1, transform: 'none' }
-    ], { duration: 560, delay: 860, easing: 'cubic-bezier(0.22, 1, 0.36, 1)' });
+    ], { duration: 500, delay: 700, easing: 'cubic-bezier(0.22, 1, 0.36, 1)' });
     Array.prototype.forEach.call(box.querySelectorAll('[data-intro-name] text'), function (t, i) {
       play(t, [{ opacity: 0, transform: 'translateY(12px)', filter: 'blur(3px)' }, { opacity: 1, transform: 'none', filter: 'blur(0)' }],
-        { duration: 420, delay: 1020 + i * 45, easing: EASE_OUT });
+        { duration: 380, delay: 850 + i * 40, easing: EASE_OUT });
     });
-    play(q('[data-intro-bar]'), [{ transform: 'scaleX(0)' }, { transform: 'scaleX(1)' }], { duration: 520, delay: 1260, easing: EASE_OUT });
-    play(q('[data-intro-tag]'), [{ opacity: 0 }, { opacity: 1 }], { duration: 400, delay: 1480, easing: 'ease' });
+    play(q('[data-intro-bar]'), [{ transform: 'scaleX(0)' }, { transform: 'scaleX(1)' }], { duration: 460, delay: 1060, easing: EASE_OUT });
+    play(q('[data-intro-tag]'), [{ opacity: 0 }, { opacity: 1 }], { duration: 360, delay: 1240, easing: 'ease' });
 
     // Le logo rejoint la place exacte de celui de l'en-tête
     function fly(fast) {
@@ -1247,7 +1250,7 @@
         };
       };
     }
-    var t = setTimeout(function () { fly(false); }, 1980);
+    var t = setTimeout(function () { fly(false); }, 1680);
     function skip() { clearTimeout(t); fly(true); }
     ['pointerdown', 'keydown', 'wheel', 'touchstart'].forEach(function (ev) { window.addEventListener(ev, skip, { once: true, passive: true }); });
     // Sécurité : quoi qu'il arrive, la page n'est jamais bloquée derrière l'animation

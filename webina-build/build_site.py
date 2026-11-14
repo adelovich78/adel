@@ -230,12 +230,27 @@ def dropdown(k):
         return items, ('/demolar', 'nav.allDemos')
     return None, None
 
+def sectors_mega():
+    """Panneau « Sektörler » : les 17 métiers, groupés, tous visibles d'un coup."""
+    cols = []
+    for g in C.GROUPS:
+        links = ''.join(
+            f'<a href="{s["page"]}" class="nav_mega-link">{icon(s["icon"])}<span {ti("sec."+s["key"]+".name")}>{t("sec."+s["key"]+".name")}</span></a>'
+            for s in SECTORS if s['group'] == g)
+        cols.append(f'<div class="nav_mega-group"><p class="nav_mega-label text-style-mono" {ti("groups."+g)}>{t("groups."+g)}</p>{links}</div>')
+    return (f'<div class="nav_mega">{"".join(cols)}</div>'
+            f'<a href="/sektorler" class="nav_drop-more"><span {ti("nav.allSectors")}>{t("nav.allSectors")}</span>{icon("i-arrow")}</a>')
+
 def nav_desktop(current):
     out = []
     for k, h in NAV:
         cur = ' aria-current="page"' if k == current else ''
         items, more = dropdown(k)
         link = f'<a href="{h}" class="nav_link"{cur} {ti("nav."+k)}>{t("nav."+k)}</a>'
+        if k == 'sectors':
+            out.append(f'<div class="nav_item">{link[:-4]}{icon("i-chevron-down", "icon nav_caret")}</a>'
+                       f'<div class="nav_drop is-mega"><div class="nav_drop-inner">{sectors_mega()}</div></div></div>')
+            continue
         if not items:
             out.append(link); continue
         rows = ''.join(
@@ -248,9 +263,14 @@ def nav_desktop(current):
     return '\n              '.join(out)
 
 def nav_items(cls, current):
-    return '\n'.join(
-        f'<a href="{h}" class="{cls}"{" aria-current=\"page\"" if k == current else ""} {ti("nav."+k)}>{t("nav."+k)}</a>'
-        for k, h in NAV)
+    rows = []
+    for k, h in NAV:
+        rows.append(f'<a href="{h}" class="{cls}"{" aria-current=\"page\"" if k == current else ""} {ti("nav."+k)}>{t("nav."+k)}</a>')
+        # Menu mobile : tous les métiers en pastilles, directement sous « Sektörler »
+        if cls == 'nav_mobile-link' and k == 'sectors':
+            chips = ''.join(f'<a href="{s["page"]}" class="nav_mobile-chip" {ti("sec."+s["key"]+".name")}>{t("sec."+s["key"]+".name")}</a>' for s in SECTORS)
+            rows.append(f'<div class="nav_mobile-sectors">{chips}</div>')
+    return '\n'.join(rows)
 
 # ==========================================================================
 # Fragments partagés
