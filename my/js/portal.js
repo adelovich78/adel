@@ -109,7 +109,9 @@
   var navLang = null;
   try {
     var prefs = (navigator.languages && navigator.languages.length) ? navigator.languages : [navigator.language || ''];
-    for (var pi = 0; pi < prefs.length; pi++) { var pc = String(prefs[pi]).slice(0, 2).toLowerCase(); if (T[pc]) { navLang = pc; break; } }
+    var sawEn = false;
+    for (var pi = 0; pi < prefs.length; pi++) { var pc = String(prefs[pi]).slice(0, 2).toLowerCase(); if (pc === 'en') { sawEn = true; continue; } if (T[pc]) { navLang = pc; break; } }
+    if (!navLang && sawEn) navLang = 'en';
   } catch (e) {}
   lang = savedLang || navLang || 'tr';
   if (!T[lang]) lang = 'tr';

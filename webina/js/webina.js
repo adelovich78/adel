@@ -1326,9 +1326,11 @@
   function browserLang() {
     if (/bot|crawl|spider|slurp|lighthouse|headless/i.test(navigator.userAgent)) return null;
     var prefs = (navigator.languages && navigator.languages.length) ? navigator.languages : [navigator.language || ''];
+    // L'anglais passe en dernier : beaucoup de téléphones le gardent en tête de liste
+    // alors que la vraie langue de la personne (français, arabe, turc) vient après
     for (var i = 0; i < prefs.length; i++) {
       var c = String(prefs[i]).slice(0, 2).toLowerCase();
-      if (LANGS.indexOf(c) !== -1) return c;
+      if (c !== 'en' && LANGS.indexOf(c) !== -1) return c;
     }
     return 'en';
   }

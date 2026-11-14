@@ -830,7 +830,7 @@ html[lang="ar"] .hero_heading { line-height: 1.22; letter-spacing: 0; }
 }
 .news_field:focus-within { box-shadow: inset 0 0 0 1px var(--color-accent); }
 .news_input {
-  flex: 1; min-width: 0; height: 36px; padding-inline: 12px;
+  flex: 1; min-width: 0; width: 0; height: 36px; padding-inline: 12px;
   border: 0; outline: 0; background: transparent;
   font: inherit; font-size: 16px; /* évite le zoom iOS */
   color: var(--color-ink);
@@ -866,7 +866,7 @@ html[lang="ar"] .hero_heading { line-height: 1.22; letter-spacing: 0; }
 }
 @media (max-width: 767px) {
   .footer_component { padding-top: 96px; }
-  .footer_grid { grid-template-columns: 1fr; gap: 48px; }
+  .footer_grid { grid-template-columns: minmax(0, 1fr); gap: 48px; }
   .footer_cta { padding-bottom: 72px; }
 }
 
