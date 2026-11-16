@@ -525,6 +525,118 @@ function crm_monthly_html(PDO $pdo): ?string {
     return $html . '<p style="margin-top:24px"><a href="https://' . h($host) . '/admin" style="background:#23772a;color:#fff;padding:12px 20px;border-radius:10px;text-decoration:none;font-weight:700">Ouvrir le CRM</a></p>';
 }
 
+/* ---------- Rapport mensuel envoyé à chaque client : l'état de son site ---------- */
+function crm_client_monthly_reports(PDO $pdo): int {
+    crm_schema($pdo);
+    $month = date('Y-m');
+    $sent = 0;
+    $clients = $pdo->query("SELECT DISTINCT c.id, c.name, c.email, c.lang
+        FROM crm_clients c JOIN crm_projects p ON p.client_id = c.id
+        WHERE c.status <> 'archived' AND p.status <> 'cancelled'")->fetchAll();
+    foreach ($clients as $c) {
+        if (!filter_var((string)$c['email'], FILTER_VALIDATE_EMAIL)) continue;
+        // Dédup : un rapport par client et par mois
+        $rkey = 'report:' . $c['id'] . ':' . $month;
+        $ins = $pdo->prepare('INSERT IGNORE INTO crm_reminders (id, rkey, project_id, kind, stage, sent_on) VALUES (?, ?, ?, ?, ?, CURDATE())');
+        $ins->execute([uuid4(), $rkey, $c['id'], 'report', $month]);
+        if ($ins->rowCount() !== 1) continue;
+        $pr = $pdo->prepare("SELECT * FROM crm_projects WHERE client_id = ? AND status <> 'cancelled' ORDER BY created_at");
+        $pr->execute([$c['id']]);
+        $projects = $pr->fetchAll();
+        if (!$projects) { $pdo->prepare('DELETE FROM crm_reminders WHERE rkey = ?')->execute([$rkey]); continue; }
+        $iv = $pdo->prepare("SELECT number, amount, currency, due_on FROM crm_invoices WHERE client_id = ? AND paid_at IS NULL ORDER BY due_on");
+        $iv->execute([$c['id']]);
+        if (crm_send_client_report($c, $projects, $iv->fetchAll())) $sent++;
+        else $pdo->prepare('DELETE FROM crm_reminders WHERE rkey = ?')->execute([$rkey]);
+    }
+    return $sent;
+}
+
+// E-mail « état de votre site » envoyé au client, dans sa langue
+function crm_send_client_report(array $c, array $projects, array $invoices): bool {
+    global $CONFIG;
+    $lang = in_array($c['lang'] ?? '', ['tr', 'en', 'fr', 'ar'], true) ? $c['lang'] : 'tr';
+    $rtl = $lang === 'ar';
+    $today = strtotime('today');
+    $days = fn($d) => $d ? (int)floor((strtotime($d) - $today) / 86400) : null;
+    $T = [
+        'tr' => ['subj' => 'Web sitenizin aylık durumu', 'head' => 'Web sitenizin durumu', 'intro' => 'İşte sitenizin bu ayki genel durumu.',
+            'site' => ['live' => 'Yayında', 'preview' => 'Önizlemede', 'building' => 'Hazırlanıyor', 'suspended' => 'Durduruldu'],
+            'domain' => 'Alan adı', 'hosting' => 'Hosting', 'ssl' => 'SSL sertifikası (https)', 'backup' => 'Yedekleme',
+            'until' => '{d} tarihine kadar geçerli', 'soon' => '{d} tarihinde yenilenmeli', 'expired' => '{d} tarihinde doldu',
+            'sslon' => 'etkin', 'backupon' => 'düzenli ve otomatik', 'reassure' => 'Siteniz yayında ve normal çalışıyor. Erişilebilirliğini izliyor ve verilerinizi yedekliyoruz.',
+            'note' => 'Hatırlatma', 'inv' => 'Bekleyen fatura: {n} ({a})', 'renew' => 'Yakında yenileme: {d}', 'preview' => 'Siteniz hazır: panelinizden onaylayabilirsiniz.',
+            'portal' => 'Müşteri paneline git', 'q' => 'Sorunuz mu var? Bize yazın.', 'wa' => 'WhatsApp'],
+        'en' => ['subj' => 'Your website — monthly status', 'head' => 'Your website status', 'intro' => 'Here is how your site is doing this month.',
+            'site' => ['live' => 'Live', 'preview' => 'In preview', 'building' => 'In progress', 'suspended' => 'Suspended'],
+            'domain' => 'Domain name', 'hosting' => 'Hosting', 'ssl' => 'SSL certificate (https)', 'backup' => 'Backups',
+            'until' => 'active until {d}', 'soon' => 'to renew on {d}', 'expired' => 'expired on {d}',
+            'sslon' => 'active', 'backupon' => 'regular, automatic', 'reassure' => 'Your site is online and running normally. We monitor its availability and back up your data.',
+            'note' => 'To note', 'inv' => 'Invoice pending: {n} ({a})', 'renew' => 'Renewal coming up: {d}', 'preview' => 'Your site is ready: you can approve it from your client area.',
+            'portal' => 'Open my client area', 'q' => 'A question? Write to us.', 'wa' => 'WhatsApp'],
+        'fr' => ['subj' => 'Votre site web — état du mois', 'head' => 'L’état de votre site', 'intro' => 'Voici l’état de votre site web ce mois-ci.',
+            'site' => ['live' => 'En ligne', 'preview' => 'En prévisualisation', 'building' => 'En préparation', 'suspended' => 'Suspendu'],
+            'domain' => 'Nom de domaine', 'hosting' => 'Hébergement', 'ssl' => 'Certificat SSL (https)', 'backup' => 'Sauvegardes',
+            'until' => 'actif jusqu’au {d}', 'soon' => 'à renouveler le {d}', 'expired' => 'expiré le {d}',
+            'sslon' => 'actif', 'backupon' => 'régulières et automatiques', 'reassure' => 'Votre site est en ligne et fonctionne normalement. Nous surveillons sa disponibilité et sauvegardons vos données.',
+            'note' => 'À noter', 'inv' => 'Facture en attente : {n} ({a})', 'renew' => 'Renouvellement à prévoir : {d}', 'preview' => 'Votre site est prêt : vous pouvez le valider depuis votre espace client.',
+            'portal' => 'Ouvrir mon espace client', 'q' => 'Une question ? Écrivez-nous.', 'wa' => 'WhatsApp'],
+        'ar' => ['subj' => 'موقعك — الحالة الشهرية', 'head' => 'حالة موقعك', 'intro' => 'إليك حالة موقعك هذا الشهر.',
+            'site' => ['live' => 'منشور', 'preview' => 'قيد المعاينة', 'building' => 'قيد الإعداد', 'suspended' => 'موقوف'],
+            'domain' => 'اسم النطاق', 'hosting' => 'الاستضافة', 'ssl' => 'شهادة SSL (https)', 'backup' => 'النسخ الاحتياطي',
+            'until' => 'سارٍ حتى {d}', 'soon' => 'يُجدَّد في {d}', 'expired' => 'انتهى في {d}',
+            'sslon' => 'مفعّلة', 'backupon' => 'منتظمة وتلقائية', 'reassure' => 'موقعك يعمل بشكل طبيعي. نراقب توفّره ونحتفظ بنسخ احتياطية لبياناتك.',
+            'note' => 'ملاحظة', 'inv' => 'فاتورة معلّقة: {n} ({a})', 'renew' => 'تجديد قادم: {d}', 'preview' => 'موقعك جاهز: يمكنك الموافقة عليه من منطقة العملاء.',
+            'portal' => 'افتح منطقة العملاء', 'q' => 'لديك سؤال؟ راسلنا.', 'wa' => 'واتساب'],
+    ][$lang];
+    $line = function ($label, $value, $alert = false) {
+        return '<tr><td style="padding:5px 0;color:#888;font-size:13px;white-space:nowrap">' . h($label) . '</td>'
+            . '<td style="padding:5px 0;text-align:right;' . ($alert ? 'color:#b45309;font-weight:600' : 'color:#222') . '">' . $value . '</td></tr>';
+    };
+    $dateState = function ($d) use ($T, $days) {
+        if (!$d) return ['—', false];
+        $n = $days($d); $f = date('d/m/Y', strtotime($d));
+        if ($n < 0) return [str_replace('{d}', $f, $T['expired']), true];
+        if ($n <= 30) return [str_replace('{d}', $f, $T['soon']), true];
+        return [str_replace('{d}', $f, $T['until']), false];
+    };
+    $cards = '';
+    $actions = [];
+    foreach ($projects as $p) {
+        $siteKey = in_array($p['site_status'], ['live', 'preview', 'building', 'suspended'], true) ? $p['site_status'] : 'live';
+        $siteTxt = $T['site'][$siteKey];
+        $tag = $siteKey === 'live' ? '#1f6f2a' : ($siteKey === 'suspended' ? '#c4321f' : '#b45309');
+        [$domTxt, $domA] = $dateState($p['domain_expires']);
+        [$hostTxt, $hostA] = $dateState($p['hosting_renewal']);
+        $sslOk = ($p['ssl_status'] ?? '') !== 'expired' && !($p['ssl_expires'] && $days($p['ssl_expires']) < 0);
+        $cards .= '<div style="border:1px solid #eee;border-radius:12px;padding:16px;margin:0 0 12px">'
+            . '<p style="margin:0 0 10px"><b style="font-size:15px">' . h($p['domain'] ?: $p['name']) . '</b> '
+            . '<span style="background:' . $tag . '1a;color:' . $tag . ';border-radius:999px;padding:2px 10px;font-size:12px;font-weight:600;margin-inline-start:6px">' . h($siteTxt) . '</span></p>'
+            . '<table width="100%" style="font-size:14px;border-collapse:collapse">'
+            . ($p['domain_expires'] ? $line($T['domain'], h($domTxt), $domA) : '')
+            . ($p['hosting_renewal'] ? $line($T['hosting'], h($hostTxt), $hostA) : '')
+            . $line($T['ssl'], $sslOk ? h($T['sslon']) : '<span style="color:#c4321f">—</span>', !$sslOk)
+            . $line($T['backup'], h($T['backupon']))
+            . '</table></div>';
+        if ($siteKey === 'preview') $actions[] = $T['preview'];
+        if ($p['hosting_renewal'] && $days($p['hosting_renewal']) !== null && $days($p['hosting_renewal']) <= 30)
+            $actions[] = str_replace('{d}', date('d/m/Y', strtotime($p['hosting_renewal'])), $T['renew']);
+    }
+    foreach ($invoices as $i)
+        $actions[] = str_replace(['{n}', '{a}'], [h($i['number']), h(money((int)round((float)$i['amount']), $i['currency']))], $T['inv']);
+    $wa = preg_replace('/\D/', '', (string)($CONFIG['whatsapp_site'] ?? $CONFIG['whatsapp'] ?? '905399662557'));
+    $portal = function_exists('portal_url') ? portal_url() : 'https://my.webina.com.tr';
+    $html = '<h2 style="margin:0 0 6px;font-size:20px">' . h($T['head']) . '</h2>'
+        . '<p style="margin:0 0 18px;color:#666;font-size:13px">' . h($T['intro']) . ' · ' . date('m/Y') . '</p>'
+        . $cards
+        . '<p style="margin:14px 0 18px;color:#1f6f2a">' . h($T['reassure']) . '</p>'
+        . ($actions ? '<p style="margin:0 0 6px;font-weight:600">' . h($T['note']) . '</p><ul style="margin:0 0 18px;padding-inline-start:18px;color:#333">'
+            . implode('', array_map(fn($a) => '<li>' . $a . '</li>', $actions)) . '</ul>' : '')
+        . '<p style="margin:18px 0 0"><a href="' . h($portal) . '" style="background:#23772a;color:#fff;padding:12px 20px;border-radius:10px;text-decoration:none;font-weight:700">' . h($T['portal']) . '</a></p>'
+        . '<p style="margin:14px 0 0;font-size:13px;color:#666">' . h($T['q']) . ' <a href="https://wa.me/' . h($wa) . '" style="color:#1f6f2a">' . h($T['wa']) . '</a></p>';
+    return send_html_mail((string)$c['email'], $T['subj'], mail_layout($html, $rtl));
+}
+
 // Avance une échéance (hébergement ou domaine) d'un an, à partir de la date la plus tardive entre aujourd'hui et l'échéance actuelle
 function crm_renew_project(PDO $pdo, string $projectId, string $kind, int $years = 1): ?array {
     $col = $kind === 'domain' ? 'domain_expires' : 'hosting_renewal';
