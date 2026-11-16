@@ -511,3 +511,4 @@
 .crm_sub-title { font-size: 0.875rem; font-weight: 600; margin: 14px 0 6px; }
 .crm_section-head.is-sub .crm_sub-title { margin: 0; }
 .crm_portal-line { margin: 4px 0 10px; color: var(--color-text-secondary); }
+.crm_renew-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }

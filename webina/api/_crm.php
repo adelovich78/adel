@@ -167,6 +167,17 @@ function crm_schema(PDO $pdo): void {
         done_at DATETIME NULL,
         INDEX idx_status (status, created_at), INDEX idx_client (client_id)
     ) $o");
+    // Rappels d'échéance envoyés au client (dédup : un envoi par étape et par date d'échéance)
+    $pdo->exec("CREATE TABLE IF NOT EXISTS crm_reminders (
+        id CHAR(36) NOT NULL PRIMARY KEY,
+        rkey VARCHAR(190) NOT NULL UNIQUE,
+        project_id CHAR(36) NOT NULL,
+        kind VARCHAR(10) NOT NULL,
+        stage VARCHAR(16) NOT NULL,
+        sent_on DATE NOT NULL,
+        created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        INDEX idx_project (project_id)
+    ) $o");
     // Fil de discussion d'une demande : le client et Webina échangent jusqu'à résolution
     $pdo->exec("CREATE TABLE IF NOT EXISTS portal_messages (
         id CHAR(36) NOT NULL PRIMARY KEY,
@@ -384,6 +395,149 @@ function crm_digest_html(PDO $pdo): ?string {
     }
     $host = preg_replace('/[^a-z0-9.\-]/i', '', $_SERVER['HTTP_HOST'] ?? ($GLOBALS['CONFIG']['website'] ?? 'webina.com.tr'));
     return $html . '<p style="margin-top:24px"><a href="https://' . h($host) . '/admin" style="background:#23772a;color:#fff;padding:12px 20px;border-radius:10px;text-decoration:none;font-weight:700">Ouvrir le CRM</a></p>';
+}
+
+/* ---------- Rappels d'échéance au client (domaine + hébergement) ----------
+   Étapes : J-30 (une fois), J-15 (une fois), puis chaque jour à partir de J-7 et au-delà
+   (retard), jusqu'à ce que la date soit repoussée (renouvellement) ou le projet annulé. */
+function crm_client_reminders(PDO $pdo): int {
+    crm_schema($pdo);
+    $sent = 0;
+    $cols = ['hosting' => 'hosting_renewal', 'domain' => 'domain_expires'];
+    foreach ($cols as $kind => $col) {
+        $rows = $pdo->query("SELECT p.id, p.$col AS expiry, p.name, p.domain, p.plan, p.hosting_amount, p.currency,
+                c.id AS client_id, c.name AS client, c.email, c.lang
+            FROM crm_projects p JOIN crm_clients c ON c.id = p.client_id
+            WHERE p.$col IS NOT NULL AND p.status <> 'cancelled'
+              AND p.$col <= (CURDATE() + INTERVAL 30 DAY)")->fetchAll();
+        foreach ($rows as $r) {
+            if (!filter_var((string)$r['email'], FILTER_VALIDATE_EMAIL)) continue;
+            $days = (int)floor((strtotime($r['expiry']) - strtotime('today')) / 86400);
+            if ($days <= 7) $stage = 'daily:' . date('Y-m-d');  // J-7, J0 et retard : tous les jours
+            elseif ($days <= 15) $stage = 'd15';
+            elseif ($days <= 30) $stage = 'm1';
+            else continue;
+            $rkey = 'rem:' . $r['id'] . ':' . $kind . ':' . $r['expiry'] . ':' . $stage;
+            $ins = $pdo->prepare('INSERT IGNORE INTO crm_reminders (id, rkey, project_id, kind, stage, sent_on) VALUES (?, ?, ?, ?, ?, CURDATE())');
+            $ins->execute([uuid4(), $rkey, $r['id'], $kind, $stage]);
+            if ($ins->rowCount() !== 1) continue;  // déjà envoyé pour cette étape / ce jour
+            if (crm_send_client_reminder($r, $kind, $days)) {
+                $sent++;
+                crm_log($pdo, $r['client_id'], null, 'auto', ($kind === 'hosting' ? 'Hébergement' : 'Domaine') . ' — rappel envoyé au client ('
+                    . ($days < 0 ? abs($days) . ' j de retard' : ($days === 0 ? 'échéance aujourd\'hui' : 'J-' . $days)) . ')');
+            } else {
+                // Envoi échoué : on retire la trace pour réessayer au prochain passage
+                $pdo->prepare('DELETE FROM crm_reminders WHERE rkey = ?')->execute([$rkey]);
+            }
+        }
+    }
+    return $sent;
+}
+
+// E-mail de rappel d'échéance envoyé au client, dans sa langue
+function crm_send_client_reminder(array $r, string $kind, int $days): bool {
+    global $CONFIG;
+    $lang = in_array($r['lang'] ?? '', ['tr', 'en', 'fr', 'ar'], true) ? $r['lang'] : 'tr';
+    $date = date('d/m/Y', strtotime($r['expiry']));
+    $svc = $r['domain'] ?: $r['name'];
+    $late = $days < 0;
+    $L = [
+        'tr' => [
+            'subj_h' => 'Hosting yenileme hatırlatması', 'subj_d' => 'Alan adı yenileme hatırlatması',
+            'head_h' => 'Hosting süreniz yakında doluyor', 'head_d' => 'Alan adınızın süresi yakında doluyor',
+            'head_h_late' => 'Hosting süreniz doldu', 'head_d_late' => 'Alan adınızın süresi doldu',
+            'when' => $late ? ($date . ' tarihinde doldu (' . abs($days) . ' gün önce)') : ($days === 0 ? 'Bugün doluyor (' . $date . ')' : $date . ' tarihinde doluyor (' . $days . ' gün kaldı)'),
+            'warn' => $late ? 'Siteniz ve e-postalarınızın kesintiye uğramaması için lütfen en kısa sürede yenileyin.' : 'Kesinti yaşamamak için lütfen süresi dolmadan yenileyin.',
+            'how' => 'Yenilemek için:', 'portal' => 'Müşteri panelinizden yenileyin', 'wa' => 'WhatsApp ile yazın', 'bank' => 'Banka havalesi',
+        ],
+        'en' => [
+            'subj_h' => 'Hosting renewal reminder', 'subj_d' => 'Domain renewal reminder',
+            'head_h' => 'Your hosting is about to expire', 'head_d' => 'Your domain is about to expire',
+            'head_h_late' => 'Your hosting has expired', 'head_d_late' => 'Your domain has expired',
+            'when' => $late ? ('expired on ' . $date . ' (' . abs($days) . ' days ago)') : ($days === 0 ? 'expires today (' . $date . ')' : 'expires on ' . $date . ' (' . $days . ' days left)'),
+            'warn' => $late ? 'Please renew as soon as possible so your site and emails are not interrupted.' : 'Please renew before it expires to avoid any interruption.',
+            'how' => 'To renew:', 'portal' => 'Renew from your client area', 'wa' => 'Message us on WhatsApp', 'bank' => 'Bank transfer',
+        ],
+        'fr' => [
+            'subj_h' => 'Rappel : renouvellement de l’hébergement', 'subj_d' => 'Rappel : renouvellement du nom de domaine',
+            'head_h' => 'Votre hébergement arrive à échéance', 'head_d' => 'Votre nom de domaine arrive à échéance',
+            'head_h_late' => 'Votre hébergement a expiré', 'head_d_late' => 'Votre nom de domaine a expiré',
+            'when' => $late ? ('a expiré le ' . $date . ' (il y a ' . abs($days) . ' jours)') : ($days === 0 ? 'expire aujourd’hui (' . $date . ')' : 'expire le ' . $date . ' (' . $days . ' jours restants)'),
+            'warn' => $late ? 'Merci de renouveler au plus vite pour que votre site et vos e-mails ne soient pas interrompus.' : 'Merci de renouveler avant l’échéance pour éviter toute interruption.',
+            'how' => 'Pour renouveler :', 'portal' => 'Renouveler depuis votre espace client', 'wa' => 'Nous écrire sur WhatsApp', 'bank' => 'Virement bancaire',
+        ],
+        'ar' => [
+            'subj_h' => 'تذكير بتجديد الاستضافة', 'subj_d' => 'تذكير بتجديد النطاق',
+            'head_h' => 'اقترب انتهاء استضافتك', 'head_d' => 'اقترب انتهاء نطاقك',
+            'head_h_late' => 'انتهت استضافتك', 'head_d_late' => 'انتهى نطاقك',
+            'when' => $late ? ('انتهى في ' . $date . ' (منذ ' . abs($days) . ' يوماً)') : ($days === 0 ? 'ينتهي اليوم (' . $date . ')' : 'ينتهي في ' . $date . ' (باقٍ ' . $days . ' يوماً)'),
+            'warn' => $late ? 'يرجى التجديد في أقرب وقت حتى لا ينقطع موقعك وبريدك.' : 'يرجى التجديد قبل انتهاء المدة لتجنّب أي انقطاع.',
+            'how' => 'للتجديد:', 'portal' => 'جدّد من منطقة العملاء', 'wa' => 'راسلنا على واتساب', 'bank' => 'حوالة بنكية',
+        ],
+    ][$lang];
+    $head = $late ? $L['head_' . ($kind === 'domain' ? 'd' : 'h') . '_late'] : $L['head_' . ($kind === 'domain' ? 'd' : 'h')];
+    $subj = $L['subj_' . ($kind === 'domain' ? 'd' : 'h')];
+    $wa = preg_replace('/\D/', '', (string)($CONFIG['whatsapp_site'] ?? $CONFIG['whatsapp'] ?? '905399662557'));
+    $portal = function_exists('portal_url') ? portal_url() : 'https://my.webina.com.tr';
+    $amount = $kind === 'hosting' && $r['hosting_amount'] !== null ? ' <span style="color:#555">(' . h(money((int)$r['hosting_amount'], $r['currency'])) . ' / ' . ($lang === 'fr' ? 'an' : ($lang === 'en' ? 'year' : ($lang === 'ar' ? 'سنة' : 'yıl'))) . ')</span>' : '';
+    $bank = array_filter(['name' => $CONFIG['bank_name'] ?? null, 'iban' => $CONFIG['bank_iban'] ?? null, 'holder' => $CONFIG['bank_holder'] ?? null]);
+    $html = '<h2 style="margin:0 0 10px;font-size:20px">' . h($head) . '</h2>'
+        . '<p style="margin:0 0 6px"><b>' . h($svc) . '</b>' . $amount . '</p>'
+        . '<p style="margin:0 0 16px;' . ($late ? 'color:#c4321f;font-weight:600' : 'color:#555') . '">' . h($L['when']) . '</p>'
+        . '<p style="margin:0 0 18px">' . h($L['warn']) . '</p>'
+        . '<p style="margin:0 0 6px;font-weight:600">' . h($L['how']) . '</p><ul style="margin:0 0 16px;padding-inline-start:18px;color:#333">'
+        . '<li><a href="' . h($portal) . '" style="color:#1f6f2a">' . h($L['portal']) . '</a></li>'
+        . '<li><a href="https://wa.me/' . h($wa) . '" style="color:#1f6f2a">' . h($L['wa']) . '</a></li>'
+        . (!empty($bank['iban']) ? '<li>' . h($L['bank']) . ' — ' . (isset($bank['holder']) ? h($bank['holder']) . ' · ' : '') . '<b dir="ltr">' . h($bank['iban']) . '</b></li>' : '')
+        . '</ul>';
+    return send_html_mail((string)$r['email'], $subj . ' — ' . $svc, mail_layout($html, $lang === 'ar'));
+}
+
+/* ---------- Compte rendu mensuel : situation de tous les clients (admin) ---------- */
+function crm_monthly_html(PDO $pdo): ?string {
+    crm_schema($pdo);
+    $rows = $pdo->query("SELECT p.name, p.domain, p.status, p.hosting_renewal, p.domain_expires, c.name AS client
+        FROM crm_projects p JOIN crm_clients c ON c.id = p.client_id
+        WHERE p.status <> 'cancelled' AND (p.hosting_renewal IS NOT NULL OR p.domain_expires IS NOT NULL)
+        ORDER BY LEAST(COALESCE(p.hosting_renewal, '9999-12-31'), COALESCE(p.domain_expires, '9999-12-31'))")->fetchAll();
+    $unpaid = (int)($pdo->query("SELECT COUNT(*) n FROM crm_invoices WHERE paid_at IS NULL")->fetch()['n'] ?? 0);
+    if (!$rows && !$unpaid) return null;
+    $today = strtotime('today');
+    $fmt = function ($d) use ($today) {
+        if (!$d) return '<span style="color:#aaa">—</span>';
+        $days = (int)floor((strtotime($d) - $today) / 86400);
+        $col = $days < 0 ? '#c4321f' : ($days <= 30 ? '#b45309' : '#555');
+        $tag = $days < 0 ? ' (' . abs($days) . 'j retard)' : ($days <= 30 ? ' (J-' . $days . ')' : '');
+        return '<span style="color:' . $col . '">' . date('d/m/Y', strtotime($d)) . $tag . '</span>';
+    };
+    $html = '<h2 style="margin:0 0 4px;font-size:20px">Compte rendu mensuel</h2>'
+        . '<p style="margin:0 0 20px;color:#666;font-size:13px">' . date('F Y') . ' · ' . count($rows) . ' service(s) suivi(s)'
+        . ($unpaid ? ' · ' . $unpaid . ' facture(s) impayée(s)' : '') . '</p>'
+        . '<table width="100%" style="font-size:14px;border-collapse:collapse"><tr style="text-align:left;color:#888;font-size:12px">'
+        . '<th style="padding:6px 0;border-bottom:1px solid #eee">Client</th><th style="padding:6px 0;border-bottom:1px solid #eee">Hébergement</th><th style="padding:6px 0;border-bottom:1px solid #eee">Domaine</th></tr>';
+    foreach ($rows as $r) {
+        $html .= '<tr><td style="padding:8px 0;border-bottom:1px solid #f0f0f0">' . h($r['client']) . '<br><span style="color:#999;font-size:12px">' . h($r['domain'] ?: $r['name']) . '</span></td>'
+            . '<td style="padding:8px 0;border-bottom:1px solid #f0f0f0">' . $fmt($r['hosting_renewal']) . '</td>'
+            . '<td style="padding:8px 0;border-bottom:1px solid #f0f0f0">' . $fmt($r['domain_expires']) . '</td></tr>';
+    }
+    $html .= '</table>';
+    $host = preg_replace('/[^a-z0-9.\-]/i', '', $_SERVER['HTTP_HOST'] ?? ($GLOBALS['CONFIG']['website'] ?? 'webina.com.tr'));
+    return $html . '<p style="margin-top:24px"><a href="https://' . h($host) . '/admin" style="background:#23772a;color:#fff;padding:12px 20px;border-radius:10px;text-decoration:none;font-weight:700">Ouvrir le CRM</a></p>';
+}
+
+// Avance une échéance (hébergement ou domaine) d'un an, à partir de la date la plus tardive entre aujourd'hui et l'échéance actuelle
+function crm_renew_project(PDO $pdo, string $projectId, string $kind, int $years = 1): ?array {
+    $col = $kind === 'domain' ? 'domain_expires' : 'hosting_renewal';
+    $p = $pdo->prepare('SELECT * FROM crm_projects WHERE id = ?'); $p->execute([$projectId]); $p = $p->fetch();
+    if (!$p) return null;
+    $base = $p[$col] && strtotime($p[$col]) > time() ? $p[$col] : date('Y-m-d');
+    $new = date('Y-m-d', strtotime("+$years year", strtotime($base)));
+    $pdo->prepare("UPDATE crm_projects SET $col = ?, updated_at = NOW() WHERE id = ?")->execute([$new, $projectId]);
+    crm_log($pdo, $p['client_id'], $p['deal_id'], 'project', ($kind === 'domain' ? 'Domaine' : 'Hébergement') . ' renouvelé jusqu\'au ' . date('d/m/Y', strtotime($new)));
+    // Clôt la tâche de renouvellement automatique de l'ancienne échéance, s'il y en a une
+    $pdo->prepare("UPDATE crm_tasks SET done_at = NOW() WHERE project_id = ? AND done_at IS NULL AND auto_key LIKE 'renewal:%'")->execute([$projectId]);
+    $out = $pdo->prepare('SELECT * FROM crm_projects WHERE id = ?'); $out->execute([$projectId]);
+    return $out->fetch() ?: null;
 }
 
 // Montant converti en TL avec les taux du barème (pricing.json), pour additionner $ / € / TL

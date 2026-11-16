@@ -474,7 +474,11 @@
           '<p class="text-size-small text-color-secondary">' + [p.start_date ? 'Début ' + fmtDate(p.start_date) : '', p.delivery_date ? 'Livraison ' + fmtDate(p.delivery_date) : '', p.hosting_renewal ? 'Hébergement jusqu\'au ' + fmtDate(p.hosting_renewal) + (p.hosting_amount ? ' (' + money(p.hosting_amount, p.currency) + '/an)' : '') : ''].filter(Boolean).join(' · ') + '</p>' +
           (pays.length ? '<ul class="crm_pays" role="list">' + pays.map(function (pay) { return '<li><span>' + fmtDate(pay.paid_at) + (pay.method ? ' · ' + esc(pay.method) : '') + (pay.note ? ' · ' + esc(pay.note) : '') + '</span><b>' + money(pay.amount, pay.currency) + '</b><button type="button" class="icon-button is-danger" data-delete-payment="' + esc(pay.id) + '" aria-label="Supprimer le paiement">' + icon('i-trash') + '</button></li>'; }).join('') + '</ul>' : '') +
           (p.domain || p.plan ? '<p class="text-size-small crm_portal-line">' + [p.domain ? '<b>' + esc(p.domain) + '</b>' : '', p.plan ? 'Formule ' + esc(PLAN[p.plan] || p.plan) : '', 'Site ' + esc(SITE[p.site_status] || p.site_status), 'SSL ' + esc(SSL[p.ssl_status] || p.ssl_status), p.domain_expires ? 'Domaine jusqu\'au ' + fmtDate(p.domain_expires) : ''].filter(Boolean).join(' · ') + '</p>' : '') +
-          '<button type="button" class="button is-small is-secondary" data-crm-new="payment" data-project="' + esc(p.id) + '">' + icon('i-plus') + 'Paiement reçu</button></div>';
+          '<div class="crm_renew-row">' +
+          '<button type="button" class="button is-small is-secondary" data-crm-new="payment" data-project="' + esc(p.id) + '">' + icon('i-plus') + 'Paiement reçu</button>' +
+          (p.hosting_renewal ? '<button type="button" class="button is-small is-secondary" data-renew="' + esc(p.id) + '" data-renew-kind="hosting" title="Hébergement renouvelé jusqu\'au ' + fmtDate(p.hosting_renewal) + ' + 1 an">' + icon('i-repeat') + 'Hébergement +1 an</button>' : '') +
+          (p.domain_expires ? '<button type="button" class="button is-small is-secondary" data-renew="' + esc(p.id) + '" data-renew-kind="domain" title="Domaine renouvelé + 1 an">' + icon('i-repeat') + 'Domaine +1 an</button>' : '') +
+          '</div></div>';
       }).join('') : '<p class="crm_empty">Aucun projet.</p>') + '</section>';
 
     html += portalSection(c, x);
@@ -536,6 +540,10 @@
     } else if (t.closest('[data-edit-project]')) {
       var pid = t.closest('[data-project]').dataset.project;
       crm('r=clients&id=' + id).then(function (x) { editProject(x.projects.filter(function (p) { return p.id === pid; })[0]); });
+    } else if (t.closest('[data-renew]')) {
+      var rb = t.closest('[data-renew]'), rk = rb.dataset.renewKind;
+      if (!W.confirm((rk === 'domain' ? 'Domaine' : 'Hébergement') + ' renouvelé pour un an ? La date est avancée d\'un an et les rappels s\'arrêtent.')) return;
+      crm('r=renew', { method: 'POST', body: { project_id: rb.dataset.renew, kind: rk } }).then(function () { toast((rk === 'domain' ? 'Domaine' : 'Hébergement') + ' renouvelé (+1 an)'); load(); openClient(id, true); }).catch(function (ex) { toast(ex.message); });
     } else if (t.closest('[data-portal-access],[data-portal-link],[data-portal-invoice],[data-portal-paid],[data-portal-del-invoice],[data-portal-notice],[data-portal-del-notice],[data-portal-thread]')) {
       var pr = portalAction(t, id);
       if (pr && pr.catch) pr.catch(function (ex) { toast(ex.message); });

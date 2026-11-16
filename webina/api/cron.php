@@ -9,6 +9,7 @@ if ($cli) { $_SERVER['REQUEST_METHOD'] = 'GET'; $_SERVER['HTTP_HOST'] = $_SERVER
 require __DIR__ . '/_bootstrap.php';
 require __DIR__ . '/_quote.php';
 require __DIR__ . '/_crm.php';
+require __DIR__ . '/_portal.php';
 require __DIR__ . '/_prospect.php';
 
 if (!$cli) {
@@ -22,6 +23,13 @@ $sent = false;
 if (($html = crm_digest_html($pdo)) && ($to = email_list($CONFIG['notify_email'] ?? ''))) {
     $sent = send_html_mail($to[0], 'Webina CRM — votre journée du ' . date('d/m/Y'), mail_layout($html));
 }
+// Rappels d'échéance au client (domaine + hébergement) : J-30, J-15, puis chaque jour dès J-7 et en retard
+$reminders = crm_client_reminders($pdo);
+// Compte rendu mensuel à l'admin, le 1er du mois (ou forcé via ?monthly=1)
+$monthly = false;
+if ((date('j') === '1' || !empty($_GET['monthly'])) && ($html = crm_monthly_html($pdo)) && ($to = email_list($CONFIG['notify_email'] ?? ''))) {
+    $monthly = send_html_mail($to[0], 'Webina — compte rendu mensuel ' . date('m/Y'), mail_layout($html));
+}
 // Prospection : envoie la suite de la file, en respectant l'espacement et la limite du jour.
 // En ligne de commande on attend entre deux envois (10 au plus par passage) ; par URL, un seul.
 prospect_schema($pdo);
@@ -32,4 +40,4 @@ for ($i = 0; $i < ($cli ? 10 : 1); $i++) {
     if (($r['reason'] ?? '') !== 'wait' || !$cli) break;
     sleep(max(1, (int)$r['wait']));
 }
-json_out(['ok' => true, 'created' => $made, 'digest' => $sent, 'prospectMails' => $mailed]);
+json_out(['ok' => true, 'created' => $made, 'digest' => $sent, 'reminders' => $reminders, 'monthly' => $monthly, 'prospectMails' => $mailed]);

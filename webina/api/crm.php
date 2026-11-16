@@ -240,6 +240,16 @@ case 'projects':
     }
     break;
 
+/* ---------- Renouvellement rapide d'une échéance (hébergement / domaine) ---------- */
+case 'renew':
+    if ($method !== 'POST') break;
+    $pid = need_id((string)($in['project_id'] ?? ''));
+    $kind = ($in['kind'] ?? '') === 'domain' ? 'domain' : 'hosting';
+    $years = max(1, min(5, (int)($in['years'] ?? 1)));
+    $p = crm_renew_project($pdo, $pid, $kind, $years);
+    if (!$p) fail('Projet introuvable.', 404);
+    json_out(['project' => $p]);
+
 /* ---------- Paiements ---------- */
 case 'payments':
     if ($method === 'POST') {
