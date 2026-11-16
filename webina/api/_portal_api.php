@@ -66,6 +66,22 @@ case 'request':
     $sid = (string)($in['service'] ?? '');
     json_out(portal_request($pdo, $c, (string)($in['kind'] ?? ''), preg_match('/^[0-9a-f-]{36}$/', $sid) ? $sid : null, mb_substr(trim((string)($in['detail'] ?? '')), 0, 2000)));
 
+case 'thread':
+    $c = portal_client($pdo);
+    if (!$c) fail('Oturum yok.', 401);
+    $rid = (string)($_GET['id'] ?? '');
+    if (!preg_match('/^[0-9a-f-]{36}$/', $rid)) fail('Demande invalide.', 422);
+    json_out(portal_thread($pdo, $c, $rid));
+
+case 'reply':
+    if ($method !== 'POST') break;
+    $c = portal_client($pdo);
+    if (!$c) fail('Oturum yok.', 401);
+    rate_limit('portal_reply', 20, 3600);
+    $rid = (string)($in['request'] ?? '');
+    if (!preg_match('/^[0-9a-f-]{36}$/', $rid)) fail('Demande invalide.', 422);
+    json_out(portal_reply($pdo, $c, $rid, mb_substr(trim((string)($in['detail'] ?? '')), 0, 2000)));
+
 case 'account':
     if ($method !== 'PATCH') break;
     $c = portal_client($pdo);

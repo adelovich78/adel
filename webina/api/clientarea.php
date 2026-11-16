@@ -122,9 +122,33 @@ case 'requests':
             'clients' => portal_all($pdo, 'SELECT id, name, email, portal_last_login FROM crm_clients WHERE portal_enabled = 1 ORDER BY name')]);
     }
     if ($method === 'PATCH') {
-        $pdo->prepare("UPDATE portal_requests SET status = 'done', done_at = NOW() WHERE id = ?")->execute([$uuid($id)]);
-        json_out(['ok' => true]);
+        // Clôture « Traité » : ferme la demande, la tâche de suivi, et prévient le client (message final facultatif)
+        $req = portal_one($pdo, 'SELECT * FROM portal_requests WHERE id = ?', [$uuid($id)]);
+        if (!$req) fail('Demande introuvable.', 404);
+        $c = portal_one($pdo, 'SELECT * FROM crm_clients WHERE id = ?', [$req['client_id']]);
+        if (!$c) fail('Client introuvable.', 404);
+        json_out(portal_admin_close($pdo, $req, $c, mb_substr(trim((string)($in['body'] ?? '')), 0, 2000)));
     }
     break;
+
+case 'thread':
+    // Fil d'une demande, côté admin
+    $req = portal_one($pdo, 'SELECT * FROM portal_requests WHERE id = ?', [$uuid($id)]);
+    if (!$req) fail('Demande introuvable.', 404);
+    $c = portal_one($pdo, 'SELECT id, name, email, phone, lang FROM crm_clients WHERE id = ?', [$req['client_id']]);
+    $p = $req['project_id'] ? portal_one($pdo, 'SELECT name, domain FROM crm_projects WHERE id = ?', [$req['project_id']]) : null;
+    json_out([
+        'id' => $req['id'], 'kind' => $req['kind'], 'status' => $req['status'], 'created_at' => $req['created_at'], 'done_at' => $req['done_at'],
+        'client' => $c, 'project' => $p, 'messages' => portal_thread_messages($pdo, $req),
+    ]);
+
+case 'reply':
+    // Webina répond au client
+    if ($method !== 'POST') break;
+    $req = portal_one($pdo, 'SELECT * FROM portal_requests WHERE id = ?', [$uuid((string)($in['request'] ?? ''))]);
+    if (!$req) fail('Demande introuvable.', 404);
+    $c = portal_one($pdo, 'SELECT * FROM crm_clients WHERE id = ?', [$req['client_id']]);
+    if (!$c) fail('Client introuvable.', 404);
+    json_out(portal_admin_reply($pdo, $req, $c, mb_substr(trim((string)($in['body'] ?? '')), 0, 2000)));
 }
 fail('Requête inconnue.', 404);

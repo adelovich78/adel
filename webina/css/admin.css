@@ -390,6 +390,22 @@
 .crm_modal .form_error { margin: 0; }
 .crm_modal .form_error:empty { display: none; }
 .crm_modal-actions { display: flex; justify-content: flex-end; gap: 8px; }
+/* Fil de discussion d'une demande client */
+.crm_modal-panel.is-thread { max-width: 560px; gap: 0; padding: 0; }
+.crm_thread-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 18px 20px; border-bottom: 1px solid var(--color-hairline); }
+.crm_thread-head h2 { margin: 0; }
+.crm_thread-body { padding: 18px 20px; display: flex; flex-direction: column; gap: 10px; overflow-y: auto; max-height: min(52vh, 440px); }
+.crm_bubble { max-width: 80%; padding: 10px 13px; border-radius: 14px; }
+.crm_bubble.is-them { align-self: flex-start; background-color: var(--color-surface, #f3f4f2); border-bottom-left-radius: 4px; }
+.crm_bubble.is-us { align-self: flex-end; background-color: #1f6f2a; color: #fff; border-bottom-right-radius: 4px; }
+:root[data-theme="dark"] .crm_bubble.is-them { background-color: rgba(255,255,255,0.07); }
+.crm_bubble-txt { margin: 0; font-size: 0.9rem; line-height: 1.45; white-space: pre-wrap; word-break: break-word; }
+.crm_bubble-meta { margin: 4px 0 0; font-size: 0.72rem; opacity: 0.7; }
+.crm_bubble.is-us .crm_bubble-meta { color: rgba(255,255,255,0.85); }
+.crm_thread-foot { padding: 14px 20px 18px; border-top: 1px solid var(--color-hairline); display: flex; flex-direction: column; gap: 10px; }
+.crm_thread-foot .form_input.is-area { width: 100%; }
+.crm_thread-actions { display: flex; justify-content: flex-end; gap: 8px; }
+.crm_thread-foot .crm_empty { padding: 0; text-align: center; }
 .crm_picker { position: relative; }
 .crm_picker-list {
   position: absolute; top: calc(100% + 4px); inset-inline: 0; z-index: 5; max-height: 240px; overflow-y: auto;

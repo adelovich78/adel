@@ -8,7 +8,7 @@
   <meta name="theme-color" content="#ffffff">
   <link rel="icon" type="image/png" href="/images/favicon.png">
   <link rel="preload" href="/fonts/schibsted-grotesk-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="/css/portal.css">
+  <link rel="stylesheet" href="/css/portal.css?v=32def5931b">
 </head>
 <body>
   <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -132,7 +132,20 @@
     </form>
   </dialog>
 
+  <!-- Fil d'une demande : échange avec Webina jusqu'à résolution -->
+  <dialog class="dialog is-thread" data-thread-dialog>
+    <div class="dialog_inner">
+      <div class="dialog_head"><h2 data-thread-title></h2><button type="button" value="cancel" class="icon_button" data-thread-close aria-label="×"><svg class="icon" aria-hidden="true"><use href="#i-x"/></svg></button></div>
+      <div class="thread_body" data-thread-body></div>
+      <form class="thread_form" data-thread-form novalidate hidden>
+        <textarea class="field_input is-area" name="detail" rows="3" required></textarea>
+        <button type="submit" class="button is-block" data-t="send">Gönder</button>
+      </form>
+      <p class="thread_closed" data-thread-closed hidden></p>
+    </div>
+  </dialog>
+
   <div class="toast" role="status" aria-live="polite" data-toast></div>
-  <script src="/js/portal.js" defer></script>
+  <script src="/js/portal.js?v=0b1f7263ba" defer></script>
 </body>
 </html>

@@ -26,7 +26,8 @@
       bankT: 'Havale / EFT ile ödeme', bankRef: 'Açıklamaya fatura numarasını yazın.', payWa: 'WhatsApp ile ödeme bilgisi isteyin',
       sent: 'Talebiniz bize ulaştı. En kısa sürede dönüş yapacağız.', saved: 'Bilgileriniz kaydedildi.', approved: 'Teşekkürler! Sitenizi yayına almak için hazırlanıyoruz.',
       confirmRenew: 'Aboneliğinizi bir yıl daha yenilemek istediğinizi onaylıyor musunuz?', confirmApprove: 'Önizlemedeki siteyi onaylıyor musunuz? Ardından alan adınızda yayına alacağız.',
-      current: 'Mevcut paket', reqs: 'Son talepleriniz', req: { renew: 'Yenileme', upgrade: 'Paket değişikliği', support: 'Destek', approve: 'Site onayı' }, reqOpen: 'İşleniyor', reqDone: 'Tamamlandı'
+      current: 'Mevcut paket', reqs: 'Son talepleriniz', req: { renew: 'Yenileme', upgrade: 'Paket değişikliği', support: 'Destek', approve: 'Site onayı' }, reqOpen: 'İşleniyor', reqDone: 'Tamamlandı',
+      youLabel: 'Siz', newReply: 'Yeni yanıt', convClosed: 'Bu görüşme kapatıldı. Yeni bir sorunuz varsa Destek bölümünden yazabilirsiniz.', replyPh: 'Yanıtınızı yazın…', reqOpenBadge: 'Açık'
     },
     en: {
       panel: 'Client area', logout: 'Log out', loginT: 'Sign in to your client area', loginP: 'Enter your email address and we will send you a 6-digit login code.',
@@ -49,7 +50,8 @@
       bankT: 'Pay by bank transfer', bankRef: 'Put the invoice number in the reference.', payWa: 'Ask for payment details on WhatsApp',
       sent: 'We received your request and will get back to you shortly.', saved: 'Your details were saved.', approved: 'Thank you! We are getting your site ready to go live.',
       confirmRenew: 'Do you confirm you want to renew your subscription for another year?', confirmApprove: 'Do you approve the site in preview? We will then publish it on your domain.',
-      current: 'Current plan', reqs: 'Your latest requests', req: { renew: 'Renewal', upgrade: 'Plan change', support: 'Support', approve: 'Site approval' }, reqOpen: 'In progress', reqDone: 'Done'
+      current: 'Current plan', reqs: 'Your latest requests', req: { renew: 'Renewal', upgrade: 'Plan change', support: 'Support', approve: 'Site approval' }, reqOpen: 'In progress', reqDone: 'Done',
+      youLabel: 'You', newReply: 'New reply', convClosed: 'This conversation is closed. If you have a new question, write to us from the Support box.', replyPh: 'Write your reply…', reqOpenBadge: 'Open'
     },
     fr: {
       panel: 'Espace client', logout: 'Déconnexion', loginT: 'Connexion à votre espace client', loginP: 'Saisissez votre adresse e-mail, nous vous envoyons un code de connexion à 6 chiffres.',
@@ -72,7 +74,8 @@
       bankT: 'Paiement par virement', bankRef: 'Indiquez le numéro de facture en référence.', payWa: 'Demander les coordonnées de paiement sur WhatsApp',
       sent: 'Votre demande nous est parvenue. Nous revenons vers vous rapidement.', saved: 'Vos informations sont enregistrées.', approved: 'Merci ! Nous préparons la mise en ligne de votre site.',
       confirmRenew: 'Confirmez-vous le renouvellement de votre abonnement pour un an ?', confirmApprove: 'Validez-vous le site en prévisualisation ? Nous le publierons ensuite sur votre domaine.',
-      current: 'Formule actuelle', reqs: 'Vos dernières demandes', req: { renew: 'Renouvellement', upgrade: 'Changement de formule', support: 'Assistance', approve: 'Validation du site' }, reqOpen: 'En cours', reqDone: 'Traitée'
+      current: 'Formule actuelle', reqs: 'Vos dernières demandes', req: { renew: 'Renouvellement', upgrade: 'Changement de formule', support: 'Assistance', approve: 'Validation du site' }, reqOpen: 'En cours', reqDone: 'Traitée',
+      youLabel: 'Vous', newReply: 'Nouvelle réponse', convClosed: 'Cette conversation est clôturée. Pour une nouvelle question, écrivez-nous depuis la zone Assistance.', replyPh: 'Écrivez votre réponse…', reqOpenBadge: 'Ouverte'
     },
     ar: {
       panel: 'منطقة العملاء', logout: 'خروج', loginT: 'الدخول إلى منطقة العملاء', loginP: 'اكتب بريدك الإلكتروني وسنرسل إليك رمز دخول من 6 أرقام.',
@@ -95,7 +98,8 @@
       bankT: 'الدفع بالتحويل البنكي', bankRef: 'اكتب رقم الفاتورة في وصف التحويل.', payWa: 'اطلب بيانات الدفع عبر واتساب',
       sent: 'وصلنا طلبك وسنعود إليك قريباً.', saved: 'تم حفظ بياناتك.', approved: 'شكراً! نستعد لنشر موقعك.',
       confirmRenew: 'هل تؤكد تجديد اشتراكك لسنة أخرى؟', confirmApprove: 'هل توافق على الموقع في المعاينة؟ سننشره بعد ذلك على نطاقك.',
-      current: 'الباقة الحالية', reqs: 'آخر طلباتك', req: { renew: 'تجديد', upgrade: 'تغيير الباقة', support: 'دعم', approve: 'الموافقة على الموقع' }, reqOpen: 'قيد المعالجة', reqDone: 'مكتمل'
+      current: 'الباقة الحالية', reqs: 'آخر طلباتك', req: { renew: 'تجديد', upgrade: 'تغيير الباقة', support: 'دعم', approve: 'الموافقة على الموقع' }, reqOpen: 'قيد المعالجة', reqDone: 'مكتمل',
+      youLabel: 'أنت', newReply: 'ردّ جديد', convClosed: 'تم إغلاق هذه المحادثة. لأي سؤال جديد اكتب لنا من قسم الدعم.', replyPh: 'اكتب ردّك…', reqOpenBadge: 'مفتوحة'
     }
   };
   var LOC = { tr: 'tr-TR', en: 'en-GB', fr: 'fr-FR', ar: 'ar' };
@@ -277,7 +281,8 @@
       return '<li class="notice_item is-' + esc(n.level) + '"><p class="notice_title">' + esc(n.title) + '</p>' + (n.body ? '<p class="notice_body">' + esc(n.body) + '</p>' : '') + '<p class="notice_date">' + date(n.created_at) + '</p></li>';
     }).join('');
     var reqs = d.requests.length ? '<p class="mini_title">' + esc(l.reqs) + '</p><ul class="req_list" role="list">' + d.requests.map(function (q) {
-      return '<li><span>' + esc(l.req[q.kind] || q.kind) + ' · ' + date(q.created_at) + '</span><span class="pill is-' + (q.status === 'open' ? 'warning' : 'ok') + '">' + esc(q.status === 'open' ? l.reqOpen : l.reqDone) + '</span></li>';
+      var dot = q.unread ? '<span class="req_dot" aria-label="' + esc(l.newReply) + '"></span>' : '';
+      return '<li><button type="button" class="req_row" data-req="' + esc(q.id) + '"><span class="req_label">' + esc(l.req[q.kind] || q.kind) + ' · ' + date(q.created_at) + dot + '</span><span class="pill is-' + (q.status === 'open' ? 'warning' : 'ok') + '">' + esc(q.status === 'open' ? l.reqOpen : l.reqDone) + '</span><svg class="icon req_chevron" aria-hidden="true"><use href="#i-arrow"/></svg></button></li>';
     }).join('') + '</ul>' : '';
     no.innerHTML = (notes ? '<ul class="notice_list" role="list">' + notes + '</ul>' : '<p class="empty_text">' + esc(l.noNotice) + '</p>') + reqs;
 
@@ -329,7 +334,45 @@
     if ((el = t.closest('[data-renew]'))) { if (window.confirm(L().confirmRenew)) request('renew', el.dataset.renew); }
     else if ((el = t.closest('[data-approve]'))) { if (window.confirm(L().confirmApprove)) request('approve', el.dataset.approve, '', L().approved); }
     else if ((el = t.closest('[data-upgrade]'))) openPlans(el.dataset.upgrade);
+    else if ((el = t.closest('[data-req]'))) openThread(el.dataset.req);
     else if (t.closest('[data-go-pay]')) { var box = $('[data-bank]'); if (box) box.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
+  });
+
+  /* ---------- Fil d'une demande (échange avec Webina) ---------- */
+  var threadDialog = $('[data-thread-dialog]'), threadReq = null;
+  function dt(s) { var x = s ? new Date(String(s).replace(' ', 'T')) : null; return x && !isNaN(x) ? x.toLocaleString(LOC[lang] || 'tr-TR', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' }) : ''; }
+  function openThread(id) {
+    threadReq = id;
+    renderThread().then(function () {
+      if (threadDialog.showModal) { if (!threadDialog.open) threadDialog.showModal(); } else threadDialog.setAttribute('open', '');
+    }).catch(function (ex) { toast(ex.message); });
+  }
+  function renderThread() {
+    var l = L(), body = $('[data-thread-body]'), form = $('[data-thread-form]'), closed = $('[data-thread-closed]');
+    return api('thread&id=' + encodeURIComponent(threadReq)).then(function (t) {
+      $('[data-thread-title]').textContent = l.req[t.kind] || t.kind;
+      body.innerHTML = t.messages.map(function (m) {
+        var us = m.sender === 'webina';
+        return '<div class="bubble is-' + (us ? 'them' : 'me') + '"><p class="bubble_txt">' + esc(m.body).replace(/\n/g, '<br>') +
+          '</p><p class="bubble_meta">' + (us ? 'Webina' : esc(l.youLabel)) + ' · ' + esc(dt(m.created_at)) + '</p></div>';
+      }).join('');
+      body.scrollTop = body.scrollHeight;
+      var open = t.status === 'open';
+      form.hidden = !open; closed.hidden = open;
+      if (open) { form.detail.value = ''; form.detail.placeholder = l.replyPh; }
+      else closed.textContent = l.convClosed;
+    });
+  }
+  $('[data-thread-close]').addEventListener('click', function () { if (threadDialog.close) threadDialog.close(); else threadDialog.removeAttribute('open'); });
+  $('[data-thread-form]').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var f = e.target, msg = f.detail.value.trim();
+    if (!msg) { f.detail.focus(); return; }
+    var btn = f.querySelector('button'); btn.disabled = true;
+    api('reply', { method: 'POST', body: { request: threadReq, detail: msg } })
+      .then(function () { btn.disabled = false; return renderThread(); })
+      .then(function () { load(); })
+      .catch(function (ex) { btn.disabled = false; toast(ex.message); });
   });
 
   var dialog = $('[data-plan-dialog]'), planFor = null;

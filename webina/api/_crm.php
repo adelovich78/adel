@@ -167,6 +167,17 @@ function crm_schema(PDO $pdo): void {
         done_at DATETIME NULL,
         INDEX idx_status (status, created_at), INDEX idx_client (client_id)
     ) $o");
+    // Fil de discussion d'une demande : le client et Webina échangent jusqu'à résolution
+    $pdo->exec("CREATE TABLE IF NOT EXISTS portal_messages (
+        id CHAR(36) NOT NULL PRIMARY KEY,
+        request_id CHAR(36) NOT NULL,
+        client_id CHAR(36) NOT NULL,
+        sender VARCHAR(8) NOT NULL DEFAULT 'client',
+        body TEXT NOT NULL,
+        read_by_client TINYINT(1) NOT NULL DEFAULT 1,
+        created_at DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+        INDEX idx_request (request_id, created_at)
+    ) $o");
     $pdo->exec("CREATE TABLE IF NOT EXISTS portal_tokens (
         id CHAR(36) NOT NULL PRIMARY KEY,
         client_id CHAR(36) NOT NULL,

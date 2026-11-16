@@ -536,7 +536,7 @@
     } else if (t.closest('[data-edit-project]')) {
       var pid = t.closest('[data-project]').dataset.project;
       crm('r=clients&id=' + id).then(function (x) { editProject(x.projects.filter(function (p) { return p.id === pid; })[0]); });
-    } else if (t.closest('[data-portal-access],[data-portal-link],[data-portal-invoice],[data-portal-paid],[data-portal-del-invoice],[data-portal-notice],[data-portal-del-notice],[data-portal-done]')) {
+    } else if (t.closest('[data-portal-access],[data-portal-link],[data-portal-invoice],[data-portal-paid],[data-portal-del-invoice],[data-portal-notice],[data-portal-del-notice],[data-portal-thread]')) {
       var pr = portalAction(t, id);
       if (pr && pr.catch) pr.catch(function (ex) { toast(ex.message); });
     }
@@ -630,8 +630,9 @@
       }).join('') + '</ul>' : '<p class="crm_empty">Aucun message.</p>');
     if (pt.requests.length) {
       html += '<h4 class="crm_sub-title">Demandes du client</h4><ul class="crm_pays" role="list">' + pt.requests.map(function (q) {
-        return '<li><span><b>' + esc(REQ[q.kind] || q.kind) + '</b> · ' + fmtDate(q.created_at) + (q.detail ? ' · ' + esc(q.detail) : '') + '</span><span class="' + (q.status === 'open' ? 'crm_due' : 'is-muted') + '">' + (q.status === 'open' ? 'Ouverte' : 'Traitée') + '</span>' +
-          (q.status === 'open' ? '<button type="button" class="button is-small is-secondary" data-portal-done="' + esc(q.id) + '">Traitée</button>' : '<span></span>') + '</li>';
+        var short = q.detail ? esc(q.detail.length > 80 ? q.detail.slice(0, 80) + '…' : q.detail) : '';
+        return '<li><span><b>' + esc(REQ[q.kind] || q.kind) + '</b> · ' + fmtDate(q.created_at) + (short ? ' · ' + short : '') + '</span><span class="' + (q.status === 'open' ? 'crm_due' : 'is-muted') + '">' + (q.status === 'open' ? 'Ouverte' : 'Traitée') + '</span>' +
+          '<button type="button" class="button is-small is-secondary" data-portal-thread="' + esc(q.id) + '">' + icon('i-chat') + (q.status === 'open' ? 'Répondre' : 'Voir') + '</button></li>';
       }).join('') + '</ul>';
     }
     return html + '</section>';
@@ -683,10 +684,68 @@
     if ((el = t.closest('[data-portal-del-notice]'))) {
       return portalApi('r=notices&id=' + el.dataset.portalDelNotice, { method: 'DELETE' }).then(function () { openClient(id, true); });
     }
-    if ((el = t.closest('[data-portal-done]'))) {
-      return portalApi('r=requests&id=' + el.dataset.portalDone, { method: 'PATCH', body: {} }).then(function () { openClient(id, true); });
+    if ((el = t.closest('[data-portal-thread]'))) {
+      openThread(el.dataset.portalThread, id);
+      return;
     }
   }
+
+  /* ---------- Fil de discussion d'une demande ---------- */
+  var threadModal = $('[data-thread-modal]'), threadFor = null, threadClientId = null, threadName = 'Client';
+  function fmtDateTime(s) { var x = d(s); return x ? x.toLocaleString('fr-FR', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' }) : '—'; }
+  function openThread(reqId, clientId) {
+    threadFor = reqId; threadClientId = clientId;
+    threadModal.hidden = false; threadModal.classList.add('is-closed');
+    requestAnimationFrame(function () { requestAnimationFrame(function () { threadModal.classList.remove('is-closed'); }); });
+    renderThread();
+  }
+  function closeThread() {
+    threadModal.classList.add('is-closed');
+    setTimeout(function () { threadModal.hidden = true; }, reduceMotion.matches ? 0 : 180);
+    if (threadClientId) openClient(threadClientId, true);
+  }
+  function renderThread() {
+    var body = $('[data-thread-body]'), foot = $('[data-thread-foot]');
+    body.innerHTML = '<p class="crm_empty">Chargement…</p>'; foot.innerHTML = '';
+    return portalApi('r=thread&id=' + threadFor).then(function (t) {
+      threadName = (t.client && t.client.name) || 'Client';
+      $('[data-thread-title]').innerHTML = esc(REQ[t.kind] || t.kind) + (t.project ? ' · ' + esc(t.project.domain || t.project.name) : '') +
+        ' — <span class="' + (t.status === 'open' ? 'crm_due' : 'is-muted') + '">' + (t.status === 'open' ? 'Ouverte' : 'Traitée') + '</span>';
+      body.innerHTML = t.messages.length ? t.messages.map(function (m) {
+        var us = m.sender === 'webina';
+        return '<div class="crm_bubble is-' + (us ? 'us' : 'them') + '"><p class="crm_bubble-txt">' + esc(m.body).replace(/\n/g, '<br>') + '</p>' +
+          '<p class="crm_bubble-meta">' + (us ? 'Webina' : esc(threadName)) + ' · ' + fmtDateTime(m.created_at) + '</p></div>';
+      }).join('') : '<p class="crm_empty">Aucun message.</p>';
+      body.scrollTop = body.scrollHeight;
+      if (t.status === 'open') {
+        foot.innerHTML = '<textarea class="form_input is-area" data-thread-input rows="3" placeholder="Votre réponse au client…"></textarea>' +
+          '<div class="crm_thread-actions"><button type="button" class="button is-secondary" data-thread-done>Marquer traité</button>' +
+          '<button type="button" class="button" data-thread-send>' + icon('i-send') + 'Envoyer</button></div>';
+      } else {
+        foot.innerHTML = '<p class="crm_empty">Conversation clôturée' + (t.done_at ? ' le ' + fmtDate(t.done_at) : '') + '.</p>';
+      }
+    }).catch(function (ex) { body.innerHTML = '<p class="crm_empty">' + esc(ex.message) + '</p>'; });
+  }
+  threadModal.addEventListener('click', function (e) {
+    if (e.target.closest('[data-thread-close]')) return closeThread();
+    var send = e.target.closest('[data-thread-send]'), done = e.target.closest('[data-thread-done]');
+    var input = $('[data-thread-input]', threadModal);
+    if (send) {
+      var msg = input ? input.value.trim() : '';
+      if (!msg) { if (input) input.focus(); return; }
+      send.disabled = true;
+      portalApi('r=reply', { method: 'POST', body: { request: threadFor, body: msg } })
+        .then(function () { toast('Réponse envoyée au client'); return renderThread(); })
+        .catch(function (ex) { send.disabled = false; toast(ex.message); });
+    } else if (done) {
+      if (!W.confirm('Clôturer cette demande comme « traitée » ? Le client en sera informé par e-mail.')) return;
+      var note = input ? input.value.trim() : '';
+      done.disabled = true;
+      portalApi('r=requests&id=' + threadFor, { method: 'PATCH', body: { body: note } })
+        .then(function () { toast('Demande clôturée (traitée)'); return renderThread(); })
+        .catch(function (ex) { done.disabled = false; toast(ex.message); });
+    }
+  });
   function newClient() {
     openModal('Nouveau client', [
       { label: 'Nom', name: 'name', required: true }, { label: 'Type', name: 'kind', type: 'select', options: [['person', 'Personne'], ['company', 'Société']] },

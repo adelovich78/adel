@@ -136,7 +136,12 @@ function portal_dashboard(PDO $pdo, array $c): array {
     usort($actions, fn($a, $b) => $rank[$a['level']] <=> $rank[$b['level']]);
     $notices = portal_all($pdo, "SELECT id, level, title, body, created_at FROM crm_notices
         WHERE (client_id = ? OR client_id IS NULL) AND (expires_on IS NULL OR expires_on >= CURDATE()) ORDER BY created_at DESC LIMIT 20", [$c['id']]);
-    $requests = portal_all($pdo, 'SELECT id, project_id, kind, status, created_at FROM portal_requests WHERE client_id = ? ORDER BY created_at DESC LIMIT 10', [$c['id']]);
+    $requests = portal_all($pdo, "SELECT r.id, r.project_id, r.kind, r.status, r.created_at,
+            (SELECT COUNT(*) FROM portal_messages m WHERE m.request_id = r.id AND m.sender = 'webina' AND m.read_by_client = 0) unread,
+            (SELECT COUNT(*) FROM portal_messages m WHERE m.request_id = r.id) replies
+        FROM portal_requests r WHERE r.client_id = ? ORDER BY r.created_at DESC LIMIT 10", [$c['id']]);
+    foreach ($requests as &$q) { $q['unread'] = (int)$q['unread']; $q['replies'] = (int)$q['replies']; }
+    unset($q);
     $pricing = load_pricing();
     return [
         'client' => ['name' => $c['name'], 'company' => $c['company'], 'email' => $c['email'], 'phone' => $c['phone'], 'lang' => $c['lang']],
@@ -172,6 +177,112 @@ function portal_request(PDO $pdo, array $c, string $kind, ?string $projectId, st
             $c['email'] ?: null);
     }
     return ['ok' => true, 'id' => $id];
+}
+
+/* ---------- Fil de discussion d'une demande (client ⇄ Webina) ---------- */
+const PORTAL_REQUEST_LABELS = ['renew' => 'Renouvellement', 'upgrade' => 'Changement de formule', 'support' => 'Assistance', 'approve' => 'Validation du site'];
+
+// Messages d'un fil : le texte initial de la demande compte comme premier message du client
+function portal_thread_messages(PDO $pdo, array $req): array {
+    $msgs = [];
+    if (($req['detail'] ?? '') !== '' && $req['detail'] !== null)
+        $msgs[] = ['sender' => 'client', 'body' => (string)$req['detail'], 'created_at' => $req['created_at']];
+    foreach (portal_all($pdo, 'SELECT sender, body, created_at FROM portal_messages WHERE request_id = ? ORDER BY created_at', [$req['id']]) as $m)
+        $msgs[] = ['sender' => $m['sender'], 'body' => (string)$m['body'], 'created_at' => $m['created_at']];
+    return $msgs;
+}
+
+// Portail : le client ouvre un fil ; les réponses de Webina passent alors en « lu »
+function portal_thread(PDO $pdo, array $c, string $reqId): array {
+    $req = portal_one($pdo, 'SELECT * FROM portal_requests WHERE id = ? AND client_id = ?', [$reqId, $c['id']]);
+    if (!$req) fail('Demande introuvable.', 404);
+    $pdo->prepare("UPDATE portal_messages SET read_by_client = 1 WHERE request_id = ? AND sender = 'webina'")->execute([$reqId]);
+    return ['id' => $req['id'], 'kind' => $req['kind'], 'status' => $req['status'], 'created_at' => $req['created_at'],
+            'messages' => portal_thread_messages($pdo, $req)];
+}
+
+// Portail : le client répond dans un fil encore ouvert
+function portal_reply(PDO $pdo, array $c, string $reqId, string $body): array {
+    global $CONFIG;
+    if ($body === '') fail('Message vide.', 422);
+    $req = portal_one($pdo, 'SELECT * FROM portal_requests WHERE id = ? AND client_id = ?', [$reqId, $c['id']]);
+    if (!$req) fail('Demande introuvable.', 404);
+    if ($req['status'] !== 'open') fail('Cette demande est déjà clôturée.', 409);
+    $pdo->prepare("INSERT INTO portal_messages (id, request_id, client_id, sender, body, read_by_client) VALUES (?, ?, ?, 'client', ?, 1)")
+        ->execute([uuid4(), $reqId, $c['id'], $body]);
+    $label = PORTAL_REQUEST_LABELS[$req['kind']] ?? $req['kind'];
+    crm_log($pdo, $c['id'], null, 'portal', $label . ' — réponse du client :' . "\n\n" . $body);
+    // Rouvre la tâche de suivi pour que Webina reprenne l'échange
+    crm_auto_task($pdo, 'portal:' . $reqId, $label . ' — ' . $c['name'], date('Y-m-d H:i:s'), $c['id'], null, $req['project_id'], 'call');
+    $pdo->prepare("UPDATE crm_tasks SET done_at = NULL WHERE auto_key = ?")->execute(['portal:' . $reqId]);
+    if ($to = email_list($CONFIG['notify_email'] ?? '')) {
+        send_html_mail($to[0], 'Espace client — réponse : ' . $c['name'],
+            mail_layout('<h2 style="margin:0 0 12px;font-size:20px">' . h($label) . ' — réponse du client</h2>'
+                . '<p style="margin:0 0 6px"><b>' . h($c['name']) . '</b> · ' . h((string)$c['email']) . '</p>'
+                . '<p style="white-space:pre-wrap;background:#f4f6f2;padding:12px;border-radius:8px">' . h($body) . '</p>'),
+            $c['email'] ?: null);
+    }
+    return ['ok' => true];
+}
+
+// Admin : Webina répond au client dans un fil ouvert (le message reste non lu jusqu'à sa prochaine visite)
+function portal_admin_reply(PDO $pdo, array $req, array $c, string $body): array {
+    if ($body === '') fail('Message vide.', 422);
+    if ($req['status'] !== 'open') fail('Cette demande est clôturée.', 409);
+    $pdo->prepare("INSERT INTO portal_messages (id, request_id, client_id, sender, body, read_by_client) VALUES (?, ?, ?, 'webina', ?, 0)")
+        ->execute([uuid4(), $req['id'], $c['id'], $body]);
+    $label = PORTAL_REQUEST_LABELS[$req['kind']] ?? $req['kind'];
+    crm_log($pdo, $c['id'], null, 'portal', $label . ' — réponse de Webina au client :' . "\n\n" . $body);
+    portal_mail_reply($c, $c['lang'] ?: 'tr', $label, $body);
+    return ['ok' => true];
+}
+
+// Admin : clôture la demande (« Traité ») + ferme la tâche de suivi + prévient le client
+function portal_admin_close(PDO $pdo, array $req, array $c, string $body = ''): array {
+    $pdo->prepare("UPDATE portal_requests SET status = 'done', done_at = NOW() WHERE id = ?")->execute([$req['id']]);
+    if ($body !== '')
+        $pdo->prepare("INSERT INTO portal_messages (id, request_id, client_id, sender, body, read_by_client) VALUES (?, ?, ?, 'webina', ?, 0)")
+            ->execute([uuid4(), $req['id'], $c['id'], $body]);
+    $pdo->prepare("UPDATE crm_tasks SET done_at = NOW() WHERE auto_key = ? AND done_at IS NULL")->execute(['portal:' . $req['id']]);
+    $label = PORTAL_REQUEST_LABELS[$req['kind']] ?? $req['kind'];
+    crm_log($pdo, $c['id'], null, 'portal', $label . ' — demande clôturée (traitée)' . ($body !== '' ? " :\n\n" . $body : ''));
+    portal_mail_resolved($c, $c['lang'] ?: 'tr', $label, $body);
+    return ['ok' => true];
+}
+
+// E-mail au client : Webina a répondu
+function portal_mail_reply(array $c, string $lang, string $label, string $body): bool {
+    if (!filter_var((string)$c['email'], FILTER_VALIDATE_EMAIL)) return false;
+    $L = [
+        'tr' => ['Webina size yanıt verdi', 'Talebinizle ilgili bir yanıt aldınız:', 'Yanıtlamak için müşteri panelinize girin:'],
+        'en' => ['Webina replied to you', 'You have a reply about your request:', 'Open your client area to reply:'],
+        'fr' => ['Webina vous a répondu', 'Vous avez une réponse à votre demande :', 'Ouvrez votre espace client pour répondre :'],
+        'ar' => ['ردّت Webina عليك', 'لديك ردّ على طلبك:', 'افتح منطقة العملاء للرد:'],
+    ][$lang] ?? null;
+    if (!$L) $L = ['Webina size yanıt verdi', 'Talebinizle ilgili bir yanıt aldınız:', 'Müşteri panelinize girin:'];
+    $url = portal_url();
+    $html = '<h2 style="margin:0 0 12px;font-size:20px">' . h($L[0]) . '</h2>'
+        . '<p style="margin:0 0 6px;color:#555">' . h($L[1]) . ' <b>' . h($label) . '</b></p>'
+        . '<p style="white-space:pre-wrap;background:#f4f6f2;padding:12px;border-radius:8px;margin:0 0 16px">' . h($body) . '</p>'
+        . '<p style="margin:0"><a href="' . h($url) . '" style="color:#1f6f2a">' . h($L[2]) . ' ' . h(preg_replace('#^https?://#', '', $url)) . '</a></p>';
+    return send_html_mail((string)$c['email'], $L[0], mail_layout($html, $lang === 'ar'));
+}
+
+// E-mail au client : demande traitée / clôturée
+function portal_mail_resolved(array $c, string $lang, string $label, string $body = ''): bool {
+    if (!filter_var((string)$c['email'], FILTER_VALIDATE_EMAIL)) return false;
+    $L = [
+        'tr' => ['Talebiniz tamamlandı', 'Aşağıdaki talebiniz çözüldü ve kapatıldı:', 'Başka bir sorunuz olursa panelden yazabilirsiniz.'],
+        'en' => ['Your request is resolved', 'The following request has been resolved and closed:', 'If you have another question, write to us from your client area.'],
+        'fr' => ['Votre demande est traitée', 'La demande suivante a été résolue et clôturée :', 'Pour toute autre question, écrivez-nous depuis votre espace client.'],
+        'ar' => ['تمّت معالجة طلبك', 'تمّ حلّ الطلب التالي وإغلاقه:', 'لأي سؤال آخر راسلنا من منطقة العملاء.'],
+    ][$lang] ?? null;
+    if (!$L) $L = ['Talebiniz tamamlandı', 'Talebiniz çözüldü ve kapatıldı:', 'Panelden yazabilirsiniz.'];
+    $html = '<h2 style="margin:0 0 12px;font-size:20px">' . h($L[0]) . '</h2>'
+        . '<p style="margin:0 0 6px;color:#555">' . h($L[1]) . ' <b>' . h($label) . '</b></p>'
+        . ($body !== '' ? '<p style="white-space:pre-wrap;background:#f4f6f2;padding:12px;border-radius:8px;margin:0 0 16px">' . h($body) . '</p>' : '')
+        . '<p style="margin:0;color:#777;font-size:13px">' . h($L[2]) . '</p>';
+    return send_html_mail((string)$c['email'], $L[0], mail_layout($html, $lang === 'ar'));
 }
 
 /* ---------- E-mail du code de connexion ---------- */
