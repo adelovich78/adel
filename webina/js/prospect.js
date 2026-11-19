@@ -80,12 +80,14 @@
       if (state.trade && c.trade !== state.trade) return false;
       if (state.filter === 'nosite' && c.website) return false;
       if (state.filter === 'email' && !c.email) return false;
-      if (state.filter === 'todo' && (c.last_mailed_at || c.mail_status === 'queued')) return false;
+      if (state.filter === 'todo' && (c.last_mailed_at || c.email_done || c.mail_status === 'queued')) return false;
       if (q && [c.name, c.company, c.district, c.email, c.sector].join(' ').toLowerCase().indexOf(q) === -1) return false;
       return true;
     });
   }
-  function canMail(c) { return !!c.email && c.email_optout != 1; }
+  // Non sélectionnable si : pas d'e-mail, désinscrit, ou adresse déjà contactée (même via une autre fiche)
+  function canMail(c) { return !!c.email && c.email_optout != 1 && !c.email_done; }
+  function noMailReason(c) { return !c.email ? 'Pas d\'adresse e-mail' : c.email_optout == 1 ? 'Désinscrit' : c.email_done ? 'Adresse déjà contactée' : ''; }
   function renderList() {
     var rows = visible();
     var tb = $('[data-pr-rows]');
@@ -97,10 +99,12 @@
         var last = c.email_optout == 1 ? '<span class="admin_badge is-lost">Désinscrit</span>'
           : c.mail_status === 'queued' ? '<span class="admin_badge is-new">En file</span>'
           : c.mail_status === 'failed' ? '<span class="admin_badge is-lost">Échec</span>'
-          : c.last_mailed_at ? '<span class="text-color-secondary">' + esc(fmt(c.last_mailed_at)) + '</span>' : '<span class="is-muted">—</span>';
+          : c.last_mailed_at ? '<span class="text-color-secondary">' + esc(fmt(c.last_mailed_at)) + '</span>'
+          : c.email_done ? '<span class="text-color-secondary" title="Cette adresse a déjà reçu un e-mail via une autre fiche">Déjà contacté</span>'
+          : '<span class="is-muted">—</span>';
         var wa = waNumber(c.phone);
         return '<tr data-id="' + esc(c.id) + '">' +
-          '<td class="pr_cell-check"><input type="checkbox" data-pr-pick ' + (mail ? '' : 'disabled title="Pas d\'adresse e-mail"') + (state.sel[c.id] ? ' checked' : '') + ' aria-label="Sélectionner ' + esc(c.name) + '"></td>' +
+          '<td class="pr_cell-check"><input type="checkbox" data-pr-pick ' + (mail ? '' : 'disabled title="' + esc(noMailReason(c)) + '"') + (state.sel[c.id] ? ' checked' : '') + ' aria-label="Sélectionner ' + esc(c.name) + '"></td>' +
           '<td><span class="pr_name">' + esc(c.company || c.name) + '</span>' + (c.source ? '<span class="pr_meta">' + esc(c.source) + '</span>' : '') + '</td>' +
           '<td>' + esc(tradeLabel(c.trade)) + '</td>' +
           '<td>' + esc(c.district || c.city || '—') + '</td>' +

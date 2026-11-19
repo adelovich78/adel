@@ -29,7 +29,8 @@ switch ($r) {
 case 'list':
     $rows = $pdo->query("SELECT id, name, company, email, phone, sector, city, district, website, source, notes, email_optout,
         DATE_FORMAT(last_mailed_at, '%Y-%m-%dT%H:%i:%s') last_mailed_at, DATE_FORMAT(created_at, '%Y-%m-%dT%H:%i:%s') created_at,
-        (SELECT status FROM crm_emails e WHERE e.client_id = c.id ORDER BY e.created_at DESC LIMIT 1) mail_status
+        (SELECT status FROM crm_emails e WHERE e.client_id = c.id ORDER BY e.created_at DESC LIMIT 1) mail_status,
+        (SELECT 1 FROM crm_emails e WHERE e.to_email = LOWER(TRIM(c.email)) AND e.status IN ('sent','sending','queued') LIMIT 1) email_done
         FROM crm_clients c WHERE status = 'lead' ORDER BY created_at DESC LIMIT 2000")->fetchAll();
     foreach ($rows as &$x) $x['trade'] = prospect_trade($x['sector']);
     $trades = [];
@@ -113,6 +114,9 @@ case 'queue':
     $bccMode = ($in['mode'] ?? 'bcc') !== 'single';
     $batches = [];   // un lot par modèle en envoi groupé
     $pending = $pdo->prepare("SELECT 1 FROM crm_emails WHERE client_id = ? AND status IN ('queued', 'sending') LIMIT 1");
+    // Blocage par ADRESSE : une adresse déjà envoyée / en file (même via une autre fiche) n'est jamais recontactée
+    $mailed = $pdo->prepare("SELECT 1 FROM crm_emails WHERE to_email = ? AND status IN ('sent', 'sending', 'queued') LIMIT 1");
+    $again = !empty($in['again']);
     $done = 0; $skip = ['email' => 0, 'optout' => 0, 'already' => 0];
     $seen = [];
     foreach (array_slice($ids, 0, 1000) as $cid) {
@@ -122,7 +126,8 @@ case 'queue':
         if ($email === '' || !filter_var($email, FILTER_VALIDATE_EMAIL) || isset($seen[$email])) { $skip['email']++; continue; }
         if ((int)$c['email_optout'] === 1) { $skip['optout']++; continue; }
         $pending->execute([$cid]);
-        if ($pending->fetch() || (!empty($c['last_mailed_at']) && empty($in['again']))) { $skip['already']++; continue; }
+        if ($pending->fetch() || (!empty($c['last_mailed_at']) && !$again)) { $skip['already']++; continue; }
+        if (!$again) { $mailed->execute([$email]); if ($mailed->fetch()) { $skip['already']++; continue; } }
         $tpl = $auto ? ($tplByTrade[prospect_trade($c['sector'])] ?? $tplByTrade['general'] ?? $chosen) : $chosen;
         if (!$tpl) { $skip['email']++; continue; }
         if ($bccMode) {
