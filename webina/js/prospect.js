@@ -81,6 +81,7 @@
       if (state.filter === 'nosite' && c.website) return false;
       if (state.filter === 'email' && !c.email) return false;
       if (state.filter === 'todo' && (c.last_mailed_at || c.email_done || c.mail_status === 'queued')) return false;
+      if (state.filter === 'done' && !(c.last_mailed_at || c.email_done)) return false;
       if (q && [c.name, c.company, c.district, c.email, c.sector].join(' ').toLowerCase().indexOf(q) === -1) return false;
       return true;
     });
