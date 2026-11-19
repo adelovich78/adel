@@ -316,8 +316,10 @@ function prospect_queue_state(PDO $pdo): array {
     $pdo->exec("UPDATE crm_emails SET status = 'failed', error = 'envoi interrompu' WHERE status = 'sending' AND sent_at < (NOW() - INTERVAL 10 MINUTE)");
     $today = (int)$pdo->query("SELECT COUNT(*) FROM crm_emails WHERE status = 'sent' AND sent_at >= CURDATE()")->fetchColumn();
     $queued = (int)$pdo->query("SELECT COUNT(*) FROM crm_emails WHERE status = 'queued'")->fetchColumn();
-    $last = $pdo->query("SELECT MAX(sent_at) FROM crm_emails WHERE status IN ('sent', 'failed')")->fetchColumn();
-    $wait = $last ? max(0, $lim['gap'] - (time() - strtotime($last))) : 0;
+    // Temps écoulé depuis le dernier envoi calculé côté MySQL (TIMESTAMPDIFF) : immunisé contre
+    // tout décalage de fuseau entre PHP et MySQL, qui créait auparavant un faux délai de plusieurs heures.
+    $since = $pdo->query("SELECT TIMESTAMPDIFF(SECOND, MAX(sent_at), NOW()) FROM crm_emails WHERE status IN ('sent', 'failed')")->fetchColumn();
+    $wait = ($since === null) ? 0 : max(0, $lim['gap'] - (int)$since);
     $win = prospect_window();
     if (!$win['open']) $wait = max($wait, $win['wait']);  // hors plage : attendre l'ouverture
     return ['queued' => $queued, 'sentToday' => $today, 'daily' => $lim['daily'], 'gap' => $lim['gap'],

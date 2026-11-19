@@ -8,6 +8,10 @@ header('Cache-Control: no-store');
 
 $CONFIG = require __DIR__ . '/config.php';
 
+// Aligner l'heure de PHP sur celle du site (Istanbul par défaut) : sans cela, les dates
+// affichées et les calculs de délai mélangent l'heure de PHP (souvent UTC) et celle de MySQL.
+date_default_timezone_set($CONFIG['timezone'] ?? 'Europe/Istanbul');
+
 function json_out(array $data, int $code = 200): void {
     http_response_code($code);
     echo json_encode($data, JSON_UNESCAPED_UNICODE);
