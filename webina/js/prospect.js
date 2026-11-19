@@ -230,8 +230,10 @@
     var q = state.queue, box = $('[data-pr-queue]');
     if (!q || (!q.queued && !q.sentToday)) { box.hidden = true; return; }
     box.hidden = false;
+    var hrs = q.hours ? q.hours[0] + ' h–' + q.hours[1] + ' h' : '9 h–19 h';
     var status = !q.queued ? 'File vide'
       : q.sentToday >= q.daily ? 'Limite du jour atteinte : la suite partira demain'
+      : q.window === false ? 'Hors plage d\'envoi (' + hrs + ') : reprise automatique à l\'ouverture'
       : state.running ? (q.wait > 0 ? 'Prochain envoi dans ' + q.wait + ' s' : 'Envoi en cours…') : 'En pause';
     box.innerHTML = '<span class="pr_queue-stat"><strong>' + q.queued + '</strong> en file</span>' +
       '<span class="pr_queue-stat"><strong>' + q.sentToday + '</strong> / ' + q.daily + ' envoyés aujourd\'hui</span>' +
@@ -269,6 +271,8 @@
       }
       if (r.reason === 'empty' || r.reason === 'daily' || !r.queued) { state.running = r.queued > 0 && r.reason !== 'daily' ? state.running : false; renderQueue(); if (!state.running) return; }
       renderQueue();
+      // Hors plage horaire : on ne décompte pas toute la nuit, on re-vérifie toutes les minutes
+      if (r.reason === 'window') { state.timer = setTimeout(step, 60000); return; }
       // Compte à rebours affiché, puis nouvel essai quand l'espacement est écoulé
       var wait = Math.max(1, r.wait || r.gap || 5);
       var left = wait;

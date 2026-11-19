@@ -289,8 +289,25 @@ function prospect_limits(): array {
     global $CONFIG;
     return [
         'daily' => max(1, min(300, (int)($CONFIG['prospect_daily_limit'] ?? 40))),
-        'gap' => max(5, (int)($CONFIG['prospect_gap_seconds'] ?? 25)),
+        'gap' => max(5, (int)($CONFIG['prospect_gap_seconds'] ?? 120)),
     ];
+}
+
+// Fenêtre d'envoi : on ne démarche qu'en journée (défaut 9 h–19 h, heure d'Istanbul).
+// En dehors, la file attend l'ouverture suivante au lieu de partir la nuit.
+function prospect_window(): array {
+    global $CONFIG;
+    $start = max(0, min(23, (int)($CONFIG['prospect_hours_start'] ?? 9)));
+    $end = max($start + 1, min(24, (int)($CONFIG['prospect_hours_end'] ?? 19)));
+    try { $tz = new DateTimeZone($CONFIG['timezone'] ?? 'Europe/Istanbul'); }
+    catch (\Throwable $e) { $tz = new DateTimeZone('Europe/Istanbul'); }
+    $now = new DateTime('now', $tz);
+    $h = (int)$now->format('G');
+    if ($h >= $start && $h < $end) return ['open' => true, 'wait' => 0];
+    $next = clone $now;
+    if ($h >= $end) $next->modify('+1 day');
+    $next->setTime($start, 0, 0);
+    return ['open' => false, 'wait' => max(60, $next->getTimestamp() - $now->getTimestamp()), 'start' => $start, 'end' => $end];
 }
 
 function prospect_queue_state(PDO $pdo): array {
@@ -301,13 +318,17 @@ function prospect_queue_state(PDO $pdo): array {
     $queued = (int)$pdo->query("SELECT COUNT(*) FROM crm_emails WHERE status = 'queued'")->fetchColumn();
     $last = $pdo->query("SELECT MAX(sent_at) FROM crm_emails WHERE status IN ('sent', 'failed')")->fetchColumn();
     $wait = $last ? max(0, $lim['gap'] - (time() - strtotime($last))) : 0;
-    return ['queued' => $queued, 'sentToday' => $today, 'daily' => $lim['daily'], 'gap' => $lim['gap'], 'wait' => $wait];
+    $win = prospect_window();
+    if (!$win['open']) $wait = max($wait, $win['wait']);  // hors plage : attendre l'ouverture
+    return ['queued' => $queued, 'sentToday' => $today, 'daily' => $lim['daily'], 'gap' => $lim['gap'],
+            'wait' => $wait, 'window' => $win['open'], 'hours' => [$win['start'] ?? ($GLOBALS['CONFIG']['prospect_hours_start'] ?? 9), $win['end'] ?? ($GLOBALS['CONFIG']['prospect_hours_end'] ?? 19)]];
 }
 
 // Envoie au plus un e-mail si l'espacement et le plafond du jour le permettent
 function prospect_send_next(PDO $pdo): array {
     $q = prospect_queue_state($pdo);
     if (!$q['queued']) return $q + ['sent' => null, 'reason' => 'empty'];
+    if (empty($q['window'])) return $q + ['sent' => null, 'reason' => 'window'];  // hors plage horaire
     if ($q['sentToday'] >= $q['daily']) return $q + ['sent' => null, 'reason' => 'daily'];
     if ($q['wait'] > 0) return $q + ['sent' => null, 'reason' => 'wait'];
     // Réservation de la ligne : deux onglets ouverts n'envoient pas deux fois le même e-mail

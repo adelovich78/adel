@@ -1,9 +1,18 @@
 <?php
-// Passage quotidien du CRM : relances, renouvellements, soldes + résumé par e-mail.
-// cPanel → Tâches Cron, une fois par jour, par exemple à 8 h :
-//   php /home/UTILISATEUR/public_html/api/cron.php
-// ou, si PHP en ligne de commande n'est pas disponible :
-//   curl -s "https://webina.com.tr/api/cron.php?key=CLE"   (CLE = 'cron_key' dans config.php)
+// Tâches planifiées du CRM. Deux cron à configurer dans cPanel → Tâches Cron :
+//
+//   1) Passage quotidien (relances, renouvellements, rappels clients, résumé, le 1er du mois les rapports) :
+//        php /home/UTILISATEUR/public_html/api/cron.php
+//      ou par URL :  curl -s "https://webina.com.tr/api/cron.php?key=CLE"
+//      → une fois par jour (ex. 8 h).
+//
+//   2) Prospection autonome (fonctionne même si aucune page n'est ouverte) :
+//        php /home/UTILISATEUR/public_html/api/cron.php prospect
+//      ou par URL :  curl -s "https://webina.com.tr/api/cron.php?key=CLE&only=prospect"
+//      → toutes les 5 minutes. Chaque passage envoie un lot si l'espacement, le plafond
+//        du jour et la plage horaire (9 h–19 h) le permettent. Court : jamais de pause longue.
+//
+//   CLE = 'cron_key' dans config.php.
 $cli = PHP_SAPI === 'cli';
 if ($cli) { $_SERVER['REQUEST_METHOD'] = 'GET'; $_SERVER['HTTP_HOST'] = $_SERVER['HTTP_HOST'] ?? ''; }
 require __DIR__ . '/_bootstrap.php';
@@ -18,6 +27,21 @@ if (!$cli) {
 }
 
 $pdo = crm_db();
+$only = (string)($_GET['only'] ?? ($cli ? ($argv[1] ?? '') : ''));
+
+// Un lot de prospection si l'espacement / le plafond / la plage horaire le permettent (passage court)
+function run_prospect(PDO $pdo): array {
+    prospect_schema($pdo);
+    $r = prospect_send_next($pdo);
+    return ['prospectMails' => !empty($r['sent']) ? 1 : 0, 'reason' => $r['reason'] ?? null];
+}
+
+// Mode « prospection seule » : appelé fréquemment, ne renvoie ni résumé ni rappels
+if ($only === 'prospect') {
+    json_out(['ok' => true, 'only' => 'prospect'] + run_prospect($pdo));
+}
+
+// Passage quotidien complet
 $made = crm_daily($pdo);
 $sent = false;
 if (($html = crm_digest_html($pdo)) && ($to = email_list($CONFIG['notify_email'] ?? ''))) {
@@ -34,14 +58,7 @@ if (date('j') === '1' || !empty($_GET['monthly'])) {
     }
     $clientReports = crm_client_monthly_reports($pdo);
 }
-// Prospection : envoie la suite de la file, en respectant l'espacement et la limite du jour.
-// En ligne de commande on attend entre deux envois (10 au plus par passage) ; par URL, un seul.
-prospect_schema($pdo);
-$mailed = 0;
-for ($i = 0; $i < ($cli ? 10 : 1); $i++) {
-    $r = prospect_send_next($pdo);
-    if (!empty($r['sent'])) { $mailed++; continue; }
-    if (($r['reason'] ?? '') !== 'wait' || !$cli) break;
-    sleep(max(1, (int)$r['wait']));
-}
-json_out(['ok' => true, 'created' => $made, 'digest' => $sent, 'reminders' => $reminders, 'monthly' => $monthly, 'clientReports' => $clientReports, 'prospectMails' => $mailed]);
+// Un lot de prospection au passage (le gros du travail est fait par la tâche fréquente ?only=prospect)
+$prospect = run_prospect($pdo);
+json_out(['ok' => true, 'created' => $made, 'digest' => $sent, 'reminders' => $reminders,
+    'monthly' => $monthly, 'clientReports' => $clientReports, 'prospectMails' => $prospect['prospectMails']]);
