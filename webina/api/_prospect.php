@@ -77,6 +77,11 @@ function prospect_schema(PDO $pdo): void {
     $ecols = array_column($pdo->query('SHOW COLUMNS FROM crm_emails')->fetchAll(), 'Field');
     if (!in_array('batch', $ecols, true)) $pdo->exec('ALTER TABLE crm_emails ADD COLUMN batch CHAR(36) NULL AFTER template_id, ADD INDEX idx_batch (batch)');
     if (!(int)$pdo->query('SELECT COUNT(*) FROM crm_templates')->fetchColumn()) prospect_seed_templates($pdo);
+    // Mali müşavirler : remplacer la phrase « örnek » par de vrais sites clients (idempotent ; ne touche pas un modèle réécrit à la main)
+    $pdo->exec("UPDATE crm_templates SET body = REPLACE(body,
+        'Mesleğinize yakın hazırladığımız örneği buradan inceleyebilirsiniz: {demo}',
+        'Mali müşavirler için yaptığımız gerçek müşteri sitelerimizden biri: {demo} (ayrıca www.audexa.com)')
+        WHERE trade = 'accountant' AND body LIKE '%örneği buradan inceleyebilirsiniz: {demo}%'");
 }
 
 /* ---------- Modèles de départ (modifiables dans l'admin) ----------
@@ -91,6 +96,10 @@ function prospect_seed_templates(PDO $pdo): void {
     $close = "Mesleğinize yakın hazırladığımız örneği buradan inceleyebilirsiniz: {demo}\n\n"
         . "Size uygun bir zamanda 10 dakikalık kısa bir görüşme yapabilir miyiz? Bu e-postayı yanıtlamanız veya WhatsApp'tan yazmanız yeterli.\n\n"
         . "Saygılarımla,";
+    // Mali müşavirler : on montre de vrais sites de clients (daha ikna edici), « örnek » yerine « müşterimiz »
+    $closeReal = "Mali müşavirler için yaptığımız gerçek müşteri sitelerimizden biri: {demo} (ayrıca www.audexa.com)\n\n"
+        . "Size uygun bir zamanda 10 dakikalık kısa bir görüşme yapabilir miyiz? Bu e-postayı yanıtlamanız veya WhatsApp'tan yazmanız yeterli.\n\n"
+        . "Saygılarımla,";
     $t = [
         ['dentist', 'Diş hekimleri', '{isletme} için hasta getiren bir web sitesi',
             "Merhaba,\n\nHastaların çoğu yeni bir diş hekimi seçmeden önce Google'da arama yapıyor, yorumlara ve kliniğin sitesine bakıyor. {ilce} bölgesinde sitesi olan bir muayenehane, bu hastaların ilk aradığı yer oluyor.\n\n"
@@ -103,7 +112,7 @@ function prospect_seed_templates(PDO $pdo): void {
             . $common . "Avukatlar için ayrıca: çalışma alanları, makaleler, görüşme talep formu; reklam yasağına uygun dil.\n\n" . $close],
         ['accountant', 'Mali müşavirler', '{isletme} için müşteri kazandıran bir web sitesi',
             "Merhaba,\n\nŞirket kuran ya da muhasebecisini değiştirmek isteyen işletmeler, mali müşavirlerini çoğunlukla internette arıyor. Hizmetlerinizi ve iletişim bilgilerinizi gösteren bir site, bu talepleri doğrudan size getiriyor.\n\n"
-            . $common . "Mali müşavirler için ayrıca: hizmetler, şirket kuruluşu sayfası, müşteri belge yükleme alanı.\n\n" . $close],
+            . $common . "Mali müşavirler için ayrıca: hizmetler, şirket kuruluşu sayfası, müşteri belge yükleme alanı.\n\n" . $closeReal],
         ['beauty', 'Kuaför ve güzellik salonları', '{isletme} için online randevulu bir web sitesi',
             "Merhaba,\n\nSalonunuzu arayan yeni müşteriler önce internette fiyatlara, fotoğraflara ve randevu imkânına bakıyor. Kendi siteniz olduğunda Instagram'a bağlı kalmadan randevu alabilirsiniz.\n\n"
             . $common . "Salonlar için ayrıca: online randevu, hizmet ve fiyat listesi, çalışmalarınızdan galeri.\n\n" . $close],
@@ -140,13 +149,20 @@ function prospect_seed_templates(PDO $pdo): void {
 
 // Lien vers l'exemple le plus proche du métier
 function prospect_demo(string $trade): string {
+    $real = prospect_real_sites($trade);
+    if ($real) return $real[0];   // métiers avec un vrai site client (plus crédible)
     return [
         'dentist' => 'https://dental.webina.com.tr/', 'doctor' => 'https://doktor.webina.com.tr/', 'vet' => 'https://veteriner.webina.com.tr/',
-        'lawyer' => 'https://avukat.webina.com.tr/', 'accountant' => 'https://avukat.webina.com.tr/',
+        'lawyer' => 'https://avukat.webina.com.tr/',
         'beauty' => 'https://kuafor.webina.com.tr/', 'auto' => 'https://otoelektrik.webina.com.tr/', 'cleaning' => 'https://nakliyet.webina.com.tr/',
         'realestate' => 'https://emlak.webina.com.tr/', 'events' => 'https://restoran.webina.com.tr/',
         'photo' => 'https://adelbenelli.webina.com.tr/', 'shop' => 'https://eticaret.webina.com.tr/',
     ][$trade] ?? 'https://webina.com.tr/sektorler';
+}
+
+// Métiers dont la « démo » est en fait un (ou plusieurs) vrai site de client — à présenter comme tel.
+function prospect_real_sites(string $trade): array {
+    return $trade === 'accountant' ? ['https://www.right-expert.com/', 'https://www.audexa.com'] : [];
 }
 
 function prospect_fill(string $text, array $client): string {
@@ -213,6 +229,7 @@ function prospect_html(string $body, string $unsubUrl, string $trade = 'general'
     $green = '#23772a'; $ink = '#121812'; $muted = '#5b645e';
     $wa = preg_replace('/\D/', '', $CONFIG['whatsapp_site'] ?? $CONFIG['whatsapp'] ?? '');
     $demo = prospect_demo($trade);
+    $real = prospect_real_sites($trade);   // vrais sites clients (ex. mali müşavir) : affichés comme « müşterimiz »
     $link = fn($u, $t, $st = '') => '<a href="' . h($u) . '" style="color:' . $green . ';text-decoration:none;font-weight:600;' . $st . '">' . $t . '</a>';
     $inline = function (string $t) use ($green) {
         $t = h($t);
@@ -262,10 +279,15 @@ function prospect_html(string $body, string $unsubUrl, string $trade = 'general'
         . '<td style="font-size:22px;font-weight:800;letter-spacing:1px;color:#ffffff"><a href="https://webina.com.tr" style="color:#ffffff;text-decoration:none">WEB<span style="color:#7ED957">INA</span></a>'
         . '<div style="font-size:9px;letter-spacing:3px;color:#a9b4a6;font-weight:400;margin-top:2px">DİJİTAL KREASYON AJANSI</div></td>'
         . '<td align="right" style="font-size:13px;line-height:1.6">' . $top . '</td></tr></table></td></tr>'
-        // Visuel : la démo du métier, cliquable
-        . '<tr><td style="padding:28px 28px 0"><a href="' . h($demo) . '" style="text-decoration:none">'
-        . '<img src="' . h($img) . '" width="544" alt="Örnek site: ' . h($demoHost) . '" style="display:block;width:100%;max-width:544px;height:auto;border:0;border-radius:12px;box-shadow:0 0 0 1px #e1e6e0"></a>'
-        . '<p style="margin:10px 0 0;font-size:13px;color:' . $muted . '">Mesleğinize özel örnek: ' . $link($demo, h($demoHost) . ' &rarr;') . '</p></td></tr>'
+        // Visuel : soit de vrais sites de clients (encadré de confiance), soit la démo du métier en image
+        . ($real
+            ? '<tr><td style="padding:28px 28px 0"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f4f8f3;border:1px solid #d8e6d6;border-radius:12px"><tr><td style="padding:18px 20px">'
+                . '<p style="margin:0 0 10px;font-size:13px;font-weight:700;color:' . $green . '">Müşterilerimizden bazıları — gerçek siteler</p>'
+                . implode('', array_map(fn($u) => '<p style="margin:0 0 6px;font-size:15px">' . $link($u, preg_replace('~^https?://|/$~', '', $u) . ' &rarr;') . '</p>', $real))
+                . '</td></tr></table></td></tr>'
+            : '<tr><td style="padding:28px 28px 0"><a href="' . h($demo) . '" style="text-decoration:none">'
+                . '<img src="' . h($img) . '" width="544" alt="Örnek site: ' . h($demoHost) . '" style="display:block;width:100%;max-width:544px;height:auto;border:0;border-radius:12px;box-shadow:0 0 0 1px #e1e6e0"></a>'
+                . '<p style="margin:10px 0 0;font-size:13px;color:' . $muted . '">Mesleğinize özel örnek: ' . $link($demo, h($demoHost) . ' &rarr;') . '</p></td></tr>')
         . '<tr><td style="padding:24px 28px 4px">' . $html . '</td></tr>'
         // Encadré prix + boutons
         . '<tr><td style="padding:0 28px 8px"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f4f8f3;border-radius:14px"><tr><td style="padding:20px 22px">'

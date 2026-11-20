@@ -37,14 +37,18 @@
     return d.length === 10 ? '90' + d : d;
   }
   var DEMO = { dentist: 'https://dental.webina.com.tr/', doctor: 'https://doktor.webina.com.tr/', vet: 'https://veteriner.webina.com.tr/',
-    lawyer: 'https://avukat.webina.com.tr/', accountant: 'https://avukat.webina.com.tr/', beauty: 'https://kuafor.webina.com.tr/',
+    lawyer: 'https://avukat.webina.com.tr/', accountant: 'https://www.right-expert.com/', beauty: 'https://kuafor.webina.com.tr/',
     auto: 'https://otoelektrik.webina.com.tr/', cleaning: 'https://nakliyet.webina.com.tr/', realestate: 'https://emlak.webina.com.tr/',
     events: 'https://restoran.webina.com.tr/', photo: 'https://adelbenelli.webina.com.tr/', shop: 'https://eticaret.webina.com.tr/' };
+  // Métiers dont le lien est un vrai site de client (présenté comme « müşterimiz », pas « örnek »)
+  var REALSITE = { accountant: ['https://www.right-expert.com/', 'https://www.audexa.com'] };
   // Message WhatsApp court : pour les établissements qui n'ont qu'un téléphone (la majorité de ceux sans site)
   function waText(c) {
     var name = c.company || c.name;
+    var real = REALSITE[c.trade];
+    var proof = real ? 'Müşterilerimizden biri: ' + real.join(' ve ') : 'Örnek: ' + (DEMO[c.trade] || 'https://webina.com.tr/sektorler');
     return 'Merhaba, ben Webina\'dan yazıyorum. ' + name + ' için mesleğinize özel, telefonda hızlı açılan bir web sitesi hazırlıyoruz ' +
-      '(alan adı, hosting ve logo ilk yıl ücretsiz, 17.000 TL\'den başlayan fiyatlarla). Örnek: ' + (DEMO[c.trade] || 'https://webina.com.tr/sektorler') +
+      '(alan adı, hosting ve logo ilk yıl ücretsiz, 17.000 TL\'den başlayan fiyatlarla). ' + proof +
       ' — Uygun olursanız 10 dakikalık kısa bir görüşme yapabilir miyiz?';
   }
 
