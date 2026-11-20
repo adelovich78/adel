@@ -152,7 +152,7 @@ case 'search':
     $trade = (string)($_GET['trade'] ?? '');
     if (!isset(PROSPECT_TRADES[$trade])) fail('Métier inconnu.', 422);
     rate_limit('osm', 30);
-    $items = prospect_osm_search($trade, mb_substr((string)($_GET['district'] ?? ''), 0, 60));
+    $items = prospect_osm_search($trade, mb_substr((string)($_GET['district'] ?? ''), 0, 60), mb_substr((string)($_GET['city'] ?? ''), 0, 60));
     // Déjà dans le CRM ? (même nom ou même e-mail)
     $known = [];
     foreach ($pdo->query('SELECT LOWER(name) n, LOWER(COALESCE(email, \'\')) e FROM crm_clients')->fetchAll() as $k) { $known['n:' . $k['n']] = 1; if ($k['e']) $known['e:' . $k['e']] = 1; }

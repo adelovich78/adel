@@ -409,14 +409,17 @@ function prospect_send_next(PDO $pdo): array {
 
 /* ---------- Recherche automatique : OpenStreetMap (gratuit, données libres ODbL) ----------
    Renvoie nom, téléphone, e-mail et site quand ils sont renseignés sur la carte. */
-function prospect_osm_search(string $trade, string $district): array {
+function prospect_osm_search(string $trade, string $district, string $city = ''): array {
     global $CONFIG;
     $tags = PROSPECT_TRADES[$trade]['osm'] ?? [];
     if (!$tags) fail('Choisissez un métier.', 422);
     $district = trim($district);
+    $city = trim($city) ?: 'İstanbul';
+    $esc = fn($s) => addcslashes($s, '"\\');
+    // Quartier (ilçe) précis → cette zone ; sinon toute la ville (il, admin_level 4)
     $area = $district !== ''
-        ? 'area["name"="' . addcslashes($district, '"\\') . '"]["boundary"="administrative"]->.a;'
-        : 'area["name"="İstanbul"]["admin_level"="4"]->.a;';
+        ? 'area["name"="' . $esc($district) . '"]["boundary"="administrative"]->.a;'
+        : 'area["name"="' . $esc($city) . '"]["admin_level"="4"]->.a;';
     $parts = '';
     foreach ($tags as $t) { [$k, $v] = explode('=', $t); $parts .= "nwr[\"$k\"=\"$v\"](area.a);"; }
     $query = "[out:json][timeout:25];{$area}({$parts});out tags center 300;";

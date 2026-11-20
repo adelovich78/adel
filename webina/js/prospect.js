@@ -10,10 +10,14 @@
   var panel = $('[data-panel="prospect"]');
   if (!panel) return;
 
-  var DISTRICTS = ['Adalar', 'Arnavutköy', 'Ataşehir', 'Avcılar', 'Bağcılar', 'Bahçelievler', 'Bakırköy', 'Başakşehir', 'Bayrampaşa', 'Beşiktaş',
-    'Beykoz', 'Beylikdüzü', 'Beyoğlu', 'Büyükçekmece', 'Çatalca', 'Çekmeköy', 'Esenler', 'Esenyurt', 'Eyüpsultan', 'Fatih', 'Gaziosmanpaşa',
-    'Güngören', 'Kadıköy', 'Kağıthane', 'Kartal', 'Küçükçekmece', 'Maltepe', 'Pendik', 'Sancaktepe', 'Sarıyer', 'Silivri', 'Sultanbeyli',
-    'Sultangazi', 'Şile', 'Şişli', 'Tuzla', 'Ümraniye', 'Üsküdar', 'Zeytinburnu'];
+  // Provinces (il) → districts (ilçe) de toute la Turquie (js/tr-districts.js), avec repli minimal sur İstanbul
+  var PROVINCES = window.TR_PROVINCES || { 'İstanbul': ['Kadıköy', 'Beyoğlu', 'Fatih', 'Şişli', 'Bakırköy'] };
+  function cityDistricts(city) { return PROVINCES[city] || []; }
+  function fillDistricts() {
+    var dl = $('#pr-districts'), city = ($('#pr-fcity') || {}).value || 'İstanbul', inp = $('#pr-fdist');
+    if (dl) dl.innerHTML = cityDistricts(city).map(function (d) { return '<option value="' + esc(d) + '">'; }).join('');
+    if (inp) inp.value = '';
+  }
 
   var state = { loaded: false, items: [], trades: [], tpls: [], sel: {}, filter: 'all', q: '', trade: '', tplId: null, results: [], rsel: {}, queue: null, running: false, timer: null };
   var tradeLabel = function (k) { var t = state.trades.filter(function (x) { return x.key === k; })[0]; return t ? t.label : k; };
@@ -61,7 +65,13 @@
     $('[data-pr-trade]').value = state.trade;
     $('#pr-ftrade').innerHTML = state.trades.filter(function (t) { return t.search; }).map(function (t) { return '<option value="' + t.key + '">' + esc(t.label) + '</option>'; }).join('');
     $('#pr-ttrade').innerHTML = opts;
-    $('#pr-districts').innerHTML = DISTRICTS.map(function (d) { return '<option value="' + d + '">'; }).join('');
+    // Ville (il) : toutes les provinces, İstanbul par défaut
+    var citySel = $('#pr-fcity');
+    if (citySel && !citySel.options.length) {
+      citySel.innerHTML = Object.keys(PROVINCES).map(function (v) { return '<option value="' + esc(v) + '"' + (v === 'İstanbul' ? ' selected' : '') + '>' + esc(v) + '</option>'; }).join('');
+      fillDistricts();
+      citySel.addEventListener('change', fillDistricts);
+    }
     var cur = $('[data-pr-template]').value;
     $('[data-pr-template]').innerHTML = '<option value="auto">Modèle selon le métier (automatique)</option>' +
       state.tpls.map(function (t) { return '<option value="' + t.id + '">' + esc(t.name) + '</option>'; }).join('');
@@ -296,10 +306,11 @@
     var f = e.target, btn = $('button[type="submit"]', f), box = $('[data-pr-results]');
     btn.disabled = true;
     box.innerHTML = '<p class="text-color-secondary pr_wait">Recherche en cours, cela peut prendre jusqu\'à 30 secondes…</p>';
-    api('prospect.php?r=search&trade=' + encodeURIComponent(f.trade.value) + '&district=' + encodeURIComponent(f.district.value.trim())).then(function (r) {
+    var city = (f.city && f.city.value) || 'İstanbul';
+    api('prospect.php?r=search&trade=' + encodeURIComponent(f.trade.value) + '&city=' + encodeURIComponent(city) + '&district=' + encodeURIComponent(f.district.value.trim())).then(function (r) {
       state.results = r.items || []; state.rsel = {};
       state.results.forEach(function (x, i) { if (!x.known && !x.website) state.rsel[i] = true; });
-      state.rlabel = r.label; state.rdist = f.district.value.trim();
+      state.rlabel = r.label; state.rdist = f.district.value.trim() || city;
       renderResults();
     }).catch(function (e) { box.innerHTML = '<p class="form_error">' + esc(e.message) + '</p>'; })
       .then(function () { btn.disabled = false; });
