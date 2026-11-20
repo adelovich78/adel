@@ -222,7 +222,13 @@
     api('prospect.php?r=preview', { method: 'POST', body: { client_id: id, template_id: tpl.id, mode: pv.mode } }).then(function (p) {
       $('[data-pv-from]', dlg).textContent = 'De : ' + (p.from || '—') + (lim.daily ? ' · limite ' + lim.daily + ' destinataires par jour' : '');
       $('[data-pv-subject]', dlg).textContent = p.subject;
-      $('[data-pv-frame]', dlg).srcdoc = p.html;
+      // Écrire l'aperçu dans l'iframe « about:blank » (même origine) : passe la CSP là où srcdoc est bloqué
+      var fr = $('[data-pv-frame]', dlg);
+      fr.removeAttribute('srcdoc');
+      try {
+        var d = fr.contentDocument || (fr.contentWindow && fr.contentWindow.document);
+        d.open(); d.write(p.html); d.close();
+      } catch (e) { fr.srcdoc = p.html; }
     }).catch(function (e) { toast(e.message); });
   }
   function openPreview() {
