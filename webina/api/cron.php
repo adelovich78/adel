@@ -29,11 +29,13 @@ if (!$cli) {
 $pdo = crm_db();
 $only = (string)($_GET['only'] ?? ($cli ? ($argv[1] ?? '') : ''));
 
-// Un lot de prospection si l'espacement / le plafond / la plage horaire le permettent (passage court)
+// Un lot de prospection (e-mail + WhatsApp) si l'espacement / le plafond / la plage horaire le permettent
 function run_prospect(PDO $pdo): array {
     prospect_schema($pdo);
     $r = prospect_send_next($pdo);
-    return ['prospectMails' => !empty($r['sent']) ? 1 : 0, 'reason' => $r['reason'] ?? null];
+    $wa = wa_enabled() ? prospect_wa_send_next($pdo) : ['sent' => null];
+    return ['prospectMails' => !empty($r['sent']) ? 1 : 0,
+            'waSent' => (!empty($wa['sent']) && !empty($wa['sent']['ok'])) ? 1 : 0, 'reason' => $r['reason'] ?? null];
 }
 
 // Mode « prospection seule » : appelé fréquemment, ne renvoie ni résumé ni rappels
@@ -60,5 +62,5 @@ if (date('j') === '1' || !empty($_GET['monthly'])) {
 }
 // Un lot de prospection au passage (le gros du travail est fait par la tâche fréquente ?only=prospect)
 $prospect = run_prospect($pdo);
-json_out(['ok' => true, 'created' => $made, 'digest' => $sent, 'reminders' => $reminders,
-    'monthly' => $monthly, 'clientReports' => $clientReports, 'prospectMails' => $prospect['prospectMails']]);
+json_out(['ok' => true, 'created' => $made, 'digest' => $sent, 'reminders' => $reminders, 'monthly' => $monthly,
+    'clientReports' => $clientReports, 'prospectMails' => $prospect['prospectMails'], 'waSent' => $prospect['waSent']]);

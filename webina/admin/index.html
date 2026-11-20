@@ -8,7 +8,7 @@
   <link rel="icon" type="image/png" href="/images/favicon.png">
   <link rel="preload" href="/fonts/schibsted-grotesk-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/css/webina.css?v=7a13955529">
-  <link rel="stylesheet" href="/css/admin.css?v=fea55eb5b6">
+  <link rel="stylesheet" href="/css/admin.css?v=193e1ef352">
   <script>
     (function () {
       try { var th = localStorage.getItem('webina-theme'); if (th) document.documentElement.setAttribute('data-theme', th); } catch (e) {}
@@ -213,6 +213,7 @@
               <label class="choice_chip"><input type="radio" name="prf" value="all" checked><span>Tous</span></label>
               <label class="choice_chip"><input type="radio" name="prf" value="nosite"><span>Sans site</span></label>
               <label class="choice_chip"><input type="radio" name="prf" value="email"><span>Avec e-mail</span></label>
+              <label class="choice_chip"><input type="radio" name="prf" value="phone"><span>Tél. sans e-mail</span></label>
               <label class="choice_chip"><input type="radio" name="prf" value="todo"><span>Pas encore contactés</span></label>
               <label class="choice_chip"><input type="radio" name="prf" value="done"><span>Déjà contactés</span></label>
             </div>
@@ -220,8 +221,10 @@
           <div class="pr_bar">
             <label class="pr_check"><input type="checkbox" data-pr-all><span data-pr-count>0 sélectionné</span></label>
             <select class="form_input is-select pr_select" data-pr-template aria-label="Modèle"><option value="auto">Modèle selon le métier (automatique)</option></select>
-                        <button type="button" class="button is-small" data-pr-send disabled><svg class="icon" aria-hidden="true"><use href="#i-send"/></svg>Aperçu et envoi</button>
+            <button type="button" class="button is-small" data-pr-send disabled><svg class="icon" aria-hidden="true"><use href="#i-send"/></svg>Aperçu et envoi</button>
+            <button type="button" class="button is-small is-wa" data-pr-wa-send disabled hidden><svg class="icon" aria-hidden="true"><use href="#i-wa"/></svg>Envoyer sur WhatsApp</button>
           </div>
+          <div class="pr_queue" data-pr-wa-queue hidden></div>
           <div class="admin_table-wrap">
             <table class="admin_table pr_table">
               <thead><tr><th class="pr_cell-check"><span class="sr-only">Sélection</span></th><th>Établissement</th><th>Métier</th><th>Quartier</th><th>Contact</th><th>Site</th><th>Dernier e-mail</th><th class="is-actions"><span class="sr-only">Actions</span></th></tr></thead>
@@ -494,6 +497,6 @@
   <script src="/js/admin.js?v=6b007bd1e6" defer></script>
   <script src="/js/crm.js?v=a6242b28a4" defer></script>
   <script src="/js/tr-districts.js?v=f51a4b706e" defer></script>
-  <script src="/js/prospect.js?v=0b9fbfba01" defer></script>
+  <script src="/js/prospect.js?v=37bc11845b" defer></script>
 </body>
 </html>

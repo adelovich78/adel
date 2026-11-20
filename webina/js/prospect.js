@@ -19,7 +19,7 @@
     if (inp) inp.value = '';
   }
 
-  var state = { loaded: false, items: [], trades: [], tpls: [], sel: {}, filter: 'all', q: '', trade: '', tplId: null, results: [], rsel: {}, queue: null, running: false, timer: null };
+  var state = { loaded: false, items: [], trades: [], tpls: [], sel: {}, filter: 'all', q: '', trade: '', tplId: null, results: [], rsel: {}, queue: null, running: false, timer: null, wa: null, waRunning: false, waTimer: null };
   var tradeLabel = function (k) { var t = state.trades.filter(function (x) { return x.key === k; })[0]; return t ? t.label : k; };
 
   function fmt(s) {
@@ -51,10 +51,11 @@
   /* ---------- Chargement ---------- */
   function load() {
     return Promise.all([api('prospect.php?r=list'), api('prospect.php?r=templates')]).then(function (r) {
-      state.items = r[0].items || []; state.trades = r[0].trades || []; state.queue = r[0].queue; state.tpls = r[1].items || [];
+      state.items = r[0].items || []; state.trades = r[0].trades || []; state.queue = r[0].queue; state.wa = r[0].wa || null; state.tpls = r[1].items || [];
       state.loaded = true;
-      fillSelects(); renderList(); renderTpls(); renderQueue();
+      fillSelects(); renderList(); renderTpls(); renderQueue(); renderWaQueue();
       if (state.queue && state.queue.queued && !state.running) startSending();
+      if (state.wa && state.wa.queued && !state.waRunning) startWa();
     }).catch(function (e) { toast(e.message); });
   }
   document.addEventListener('admin:tab', function (e) { if (e.detail === 'prospect' && !state.loaded) load(); });
@@ -92,13 +93,19 @@
       if (state.filter === 'email' && !c.email) return false;
       if (state.filter === 'todo' && (c.last_mailed_at || c.email_done || c.mail_status === 'queued')) return false;
       if (state.filter === 'done' && !(c.last_mailed_at || c.email_done)) return false;
+      if (state.filter === 'phone' && (!c.phone || c.email)) return false;
       if (q && [c.name, c.company, c.district, c.email, c.sector].join(' ').toLowerCase().indexOf(q) === -1) return false;
       return true;
     });
   }
   // Non sélectionnable si : pas d'e-mail, désinscrit, ou adresse déjà contactée (même via une autre fiche)
   function canMail(c) { return !!c.email && c.email_optout != 1 && !c.email_done; }
-  function noMailReason(c) { return !c.email ? 'Pas d\'adresse e-mail' : c.email_optout == 1 ? 'Désinscrit' : c.email_done ? 'Adresse déjà contactée' : ''; }
+  // WhatsApp : téléphone exploitable, non désinscrit, pas déjà contacté par WhatsApp
+  function waOn() { return !!(state.wa && state.wa.enabled); }
+  function canWa(c) { return waOn() && !!waNumber(c.phone) && c.email_optout != 1 && !c.last_wa_at && !c.wa_done; }
+  // Case cochable si au moins un canal est possible
+  function canSelect(c) { return canMail(c) || canWa(c); }
+  function noMailReason(c) { return canSelect(c) ? '' : !c.email && !c.phone ? 'Ni e-mail ni téléphone' : c.email_optout == 1 ? 'Désinscrit' : (c.email_done || c.last_wa_at || c.wa_done) ? 'Déjà contacté' : 'Pas d\'adresse e-mail'; }
   function renderList() {
     var rows = visible();
     var tb = $('[data-pr-rows]');
@@ -106,13 +113,16 @@
       tb.innerHTML = '<tr><td colspan="8" class="is-muted">' + (state.items.length ? 'Aucun prospect pour ce filtre' : 'Aucun prospect : importez votre liste ou lancez une recherche automatique') + '</td></tr>';
     } else {
       tb.innerHTML = rows.map(function (c) {
-        var mail = canMail(c);
+        var mail = canSelect(c);
+        var waTag = c.last_wa_at ? ' <span class="admin_badge is-wa" title="Message WhatsApp envoyé le ' + esc(fmt(c.last_wa_at)) + '">WhatsApp ✓</span>' : '';
         var last = c.email_optout == 1 ? '<span class="admin_badge is-lost">Désinscrit</span>'
           : c.mail_status === 'queued' ? '<span class="admin_badge is-new">En file</span>'
           : c.mail_status === 'failed' ? '<span class="admin_badge is-lost">Échec</span>'
           : c.last_mailed_at ? '<span class="text-color-secondary">' + esc(fmt(c.last_mailed_at)) + '</span>'
           : c.email_done ? '<span class="text-color-secondary" title="Cette adresse a déjà reçu un e-mail via une autre fiche">Déjà contacté</span>'
+          : c.wa_done || c.last_wa_at ? '<span class="is-muted">—</span>'
           : '<span class="is-muted">—</span>';
+        last += waTag;
         var wa = waNumber(c.phone);
         return '<tr data-id="' + esc(c.id) + '">' +
           '<td class="pr_cell-check"><input type="checkbox" data-pr-pick ' + (mail ? '' : 'disabled title="' + esc(noMailReason(c)) + '"') + (state.sel[c.id] ? ' checked' : '') + ' aria-label="Sélectionner ' + esc(c.name) + '"></td>' +
@@ -133,19 +143,23 @@
   }
   function selectedIds() { return Object.keys(state.sel).filter(function (k) { return state.sel[k]; }); }
   function updateBar() {
-    var n = selectedIds().length;
+    var sel = selectedIds(), n = sel.length;
     $('[data-pr-count]').textContent = n + (n > 1 ? ' sélectionnés' : ' sélectionné');
-    $('[data-pr-send]').disabled = !n;
-    var mailable = visible().filter(canMail);
+    var selMail = sel.filter(function (id) { var c = client(id); return c && canMail(c); }).length;
+    var selWa = sel.filter(function (id) { var c = client(id); return c && canWa(c); }).length;
+    $('[data-pr-send]').disabled = !selMail;
+    var waBtn = $('[data-pr-wa-send]');
+    if (waBtn) { waBtn.hidden = !waOn(); waBtn.disabled = !selWa; }
+    var selectable = visible().filter(canSelect);
     var all = $('[data-pr-all]');
-    all.checked = mailable.length > 0 && mailable.every(function (c) { return state.sel[c.id]; });
-    all.indeterminate = !all.checked && mailable.some(function (c) { return state.sel[c.id]; });
+    all.checked = selectable.length > 0 && selectable.every(function (c) { return state.sel[c.id]; });
+    all.indeterminate = !all.checked && selectable.some(function (c) { return state.sel[c.id]; });
   }
   $('[data-pr-q]').addEventListener('input', function (e) { state.q = e.target.value; renderList(); });
   $('[data-pr-trade]').addEventListener('change', function (e) { state.trade = e.target.value; renderList(); });
   $('[data-pr-filter]').addEventListener('change', function (e) { state.filter = e.target.value; renderList(); });
   $('[data-pr-all]').addEventListener('change', function (e) {
-    visible().filter(canMail).forEach(function (c) { state.sel[c.id] = e.target.checked; });
+    visible().filter(canSelect).forEach(function (c) { state.sel[c.id] = e.target.checked; });
     renderList();
   });
   $('[data-pr-rows]').addEventListener('change', function (e) {
@@ -299,6 +313,66 @@
       })();
     }).catch(function (e) { stopSending(); renderQueue(); toast(e.message); });
   }
+
+  /* ---------- Envoi WhatsApp (API officielle, modèles approuvés) ---------- */
+  $('[data-pr-wa-send]').addEventListener('click', function () {
+    var ids = selectedIds().filter(function (id) { var c = client(id); return c && canWa(c); });
+    if (!ids.length) { toast('Aucun prospect WhatsApp sélectionné (téléphone requis).'); return; }
+    if (!W.confirm('Envoyer un message WhatsApp (modèle approuvé) à ' + ids.length + ' prospect(s) ? Ils partiront automatiquement, espacés.')) return;
+    api('prospect.php?r=wa_queue', { method: 'POST', body: { client_ids: ids } }).then(function (r) {
+      var sk = r.skipped || {}, skipped = (sk.phone || 0) + (sk.optout || 0) + (sk.already || 0);
+      toast(r.queued + ' WhatsApp en file' + (skipped ? ' · ' + skipped + ' ignoré(s) (déjà contacté, désinscrit ou sans numéro)' : ''));
+      state.sel = {}; state.wa = r;
+      renderList(); renderWaQueue(); startWa();
+    }).catch(function (e) { toast(e.message); });
+  });
+  function stopWa() { state.waRunning = false; clearTimeout(state.waTimer); }
+  function startWa() { if (!waOn()) return; state.waRunning = true; renderWaQueue(); waStep(); }
+  function waStep() {
+    clearTimeout(state.waTimer);
+    if (!state.waRunning) return;
+    api('prospect.php?r=wa_send', { method: 'POST', body: {} }).then(function (r) {
+      state.wa = r;
+      if (r.sent) {
+        state.items.forEach(function (c) { if (waNumber(c.phone) === r.sent.to && r.sent.ok) c.last_wa_at = new Date().toISOString(); });
+        renderList();
+        if (!r.sent.ok) toast('WhatsApp échoué (' + r.sent.to + ') : ' + (r.sent.error || ''));
+      }
+      renderWaQueue();
+      if (r.reason === 'disabled' || r.reason === 'empty' || r.reason === 'daily' || !r.queued) {
+        state.waRunning = r.queued > 0 && r.reason !== 'daily' && r.reason !== 'disabled' ? state.waRunning : false;
+        renderWaQueue(); if (!state.waRunning) return;
+      }
+      if (r.reason === 'window') { state.waTimer = setTimeout(waStep, 60000); return; }
+      var left = Math.max(1, r.wait || r.gap || 3);
+      (function tick() {
+        if (!state.waRunning) return;
+        if (left <= 0) { waStep(); return; }
+        state.wa.wait = left; renderWaQueue(); left--;
+        state.waTimer = setTimeout(tick, 1000);
+      })();
+    }).catch(function (e) { stopWa(); renderWaQueue(); toast(e.message); });
+  }
+  function renderWaQueue() {
+    var box = $('[data-pr-wa-queue]'), q = state.wa;
+    if (!box) return;
+    if (!q || !q.enabled || (!q.queued && !q.sentToday)) { box.hidden = true; return; }
+    box.hidden = false;
+    var status = !q.queued ? 'File WhatsApp vide'
+      : q.sentToday >= q.daily ? 'Limite WhatsApp du jour atteinte : la suite demain'
+      : q.window === false ? 'Hors plage d\'envoi : reprise automatique'
+      : state.waRunning ? (q.wait > 0 ? 'Prochain WhatsApp dans ' + q.wait + ' s' : 'Envoi en cours…') : 'En pause';
+    box.innerHTML = '<span class="pr_queue-stat"><strong>' + q.queued + '</strong> WhatsApp en file</span>' +
+      '<span class="pr_queue-stat"><strong>' + q.sentToday + '</strong> / ' + q.daily + ' envoyés aujourd\'hui</span>' +
+      '<span class="pr_queue-status">' + (state.waRunning && q.queued ? '<span class="live-dot" aria-hidden="true"></span>' : '') + esc(status) + '</span>' +
+      (q.queued ? '<span class="pr_queue-actions">' + (state.waRunning
+        ? '<button type="button" class="button is-small is-secondary" data-pr-wa-pause>Pause</button>'
+        : '<button type="button" class="button is-small" data-pr-wa-resume>Reprendre</button>') + '</span>' : '');
+  }
+  $('[data-pr-wa-queue]').addEventListener('click', function (e) {
+    if (e.target.closest('[data-pr-wa-pause]')) { stopWa(); renderWaQueue(); }
+    else if (e.target.closest('[data-pr-wa-resume]')) startWa();
+  });
 
   /* ---------- Recherche automatique ---------- */
   $('[data-pr-finder]').addEventListener('submit', function (e) {

@@ -30,12 +30,14 @@ case 'list':
     $rows = $pdo->query("SELECT id, name, company, email, phone, sector, city, district, website, source, notes, email_optout,
         DATE_FORMAT(last_mailed_at, '%Y-%m-%dT%H:%i:%s') last_mailed_at, DATE_FORMAT(created_at, '%Y-%m-%dT%H:%i:%s') created_at,
         (SELECT status FROM crm_emails e WHERE e.client_id = c.id ORDER BY e.created_at DESC LIMIT 1) mail_status,
-        (SELECT 1 FROM crm_emails e WHERE e.to_email = LOWER(TRIM(c.email)) AND e.status IN ('sent','sending','queued') LIMIT 1) email_done
+        (SELECT 1 FROM crm_emails e WHERE e.to_email = LOWER(TRIM(c.email)) AND e.status IN ('sent','sending','queued') LIMIT 1) email_done,
+        DATE_FORMAT(last_wa_at, '%Y-%m-%dT%H:%i:%s') last_wa_at,
+        (SELECT 1 FROM crm_wa w WHERE w.client_id = c.id AND w.status IN ('sent','sending','queued') LIMIT 1) wa_done
         FROM crm_clients c WHERE status = 'lead' ORDER BY created_at DESC LIMIT 2000")->fetchAll();
     foreach ($rows as &$x) $x['trade'] = prospect_trade($x['sector']);
     $trades = [];
     foreach (PROSPECT_TRADES as $k => $t) $trades[] = ['key' => $k, 'label' => $t['label'], 'search' => (bool)$t['osm']];
-    json_out(['items' => $rows, 'trades' => $trades, 'queue' => prospect_queue_state($pdo)]);
+    json_out(['items' => $rows, 'trades' => $trades, 'queue' => prospect_queue_state($pdo), 'wa' => prospect_wa_state($pdo)]);
 
 case 'import':
     $rows = is_array($in['rows'] ?? null) ? array_slice($in['rows'], 0, 2000) : [];
@@ -143,6 +145,39 @@ case 'queue':
 
 case 'send':
     json_out(prospect_send_next($pdo));
+
+/* ---------- WhatsApp : mise en file + envoi (API officielle) ---------- */
+case 'wa_queue':
+    if ($method === 'GET') {
+        $recent = $pdo->query("SELECT w.to_phone, w.status, w.error, DATE_FORMAT(w.sent_at, '%Y-%m-%dT%H:%i:%s') sent_at, c.name
+            FROM crm_wa w LEFT JOIN crm_clients c ON c.id = w.client_id ORDER BY COALESCE(w.sent_at, w.created_at) DESC LIMIT 30")->fetchAll();
+        json_out(prospect_wa_state($pdo) + ['recent' => $recent]);
+    }
+    if (!wa_enabled()) fail('L\'API WhatsApp n\'est pas configurée (wa_token, wa_phone_id, wa_template dans config.php).', 422);
+    $ids = array_values(array_filter(is_array($in['client_ids'] ?? null) ? $in['client_ids'] : [], fn($x) => is_string($x) && preg_match('/^[0-9a-f-]{36}$/', $x)));
+    $get = $pdo->prepare('SELECT * FROM crm_clients WHERE id = ?');
+    $ins = $pdo->prepare('INSERT INTO crm_wa (id, client_id, to_phone) VALUES (?, ?, ?)');
+    $dup = $pdo->prepare("SELECT 1 FROM crm_wa WHERE to_phone = ? AND status IN ('sent','sending','queued') LIMIT 1");
+    $again = !empty($in['again']);
+    $done = 0; $skip = ['phone' => 0, 'optout' => 0, 'already' => 0];
+    $seen = [];
+    foreach (array_slice($ids, 0, 1000) as $cid) {
+        $get->execute([$cid]); $c = $get->fetch();
+        if (!$c) continue;
+        if ((int)$c['email_optout'] === 1) { $skip['optout']++; continue; }
+        $phone = wa_phone((string)$c['phone']);
+        if ($phone === '' || isset($seen[$phone])) { $skip['phone']++; continue; }
+        if (!$again) {
+            if (!empty($c['last_wa_at'])) { $skip['already']++; continue; }
+            $dup->execute([$phone]); if ($dup->fetch()) { $skip['already']++; continue; }
+        }
+        $ins->execute([uuid4(), $cid, $phone]);
+        $seen[$phone] = true; $done++;
+    }
+    json_out(['queued' => $done, 'skipped' => $skip] + prospect_wa_state($pdo));
+
+case 'wa_send':
+    json_out(prospect_wa_send_next($pdo));
 
 case 'clear':
     $n = $pdo->exec("DELETE FROM crm_emails WHERE status = 'queued'");

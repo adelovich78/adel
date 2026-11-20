@@ -512,3 +512,8 @@
 .crm_section-head.is-sub .crm_sub-title { margin: 0; }
 .crm_portal-line { margin: 4px 0 10px; color: var(--color-text-secondary); }
 .crm_renew-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+/* WhatsApp : badge et bouton */
+.admin_badge.is-wa { background-color: color-mix(in srgb, #25d366 20%, transparent); color: #128c3e; }
+.button.is-wa { background-color: #25d366; border-color: #25d366; color: #0b3d1e; }
+.button.is-wa:hover { background-color: #1fb757; border-color: #1fb757; }
+.button.is-wa[hidden] { display: none; }

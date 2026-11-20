@@ -38,7 +38,20 @@ function prospect_schema(PDO $pdo): void {
     if (!in_array('district', $cols, true)) $pdo->exec('ALTER TABLE crm_clients ADD COLUMN district VARCHAR(80) NULL AFTER city');
     if (!in_array('email_optout', $cols, true)) $pdo->exec('ALTER TABLE crm_clients ADD COLUMN email_optout TINYINT(1) NOT NULL DEFAULT 0');
     if (!in_array('last_mailed_at', $cols, true)) $pdo->exec('ALTER TABLE crm_clients ADD COLUMN last_mailed_at DATETIME NULL');
+    if (!in_array('last_wa_at', $cols, true)) $pdo->exec('ALTER TABLE crm_clients ADD COLUMN last_wa_at DATETIME NULL');
     if (!in_array('unsub_token', $cols, true)) $pdo->exec('ALTER TABLE crm_clients ADD COLUMN unsub_token CHAR(32) NULL, ADD UNIQUE KEY uq_unsub (unsub_token)');
+    // File d'envoi WhatsApp (API officielle Meta Cloud) — parallèle à l'e-mail
+    $pdo->exec("CREATE TABLE IF NOT EXISTS crm_wa (
+        id CHAR(36) NOT NULL PRIMARY KEY,
+        client_id CHAR(36) NOT NULL,
+        to_phone VARCHAR(40) NOT NULL,
+        status VARCHAR(10) NOT NULL DEFAULT 'queued',
+        wamid VARCHAR(80) NULL,
+        error VARCHAR(255) NULL,
+        created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        sent_at DATETIME NULL,
+        INDEX idx_status (status, created_at), INDEX idx_phone (to_phone), INDEX idx_client (client_id)
+    ) $o");
     $pdo->exec("CREATE TABLE IF NOT EXISTS crm_templates (
         id CHAR(36) NOT NULL PRIMARY KEY,
         trade VARCHAR(20) NOT NULL,
@@ -450,4 +463,116 @@ function prospect_osm_search(string $trade, string $district, string $city = '')
     // Les fiches sans site en premier, puis celles qui ont un e-mail
     usort($out, fn($a, $b) => [($a['website'] !== ''), ($a['email'] === ''), $a['name']] <=> [($b['website'] !== ''), ($b['email'] === ''), $b['name']]);
     return $out;
+}
+
+/* ====================== WhatsApp (API officielle Meta Cloud) ======================
+   Envoi automatique de messages MODÈLE approuvés aux prospects qui ont un téléphone.
+   À configurer dans config.php :
+     'wa_token'     => '…',        // token permanent (System User) — SECRET
+     'wa_phone_id'  => '…',        // Phone Number ID du numéro WhatsApp Business
+     'wa_template'  => 'nom_modele',
+     'wa_lang'      => 'tr',       // code langue du modèle (ex. 'tr', 'tr_TR')
+     'wa_vars'      => ['name'],   // variables du corps {{1}},{{2}}… : name|company|district|city|demo
+   Optionnel : 'wa_daily_limit' (50), 'wa_gap_seconds' (20), 'wa_api_url'.            */
+function wa_config(): ?array {
+    global $CONFIG;
+    $token = trim((string)($CONFIG['wa_token'] ?? ''));
+    $phoneId = trim((string)($CONFIG['wa_phone_id'] ?? ''));
+    $tpl = trim((string)($CONFIG['wa_template'] ?? ''));
+    if ($token === '' || $phoneId === '' || $tpl === '') return null;
+    $vars = $CONFIG['wa_vars'] ?? [];
+    return ['token' => $token, 'phone_id' => $phoneId, 'template' => $tpl,
+        'lang' => trim((string)($CONFIG['wa_lang'] ?? 'tr')) ?: 'tr',
+        'vars' => is_array($vars) ? $vars : [],
+        'api' => rtrim((string)($CONFIG['wa_api_url'] ?? 'https://graph.facebook.com/v21.0'), '/')];
+}
+function wa_enabled(): bool { return wa_config() !== null; }
+
+// Numéro au format international turc, chiffres uniquement (ex. 90532xxxxxxx)
+function wa_phone(string $phone): string {
+    $first = preg_split('#[/,;]| - #', $phone)[0] ?? $phone;
+    $d = preg_replace('/\D/', '', $first);
+    if ($d === '') return '';
+    if (strpos($d, '90') === 0 && strlen($d) === 12) return $d;
+    if ($d[0] === '0') $d = substr($d, 1);
+    return strlen($d) === 10 ? '90' . $d : $d;
+}
+
+function wa_var_value(string $key, array $c): string {
+    switch ($key) {
+        case 'name': case 'isletme': return (string)(($c['company'] ?? '') ?: ($c['name'] ?? ''));
+        case 'company': return (string)($c['company'] ?? '');
+        case 'district': case 'ilce': return (string)(($c['district'] ?? '') ?: ($c['city'] ?? '') ?: 'İstanbul');
+        case 'city': return (string)($c['city'] ?? '');
+        case 'demo': return prospect_demo(prospect_trade($c['sector'] ?? ''));
+        default: return (string)($c[$key] ?? '');
+    }
+}
+
+// Envoie un message modèle ; ['ok'=>bool, 'wamid'=>?string, 'error'=>?string]
+function wa_send_template(string $toPhone, array $client): array {
+    $cfg = wa_config();
+    if (!$cfg) return ['ok' => false, 'wamid' => null, 'error' => 'API WhatsApp non configurée'];
+    $params = [];
+    foreach ($cfg['vars'] as $v) $params[] = ['type' => 'text', 'text' => mb_substr(wa_var_value((string)$v, $client), 0, 300)];
+    $template = ['name' => $cfg['template'], 'language' => ['code' => $cfg['lang']]];
+    if ($params) $template['components'] = [['type' => 'body', 'parameters' => $params]];
+    $payload = ['messaging_product' => 'whatsapp', 'to' => $toPhone, 'type' => 'template', 'template' => $template];
+    $ch = curl_init($cfg['api'] . '/' . $cfg['phone_id'] . '/messages');
+    curl_setopt_array($ch, [CURLOPT_POST => true, CURLOPT_POSTFIELDS => json_encode($payload),
+        CURLOPT_HTTPHEADER => ['Authorization: Bearer ' . $cfg['token'], 'Content-Type: application/json'],
+        CURLOPT_RETURNTRANSFER => true, CURLOPT_TIMEOUT => 20]);
+    $res = curl_exec($ch); $errno = curl_errno($ch); $http = curl_getinfo($ch, CURLINFO_HTTP_CODE); curl_close($ch);
+    if ($errno) return ['ok' => false, 'wamid' => null, 'error' => 'Connexion échouée'];
+    $j = json_decode((string)$res, true);
+    if ($http >= 200 && $http < 300 && !empty($j['messages'][0]['id']))
+        return ['ok' => true, 'wamid' => (string)$j['messages'][0]['id'], 'error' => null];
+    return ['ok' => false, 'wamid' => null, 'error' => mb_substr((string)($j['error']['message'] ?? ('HTTP ' . $http)), 0, 250)];
+}
+
+function prospect_wa_limits(): array {
+    global $CONFIG;
+    return ['daily' => max(1, min(1000, (int)($CONFIG['wa_daily_limit'] ?? 50))),
+            'gap' => max(3, (int)($CONFIG['wa_gap_seconds'] ?? 20))];
+}
+function prospect_wa_state(PDO $pdo): array {
+    $lim = prospect_wa_limits();
+    $pdo->exec("UPDATE crm_wa SET status='failed', error='envoi interrompu' WHERE status='sending' AND sent_at < (NOW() - INTERVAL 10 MINUTE)");
+    $today = (int)$pdo->query("SELECT COUNT(*) FROM crm_wa WHERE status='sent' AND sent_at >= CURDATE()")->fetchColumn();
+    $queued = (int)$pdo->query("SELECT COUNT(*) FROM crm_wa WHERE status='queued'")->fetchColumn();
+    $since = $pdo->query("SELECT TIMESTAMPDIFF(SECOND, MAX(sent_at), NOW()) FROM crm_wa WHERE status IN ('sent','failed')")->fetchColumn();
+    $wait = ($since === null) ? 0 : max(0, $lim['gap'] - (int)$since);
+    $win = prospect_window();
+    if (!$win['open']) $wait = max($wait, $win['wait']);
+    return ['queued' => $queued, 'sentToday' => $today, 'daily' => $lim['daily'], 'gap' => $lim['gap'],
+            'wait' => $wait, 'window' => $win['open'], 'enabled' => wa_enabled()];
+}
+function prospect_wa_send_next(PDO $pdo): array {
+    $q = prospect_wa_state($pdo);
+    if (empty($q['enabled'])) return $q + ['sent' => null, 'reason' => 'disabled'];
+    if (!$q['queued']) return $q + ['sent' => null, 'reason' => 'empty'];
+    if (empty($q['window'])) return $q + ['sent' => null, 'reason' => 'window'];
+    if ($q['sentToday'] >= $q['daily']) return $q + ['sent' => null, 'reason' => 'daily'];
+    if ($q['wait'] > 0) return $q + ['sent' => null, 'reason' => 'wait'];
+    $row = $pdo->query("SELECT * FROM crm_wa WHERE status='queued' ORDER BY created_at, id LIMIT 1")->fetch();
+    if (!$row) return $q + ['sent' => null, 'reason' => 'empty'];
+    $lock = $pdo->prepare("UPDATE crm_wa SET status='sending', sent_at=NOW() WHERE id=? AND status='queued'");
+    $lock->execute([$row['id']]);
+    if ($lock->rowCount() !== 1) return $q + ['sent' => null, 'reason' => 'wait'];
+    $c = $pdo->prepare('SELECT * FROM crm_clients WHERE id=?'); $c->execute([$row['client_id']]); $client = $c->fetch();
+    if ($client && (int)$client['email_optout'] === 1) {
+        $pdo->prepare("UPDATE crm_wa SET status='skipped', error='désinscrit' WHERE id=?")->execute([$row['id']]);
+        return prospect_wa_state($pdo) + ['sent' => null, 'reason' => 'skipped'];
+    }
+    $r = wa_send_template($row['to_phone'], $client ?: []);
+    if ($r['ok']) {
+        $pdo->prepare("UPDATE crm_wa SET status='sent', sent_at=NOW(), wamid=? WHERE id=?")->execute([$r['wamid'], $row['id']]);
+        if ($client) {
+            $pdo->prepare('UPDATE crm_clients SET last_wa_at=NOW() WHERE id=?')->execute([$client['id']]);
+            crm_log($pdo, $client['id'], null, 'whatsapp', 'Message WhatsApp envoyé au ' . $row['to_phone']);
+        }
+    } else {
+        $pdo->prepare("UPDATE crm_wa SET status='failed', sent_at=NOW(), error=? WHERE id=?")->execute([$r['error'], $row['id']]);
+    }
+    return prospect_wa_state($pdo) + ['sent' => ['to' => $row['to_phone'], 'ok' => $r['ok'], 'error' => $r['error']]];
 }
