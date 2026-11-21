@@ -28,8 +28,10 @@
 
   var state = {
     logo: '', domain: '', domainName: '', pages: [], customPages: 0, customDesc: '',
-    langs: [], booking: ['form'], content: 'ready', photos: 'own', example: '', promo: '', social: ['basic', 'pro', 'premium'].indexOf(params.get('social')) > -1 ? params.get('social') : 'none'
+    langs: [], booking: ['form'], content: 'ready', photos: 'own', example: '', promo: '', social: ['basic', 'pro', 'premium'].indexOf(params.get('social')) > -1 ? params.get('social') : 'none',
+    scope: params.get('scope') === 'social' ? 'social' : 'site'
   };
+  if (state.scope === 'social' && state.social === 'none') state.social = 'pro';
 
   function defaultLangs(l) { return l === 'en' ? ['en', 'tr'] : [l, 'en']; }
 
@@ -83,12 +85,14 @@
       off = Math.min(off, sub);
       if (off > 0) lines.push({ key: 'promo', amount: -off, code: label });
     }
+    var social = state.scope === 'social', ml = monthlyLines(t);
+    if (social) lines = ml.slice();
     var total = lines.reduce(function (s, l) { return s + l.amount; }, 0);
-    var deposit = Math.round(total * pricing.depositPercent / 100);
+    var deposit = social ? 0 : Math.round(total * pricing.depositPercent / 100);
     return {
       currency: c.currency, t: t, lines: lines, total: total, deposit: deposit, balance: total - deposit,
       depositPercent: pricing.depositPercent, renewal: t.renewalYearly,
-      monthlyLines: monthlyLines(t), monthly: monthlyLines(t).reduce(function (s, l) { return s + l.amount; }, 0),
+      social: social, monthlyLines: ml, monthly: ml.reduce(function (s, l) { return s + l.amount; }, 0),
       includedPages: pricing.includedPages, includedLangs: incLangs
     };
   }
@@ -165,7 +169,7 @@
       var li = document.createElement('li');
       li.className = 'summary_line' + (l.key === 'promo' ? ' is-promo' : '');
       if (old.indexOf(l.key + (l.qty || '')) > -1) li.style.animation = 'none';
-      var label = q.lines[l.key]
+      var label = (q.lines[l.key] || l.key)
         .replace('{n}', String(l.key === 'base' ? res.includedPages : (l.qty || '')))
         .replace('{l}', String(res.includedLangs))
         .replace('{c}', l.code || '');
@@ -175,7 +179,7 @@
         if (l.was) { var w = document.createElement('span'); w.className = 'summary_line-was'; w.textContent = fmt(l.was); b.appendChild(w); }
         var f = document.createElement('span'); f.className = 'summary_line-free'; f.textContent = q.free; b.appendChild(f);
       } else {
-        b.textContent = fmt(l.amount);
+        b.textContent = fmt(l.amount) + (res.social ? ' ' + q.perMonth : '');
       }
       li.appendChild(a); li.appendChild(b);
       list.appendChild(li);
@@ -184,7 +188,7 @@
 
     // Bloc « Aylık » : une ligne par abonnement + total mensuel (non ajouté au total unique)
     root.querySelectorAll('[data-monthly]').forEach(function (e) {
-      e.hidden = !res.monthly;
+      e.hidden = !res.monthly || res.social;
       e.innerHTML = '';
       if (!res.monthly) return;
       var h = document.createElement('span'); h.className = 'summary_monthly-title'; h.textContent = q.sum.monthlyT; e.appendChild(h);
@@ -195,6 +199,14 @@
         var b = document.createElement('span'); b.dir = 'ltr'; b.textContent = fmt(l.amount) + ' ' + q.perMonth;
         row.appendChild(a); row.appendChild(b); e.appendChild(row);
       });
+    });
+    // Mode « sosyal medya seul » : étapes du site, code promo et notes site masqués
+    root.querySelectorAll('[data-total-label]').forEach(function (e) { e.textContent = res.social ? q.sum.monthlyTotal : q.sum.total; });
+    root.querySelectorAll('[data-site-only], [data-site-note], [data-promo]').forEach(function (e) { e.hidden = res.social; });
+    root.querySelectorAll('[data-social-none], [data-social-optional]').forEach(function (e) { e.hidden = res.social; });
+    var n = 0;
+    form.querySelectorAll('.quote_step').forEach(function (f) {
+      if (!f.hidden) f.querySelector('.quote_step-number').textContent = (++n < 10 ? '0' : '') + n;
     });
     tweenTotal(res.total, cur);
     updateReady();
@@ -221,7 +233,11 @@
 
   form.addEventListener('change', function (e) {
     var el = e.target;
-    if (el.type === 'radio') state[el.name] = el.value;
+    if (el.type === 'radio') {
+      state[el.name] = el.value;
+      // Sosyal medya seul : une formule est obligatoire (Pro par défaut)
+      if (el.name === 'scope' && el.value === 'social' && state.social === 'none') state.social = 'pro';
+    }
     else if (el.type === 'checkbox') {
       var arr = state[el.name], i = arr.indexOf(el.value);
       // Langues et moyens de contact : au moins une case reste cochée
@@ -295,7 +311,7 @@
     delete details._langsTouched;
     details.customPages = String(state.customPages);
     details.city = c.city;
-    details.promo = state.promo;
+    details.promo = state.scope === 'social' ? '' : state.promo;
     details.lang = lang();
     fetch('/api/contact.php', {
       method: 'POST', credentials: 'same-origin',

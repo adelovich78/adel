@@ -68,7 +68,10 @@ function compute_quote(array $p, string $lang, array $a, string $promo = '', ?ar
         $socialTl = (float)($p['prices'][$monthlyKey] ?? $plans[$sp]);
         $monthly = (int)(round(($socialTl / $per) / $step) * $step);
     }
-    return compact('currency', 'lines', 'total', 'deposit', 'pct', 'pageCount', 'promo', 'monthly', 'monthlyKey') + ['balance' => $total - $deposit, 'renewal' => $t['renewalYearly']];
+    // Demande « réseaux sociaux seuls » : pas de site, pas de total unique
+    $scope = (($a['scope'] ?? '') === 'social' && $monthly > 0) ? 'social' : 'site';
+    if ($scope === 'social') { $lines = []; $total = 0; $deposit = 0; $promo = ''; }
+    return compact('currency', 'lines', 'total', 'deposit', 'pct', 'pageCount', 'promo', 'monthly', 'monthlyKey', 'scope') + ['balance' => $total - $deposit, 'renewal' => $t['renewalYearly']];
 }
 
 function money(int $n, string $currency): string {
@@ -102,6 +105,11 @@ function h(string $s): string { return htmlspecialchars($s, ENT_QUOTES, 'UTF-8')
 
 // Tableau HTML du devis (commun aux deux e-mails)
 function quote_table_html(array $q, array $L): string {
+    if (($q['scope'] ?? '') === 'social') {
+        return '<table width="100%" cellpadding="0" cellspacing="0" style="background:#eaf8e1;border-radius:8px"><tr>'
+            . '<td style="padding:14px 16px;font-size:14px;color:#1f6f2a;font-weight:700">' . h($L['monthlyPlan'][$q['monthlyKey']] ?? ($L['monthly'] ?? 'Social media')) . '</td>'
+            . '<td style="padding:14px 16px;text-align:right;white-space:nowrap;font-size:20px;font-weight:800">' . h(money((int)$q['monthly'], $q['currency'])) . ' ' . h($L['perMonth'] ?? '/ ay') . '</td></tr></table>';
+    }
     $rows = '';
     foreach ($q['lines'] as $l) {
         $label = str_replace(['{n}', '{l}', '{c}'], [(string)($l['n'] ?? ''), (string)($l['l'] ?? ''), (string)($l['c'] ?? '')], $L['lines'][$l['key']] ?? $l['key']);

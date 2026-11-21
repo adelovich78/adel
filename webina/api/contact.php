@@ -34,7 +34,7 @@ if ($kind === 'quote') {
     }
     $lang = in_array($clean['lang'] ?? '', ['tr', 'en', 'fr', 'ar'], true) ? $clean['lang'] : 'tr';
     // Code de réduction : consommé ici, une seule fois, avant le calcul du prix
-    $asked = promo_normalise((string)($clean['promo'] ?? ''));
+    $asked = ($clean['scope'] ?? '') === 'social' ? '' : promo_normalise((string)($clean['promo'] ?? ''));
     if ($asked !== '') {
         $pdo = db_or_null();
         $promoRule = $pdo ? promo_consume($pdo, $asked, $name, $email) : null;
@@ -44,7 +44,9 @@ if ($kind === 'quote') {
     $clean['promo'] = $promo;
     // Prix recalculé côté serveur : le navigateur ne peut pas le falsifier
     $quote = compute_quote(load_pricing(), $lang, $clean, $promo, $promoRule);
-    $clean['price'] = (string)$quote['total'];
+    // Réseaux sociaux seuls : la valeur de la vente est le montant mensuel
+    $amount = $quote['scope'] === 'social' ? $quote['monthly'] : $quote['total'];
+    $clean['price'] = (string)$amount;
     $clean['currency'] = $quote['currency'];
     $details = json_encode($clean, JSON_UNESCAPED_UNICODE);
 } else {
@@ -69,7 +71,7 @@ if ($pdo = db_or_null()) {
         'kind' => $kind, 'name' => $name, 'email' => $email, 'phone' => $phone, 'company' => $company,
         'sector' => str_field($d, 'sector', 60), 'service' => str_field($d, 'service', 60), 'budget' => str_field($d, 'budget', 60),
         'city' => $clean['city'] ?? null, 'message' => $message, 'submission_id' => $saved ? $sid : null,
-        'amount' => $quote['total'] ?? 0, 'currency' => $quote['currency'] ?? 'TRY', 'promo' => $promo,
+        'amount' => $amount ?? 0, 'currency' => $quote['currency'] ?? 'TRY', 'promo' => $promo,
     ]);
 }
 
@@ -89,7 +91,14 @@ if ($to !== '') {
             'own' => 'Photos fournies par le client', 'stock' => 'Photos prêtes (banque d\'images)', 'pro' => 'Photographe pro (1 journée, Istanbul)'];
         $fr = fn($v) => $FR[$v] ?? ($v ?: '—');
         $list = fn($v) => is_array($v) && $v ? implode(', ', array_map($fr, $v)) : '—';
-        $info = array_merge($info, [
+        if (($quote['scope'] ?? '') === 'social') $info = array_merge($info, [
+            ['Demande', 'Réseaux sociaux uniquement (sans site web)'],
+            ['Langue du formulaire', strtoupper($lang)],
+            ['Activité', str_field($d, 'sector', 60) ?? '—'],
+            ['Ville', ($clean['city'] ?? '') ?: '—'],
+            ['Formule', ['basic' => 'Basic', 'pro' => 'Pro', 'premium' => 'Premium'][$clean['social'] ?? ''] ?? '—'],
+        ]);
+        else $info = array_merge($info, [
             ['Langue du formulaire', strtoupper($lang)],
             ['Logo', $yn($clean['logo'] ?? '')],
             ['Nom de domaine', $yn($clean['domain'] ?? '') . (!empty($clean['domainName']) ? ' · ' . $clean['domainName'] : '')],
@@ -115,13 +124,15 @@ if ($to !== '') {
         . ($quote ? quote_table_html($quote, mail_texts('fr')) : '')
         . ($message !== '' ? '<p style="margin-top:18px;padding:14px;background:#f4f6f2;border-radius:10px;white-space:pre-wrap;font-size:14px">' . h($message) . '</p>' : '')
         . '<p style="margin-top:22px"><a href="https://' . h($host) . '/admin" style="background:#2E8B2E;color:#fff;padding:12px 20px;border-radius:99px;text-decoration:none;font-weight:700">Ouvrir l\'admin</a></p>';
-    $subject = ($kind === 'quote' ? 'Devis ' . money($quote['total'], $quote['currency']) : 'Message') . ' — ' . $name;
+    $subject = ($kind === 'quote' ? (($quote['scope'] ?? '') === 'social' ? 'Réseaux sociaux ' . money($amount, $quote['currency']) . ' / mois' : 'Devis ' . money($quote['total'], $quote['currency'])) : 'Message') . ' — ' . $name;
     foreach (email_list($to) as $rcpt) $notified = send_html_mail($rcpt, $subject, mail_layout($inner, false, $kind === 'quote'), $email) || $notified;
 }
 
 // 3) E-mail récapitulatif au client (dans sa langue)
 if ($kind === 'quote') {
     $L = mail_texts($lang);
+    // Réseaux sociaux seuls : objet sans « site web »
+    if ($quote['scope'] === 'social') $L['subject'] = ['tr' => 'Sosyal medya teklif özetiniz — Webina', 'en' => 'Your social media quote summary — Webina', 'fr' => 'Récapitulatif de votre devis réseaux sociaux — Webina', 'ar' => 'ملخّص عرض سعر إدارة وسائل التواصل — Webina'][$lang];
     $wa = 'https://wa.me/' . preg_replace('/\D/', '', $CONFIG['whatsapp'] ?? '');
     $inner = '<p style="font-size:16px;margin:0 0 8px"><b>' . h(str_replace('{n}', $name, $L['hello'])) . '</b></p>'
         . '<p style="font-size:14px;color:#444;margin:0 0 22px;line-height:1.6">' . h($L['intro']) . '</p>'

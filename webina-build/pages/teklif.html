@@ -19,17 +19,25 @@
           <div class="container-large">
             <div class="quote_component" data-quote-form>
               <form class="quote_form form_card" novalidate data-enter style="--d:4">
+                <!-- 0. Type de demande : site web ou réseaux sociaux seuls -->
+                <fieldset class="quote_step" id="quote-scope">
+                  <legend class="quote_step-head"><span class="quote_step-number">01</span><span class="quote_step-title">{{t:quote.q.scope}}</span></legend>
+                  <div class="option_grid is-2">
+                    {{OPT:scope:site:quote.opt.scope.site}}
+                    {{OPT:scope:social:quote.opt.scope.social}}
+                  </div>
+                </fieldset>
                 <!-- 1. Logo -->
-                <fieldset class="quote_step">
-                  <legend class="quote_step-head"><span class="quote_step-number">01</span><span class="quote_step-title">{{t:quote.q.logo}}</span></legend>
+                <fieldset class="quote_step" data-site-only>
+                  <legend class="quote_step-head"><span class="quote_step-number">02</span><span class="quote_step-title">{{t:quote.q.logo}}</span></legend>
                   <div class="option_grid is-2">
                     {{OPT:logo:yes:quote.q.logoYes}}
                     {{OPT:logo:no:quote.q.logoNo:free}}
                   </div>
                 </fieldset>
                 <!-- 2. Alan adı -->
-                <fieldset class="quote_step">
-                  <legend class="quote_step-head"><span class="quote_step-number">02</span><span class="quote_step-title">{{t:quote.q.domain}}</span></legend>
+                <fieldset class="quote_step" data-site-only>
+                  <legend class="quote_step-head"><span class="quote_step-number">03</span><span class="quote_step-title">{{t:quote.q.domain}}</span></legend>
                   <p class="quote_hint text-size-small text-color-secondary">{{t:quote.q.domainHint}}</p>
                   <div class="option_grid is-2">
                     {{OPT:domain:yes:quote.q.domainYes}}
@@ -40,8 +48,8 @@
                   </div>
                 </fieldset>
                 <!-- 3. Sayfalar -->
-                <fieldset class="quote_step">
-                  <legend class="quote_step-head"><span class="quote_step-number">03</span><span class="quote_step-title">{{t:quote.q.pages}}</span></legend>
+                <fieldset class="quote_step" data-site-only>
+                  <legend class="quote_step-head"><span class="quote_step-number">04</span><span class="quote_step-title">{{t:quote.q.pages}}</span></legend>
                   <p class="quote_hint text-size-small text-color-secondary" data-fill="pagesHint">&nbsp;</p>
                   <p class="quote_group-label text-style-mono text-color-muted">{{t:quote.q.pagesIncluded}}</p>
                   <div class="option_grid is-2">{{INCLUDED_PAGES}}
@@ -68,15 +76,15 @@
                   </div>
                 </fieldset>
                 <!-- 4. Diller -->
-                <fieldset class="quote_step">
-                  <legend class="quote_step-head"><span class="quote_step-number">04</span><span class="quote_step-title">{{t:quote.q.langs}}</span><span class="quote_badge text-style-mono" data-fill="langCount">2 / 2</span></legend>
+                <fieldset class="quote_step" data-site-only>
+                  <legend class="quote_step-head"><span class="quote_step-number">05</span><span class="quote_step-title">{{t:quote.q.langs}}</span><span class="quote_badge text-style-mono" data-fill="langCount">2 / 2</span></legend>
                   <p class="quote_hint text-size-small text-color-secondary" data-fill="langsHint">&nbsp;</p>
                   <div class="option_grid is-3 is-langs">{{LANG_OPTS}}
                   </div>
                 </fieldset>
                 <!-- 5. İletişim -->
-                <fieldset class="quote_step">
-                  <legend class="quote_step-head"><span class="quote_step-number">05</span><span class="quote_step-title">{{t:quote.q.booking}}</span></legend>
+                <fieldset class="quote_step" data-site-only>
+                  <legend class="quote_step-head"><span class="quote_step-number">06</span><span class="quote_step-title">{{t:quote.q.booking}}</span></legend>
                   <p class="quote_hint text-size-small text-color-secondary">{{t:quote.q.bookingHint}}</p>
                   <div class="option_grid">
                     {{CHK:booking:form:quote.opt.booking.form:included}}
@@ -85,8 +93,8 @@
                   </div>
                 </fieldset>
                 <!-- 6. Metinler -->
-                <fieldset class="quote_step">
-                  <legend class="quote_step-head"><span class="quote_step-number">06</span><span class="quote_step-title">{{t:quote.q.content}}</span></legend>
+                <fieldset class="quote_step" data-site-only>
+                  <legend class="quote_step-head"><span class="quote_step-number">07</span><span class="quote_step-title">{{t:quote.q.content}}</span></legend>
                   <div class="option_grid">
                     {{OPT:content:ready:quote.opt.content.ready:included}}
                     {{OPT:content:partial:quote.opt.content.partial:contentPartial}}
@@ -94,8 +102,8 @@
                   </div>
                 </fieldset>
                 <!-- 7. Fotoğraflar -->
-                <fieldset class="quote_step">
-                  <legend class="quote_step-head"><span class="quote_step-number">07</span><span class="quote_step-title">{{t:quote.q.photos}}</span></legend>
+                <fieldset class="quote_step" data-site-only>
+                  <legend class="quote_step-head"><span class="quote_step-number">08</span><span class="quote_step-title">{{t:quote.q.photos}}</span></legend>
                   <div class="option_grid">
                     {{OPT:photos:own:quote.opt.photos.own:included}}
                     {{OPT:photos:stock:quote.opt.photos.stock:included}}
@@ -104,16 +112,16 @@
                   <p class="quote_note text-size-small text-color-muted"><svg class="icon" aria-hidden="true"><use href="#i-pin"/></svg>{{t:quote.q.photosNote}}</p>
                 </fieldset>
                 <!-- 8. Örnek site -->
-                <fieldset class="quote_step">
-                  <legend class="quote_step-head"><span class="quote_step-number">08</span><span class="quote_step-title">{{t:quote.q.example}} <span class="text-color-muted">({{t:quote.optional}})</span></span></legend>
+                <fieldset class="quote_step" data-site-only>
+                  <legend class="quote_step-head"><span class="quote_step-number">09</span><span class="quote_step-title">{{t:quote.q.example}} <span class="text-color-muted">({{t:quote.optional}})</span></span></legend>
                   <input class="form_input" name="example" type="url" dir="ltr" maxlength="200" placeholder="https://" aria-label="{{raw:quote.q.example}}">
                 </fieldset>
                 <!-- 9. Sosyal medya (aylık) -->
                 <fieldset class="quote_step" id="quote-social">
-                  <legend class="quote_step-head"><span class="quote_step-number">09</span><span class="quote_step-title">{{t:quote.q.social}} <span class="text-color-muted">({{t:quote.optional}})</span></span></legend>
+                  <legend class="quote_step-head"><span class="quote_step-number">10</span><span class="quote_step-title">{{t:quote.q.social}} <span class="text-color-muted" data-social-optional>({{t:quote.optional}})</span></span></legend>
                   <p class="quote_hint text-size-small text-color-secondary">{{t:quote.q.socialHint}}</p>
                   <div class="option_grid">
-                    {{OPT:social:none:quote.opt.social.none}}
+                    <span class="quote_social-none" data-social-none>{{OPT:social:none:quote.opt.social.none}}</span>
                     {{OPT:social:basic:quote.opt.social.basic:socialBasic}}
                     {{OPT:social:pro:quote.opt.social.pro:socialPro}}
                     {{OPT:social:premium:quote.opt.social.premium:socialPremium}}
@@ -130,7 +138,7 @@
                 </fieldset>
                 <!-- 10. Bilgiler -->
                 <fieldset class="quote_step" id="quote-contact">
-                  <legend class="quote_step-head"><span class="quote_step-number">10</span><span class="quote_step-title">{{t:quote.q.contactT}}</span></legend>
+                  <legend class="quote_step-head"><span class="quote_step-number">11</span><span class="quote_step-title">{{t:quote.q.contactT}}</span></legend>
                   <p class="quote_hint text-size-small text-color-secondary">{{t:quote.q.contactHint}}</p>
                   <div class="form_grid">
                     <div class="form_field"><label class="form_label" for="q-name">{{t:quote.q.name}}</label><input class="form_input" id="q-name" name="name" autocomplete="name" maxlength="120"></div>
@@ -168,18 +176,18 @@
                     <p class="promo_error text-size-small" role="status" aria-live="polite" data-promo-error></p>
                   </div>
                   <div class="summary_total">
-                    <p class="text-size-small text-color-secondary">{{t:quote.sum.total}}</p>
+                    <p class="text-size-small text-color-secondary" data-total-label>{{raw:quote.sum.total}}</p>
                     <p class="summary_amount" dir="ltr" data-total>—</p>
                   </div>
                   <p class="summary_monthly" dir="auto" data-monthly hidden></p>
-                  <p class="summary_note is-accent"><svg class="icon" aria-hidden="true"><use href="#i-shield"/></svg><span data-fill="deposit">{{raw:quote.sum.noDeposit}}</span></p>
-                  <p class="summary_note"><svg class="icon" aria-hidden="true"><use href="#i-info"/></svg><span data-fill="renewal">&nbsp;</span></p>
+                  <p class="summary_note is-accent" data-site-note><svg class="icon" aria-hidden="true"><use href="#i-shield"/></svg><span data-fill="deposit">{{raw:quote.sum.noDeposit}}</span></p>
+                  <p class="summary_note" data-site-note><svg class="icon" aria-hidden="true"><use href="#i-info"/></svg><span data-fill="renewal">&nbsp;</span></p>
                   <p class="form_error text-size-small" role="alert" data-quote-error></p>
                   <button type="button" class="button is-large is-block" data-quote-send><svg class="icon" aria-hidden="true"><use href="#i-send"/></svg><span data-send-label>{{raw:quote.sum.send}}</span></button>
                   <p class="summary_fine text-size-small text-color-muted" data-fill-hint>{{t:quote.sum.fillContact}}</p>
                   <p class="summary_fine text-size-small text-color-muted">{{t:quote.sum.note}}</p>
                 </div>
-                <div class="summary_info">
+                <div class="summary_info" data-site-note>
                   <p class="heading-style-h5"><svg class="icon" aria-hidden="true"><use href="#i-info"/></svg>{{t:quote.sum.hostTitle}}</p>
                   <p class="text-size-small text-color-secondary">{{t:quote.sum.hostText}}</p>
                 </div>
@@ -191,7 +199,7 @@
             <div class="quote_bar" data-quote-bar>
               <button type="button" class="quote_bar-toggle" aria-expanded="false" data-bar-toggle>
                 <svg class="icon" aria-hidden="true"><use href="#i-chevron"/></svg>
-                <span><span class="text-size-small text-color-secondary">{{t:quote.sum.total}}</span><span class="quote_bar-total" dir="ltr" data-total>—</span></span>
+                <span><span class="text-size-small text-color-secondary" data-total-label>{{raw:quote.sum.total}}</span><span class="quote_bar-total" dir="ltr" data-total>—</span></span>
               </button>
               <button type="button" class="button" data-quote-send><svg class="icon" aria-hidden="true"><use href="#i-send"/></svg><span data-send-label>{{raw:quote.sum.send}}</span></button>
             </div>

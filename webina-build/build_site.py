@@ -415,7 +415,7 @@ def social_fragments():
                   <p class="plan_price"><span class="plan_amount" dir="ltr" data-amount="{key}">{tl(key)}</span>{tx("social.perMonth", 'span', 'plan_once text-color-muted')}</p>
                   <ul class="plan_items" role="list">{items}</ul>
                   {tx(f"social.plans.{k}.out", 'p', 'text-size-small text-color-muted')}
-                  <a href="/teklif?social={k}#quote-social" class="button is-block{'' if pop else ' is-secondary'}">{tx("social.cta")}{icon("i-arrow")}</a>
+                  <a href="/teklif?scope=social&amp;social={k}#quote-social" class="button is-block{'' if pop else ' is-secondary'}">{tx("social.cta")}{icon("i-arrow")}</a>
                 </article>''')
     note = f'''
               <div class="social_note" data-reveal>{icon("i-info")}{tx("social.setup", 'p')}
