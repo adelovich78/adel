@@ -33,6 +33,8 @@
     "gallery": 1000,
     "blog": 2000,
     "promoDiscount": 2000,
-    "socialMonthly": 5000
+    "socialBasic": 7500,
+    "socialPro": 12500,
+    "socialPremium": 19500
   }
 }
