@@ -994,12 +994,12 @@ window.WEBINA_I18N = {
     },
     "sosyal-medya": {
      "t": "Sosyal medya",
-     "p": "Facebook ve Instagram hesaplarınızı kuruyor, her ay içerik üretip yayınlıyoruz.",
+     "p": "Facebook, Instagram ve WhatsApp hesaplarınızı ücretsiz kuruyor, her ay içerik üretip yayınlıyoruz.",
      "points": [
-      "Ayda 4 video + 15 paylaşım",
+      "Platform başına aylık fiyat",
       "Ücretsiz hesap kurulumu",
-      "Meta Business Suite",
-      "Aylık sabit fiyat"
+      "Yapay zekâ videoları ve paylaşımlar",
+      "İsteğe bağlı gerçek video çekimi"
      ],
      "more": "Detaylar ve fiyat"
     }
@@ -1119,34 +1119,47 @@ window.WEBINA_I18N = {
   },
   "social": {
    "eyebrow": "Sosyal medya",
-   "t1": "Facebook ve Instagram",
+   "t1": "Facebook, Instagram, WhatsApp",
    "t2": "her ay sizin yerinize.",
-   "text": "Hesaplarınızı kuruyoruz, her ay içerik üretip yayınlıyoruz. Siz işinize odaklanın.",
-   "planT": "Aylık paket",
-   "planP": "Facebook ve Instagram için düzenli, profesyonel içerik.",
+   "text": "İstediğiniz platformları seçin: hesaplarınızı ücretsiz kuruyoruz, her ay içerik üretip yayınlıyoruz.",
+   "planT": "Aylık yönetim",
+   "planP": "Platform başına aylık sabit fiyat. Bir veya birkaçını seçin.",
    "perMonth": "/ ay",
+   "platforms": [
+    "Facebook (Meta Business Suite)",
+    "Instagram",
+    "WhatsApp Business (katalog, otomatik mesajlar)"
+   ],
+   "incT": "Her ay dahil",
    "inc": [
-    "Her ay 4 video (Reels), Facebook ve Instagram için",
-    "Her ay 15 fotoğraflı paylaşım (iki günde bir)",
+    "Ayda 4 video (Reels), yapay zekâ ile üretilir",
+    "Ayda 15 paylaşım (iki günde bir)",
     "Metinler ve hashtag'ler",
     "Aylık içerik takvimi, yayından önce onayınıza sunulur",
-    "Facebook ve Instagram'da yayınlama"
+    "WhatsApp: katalog ve otomatik mesaj güncellemeleri"
    ],
    "cta": "Teklif al",
-   "setupT": "Ücretsiz kurulum",
-   "setupP": "Hesabı olmayan işletmeler için her şeyi sıfırdan kuruyoruz.",
-   "setup": [
-    "Facebook işletme sayfası",
-    "Instagram profesyonel hesap",
-    "Meta Business Suite kurulumu",
-    "Profil ve kapak görselleri, açıklama, WhatsApp butonu"
+   "videoT": "Gerçek video çekimi",
+   "videoP": "Yapay zekâ videolarına ek olarak, işletmenizde gerçek çekim (isteğe bağlı).",
+   "perVideo": "/ video",
+   "video": [
+    "İstanbul içi çekim",
+    "Reels formatında kurgu, müzik ve altyazı",
+    "Facebook ve Instagram'da yayınlama"
    ],
+   "videoOut": "İstanbul dışı için bize danışın.",
+   "setupT": "Ücretsiz hesap kurulumu",
+   "setupP": "Hesabınız yoksa açıyoruz, varsa aktive ediyoruz.",
    "free": "Ücretsiz",
+   "setup": [
+    "Facebook işletme sayfası ve Meta Business Suite",
+    "Instagram profesyonel hesap",
+    "WhatsApp Business hesabı ve katalog"
+   ],
    "notesT": "Bilmeniz gerekenler",
    "notesP": "Şeffaf çalışıyoruz.",
    "notes": [
-    "Videolar logonuz, fotoğraflarınız, ürünleriniz ve metinleriniz kullanılarak yapay zekâ ile hazırlanır.",
-    "Meta reklam bütçesi pakete dahil değildir; reklam yapmak isterseniz bütçe size aittir.",
+    "Meta reklam bütçesi dahil değildir; reklam yapmak isterseniz bütçe size aittir.",
     "İçerikler gerçek ürün ve hizmetlerinizi anlatır; sahte yorum veya müşteri kullanmayız."
    ],
    "wa": "WhatsApp'tan yazın"
@@ -2169,12 +2182,12 @@ window.WEBINA_I18N = {
     },
     "sosyal-medya": {
      "t": "Social media",
-     "p": "We set up your Facebook and Instagram accounts and create and publish content every month.",
+     "p": "We set up your Facebook, Instagram and WhatsApp accounts for free, then create and publish content every month.",
      "points": [
-      "4 videos + 15 posts a month",
+      "Monthly price per platform",
       "Free account setup",
-      "Meta Business Suite",
-      "Fixed monthly price"
+      "AI videos and posts",
+      "Optional real video shoots"
      ],
      "more": "Details and price"
     }
@@ -2294,33 +2307,46 @@ window.WEBINA_I18N = {
   },
   "social": {
    "eyebrow": "Social media",
-   "t1": "Facebook and Instagram,",
+   "t1": "Facebook, Instagram, WhatsApp,",
    "t2": "handled for you every month.",
-   "text": "We set up your accounts, then create and publish content every month. You focus on your business.",
-   "planT": "Monthly plan",
-   "planP": "Regular, professional content for Facebook and Instagram.",
+   "text": "Pick the platforms you want: we set up your accounts for free, then create and publish content every month.",
+   "planT": "Monthly management",
+   "planP": "A fixed monthly price per platform. Choose one or more.",
    "perMonth": "/ month",
+   "platforms": [
+    "Facebook (Meta Business Suite)",
+    "Instagram",
+    "WhatsApp Business (catalogue, auto-replies)"
+   ],
+   "incT": "Included every month",
    "inc": [
-    "4 videos (Reels) per month for Facebook and Instagram",
-    "15 photo posts per month (every two days)",
+    "4 videos (Reels) a month, made with AI",
+    "15 posts a month (every two days)",
     "Captions and hashtags",
     "Monthly content calendar, approved by you before posting",
-    "Publishing on Facebook and Instagram"
+    "WhatsApp: catalogue and auto-reply updates"
    ],
    "cta": "Get a quote",
-   "setupT": "Free setup",
-   "setupP": "For businesses with no accounts yet, we set everything up from scratch.",
-   "setup": [
-    "Facebook business page",
-    "Instagram professional account",
-    "Meta Business Suite setup",
-    "Profile and cover images, bio, WhatsApp button"
+   "videoT": "Real video shoots",
+   "videoP": "On top of the AI videos, a real shoot at your business (optional).",
+   "perVideo": "/ video",
+   "video": [
+    "Shoot within Istanbul",
+    "Reels editing with music and subtitles",
+    "Publishing on Facebook and Instagram"
    ],
+   "videoOut": "Outside Istanbul: contact us.",
+   "setupT": "Free account setup",
+   "setupP": "No account yet? We create it. Already have one? We activate it.",
    "free": "Free",
+   "setup": [
+    "Facebook business page and Meta Business Suite",
+    "Instagram professional account",
+    "WhatsApp Business account and catalogue"
+   ],
    "notesT": "Good to know",
    "notesP": "We work transparently.",
    "notes": [
-    "Videos are made with AI using your logo, photos, products and texts.",
     "The Meta ads budget is not included; if you run ads, the budget is yours.",
     "Content shows your real products and services; we never use fake reviews or customers."
    ],
@@ -3344,12 +3370,12 @@ window.WEBINA_I18N = {
     },
     "sosyal-medya": {
      "t": "Réseaux sociaux",
-     "p": "Nous créons vos comptes Facebook et Instagram, puis produisons et publions vos contenus chaque mois.",
+     "p": "Nous créons gratuitement vos comptes Facebook, Instagram et WhatsApp, puis produisons et publions vos contenus chaque mois.",
      "points": [
-      "4 vidéos + 15 publications par mois",
+      "Prix mensuel par plateforme",
       "Création des comptes offerte",
-      "Meta Business Suite",
-      "Prix mensuel fixe"
+      "Vidéos IA et publications",
+      "Tournage de vraies vidéos en option"
      ],
      "more": "Détails et prix"
     }
@@ -3469,33 +3495,46 @@ window.WEBINA_I18N = {
   },
   "social": {
    "eyebrow": "Réseaux sociaux",
-   "t1": "Facebook et Instagram,",
+   "t1": "Facebook, Instagram, WhatsApp,",
    "t2": "gérés pour vous chaque mois.",
-   "text": "Nous créons vos comptes, puis produisons et publions vos contenus chaque mois. Vous vous concentrez sur votre activité.",
-   "planT": "Formule mensuelle",
-   "planP": "Des contenus réguliers et professionnels pour Facebook et Instagram.",
+   "text": "Choisissez vos plateformes : nous créons vos comptes gratuitement, puis produisons et publions vos contenus chaque mois.",
+   "planT": "Gestion mensuelle",
+   "planP": "Un prix mensuel fixe par plateforme. Choisissez-en une ou plusieurs.",
    "perMonth": "/ mois",
+   "platforms": [
+    "Facebook (Meta Business Suite)",
+    "Instagram",
+    "WhatsApp Business (catalogue, réponses automatiques)"
+   ],
+   "incT": "Inclus chaque mois",
    "inc": [
-    "4 vidéos (Reels) par mois pour Facebook et Instagram",
-    "15 publications photo par mois (tous les deux jours)",
+    "4 vidéos (Reels) par mois, réalisées avec l’IA",
+    "15 publications par mois (tous les deux jours)",
     "Textes et hashtags",
     "Calendrier mensuel, validé par vous avant publication",
-    "Publication sur Facebook et Instagram"
+    "WhatsApp : mise à jour du catalogue et des réponses automatiques"
    ],
    "cta": "Demander un devis",
-   "setupT": "Mise en place offerte",
-   "setupP": "Pour les entreprises sans comptes, nous créons tout de zéro.",
-   "setup": [
-    "Page Facebook professionnelle",
-    "Compte Instagram professionnel",
-    "Configuration de Meta Business Suite",
-    "Photo de profil, couverture, bio, bouton WhatsApp"
+   "videoT": "Tournage de vraies vidéos",
+   "videoP": "En plus des vidéos IA, un vrai tournage dans votre établissement (en option).",
+   "perVideo": "/ vidéo",
+   "video": [
+    "Tournage à Istanbul",
+    "Montage Reels avec musique et sous-titres",
+    "Publication sur Facebook et Instagram"
    ],
+   "videoOut": "Hors Istanbul : nous consulter.",
+   "setupT": "Création des comptes offerte",
+   "setupP": "Pas encore de compte ? Nous le créons. Déjà un compte ? Nous l’activons.",
    "free": "Offert",
+   "setup": [
+    "Page Facebook professionnelle et Meta Business Suite",
+    "Compte Instagram professionnel",
+    "Compte WhatsApp Business et catalogue"
+   ],
    "notesT": "À savoir",
    "notesP": "Nous travaillons en toute transparence.",
    "notes": [
-    "Les vidéos sont réalisées avec l’IA à partir de votre logo, de vos photos, produits et textes.",
     "Le budget publicitaire Meta n’est pas inclus ; si vous faites de la publicité, le budget est à vous.",
     "Les contenus montrent vos vrais produits et services ; jamais de faux avis ni de faux clients."
    ],
@@ -4519,12 +4558,12 @@ window.WEBINA_I18N = {
     },
     "sosyal-medya": {
      "t": "وسائل التواصل",
-     "p": "ننشئ حسابات فيسبوك وإنستغرام ونصنع المحتوى وننشره كل شهر.",
+     "p": "ننشئ حسابات فيسبوك وإنستغرام وواتساب مجاناً، ثم نصنع المحتوى وننشره كل شهر.",
      "points": [
-      "4 فيديوهات + 15 منشوراً شهرياً",
+      "سعر شهري لكل منصة",
       "إعداد الحسابات مجاناً",
-      "Meta Business Suite",
-      "سعر شهري ثابت"
+      "فيديوهات ذكاء اصطناعي ومنشورات",
+      "تصوير فيديو حقيقي اختياري"
      ],
      "more": "التفاصيل والسعر"
     }
@@ -4644,33 +4683,46 @@ window.WEBINA_I18N = {
   },
   "social": {
    "eyebrow": "وسائل التواصل",
-   "t1": "فيسبوك وإنستغرام",
+   "t1": "فيسبوك وإنستغرام وواتساب",
    "t2": "ندير حساباتك كل شهر.",
-   "text": "ننشئ حساباتك ثم نصنع المحتوى وننشره كل شهر. وأنت تتفرغ لعملك.",
-   "planT": "الباقة الشهرية",
-   "planP": "محتوى منتظم واحترافي لفيسبوك وإنستغرام.",
+   "text": "اختر المنصات التي تريدها: ننشئ حساباتك مجاناً، ثم نصنع المحتوى وننشره كل شهر.",
+   "planT": "الإدارة الشهرية",
+   "planP": "سعر شهري ثابت لكل منصة. اختر منصة أو أكثر.",
    "perMonth": "/ شهر",
+   "platforms": [
+    "فيسبوك (Meta Business Suite)",
+    "إنستغرام",
+    "واتساب للأعمال (الكتالوج، الردود التلقائية)"
+   ],
+   "incT": "مشمول كل شهر",
    "inc": [
-    "4 فيديوهات (Reels) شهرياً لفيسبوك وإنستغرام",
-    "15 منشوراً بالصور شهرياً (كل يومين)",
+    "4 فيديوهات (Reels) شهرياً بالذكاء الاصطناعي",
+    "15 منشوراً شهرياً (كل يومين)",
     "النصوص والوسوم",
     "تقويم محتوى شهري توافق عليه قبل النشر",
-    "النشر على فيسبوك وإنستغرام"
+    "واتساب: تحديث الكتالوج والردود التلقائية"
    ],
    "cta": "اطلب عرض سعر",
-   "setupT": "إعداد مجاني",
-   "setupP": "للشركات التي لا تملك حسابات، نجهّز كل شيء من البداية.",
-   "setup": [
-    "صفحة أعمال على فيسبوك",
-    "حساب إنستغرام احترافي",
-    "إعداد Meta Business Suite",
-    "صورة الملف والغلاف والوصف وزر واتساب"
+   "videoT": "تصوير فيديو حقيقي",
+   "videoP": "إضافة إلى فيديوهات الذكاء الاصطناعي، تصوير حقيقي في مكان عملك (اختياري).",
+   "perVideo": "/ فيديو",
+   "video": [
+    "التصوير داخل إسطنبول",
+    "مونتاج بصيغة Reels مع موسيقى وترجمة",
+    "النشر على فيسبوك وإنستغرام"
    ],
+   "videoOut": "خارج إسطنبول: تواصل معنا.",
+   "setupT": "إعداد الحسابات مجاناً",
+   "setupP": "ليس لديك حساب؟ ننشئه. لديك حساب؟ نفعّله.",
    "free": "مجاناً",
+   "setup": [
+    "صفحة أعمال على فيسبوك وMeta Business Suite",
+    "حساب إنستغرام احترافي",
+    "حساب واتساب للأعمال والكتالوج"
+   ],
    "notesT": "معلومات مهمة",
    "notesP": "نعمل بشفافية.",
    "notes": [
-    "تُنتَج الفيديوهات بالذكاء الاصطناعي باستخدام شعارك وصورك ومنتجاتك ونصوصك.",
     "ميزانية إعلانات Meta غير مشمولة؛ إن أردت الإعلان فالميزانية خاصة بك.",
     "يعرض المحتوى منتجاتك وخدماتك الحقيقية؛ لا نستخدم تقييمات أو عملاء مزيفين."
    ],
