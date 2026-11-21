@@ -10,7 +10,7 @@
   var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
   var STAGES = [
-    ['new', 'Nouveau'], ['contacted', 'Contacté'], ['proposal', 'Proposition'], ['won', 'Gagné'], ['lost', 'Perdu']
+    ['new', 'Nouveau'], ['contacted', 'Contacté'], ['proposal', 'Proposition envoyée'], ['won', 'Client réel (gagné)'], ['lost', 'Abandonné']
   ];
   var STAGE = {}; STAGES.forEach(function (s) { STAGE[s[0]] = s[1]; });
   var STATUS = { lead: 'Prospect', client: 'Client', archived: 'Archivé' };
@@ -453,7 +453,8 @@
       (x.deals.length ? '<ul class="crm_list" role="list">' + x.deals.map(function (dl) {
         return '<li class="crm_deal-line" data-deal-line="' + esc(dl.id) + '"><span><b>' + esc(dl.title) + '</b><span class="text-color-muted"> · ' + (Number(dl.amount) ? money(dl.amount, dl.currency) : '—') + '</span></span>' +
           '<span class="crm_inline"><select class="form_input is-select crm_mini" data-deal-stage aria-label="Étape">' + STAGES.map(function (s) { return '<option value="' + s[0] + '"' + (s[0] === dl.stage ? ' selected' : '') + '>' + s[1] + '</option>'; }).join('') + '</select>' +
-          '<button type="button" class="icon-button" data-edit-deal aria-label="Modifier">' + icon('i-edit') + '</button></span></li>';
+          (['won', 'lost'].indexOf(dl.stage) < 0 ? '<button type="button" class="button is-small is-secondary" data-followup title="Le client réfléchit : programmer une relance">' + icon('i-calendar') + 'Relancer</button>' : '') +
+          '<button type="button" class="icon-button" data-edit-deal aria-label="Modifier le prix ou la vente">' + icon('i-edit') + '</button></span></li>';
       }).join('') + '</ul>' : '<p class="crm_empty">Aucune vente.</p>') + '</section>';
 
     // Tâches
@@ -481,6 +482,7 @@
           '</div></div>';
       }).join('') : '<p class="crm_empty">Aucun projet.</p>') + '</section>';
 
+    html += docsSection(c, x);
     html += portalSection(c, x);
 
     // Historique
@@ -504,7 +506,7 @@
     } else if (t.matches('[data-deal-stage]')) {
       var did = t.closest('[data-deal-line]').dataset.dealLine;
       crm('r=deals&id=' + did, { method: 'PATCH', body: { stage: t.value } }).then(function () {
-        toast(t.value === 'won' ? 'Gagné · projet créé automatiquement' : 'Étape : ' + STAGE[t.value]);
+        toast(t.value === 'won' ? 'Client réel · projet créé (ou rattaché au projet existant)' : 'Étape : ' + STAGE[t.value]);
         load(); openClient(id, true);
       });
     } else if (t.matches('[data-project-status]')) {
@@ -540,11 +542,23 @@
     } else if (t.closest('[data-edit-project]')) {
       var pid = t.closest('[data-project]').dataset.project;
       crm('r=clients&id=' + id).then(function (x) { editProject(x.projects.filter(function (p) { return p.id === pid; })[0]); });
+    } else if (t.closest('[data-followup]')) {
+      var fdid = t.closest('[data-deal-line]').dataset.dealLine;
+      var tomorrow = new Date(Date.now() + 3 * 864e5); tomorrow.setHours(10, 0, 0, 0);
+      var pad = function (n) { return (n < 10 ? '0' : '') + n; };
+      openModal('Relancer le client', [
+        { label: 'Date et heure de la relance', name: 'due_at', type: 'datetime-local', required: true, full: true,
+          value: tomorrow.getFullYear() + '-' + pad(tomorrow.getMonth() + 1) + '-' + pad(tomorrow.getDate()) + 'T10:00' },
+        { label: 'Note (ce qu\'il attend, ce qu\'on a proposé…)', name: 'note', type: 'textarea', full: true }
+      ], function (data) {
+        data.deal_id = fdid;
+        return crm('r=followup', { method: 'POST', body: data }).then(function () { toast('Relance programmée'); load(); openClient(id, true); });
+      }, 'Programmer la relance');
     } else if (t.closest('[data-renew]')) {
       var rb = t.closest('[data-renew]'), rk = rb.dataset.renewKind;
       if (!W.confirm((rk === 'domain' ? 'Domaine' : 'Hébergement') + ' renouvelé pour un an ? La date est avancée d\'un an et les rappels s\'arrêtent.')) return;
       crm('r=renew', { method: 'POST', body: { project_id: rb.dataset.renew, kind: rk } }).then(function () { toast((rk === 'domain' ? 'Domaine' : 'Hébergement') + ' renouvelé (+1 an)'); load(); openClient(id, true); }).catch(function (ex) { toast(ex.message); });
-    } else if (t.closest('[data-portal-access],[data-portal-link],[data-portal-invoice],[data-portal-paid],[data-portal-del-invoice],[data-portal-notice],[data-portal-del-notice],[data-portal-thread]')) {
+    } else if (t.closest('[data-portal-access],[data-portal-link],[data-portal-invoice],[data-portal-paid],[data-portal-del-invoice],[data-portal-notice],[data-portal-del-notice],[data-portal-thread],[data-doc-add],[data-doc-visible],[data-doc-del],[data-portal-mail]')) {
       var pr = portalAction(t, id);
       if (pr && pr.catch) pr.catch(function (ex) { toast(ex.message); });
     }
@@ -552,14 +566,16 @@
 
   /* ---------- Fenêtre de création / modification ---------- */
   var modal = $('[data-modal]'), modalForm = $('[data-modal-form]'), modalSubmit = null;
-  function openModal(title, fields, onSubmit) {
+  function openModal(title, fields, onSubmit, submitLabel) {
     $('[data-modal-title]').textContent = title;
+    $('[data-modal-submit]').textContent = submitLabel || 'Enregistrer';
     $('[data-modal-error]').textContent = '';
     $('[data-modal-fields]').innerHTML = fields.map(function (f) {
       var v = f.value == null ? '' : f.value;
       var input;
       if (f.type === 'select') input = '<select class="form_input is-select" name="' + f.name + '">' + f.options.map(function (o) { return '<option value="' + esc(o[0]) + '"' + (String(o[0]) === String(v) ? ' selected' : '') + '>' + esc(o[1]) + '</option>'; }).join('') + '</select>';
-      else if (f.type === 'textarea') input = '<textarea class="form_input is-area" name="' + f.name + '" rows="3">' + esc(v) + '</textarea>';
+      else if (f.type === 'file') input = '<input class="form_input" name="' + f.name + '" type="file"' + (f.accept ? ' accept="' + f.accept + '"' : '') + (f.required ? ' required' : '') + '>';
+      else if (f.type === 'textarea') input = '<textarea class="form_input is-area" name="' + f.name + '" rows="' + (f.rows || 3) + '">' + esc(v) + '</textarea>';
       else if (f.type === 'client') input = '<div class="crm_picker"><input class="form_input" type="search" placeholder="Rechercher un client…" data-picker-input autocomplete="off" value="' + esc(f.label2 || '') + '"><input type="hidden" name="' + f.name + '" value="' + esc(v) + '"><ul class="crm_picker-list" data-picker-list hidden></ul></div>';
       else input = '<input class="form_input" name="' + f.name + '" type="' + (f.type || 'text') + '" value="' + esc(v) + '"' + (f.required ? ' required' : '') + (f.step ? ' step="' + f.step + '"' : '') + (f.placeholder ? ' placeholder="' + esc(f.placeholder) + '"' : '') + '>';
       if (f.hide) return '';
@@ -582,7 +598,7 @@
   modalForm.addEventListener('submit', function (e) {
     e.preventDefault();
     var data = {};
-    $$('[name]', modalForm).forEach(function (i) { if (!i.closest('[hidden]')) data[i.name] = i.value; });
+    $$('[name]', modalForm).forEach(function (i) { if (!i.closest('[hidden]')) data[i.name] = i.type === 'file' ? (i.files[0] || null) : i.value; });
     modalSubmit(data).then(function () { closeModal(); }).catch(function (ex) { $('[data-modal-error]').textContent = ex.message; });
   });
   // Recherche de client dans la fenêtre
@@ -620,7 +636,8 @@
     var on = Number(c.portal_enabled) === 1;
     var today = new Date().toISOString().slice(0, 10);
     var html = '<section class="crm_section"><div class="crm_section-head"><h3 class="crm_section-title">Espace client</h3>' +
-      '<span class="crm_inline"><button type="button" class="button is-small ' + (on ? 'is-secondary' : '') + '" data-portal-access="' + (on ? 0 : 1) + '">' + (on ? 'Fermer l\'accès' : 'Ouvrir l\'accès') + '</button>' +
+      '<span class="crm_inline">' + (c.email ? '<button type="button" class="button is-small" data-portal-mail>' + icon('i-mail') + 'Envoyer l\'accès par e-mail</button>' : '') +
+      '<button type="button" class="button is-small is-secondary" data-portal-access="' + (on ? 0 : 1) + '">' + (on ? 'Fermer l\'accès' : 'Ouvrir l\'accès') + '</button>' +
       (on ? '<button type="button" class="button is-small is-secondary" data-portal-link>' + icon('i-link') + 'Lien de connexion</button>' : '') + '</span></div>' +
       '<p class="text-size-small text-color-secondary">' + (on ? 'Le client se connecte sur my.webina.com.tr avec ' + esc(c.email || '—') + (c.portal_last_login ? ' · dernière connexion ' + fmtDate(c.portal_last_login) : ' · jamais connecté') : 'Accès fermé. Le client a besoin d\'une adresse e-mail sur sa fiche.') + '</p>';
     // Factures
@@ -645,9 +662,67 @@
     }
     return html + '</section>';
   }
+  // Contrats et documents du client (rangés hors du site public, visibles ou non dans son espace)
+  var DOCKIND = { contract: 'Contrat', quote: 'Devis signé', invoice: 'Facture', other: 'Document' };
+  function docsSection(c, x) {
+    var docs = (x.portal && x.portal.documents) || [];
+    return '<section class="crm_section"><div class="crm_section-head"><h3 class="crm_section-title">Contrats et documents</h3>' +
+      '<button type="button" class="button is-small is-secondary" data-doc-add>' + icon('i-plus') + 'Ajouter</button></div>' +
+      (docs.length ? '<ul class="crm_pays" role="list">' + docs.map(function (dc) {
+        var url = '/api/clientarea.php?r=docs&id=' + encodeURIComponent(dc.id);
+        return '<li><span><b>' + esc(dc.title) + '</b> · ' + esc(DOCKIND[dc.kind] || dc.kind) + ' · ' + fmtDate(dc.created_at) + ' · ' + Math.max(1, Math.round(Number(dc.size) / 1024)) + ' Ko' +
+          ' · <span class="' + (Number(dc.visible) ? '' : 'is-muted') + '">' + (Number(dc.visible) ? 'visible par le client' : 'interne') + '</span></span><span></span>' +
+          '<span class="crm_inline"><a class="button is-small is-secondary" href="' + url + '&view=1" target="_blank" rel="noopener">Ouvrir</a>' +
+          '<button type="button" class="button is-small is-secondary" data-doc-visible="' + esc(dc.id) + '" data-v="' + (Number(dc.visible) ? 0 : 1) + '">' + (Number(dc.visible) ? 'Masquer' : 'Montrer au client') + '</button>' +
+          '<button type="button" class="icon-button is-danger" data-doc-del="' + esc(dc.id) + '" aria-label="Supprimer le document">' + icon('i-trash') + '</button></span></li>';
+      }).join('') + '</ul>' : '<p class="crm_empty">Aucun document. Ajoutez le contrat signé : le client le retrouvera dans son espace.</p>') + '</section>';
+  }
+  function uploadDoc(id, data) {
+    if (!data.file) return Promise.reject(new Error('Choisissez un fichier.'));
+    var fd = new FormData();
+    fd.append('client_id', id); fd.append('kind', data.kind); fd.append('title', data.title || ''); fd.append('visible', data.visible); fd.append('file', data.file);
+    return fetch('/api/clientarea.php?r=docs', { method: 'POST', body: fd, credentials: 'same-origin', headers: { 'X-Requested-With': 'webina' } })
+      .then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { if (!r.ok) throw new Error(j.error || 'Envoi impossible'); return j; }); });
+  }
   function portalApi(path, opts) { return api('clientarea.php?' + path, opts); }
   function portalAction(t, id) {
     var el;
+    if (t.closest('[data-portal-mail]')) {
+      // Brouillon dans la langue du client, modifiable avant l'envoi ; le bouton de connexion est ajouté automatiquement
+      var openMail = function (lng) {
+        return portalApi('r=welcome&client_id=' + id + (lng ? '&lang=' + lng : '')).then(function (dft) {
+          openModal('Mail d\'accès à l\'espace client — à ' + dft.to, [
+            { label: 'Langue', name: 'lang', type: 'select', value: dft.lang, options: [['tr', 'Türkçe'], ['en', 'English'], ['fr', 'Français'], ['ar', 'العربية']] },
+            { label: 'Objet', name: 'subject', value: dft.subject, full: true },
+            { label: 'Message (le bouton « ' + dft.button + ' » est ajouté en dessous)', name: 'body', type: 'textarea', rows: 14, value: dft.body, full: true }
+          ], function (data) {
+            data.client_id = id;
+            return portalApi('r=welcome', { method: 'POST', body: data }).then(function () { toast('Mail envoyé à ' + dft.to); openClient(id, true); });
+          }, 'Envoyer le mail');
+          var sel = modalForm.querySelector('[name="lang"]');
+          sel.addEventListener('change', function () { if (sel.value !== dft.lang) openMail(sel.value).catch(function (ex) { toast(ex.message); }); });
+        });
+      };
+      return openMail('');
+    }
+    if (t.closest('[data-doc-add]')) {
+      return openModal('Ajouter un document', [
+        { label: 'Fichier (PDF, Word, JPG, PNG — 15 Mo max.)', name: 'file', type: 'file', accept: '.pdf,.doc,.docx,.jpg,.jpeg,.png', required: true, full: true },
+        { label: 'Titre', name: 'title', placeholder: 'ex. Hizmet Sözleşmesi 2026', full: true },
+        { label: 'Type', name: 'kind', type: 'select', options: Object.keys(DOCKIND).map(function (k) { return [k, DOCKIND[k]]; }) },
+        { label: 'Espace client', name: 'visible', type: 'select', options: [['1', 'Visible par le client'], ['0', 'Interne uniquement']] }
+      ], function (data) {
+        return uploadDoc(id, data).then(function () { toast('Document ajouté'); openClient(id, true); });
+      }, 'Ajouter le document');
+    }
+    if ((el = t.closest('[data-doc-visible]'))) {
+      var show = el.dataset.v === '1';
+      return portalApi('r=docs&id=' + el.dataset.docVisible, { method: 'PATCH', body: { visible: show } }).then(function () { toast(show ? 'Visible dans l\'espace client' : 'Masqué au client'); openClient(id, true); });
+    }
+    if ((el = t.closest('[data-doc-del]'))) {
+      if (!W.confirm('Supprimer définitivement ce document ?')) return;
+      return portalApi('r=docs&id=' + el.dataset.docDel, { method: 'DELETE' }).then(function () { toast('Document supprimé'); openClient(id, true); });
+    }
     if ((el = t.closest('[data-portal-access]'))) {
       return portalApi('r=access', { method: 'POST', body: { client_id: id, enabled: el.dataset.portalAccess === '1' } }).then(function () { toast('Espace client mis à jour'); openClient(id, true); });
     }
@@ -775,7 +850,7 @@
   }
   function editDeal(dl) {
     openModal('Modifier la vente', [
-      { label: 'Titre', name: 'title', value: dl.title, full: true }, { label: 'Montant', name: 'amount', type: 'number', value: Number(dl.amount), step: '1' },
+      { label: 'Titre', name: 'title', value: dl.title, full: true }, { label: 'Prix négocié (le projet lié est mis à jour)', name: 'amount', type: 'number', value: Number(dl.amount), step: '1' },
       { label: 'Devise', name: 'currency', type: 'select', options: CUR, value: dl.currency }, { label: 'Date de signature prévue', name: 'close_date', type: 'date', value: dl.close_date },
       { label: 'Notes', name: 'notes', type: 'textarea', value: dl.notes, full: true }
     ], function (data) {

@@ -207,6 +207,7 @@
           dl(contact) +
           (isQuote ? dl(detailRows(s.details)) : '<div></div>') +
           (s.message ? '<p class="admin_message">' + esc(s.message) + '</p>' : '') +
+          '<div class="admin_deal" data-deal-box><p class="text-size-small text-color-muted">Chargement du suivi commercial…</p></div>' +
           '<div class="admin_item-actions">' +
             '<select class="form_input is-select" data-status aria-label="Statut">' +
               Object.keys(STATUS).map(function (k) { return '<option value="' + k + '"' + (k === s.status ? ' selected' : '') + '>' + STATUS[k] + '</option>'; }).join('') +
@@ -226,6 +227,7 @@
       item.classList.toggle('is-open', open);
       $('.admin_item-head', item).setAttribute('aria-expanded', String(open));
       $('.admin_item-body', item).hidden = !open;
+      if (open) loadDealBox(item, id);
     } else if (e.target.closest('[data-delete]')) {
       if (!confirmAction('Supprimer cette demande ?')) return;
       api('submissions.php?id=' + encodeURIComponent(id), { method: 'DELETE' }).then(function () {
@@ -246,6 +248,68 @@
     }).catch(function (ex) { toast(ex.message); });
   });
   $('[data-status-filter]').addEventListener('change', function (e) { state.status = e.target.value; renderSubmissions(); });
+
+  /* ---------- Suivi commercial d'une demande : prix, étape, relance ---------- */
+  var DSTAGES = [['new', 'Nouveau'], ['contacted', 'Contacté'], ['proposal', 'Proposition envoyée'], ['won', 'Client réel (gagné)'], ['lost', 'Abandonné']];
+  var SUBST = { new: 'new', contacted: 'in_progress', proposal: 'in_progress', won: 'done', lost: 'done' };
+  function crmApi(path, opts) { return api('crm.php?' + path, opts); }
+  function loadDealBox(item, sid) {
+    var box = $('[data-deal-box]', item);
+    crmApi('r=deals&submission_id=' + encodeURIComponent(sid)).then(function (x) {
+      var dl = x.deal;
+      if (!dl) { box.innerHTML = '<p class="text-size-small text-color-muted">Pas de vente liée à cette demande dans le CRM.</p>'; return; }
+      box.dataset.deal = dl.id; box.dataset.client = dl.client_id;
+      var d3 = new Date(Date.now() + 3 * 864e5).toISOString().slice(0, 10);
+      box.innerHTML = '<p class="admin_deal-title">Suivi commercial · ' + esc(dl.client_name) + ' <span class="text-color-muted">(' + (dl.client_status === 'client' ? 'client' : 'prospect') + ')</span></p>' +
+        '<div class="admin_deal-row">' +
+          '<label class="admin_deal-field"><span>Prix (après remise)</span><span class="admin_money"><input class="form_input" type="number" step="1" min="0" value="' + Number(dl.amount) + '" data-deal-amount><span>' + esc(dl.currency === 'TRY' ? 'TL' : dl.currency) + '</span></span></label>' +
+          '<button type="button" class="button is-small is-secondary" data-deal-save>Enregistrer le prix</button>' +
+          '<label class="admin_deal-field"><span>Étape</span><select class="form_input is-select" data-deal-stage>' + DSTAGES.map(function (s) { return '<option value="' + s[0] + '"' + (s[0] === dl.stage ? ' selected' : '') + '>' + s[1] + '</option>'; }).join('') + '</select></label>' +
+        '</div>' +
+        '<div class="admin_deal-row">' +
+          '<label class="admin_deal-field"><span>Le client réfléchit : relancer le</span><input class="form_input" type="date" value="' + d3 + '" data-deal-date></label>' +
+          '<input class="form_input admin_deal-note" type="text" placeholder="Note (facultatif)" data-deal-note>' +
+          '<button type="button" class="button is-small is-secondary" data-deal-followup>Programmer la relance</button>' +
+          '<button type="button" class="button is-small" data-deal-open>Ouvrir la fiche client</button>' +
+        '</div>';
+    }).catch(function (ex) { box.innerHTML = '<p class="text-size-small">' + esc(ex.message) + '</p>'; });
+  }
+  function syncSubmission(item, id, stage) {
+    var st = SUBST[stage];
+    state.submissions.forEach(function (s) { if (s.id === id) s.status = st; });
+    var b = $('.admin_badge:not(.is-quote)', item); b.className = 'admin_badge is-' + st; b.textContent = STATUS[st];
+    var sel = $('[data-status]', item); if (sel) sel.value = st;
+    renderStats();
+  }
+  $('[data-submissions]').addEventListener('click', function (e) {
+    var box = e.target.closest('[data-deal-box]'); if (!box || !box.dataset.deal) return;
+    var item = box.closest('.admin_item');
+    if (e.target.closest('[data-deal-save]')) {
+      var amount = Number($('[data-deal-amount]', box).value);
+      if (!(amount >= 0)) return toast('Prix invalide');
+      crmApi('r=deals&id=' + box.dataset.deal, { method: 'PATCH', body: { amount: amount } }).then(function () {
+        $('.admin_item-price', item).textContent = money(amount, 'TRY'); toast('Prix enregistré');
+      }).catch(function (ex) { toast(ex.message); });
+    } else if (e.target.closest('[data-deal-followup]')) {
+      var day = $('[data-deal-date]', box).value;
+      if (!day) return toast('Choisissez une date');
+      crmApi('r=followup', { method: 'POST', body: { deal_id: box.dataset.deal, due_at: day + 'T10:00', note: $('[data-deal-note]', box).value } }).then(function () {
+        toast('Relance programmée le ' + day.split('-').reverse().join('/'));
+        if ($('[data-deal-stage]', box).value === 'new') { $('[data-deal-stage]', box).value = 'contacted'; syncSubmission(item, item.dataset.id, 'contacted'); }
+      }).catch(function (ex) { toast(ex.message); });
+    } else if (e.target.closest('[data-deal-open]')) {
+      var tab = document.querySelector('.admin_tab[data-tab="clients"]'); if (tab) tab.click();
+      if (window.CRM) window.CRM.open(box.dataset.client);
+    }
+  });
+  $('[data-submissions]').addEventListener('change', function (e) {
+    if (!e.target.matches('[data-deal-stage]')) return;
+    var box = e.target.closest('[data-deal-box]'), item = box.closest('.admin_item'), stage = e.target.value;
+    crmApi('r=deals&id=' + box.dataset.deal, { method: 'PATCH', body: { stage: stage } }).then(function () {
+      syncSubmission(item, item.dataset.id, stage);
+      toast(stage === 'won' ? 'Client réel : projet créé dans le CRM' : stage === 'lost' ? 'Marqué abandonné' : 'Étape : ' + DSTAGES.filter(function (s) { return s[0] === stage; })[0][1]);
+    }).catch(function (ex) { toast(ex.message); });
+  });
 
   /* ---------- Codes de réduction ---------- */
   function quoteLink(code, extra) {

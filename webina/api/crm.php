@@ -140,6 +140,11 @@ case 'clients':
 
 /* ---------- Ventes (pipeline) ---------- */
 case 'deals':
+    if ($method === 'GET' && !empty($_GET['submission_id'])) {
+        // Vente liée à une demande du site (suivi commercial depuis l'onglet Demandes)
+        $sid = need_id((string)$_GET['submission_id']);
+        json_out(['deal' => one($pdo, 'SELECT d.*, c.name client_name, c.status client_status FROM crm_deals d JOIN crm_clients c ON c.id = d.client_id WHERE d.submission_id = ? ORDER BY d.created_at LIMIT 1', [$sid]) ?: null]);
+    }
     if ($method === 'GET') {
         json_out(['items' => all($pdo, "SELECT d.*, c.name client_name, c.company client_company FROM crm_deals d JOIN crm_clients c ON c.id = d.client_id
             WHERE d.stage NOT IN ('won', 'lost') OR d.stage_changed_at > (NOW() - INTERVAL 60 DAY) ORDER BY d.stage_changed_at DESC")]);
@@ -158,6 +163,11 @@ case 'deals':
         $deal = one($pdo, 'SELECT * FROM crm_deals WHERE id = ?', [$id]);
         if (!$deal) fail('Vente introuvable.', 404);
         patch($pdo, 'crm_deals', $id, $in, $DEAL_FIELDS);
+        // Prix renégocié (remise…) : historique + montant du projet lié mis à jour
+        if (isset($in['amount']) && (float)$in['amount'] !== (float)$deal['amount']) {
+            crm_log($pdo, $deal['client_id'], $id, 'deal', 'Prix de « ' . $deal['title'] . ' » : ' . money((int)$deal['amount'], $deal['currency']) . ' → ' . money((int)$in['amount'], $deal['currency']));
+            $pdo->prepare('UPDATE crm_projects SET amount = ?, updated_at = NOW() WHERE deal_id = ?')->execute([(float)$in['amount'], $id]);
+        }
         if (isset($in['stage']) && $in['stage'] !== $deal['stage']) {
             if (!in_array($in['stage'], CRM_STAGES, true)) fail('Étape invalide.', 422);
             $from = $deal['stage'];
@@ -173,6 +183,24 @@ case 'deals':
         json_out(['ok' => true]);
     }
     break;
+
+/* ---------- Relance : le client réfléchit, on le rappelle à une date ---------- */
+case 'followup':
+    if ($method !== 'POST') break;
+    $did = need_id((string)($in['deal_id'] ?? ''));
+    $deal = one($pdo, 'SELECT d.*, c.name client_name FROM crm_deals d JOIN crm_clients c ON c.id = d.client_id WHERE d.id = ?', [$did]);
+    if (!$deal) fail('Vente introuvable.', 404);
+    $t = strtotime((string)($in['due_at'] ?? ''));
+    if ($t === false) fail('Date de relance requise.', 422);
+    $note = mb_substr(trim((string)($in['note'] ?? '')), 0, 2000);
+    $pdo->prepare("INSERT INTO crm_tasks (id, client_id, deal_id, title, kind, due_at, notes) VALUES (?, ?, ?, ?, 'call', ?, ?)")
+        ->execute([uuid4(), $deal['client_id'], $did, 'Relancer ' . $deal['client_name'] . ' — ' . $deal['title'], date('Y-m-d H:i:s', $t), $note !== '' ? $note : null]);
+    crm_log($pdo, $deal['client_id'], $did, 'note', 'À relancer le ' . date('d/m/Y', $t) . ($note !== '' ? ' : ' . $note : ''));
+    if ($deal['stage'] === 'new') {
+        $pdo->prepare("UPDATE crm_deals SET stage = 'contacted', stage_changed_at = NOW(), updated_at = NOW() WHERE id = ?")->execute([$did]);
+        crm_on_stage_change($pdo, one($pdo, 'SELECT * FROM crm_deals WHERE id = ?', [$did]), 'new', 'contacted');
+    }
+    json_out(['ok' => true], 201);
 
 /* ---------- Tâches ---------- */
 case 'tasks':

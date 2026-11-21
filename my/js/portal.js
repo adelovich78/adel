@@ -21,7 +21,7 @@
       site: { building: 'Hazırlanıyor', preview: 'Önizlemede', live: 'Yayında', suspended: 'Durduruldu' },
       plan: { vitrin: 'Vitrin', randevu: 'Randevu', eticaret: 'E-ticaret', ozel: 'Özel' },
       until: '{date} tarihine kadar', next: 'Sonraki ödeme: {date}', perYear: '/ yıl', days: '{n} gün', daysLeft: '{n} gün kaldı', daysAgo: '{n} gün geçti', today: 'bugün',
-      noService: 'Henüz aktif bir hizmetiniz yok. Siteniz hazırlandığında burada görünecek.', noInvoice: 'Henüz fatura yok.', noNotice: 'Yeni bildirim yok.',
+      noService: 'Henüz aktif bir hizmetiniz yok. Siteniz hazırlandığında burada görünecek.', noInvoice: 'Henüz fatura yok.', documents: 'Sözleşmeler ve belgeler', noDocument: 'Henüz belge yok. İmzalanan sözleşmeniz burada görünecek.', open: 'Görüntüle', download: 'İndir', dk: { contract: 'Sözleşme', quote: 'İmzalı teklif', invoice: 'Fatura', other: 'Belge' }, noNotice: 'Yeni bildirim yok.',
       th: { number: 'No', label: 'Açıklama', date: 'Tarih', due: 'Son gün', amount: 'Tutar', status: 'Durum' },
       bankT: 'Havale / EFT ile ödeme', bankRef: 'Açıklamaya fatura numarasını yazın.', payWa: 'WhatsApp ile ödeme bilgisi isteyin',
       sent: 'Talebiniz bize ulaştı. En kısa sürede dönüş yapacağız.', saved: 'Bilgileriniz kaydedildi.', approved: 'Teşekkürler! Sitenizi yayına almak için hazırlanıyoruz.',
@@ -45,7 +45,7 @@
       site: { building: 'In progress', preview: 'In preview', live: 'Live', suspended: 'Suspended' },
       plan: { vitrin: 'Showcase', randevu: 'Booking', eticaret: 'E-commerce', ozel: 'Custom' },
       until: 'until {date}', next: 'Next payment: {date}', perYear: '/ year', days: '{n} days', daysLeft: '{n} days left', daysAgo: '{n} days ago', today: 'today',
-      noService: 'You have no active service yet. Your site will appear here once it is ready.', noInvoice: 'No invoices yet.', noNotice: 'No new notifications.',
+      noService: 'You have no active service yet. Your site will appear here once it is ready.', noInvoice: 'No invoices yet.', documents: 'Contracts and documents', noDocument: 'No documents yet. Your signed contract will appear here.', open: 'View', download: 'Download', dk: { contract: 'Contract', quote: 'Signed quote', invoice: 'Invoice', other: 'Document' }, noNotice: 'No new notifications.',
       th: { number: 'No.', label: 'Description', date: 'Date', due: 'Due', amount: 'Amount', status: 'Status' },
       bankT: 'Pay by bank transfer', bankRef: 'Put the invoice number in the reference.', payWa: 'Ask for payment details on WhatsApp',
       sent: 'We received your request and will get back to you shortly.', saved: 'Your details were saved.', approved: 'Thank you! We are getting your site ready to go live.',
@@ -69,7 +69,7 @@
       site: { building: 'En création', preview: 'En prévisualisation', live: 'En ligne', suspended: 'Suspendu' },
       plan: { vitrin: 'Vitrine', randevu: 'Rendez-vous', eticaret: 'E-commerce', ozel: 'Sur mesure' },
       until: 'jusqu’au {date}', next: 'Prochain paiement : {date}', perYear: '/ an', days: '{n} jours', daysLeft: 'encore {n} jours', daysAgo: 'il y a {n} jours', today: 'aujourd’hui',
-      noService: 'Aucun service actif pour l’instant. Votre site apparaîtra ici dès qu’il sera prêt.', noInvoice: 'Aucune facture.', noNotice: 'Aucune nouvelle notification.',
+      noService: 'Aucun service actif pour l’instant. Votre site apparaîtra ici dès qu’il sera prêt.', noInvoice: 'Aucune facture.', documents: 'Contrats et documents', noDocument: 'Aucun document pour l’instant. Votre contrat signé apparaîtra ici.', open: 'Voir', download: 'Télécharger', dk: { contract: 'Contrat', quote: 'Devis signé', invoice: 'Facture', other: 'Document' }, noNotice: 'Aucune nouvelle notification.',
       th: { number: 'N°', label: 'Libellé', date: 'Date', due: 'Échéance', amount: 'Montant', status: 'Statut' },
       bankT: 'Paiement par virement', bankRef: 'Indiquez le numéro de facture en référence.', payWa: 'Demander les coordonnées de paiement sur WhatsApp',
       sent: 'Votre demande nous est parvenue. Nous revenons vers vous rapidement.', saved: 'Vos informations sont enregistrées.', approved: 'Merci ! Nous préparons la mise en ligne de votre site.',
@@ -93,7 +93,7 @@
       site: { building: 'قيد الإعداد', preview: 'قيد المعاينة', live: 'منشور', suspended: 'موقوف' },
       plan: { vitrin: 'واجهة', randevu: 'مواعيد', eticaret: 'متجر إلكتروني', ozel: 'مخصص' },
       until: 'حتى {date}', next: 'الدفعة التالية: {date}', perYear: '/ سنة', days: '{n} يوماً', daysLeft: 'متبقٍ {n} يوماً', daysAgo: 'منذ {n} يوماً', today: 'اليوم',
-      noService: 'لا توجد خدمة نشطة بعد. سيظهر موقعك هنا عندما يصبح جاهزاً.', noInvoice: 'لا توجد فواتير بعد.', noNotice: 'لا توجد إشعارات جديدة.',
+      noService: 'لا توجد خدمة نشطة بعد. سيظهر موقعك هنا عندما يصبح جاهزاً.', noInvoice: 'لا توجد فواتير بعد.', documents: 'العقود والمستندات', noDocument: 'لا توجد مستندات بعد. سيظهر عقدك الموقّع هنا.', open: 'عرض', download: 'تنزيل', dk: { contract: 'عقد', quote: 'عرض سعر موقّع', invoice: 'فاتورة', other: 'مستند' }, noNotice: 'لا توجد إشعارات جديدة.',
       th: { number: 'رقم', label: 'الوصف', date: 'التاريخ', due: 'الاستحقاق', amount: 'المبلغ', status: 'الحالة' },
       bankT: 'الدفع بالتحويل البنكي', bankRef: 'اكتب رقم الفاتورة في وصف التحويل.', payWa: 'اطلب بيانات الدفع عبر واتساب',
       sent: 'وصلنا طلبك وسنعود إليك قريباً.', saved: 'تم حفظ بياناتك.', approved: 'شكراً! نستعد لنشر موقعك.',
@@ -274,6 +274,18 @@
         (b.iban ? '<p class="bank_line">' + (b.holder ? esc(b.holder) + ' · ' : '') + (b.name ? esc(b.name) + ' · ' : '') + '<b dir="ltr">' + esc(b.iban) + '</b></p><p class="bank_hint">' + esc(l.bankRef) + '</p>' : '') +
         '<a class="text_link" href="https://wa.me/' + esc(d.whatsapp) + '?text=' + waText + '" target="_blank" rel="noopener">' + icon('i-chat') + esc(l.payWa) + '</a>';
     }
+
+    // 3 bis. Contrats et documents partagés par Webina
+    var dc = $('[data-documents]');
+    var docs = d.documents || [];
+    if (!docs.length) dc.innerHTML = '<p class="empty_text">' + esc(l.noDocument) + '</p>';
+    else dc.innerHTML = '<ul class="doc_list" role="list">' + docs.map(function (x) {
+      var url = '/api/portal.php?r=doc&id=' + encodeURIComponent(x.id);
+      var kb = Math.max(1, Math.round(Number(x.size) / 1024));
+      return '<li class="doc_item"><span class="doc_info"><b>' + esc(x.title) + '</b><span>' + esc((l.dk || {})[x.kind] || x.kind) + ' · ' + date(x.created_at) + ' · ' + (kb > 1024 ? (kb / 1024).toFixed(1) + ' MB' : kb + ' KB') + '</span></span>' +
+        '<span class="doc_actions">' + (x.mime === 'application/pdf' ? '<a class="text_link" href="' + url + '&view=1" target="_blank" rel="noopener">' + esc(l.open) + '</a>' : '') +
+        '<a class="doc_btn" href="' + url + '" download>' + esc(l.download) + '</a></span></li>';
+    }).join('') + '</ul>';
 
     // 4. Notifications + demandes récentes
     var no = $('[data-notices]');

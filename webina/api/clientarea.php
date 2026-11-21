@@ -6,6 +6,8 @@
 //   invoices POST {client_id, project_id, label, amount, currency, issued_on, due_on} | PATCH &id= {paid} | DELETE &id=
 //   notices  POST {client_id|null, level, title, body, expires_on} | DELETE &id=
 //   requests GET (demandes ouvertes) | PATCH &id= {status: done}
+//   welcome  GET &client_id= [&lang=] (brouillon) | POST {client_id, lang, subject, body} (envoi + ouverture de l'accès)
+//   docs     POST multipart {client_id, kind, title, visible, file} | GET &id= [&view=1] | PATCH &id= {visible, title} | DELETE &id=
 require __DIR__ . '/_bootstrap.php';
 require __DIR__ . '/_quote.php';
 require __DIR__ . '/_crm.php';
@@ -46,13 +48,63 @@ case 'link':
     crm_log($pdo, $cid, null, 'portal', 'Lien de connexion généré (valable ' . PORTAL_LINK_TTL . ' jours)');
     json_out(['url' => $url, 'phone' => preg_replace('/\D/', '', (string)$c['phone'])]);
 
+case 'welcome':
+    // Mail « Merci d'avoir choisi Webina » avec le lien vers l'espace client
+    $cid = $uuid($method === 'GET' ? (string)($_GET['client_id'] ?? '') : (string)($in['client_id'] ?? ''));
+    $c = portal_one($pdo, 'SELECT * FROM crm_clients WHERE id = ?', [$cid]);
+    if (!$c) fail('Client introuvable.', 404);
+    if (!filter_var((string)$c['email'], FILTER_VALIDATE_EMAIL)) fail('Ajoutez d\'abord une adresse e-mail valide à la fiche.', 422);
+    $lang = in_array($_GET['lang'] ?? $in['lang'] ?? '', ['tr', 'en', 'fr', 'ar'], true) ? ($_GET['lang'] ?? $in['lang']) : ($c['lang'] ?: 'tr');
+    if ($method === 'GET') json_out(portal_welcome_draft($c, $lang));
+    if ($method !== 'POST') break;
+    $subject = mb_substr(trim((string)($in['subject'] ?? '')), 0, 200);
+    $text = mb_substr(trim((string)($in['body'] ?? '')), 0, 8000);
+    if ($subject === '' || $text === '') fail('Objet et message requis.', 422);
+    // L'envoi ouvre l'accès s'il était fermé, et retient la langue du client
+    $pdo->prepare('UPDATE crm_clients SET portal_enabled = 1, lang = COALESCE(lang, ?) WHERE id = ?')->execute([$lang, $cid]);
+    if (!portal_send_welcome($pdo, $c, $lang, $subject, $text)) fail('E-mail non envoyé : vérifiez la configuration SMTP.', 502);
+    crm_log($pdo, $cid, null, 'portal', 'Mail de bienvenue envoyé à ' . $c['email'] . ' avec le lien de l\'espace client');
+    json_out(['ok' => true]);
+
 case 'client':
     $cid = $uuid($id);
     json_out([
         'invoices' => portal_all($pdo, 'SELECT * FROM crm_invoices WHERE client_id = ? ORDER BY issued_on DESC', [$cid]),
         'notices' => portal_all($pdo, 'SELECT * FROM crm_notices WHERE client_id = ? ORDER BY created_at DESC', [$cid]),
         'requests' => portal_all($pdo, 'SELECT * FROM portal_requests WHERE client_id = ? ORDER BY created_at DESC LIMIT 20', [$cid]),
+        'documents' => portal_all($pdo, 'SELECT id, project_id, kind, title, filename, mime, size, visible, created_at FROM crm_documents WHERE client_id = ? ORDER BY created_at DESC', [$cid]),
     ]);
+
+case 'docs':
+    // Contrats et documents du client : envoi (multipart), téléchargement, visibilité, suppression
+    if ($method === 'GET') {
+        $doc = portal_one($pdo, 'SELECT * FROM crm_documents WHERE id = ?', [$uuid($id)]);
+        if (!$doc) fail('Document introuvable.', 404);
+        crm_doc_stream($doc, !empty($_GET['view']));
+    }
+    if ($method === 'POST') {
+        $cid = $uuid((string)($_POST['client_id'] ?? ''));
+        if (!portal_one($pdo, 'SELECT 1 x FROM crm_clients WHERE id = ?', [$cid])) fail('Client introuvable.', 404);
+        $doc = crm_doc_upload($pdo, $cid, $_FILES['file'] ?? [], (string)($_POST['kind'] ?? 'contract'), (string)($_POST['title'] ?? ''), ($_POST['visible'] ?? '1') === '1');
+        unset($doc['stored']);
+        json_out(['document' => $doc], 201);
+    }
+    if ($method === 'PATCH') {
+        $doc = portal_one($pdo, 'SELECT * FROM crm_documents WHERE id = ?', [$uuid($id)]);
+        if (!$doc) fail('Document introuvable.', 404);
+        if (array_key_exists('visible', $in)) $pdo->prepare('UPDATE crm_documents SET visible = ? WHERE id = ?')->execute([!empty($in['visible']) ? 1 : 0, $id]);
+        if (isset($in['title']) && trim((string)$in['title']) !== '') $pdo->prepare('UPDATE crm_documents SET title = ? WHERE id = ?')->execute([mb_substr(trim((string)$in['title']), 0, 200), $id]);
+        json_out(['ok' => true]);
+    }
+    if ($method === 'DELETE') {
+        $doc = portal_one($pdo, 'SELECT * FROM crm_documents WHERE id = ?', [$uuid($id)]);
+        if (!$doc) fail('Document introuvable.', 404);
+        @unlink(crm_files_dir() . '/' . basename($doc['stored']));
+        $pdo->prepare('DELETE FROM crm_documents WHERE id = ?')->execute([$id]);
+        crm_log($pdo, $doc['client_id'], null, 'document', 'Document supprimé : ' . $doc['title']);
+        json_out(['ok' => true]);
+    }
+    break;
 
 case 'invoices':
     if ($method === 'POST') {

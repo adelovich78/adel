@@ -4,6 +4,7 @@
 //   POST verify {email, code}        → ouvre la session
 //   POST link   {token}              → ouvre la session avec le lien envoyé par Webina
 //   GET  me                          → tableau de bord complet
+//   GET  doc &id= [&view=1]          → télécharge un contrat / document partagé
 //   POST request {kind, service, detail}
 //   PATCH account {name, phone, company, lang}
 //   POST logout
@@ -52,6 +53,16 @@ case 'link':
     if (!$cid) fail('Bağlantı geçersiz veya süresi dolmuş.', 401);
     portal_login($pdo, $cid);
     json_out(['ok' => true]);
+
+case 'doc':
+    // Téléchargement d'un document du client connecté (jamais celui d'un autre client)
+    $c = portal_client($pdo);
+    if (!$c) fail('Oturum yok.', 401);
+    $id = (string)($_GET['id'] ?? '');
+    if (!preg_match('/^[0-9a-f-]{36}$/', $id)) fail('Belge bulunamadı.', 404);
+    $doc = portal_one($pdo, 'SELECT * FROM crm_documents WHERE id = ? AND client_id = ? AND visible = 1', [$id, $c['id']]);
+    if (!$doc) fail('Belge bulunamadı.', 404);
+    crm_doc_stream($doc, !empty($_GET['view']));
 
 case 'me':
     $c = portal_client($pdo);

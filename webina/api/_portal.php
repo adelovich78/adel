@@ -142,10 +142,12 @@ function portal_dashboard(PDO $pdo, array $c): array {
         FROM portal_requests r WHERE r.client_id = ? ORDER BY r.created_at DESC LIMIT 10", [$c['id']]);
     foreach ($requests as &$q) { $q['unread'] = (int)$q['unread']; $q['replies'] = (int)$q['replies']; }
     unset($q);
+    // Contrats et documents partagés par Webina
+    $documents = portal_all($pdo, 'SELECT id, kind, title, filename, mime, size, created_at FROM crm_documents WHERE client_id = ? AND visible = 1 ORDER BY created_at DESC', [$c['id']]);
     $pricing = load_pricing();
     return [
         'client' => ['name' => $c['name'], 'company' => $c['company'], 'email' => $c['email'], 'phone' => $c['phone'], 'lang' => $c['lang']],
-        'services' => $services, 'actions' => $actions, 'invoices' => $invoices, 'notices' => $notices, 'requests' => $requests,
+        'services' => $services, 'actions' => $actions, 'invoices' => $invoices, 'notices' => $notices, 'requests' => $requests, 'documents' => $documents,
         'pricing' => ['prices' => array_intersect_key($pricing['prices'], array_flip(['base', 'bookingCalendar', 'shop', 'renewalYearly'])),
                       'currencyByLang' => $pricing['currencyByLang'], 'tlPer' => $pricing['tlPer'], 'rounding' => $pricing['rounding']],
         'bank' => array_filter(['name' => $GLOBALS['CONFIG']['bank_name'] ?? null, 'iban' => $GLOBALS['CONFIG']['bank_iban'] ?? null, 'holder' => $GLOBALS['CONFIG']['bank_holder'] ?? null]),
@@ -314,4 +316,36 @@ function portal_send_code(array $c, string $code, string $lang): bool {
         . '<p style="margin:0 0 16px;font-size:34px;font-weight:800;letter-spacing:8px;font-family:monospace">' . h($code) . '</p>'
         . '<p style="margin:0;color:#777;font-size:13px">' . h($L[2]) . '</p>';
     return send_html_mail((string)$c['email'], $L[0], mail_layout($html, $lang === 'ar'));
+}
+
+/* ---------- Mail de bienvenue : « Merci d'avoir choisi Webina » + lien vers l'espace client ---------- */
+// Texte proposé dans la langue du client ; Webina peut le modifier avant l'envoi
+function portal_welcome_draft(array $c, string $lang): array {
+    $first = trim(explode(' ', trim((string)$c['name']))[0] ?? '');
+    $email = (string)$c['email'];
+    $T = [
+        'tr' => ['Webina\'ya hoş geldiniz — özel müşteri alanınız',
+            "Merhaba $first,\n\nWebina'yı seçtiğiniz için teşekkür ederiz. Sizin için özel bir müşteri alanı hazırladık.\n\nBu alanda şunları bulabilirsiniz:\n• Sözleşmeniz ve belgeleriniz\n• Sitenizin, alan adınızın ve hostinginizin durumu\n• Faturalarınız ve ödeme bilgileri\n• Destek talebi gönderme ve yanıtlarımızı takip etme\n\nAşağıdaki butona tıklayarak hemen giriş yapabilirsiniz. Daha sonra my.webina.com.tr adresinden e-posta adresinizle ($email) giriş yapabilirsiniz: size tek kullanımlık bir kod göndeririz, şifre gerekmez.\n\nHerhangi bir sorunuz olursa bize yazmaktan çekinmeyin.\n\nSevgiler,\nWebina Ekibi",
+            'Özel alanıma gir', 'Bu bağlantı ' . PORTAL_LINK_TTL . ' gün geçerlidir ve tek kullanımlıktır.'],
+        'en' => ['Welcome to Webina — your private client area',
+            "Hello $first,\n\nThank you for choosing Webina. We have set up a private client area for you.\n\nIn it you will find:\n• Your contract and documents\n• The status of your website, domain and hosting\n• Your invoices and payment details\n• A way to send us support requests and follow our replies\n\nClick the button below to sign in right away. Later, you can sign in at my.webina.com.tr with your email address ($email): we send you a one-time code, no password needed.\n\nIf you have any question, just write to us.\n\nBest regards,\nThe Webina team",
+            'Open my client area', 'This link is valid for ' . PORTAL_LINK_TTL . ' days and can be used once.'],
+        'fr' => ['Bienvenue chez Webina — votre espace client privé',
+            "Bonjour $first,\n\nMerci d'avoir choisi Webina. Nous avons préparé pour vous un espace client privé.\n\nVous y trouverez :\n• Votre contrat et vos documents\n• L'état de votre site, de votre nom de domaine et de votre hébergement\n• Vos factures et les informations de paiement\n• L'envoi de demandes d'assistance et le suivi de nos réponses\n\nCliquez sur le bouton ci-dessous pour vous connecter tout de suite. Ensuite, connectez-vous sur my.webina.com.tr avec votre adresse e-mail ($email) : nous vous envoyons un code à usage unique, sans mot de passe.\n\nPour toute question, n'hésitez pas à nous écrire.\n\nBien cordialement,\nL'équipe Webina",
+            'Accéder à mon espace', 'Ce lien est valable ' . PORTAL_LINK_TTL . ' jours et ne sert qu’une fois.'],
+        'ar' => ['مرحباً بك في Webina — منطقة العملاء الخاصة بك',
+            "مرحباً $first،\n\nشكراً لاختيارك Webina. لقد جهّزنا لك منطقة عملاء خاصة.\n\nستجد فيها:\n• عقدك ومستنداتك\n• حالة موقعك ونطاقك والاستضافة\n• فواتيرك ومعلومات الدفع\n• إرسال طلبات الدعم ومتابعة ردودنا\n\nاضغط على الزر أدناه للدخول فوراً. لاحقاً يمكنك الدخول عبر my.webina.com.tr ببريدك الإلكتروني ($email): نرسل لك رمزاً لمرة واحدة دون كلمة مرور.\n\nلأي سؤال لا تتردد في مراسلتنا.\n\nمع أطيب التحيات،\nفريق Webina",
+            'الدخول إلى منطقتي', 'هذا الرابط صالح لمدة ' . PORTAL_LINK_TTL . ' أيام ولمرة واحدة.'],
+    ];
+    $L = $T[$lang] ?? $T['tr'];
+    return ['lang' => isset($T[$lang]) ? $lang : 'tr', 'to' => $email, 'subject' => $L[0], 'body' => $L[1], 'button' => $L[2], 'note' => $L[3]];
+}
+
+function portal_send_welcome(PDO $pdo, array $c, string $lang, string $subject, string $body): bool {
+    $d = portal_welcome_draft($c, $lang);
+    $url = portal_url() . '/?t=' . portal_token($pdo, $c['id'], 'link');
+    $html = '<div style="font-size:15px;line-height:1.6;color:#2b302c;white-space:pre-wrap">' . h($body) . '</div>'
+        . '<p style="margin:24px 0 8px"><a href="' . h($url) . '" style="display:inline-block;background:#23772a;color:#ffffff;text-decoration:none;font-weight:bold;padding:13px 26px;border-radius:99px">' . h($d['button']) . '</a></p>'
+        . '<p style="margin:0;color:#888;font-size:12px">' . h($d['note']) . '<br><a href="' . h(portal_url()) . '" style="color:#1f6f2a">' . h(preg_replace('#^https?://#', '', portal_url())) . '</a></p>';
+    return send_html_mail((string)$c['email'], $subject, mail_layout($html, $d['lang'] === 'ar'), email_list($GLOBALS['CONFIG']['notify_email'] ?? '')[0] ?? null);
 }

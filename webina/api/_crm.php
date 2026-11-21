@@ -200,6 +200,21 @@ function crm_schema(PDO $pdo): void {
         created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
         INDEX idx_hash (token_hash), INDEX idx_client (client_id, kind)
     ) $o");
+    // Documents d'un client (contrats, devis signés…) : fichiers rangés hors du dossier public
+    $pdo->exec("CREATE TABLE IF NOT EXISTS crm_documents (
+        id CHAR(36) NOT NULL PRIMARY KEY,
+        client_id CHAR(36) NOT NULL,
+        project_id CHAR(36) NULL,
+        kind VARCHAR(12) NOT NULL DEFAULT 'contract',
+        title VARCHAR(200) NOT NULL,
+        filename VARCHAR(200) NOT NULL,
+        mime VARCHAR(80) NOT NULL,
+        size INT NOT NULL DEFAULT 0,
+        stored VARCHAR(80) NOT NULL,
+        visible TINYINT(1) NOT NULL DEFAULT 1,
+        created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        INDEX idx_client (client_id, created_at)
+    ) $o");
     $pdo->exec("CREATE TABLE IF NOT EXISTS crm_activity (
         id CHAR(36) NOT NULL PRIMARY KEY,
         client_id CHAR(36) NULL,
@@ -273,19 +288,33 @@ function crm_ingest_submission(PDO $pdo, array $s): void {
 
 /* ---------- Automatisation 2 : changement d'étape d'une vente ---------- */
 function crm_on_stage_change(PDO $pdo, array $deal, string $from, string $to): void {
-    $labels = ['new' => 'Nouveau', 'contacted' => 'Contacté', 'proposal' => 'Proposition', 'won' => 'Gagné', 'lost' => 'Perdu'];
+    $labels = ['new' => 'Nouveau', 'contacted' => 'Contacté', 'proposal' => 'Proposition envoyée', 'won' => 'Client réel (gagné)', 'lost' => 'Abandonné'];
     crm_log($pdo, $deal['client_id'], $deal['id'], 'stage', 'Étape : ' . ($labels[$from] ?? $from) . ' → ' . ($labels[$to] ?? $to));
     if ($to === 'won') {
         $pdo->prepare("UPDATE crm_clients SET status = 'client', updated_at = NOW() WHERE id = ?")->execute([$deal['client_id']]);
-        // Projet créé automatiquement à partir de la vente gagnée
-        $pid = uuid4();
-        $st = $pdo->prepare("INSERT IGNORE INTO crm_projects (id, client_id, deal_id, name, status, start_date, amount, currency, hosting_renewal, hosting_amount)
-            VALUES (?, ?, ?, ?, 'in_progress', CURDATE(), ?, ?, DATE_ADD(CURDATE(), INTERVAL 1 YEAR), ?)");
-        $st->execute([$pid, $deal['client_id'], $deal['id'], $deal['title'], $deal['amount'], $deal['currency'], crm_renewal_price($deal['currency'])]);
-        if ($st->rowCount()) {
-            crm_log($pdo, $deal['client_id'], $deal['id'], 'project', 'Projet créé : ' . $deal['title']);
-            crm_auto_task($pdo, 'kickoff:' . $deal['id'], 'Lancer le projet « ' . $deal['title'] . ' »', crm_next_workday(), $deal['client_id'], $deal['id'], $pid);
+        // Projet déjà créé à la main pour ce service (même nom, sans vente liée) : on le rattache au lieu d'en créer un second
+        $st = $pdo->prepare('SELECT id FROM crm_projects WHERE client_id = ? AND deal_id IS NULL AND LOWER(TRIM(name)) = LOWER(TRIM(?)) LIMIT 1');
+        $st->execute([$deal['client_id'], $deal['title']]);
+        if ($existing = $st->fetchColumn()) {
+            $pdo->prepare('UPDATE crm_projects SET deal_id = ?, amount = ?, updated_at = NOW() WHERE id = ?')->execute([$deal['id'], $deal['amount'], $existing]);
+            crm_log($pdo, $deal['client_id'], $deal['id'], 'project', 'Vente rattachée au projet existant « ' . $deal['title'] . ' »');
         }
+        // Sinon, projet créé automatiquement à partir de la vente gagnée
+        $pid = uuid4();
+        if (!$existing) {
+            $st = $pdo->prepare("INSERT IGNORE INTO crm_projects (id, client_id, deal_id, name, status, start_date, amount, currency, hosting_renewal, hosting_amount)
+                VALUES (?, ?, ?, ?, 'in_progress', CURDATE(), ?, ?, DATE_ADD(CURDATE(), INTERVAL 1 YEAR), ?)");
+            $st->execute([$pid, $deal['client_id'], $deal['id'], $deal['title'], $deal['amount'], $deal['currency'], crm_renewal_price($deal['currency'])]);
+            if ($st->rowCount()) {
+                crm_log($pdo, $deal['client_id'], $deal['id'], 'project', 'Projet créé : ' . $deal['title']);
+                crm_auto_task($pdo, 'kickoff:' . $deal['id'], 'Lancer le projet « ' . $deal['title'] . ' »', crm_next_workday(), $deal['client_id'], $deal['id'], $pid);
+            }
+        }
+    }
+    // La demande du site liée à cette vente suit le même avancement
+    if (!empty($deal['submission_id'])) {
+        $sub = in_array($to, ['won', 'lost'], true) ? 'done' : (in_array($to, ['contacted', 'proposal'], true) ? 'in_progress' : 'new');
+        try { $pdo->prepare('UPDATE contact_submissions SET status = ? WHERE id = ?')->execute([$sub, $deal['submission_id']]); } catch (Throwable $e) {}
     }
     if (in_array($to, ['won', 'lost'], true)) {
         // Les relances automatiques ouvertes n'ont plus lieu d'être
@@ -662,4 +691,52 @@ function crm_to_try(float $amount, string $currency): float {
         $rates = is_array($p['tlPer'] ?? null) ? $p['tlPer'] : [];
     }
     return $amount * (float)($rates[$currency] ?? 1);
+}
+
+/* ---------- Documents clients ---------- */
+// Dossier hors de public_html (ex. /home/compte/webina_files) ; modifiable par 'files_dir' dans config.php
+function crm_files_dir(): string {
+    $dir = $GLOBALS['CONFIG']['files_dir'] ?? (dirname(__DIR__, 2) . '/webina_files');
+    if (!is_dir($dir) && !@mkdir($dir, 0750, true)) fail('Dossier des documents inaccessible.', 500);
+    // Ceinture et bretelles si le dossier se retrouvait un jour sous la racine web
+    if (!is_file($dir . '/.htaccess')) @file_put_contents($dir . '/.htaccess', "Require all denied\nDeny from all\n");
+    return $dir;
+}
+
+const CRM_DOC_TYPES = ['application/pdf' => 'pdf', 'image/jpeg' => 'jpg', 'image/png' => 'png',
+    'application/vnd.openxmlformats-officedocument.wordprocessingml.document' => 'docx', 'application/msword' => 'doc'];
+const CRM_DOC_KINDS = ['contract', 'quote', 'invoice', 'other'];
+
+// Enregistre le fichier envoyé (champ « file ») pour un client ; 15 Mo maximum
+function crm_doc_upload(PDO $pdo, string $cid, array $f, string $kind, string $title, bool $visible, ?string $pid = null): array {
+    if (($f['error'] ?? UPLOAD_ERR_NO_FILE) !== UPLOAD_ERR_OK) fail('Fichier non reçu (taille maximale du serveur dépassée ?).', 422);
+    if ($f['size'] > 15 * 1024 * 1024) fail('Fichier trop lourd (15 Mo maximum).', 422);
+    $mime = (new finfo(FILEINFO_MIME_TYPE))->file($f['tmp_name']) ?: '';
+    if (!isset(CRM_DOC_TYPES[$mime])) fail('Format accepté : PDF, Word, JPG ou PNG.', 422);
+    $id = uuid4();
+    $stored = $id . '.' . CRM_DOC_TYPES[$mime];
+    if (!move_uploaded_file($f['tmp_name'], crm_files_dir() . '/' . $stored)) fail('Enregistrement du fichier impossible.', 500);
+    $name = mb_substr(preg_replace('/[^\p{L}\p{N} ._()-]+/u', '_', basename((string)$f['name'])), 0, 200) ?: $stored;
+    $title = mb_substr(trim($title), 0, 200) ?: preg_replace('/\.[^.]+$/', '', $name);
+    $kind = in_array($kind, CRM_DOC_KINDS, true) ? $kind : 'other';
+    $pdo->prepare('INSERT INTO crm_documents (id, client_id, project_id, kind, title, filename, mime, size, stored, visible) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)')
+        ->execute([$id, $cid, $pid, $kind, $title, $name, $mime, (int)$f['size'], $stored, $visible ? 1 : 0]);
+    crm_log($pdo, $cid, null, 'document', 'Document ajouté : ' . $title . ($visible ? ' (visible dans l\'espace client)' : ''));
+    $st = $pdo->prepare('SELECT * FROM crm_documents WHERE id = ?'); $st->execute([$id]);
+    return $st->fetch();
+}
+
+// Envoie le fichier au navigateur (téléchargement ou affichage du PDF)
+function crm_doc_stream(array $doc, bool $inline = false): void {
+    $path = crm_files_dir() . '/' . basename($doc['stored']);
+    if (!is_file($path)) fail('Fichier introuvable.', 404);
+    while (ob_get_level()) ob_end_clean();
+    header('Content-Type: ' . $doc['mime']);
+    header('Content-Length: ' . filesize($path));
+    header('X-Content-Type-Options: nosniff');
+    header('Cache-Control: private, no-store');
+    $disp = $inline && $doc['mime'] === 'application/pdf' ? 'inline' : 'attachment';
+    header("Content-Disposition: $disp; filename*=UTF-8''" . rawurlencode($doc['filename']));
+    readfile($path);
+    exit;
 }
