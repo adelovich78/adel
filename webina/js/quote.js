@@ -28,7 +28,7 @@
 
   var state = {
     logo: '', domain: '', domainName: '', pages: [], customPages: 0, customDesc: '',
-    langs: [], booking: ['form'], content: 'ready', photos: 'own', example: '', promo: ''
+    langs: [], booking: ['form'], content: 'ready', photos: 'own', example: '', promo: '', social: params.get('social') === '1' ? 'yes' : 'no'
   };
 
   function defaultLangs(l) { return l === 'en' ? ['en', 'tr'] : [l, 'en']; }
@@ -42,6 +42,7 @@
     Object.keys(pricing.prices).forEach(function (k) {
       t[k] = Math.round(pricing.prices[k] / rate / step) * step;
     });
+    if (t.socialMonthly == null) t.socialMonthly = Math.round(5000 / rate / step) * step;
     return { currency: cur, t: t, rate: rate, step: step };
   }
 
@@ -79,6 +80,7 @@
     return {
       currency: c.currency, t: t, lines: lines, total: total, deposit: deposit, balance: total - deposit,
       depositPercent: pricing.depositPercent, renewal: t.renewalYearly,
+      monthly: state.social === 'yes' ? t.socialMonthly : 0,
       includedPages: pricing.includedPages, includedLangs: incLangs
     };
   }
@@ -131,6 +133,7 @@
       var k = el.getAttribute('data-price');
       if (k === 'free') el.textContent = q.free;
       else if (k === 'included') el.textContent = q.included;
+      else if (k === 'socialMonthly') el.textContent = '+' + fmt(res.t[k]) + ' ' + q.perMonth;
       else if (res.t[k] != null) el.textContent = res.t[k] ? '+' + fmt(res.t[k]) : q.included;
       else el.textContent = '';
     });
@@ -171,6 +174,10 @@
     });
     prevKeys = keys;
 
+    root.querySelectorAll('[data-monthly]').forEach(function (e) {
+      e.hidden = !res.monthly;
+      e.textContent = res.monthly ? q.sum.monthly.replace('{x}', fmt(res.monthly)) : '';
+    });
     tweenTotal(res.total, cur);
     updateReady();
     return res;

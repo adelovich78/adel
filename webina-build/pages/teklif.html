@@ -108,9 +108,18 @@
                   <legend class="quote_step-head"><span class="quote_step-number">08</span><span class="quote_step-title">{{t:quote.q.example}} <span class="text-color-muted">({{t:quote.optional}})</span></span></legend>
                   <input class="form_input" name="example" type="url" dir="ltr" maxlength="200" placeholder="https://" aria-label="{{raw:quote.q.example}}">
                 </fieldset>
-                <!-- 9. Bilgiler -->
+                <!-- 9. Sosyal medya (aylık) -->
+                <fieldset class="quote_step" id="quote-social">
+                  <legend class="quote_step-head"><span class="quote_step-number">09</span><span class="quote_step-title">{{t:quote.q.social}} <span class="text-color-muted">({{t:quote.optional}})</span></span></legend>
+                  <p class="quote_hint text-size-small text-color-secondary">{{t:quote.q.socialHint}}</p>
+                  <div class="option_grid">
+                    {{OPT:social:no:quote.opt.social.no}}
+                    {{OPT:social:yes:quote.opt.social.yes:socialMonthly}}
+                  </div>
+                </fieldset>
+                <!-- 10. Bilgiler -->
                 <fieldset class="quote_step" id="quote-contact">
-                  <legend class="quote_step-head"><span class="quote_step-number">09</span><span class="quote_step-title">{{t:quote.q.contactT}}</span></legend>
+                  <legend class="quote_step-head"><span class="quote_step-number">10</span><span class="quote_step-title">{{t:quote.q.contactT}}</span></legend>
                   <p class="quote_hint text-size-small text-color-secondary">{{t:quote.q.contactHint}}</p>
                   <div class="form_grid">
                     <div class="form_field"><label class="form_label" for="q-name">{{t:quote.q.name}}</label><input class="form_input" id="q-name" name="name" autocomplete="name" maxlength="120"></div>
@@ -151,6 +160,7 @@
                     <p class="text-size-small text-color-secondary">{{t:quote.sum.total}}</p>
                     <p class="summary_amount" dir="ltr" data-total>—</p>
                   </div>
+                  <p class="summary_monthly" dir="auto" data-monthly hidden></p>
                   <p class="summary_note is-accent"><svg class="icon" aria-hidden="true"><use href="#i-shield"/></svg><span data-fill="deposit">{{raw:quote.sum.noDeposit}}</span></p>
                   <p class="summary_note"><svg class="icon" aria-hidden="true"><use href="#i-info"/></svg><span data-fill="renewal">&nbsp;</span></p>
                   <p class="form_error text-size-small" role="alert" data-quote-error></p>

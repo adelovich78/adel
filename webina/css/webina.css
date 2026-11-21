@@ -2293,3 +2293,8 @@ body:has(.sector-dock.is-on) .wa_float { transform: translateY(-72px); }
 .sector-tile_demo .icon { width: 13px; height: 13px; }
 .sector-tile_demo:active { transform: scale(0.96); }
 @media (hover: hover) and (pointer: fine) { .sector-tile_demo:hover { background-color: #fff; transform: translateY(-1px); } }
+
+.solution_more { align-self: flex-start; margin-top: 8px; }
+
+.summary_monthly { margin: 10px 0 0; padding: 10px 12px; border-radius: 10px; background-color: color-mix(in srgb, var(--color-accent) 12%, transparent); color: var(--color-accent-ink); font-size: 0.9375rem; font-weight: 600; }
+.summary_monthly[hidden] { display: none; }

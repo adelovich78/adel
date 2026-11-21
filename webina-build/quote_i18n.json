@@ -51,7 +51,9 @@
    "cityPh": "İl seçin",
    "districtPh": "İlçe seçin (isteğe bağlı)",
    "mahalle": "Mahalle",
-   "mahallePh": "Mahalle seçin (isteğe bağlı)"
+   "mahallePh": "Mahalle seçin (isteğe bağlı)",
+   "social": "Sosyal medya yönetimi",
+   "socialHint": "Facebook + Instagram: ayda 4 video ve 15 paylaşım, metinler ve yayınlama. Kurulum ücretsiz, Meta reklam bütçesi hariç."
   },
   "opt": {
    "pages": {
@@ -88,6 +90,10 @@
     "own": "Fotoğraflarım var",
     "stock": "Hazır (stok) fotoğraflar",
     "pro": "Profesyonel fotoğrafçı (1 gün çekim, İstanbul)"
+   },
+   "social": {
+    "no": "Şimdilik istemiyorum",
+    "yes": "Evet, ekleyin"
    }
   },
   "sum": {
@@ -102,7 +108,8 @@
    "note": "Fiyat seçimlerinize göre otomatik hesaplanır. Kesin teklif yazılı olarak onaylanır.",
    "send": "Talebimi gönder",
    "sending": "Gönderiliyor...",
-   "fillContact": "Göndermek için ad, e-posta ve şehir girin"
+   "fillContact": "Göndermek için ad, e-posta ve şehir girin",
+   "monthly": "+ {x} / ay — sosyal medya yönetimi"
   },
   "lines": {
    "base": "Standart paket ({n} sayfa, {l} dil, iletişim, tasarım + SSL + SEO)",
@@ -115,7 +122,8 @@
    "photos": "Profesyonel fotoğrafçı (1 gün, İstanbul)",
    "shop": "Online mağaza",
    "logo": "Logo tasarımı",
-   "domain": "Alan adı + hosting (1. yıl)"
+   "domain": "Alan adı + hosting (1. yıl)",
+   "social": "Sosyal medya yönetimi (kurulum ücretsiz)"
   },
   "errName": "Lütfen adınızı yazın",
   "errEmail": "Lütfen geçerli bir e-posta girin",
@@ -123,7 +131,8 @@
   "errSend": "Gönderilemedi, lütfen tekrar deneyin veya WhatsApp'tan yazın.",
   "sentT": "Talebiniz alındı!",
   "sentP": "Teklif özetiniz {e} adresine gönderildi. En kısa sürede sizinle iletişime geçeceğiz.",
-  "whatsapp": "WhatsApp'tan yazın"
+  "whatsapp": "WhatsApp'tan yazın",
+  "perMonth": "/ ay"
  },
  "en": {
   "eyebrow": "Price calculator",
@@ -177,7 +186,9 @@
    "cityPh": "Choose a province",
    "districtPh": "Choose a district (optional)",
    "mahalle": "Neighbourhood",
-   "mahallePh": "Choose a neighbourhood (optional)"
+   "mahallePh": "Choose a neighbourhood (optional)",
+   "social": "Social media management",
+   "socialHint": "Facebook + Instagram: 4 videos and 15 posts a month, captions and publishing. Free setup, Meta ads budget not included."
   },
   "opt": {
    "pages": {
@@ -214,6 +225,10 @@
     "own": "I have my photos",
     "stock": "Ready-made (stock) photos",
     "pro": "Professional photographer (1-day shoot, Istanbul)"
+   },
+   "social": {
+    "no": "Not for now",
+    "yes": "Yes, add it"
    }
   },
   "sum": {
@@ -228,7 +243,8 @@
    "note": "Price calculated automatically from your choices. The final quote is confirmed in writing.",
    "send": "Send my request",
    "sending": "Sending...",
-   "fillContact": "Enter your name, email and city to send"
+   "fillContact": "Enter your name, email and city to send",
+   "monthly": "+ {x} / month — social media management"
   },
   "lines": {
    "base": "Standard pack ({n} pages, {l} languages, contact, design + SSL + SEO)",
@@ -241,7 +257,8 @@
    "photos": "Professional photographer (1 day, Istanbul)",
    "shop": "Online shop",
    "logo": "Logo design",
-   "domain": "Domain + hosting (1st year)"
+   "domain": "Domain + hosting (1st year)",
+   "social": "Social media management (free setup)"
   },
   "errName": "Please enter your name",
   "errEmail": "Please enter a valid email",
@@ -249,7 +266,8 @@
   "errSend": "Could not send, please try again or message us on WhatsApp.",
   "sentT": "Request received!",
   "sentP": "Your quote summary has been sent to {e}. We will contact you shortly.",
-  "whatsapp": "Message us on WhatsApp"
+  "whatsapp": "Message us on WhatsApp",
+  "perMonth": "/ month"
  },
  "fr": {
   "eyebrow": "Calculateur de prix",
@@ -303,7 +321,9 @@
    "cityPh": "Choisissez une province",
    "districtPh": "Choisissez un district (facultatif)",
    "mahalle": "Quartier (mahalle)",
-   "mahallePh": "Choisissez un quartier (facultatif)"
+   "mahallePh": "Choisissez un quartier (facultatif)",
+   "social": "Gestion des réseaux sociaux",
+   "socialHint": "Facebook + Instagram : 4 vidéos et 15 publications par mois, textes et publication. Mise en place offerte, budget pub Meta non inclus."
   },
   "opt": {
    "pages": {
@@ -340,6 +360,10 @@
     "own": "J'ai mes photos",
     "stock": "Photos prêtes (banque d'images)",
     "pro": "Photographe professionnel (1 journée, Istanbul)"
+   },
+   "social": {
+    "no": "Pas pour l’instant",
+    "yes": "Oui, ajoutez-la"
    }
   },
   "sum": {
@@ -354,7 +378,8 @@
    "note": "Prix calculé automatiquement selon vos choix. Le devis définitif est confirmé par écrit.",
    "send": "Envoyer ma demande",
    "sending": "Envoi...",
-   "fillContact": "Indiquez votre nom, e-mail et ville pour envoyer"
+   "fillContact": "Indiquez votre nom, e-mail et ville pour envoyer",
+   "monthly": "+ {x} / mois — gestion des réseaux sociaux"
   },
   "lines": {
    "base": "Pack standard ({n} pages, {l} langues, contact, design + SSL + SEO)",
@@ -367,7 +392,8 @@
    "photos": "Photographe professionnel (1 journée, Istanbul)",
    "shop": "Boutique en ligne",
    "logo": "Création du logo",
-   "domain": "Domaine + hébergement (1re année)"
+   "domain": "Domaine + hébergement (1re année)",
+   "social": "Gestion des réseaux sociaux (mise en place offerte)"
   },
   "errName": "Indiquez votre nom",
   "errEmail": "Indiquez un e-mail valide",
@@ -375,7 +401,8 @@
   "errSend": "Échec de l'envoi, réessayez ou écrivez-nous sur WhatsApp.",
   "sentT": "Demande envoyée !",
   "sentP": "Le récapitulatif de votre devis a été envoyé à {e}. Nous revenons vers vous rapidement.",
-  "whatsapp": "Écrire sur WhatsApp"
+  "whatsapp": "Écrire sur WhatsApp",
+  "perMonth": "/ mois"
  },
  "ar": {
   "eyebrow": "حاسبة الأسعار",
@@ -429,7 +456,9 @@
    "cityPh": "اختر المحافظة",
    "districtPh": "اختر المنطقة (اختياري)",
    "mahalle": "الحي",
-   "mahallePh": "اختر الحي (اختياري)"
+   "mahallePh": "اختر الحي (اختياري)",
+   "social": "إدارة وسائل التواصل",
+   "socialHint": "فيسبوك + إنستغرام: 4 فيديوهات و15 منشوراً شهرياً مع النصوص والنشر. الإعداد مجاني، وميزانية إعلانات Meta غير مشمولة."
   },
   "opt": {
    "pages": {
@@ -466,6 +495,10 @@
     "own": "لدي صوري",
     "stock": "صور جاهزة (مكتبة صور)",
     "pro": "مصوّر محترف (يوم تصوير، إسطنبول)"
+   },
+   "social": {
+    "no": "ليس الآن",
+    "yes": "نعم، أضيفوها"
    }
   },
   "sum": {
@@ -480,7 +513,8 @@
    "note": "يُحسب السعر تلقائياً حسب اختياراتكم. يُؤكَّد العرض النهائي كتابياً.",
    "send": "إرسال الطلب",
    "sending": "جارٍ الإرسال...",
-   "fillContact": "أدخلوا الاسم والبريد الإلكتروني والمدينة للإرسال"
+   "fillContact": "أدخلوا الاسم والبريد الإلكتروني والمدينة للإرسال",
+   "monthly": "+ {x} / شهر — إدارة وسائل التواصل"
   },
   "lines": {
    "base": "الباقة الأساسية ({n} صفحات، {l} لغات، تواصل، تصميم + SSL + SEO)",
@@ -493,7 +527,8 @@
    "photos": "مصوّر محترف (يوم واحد، إسطنبول)",
    "shop": "متجر إلكتروني",
    "logo": "تصميم الشعار",
-   "domain": "النطاق + الاستضافة (السنة الأولى)"
+   "domain": "النطاق + الاستضافة (السنة الأولى)",
+   "social": "إدارة وسائل التواصل (إعداد مجاني)"
   },
   "errName": "يرجى كتابة الاسم",
   "errEmail": "يرجى إدخال بريد إلكتروني صالح",
@@ -501,6 +536,7 @@
   "errSend": "تعذّر الإرسال، حاولوا مجدداً أو راسلونا عبر واتساب.",
   "sentT": "تم إرسال طلبكم!",
   "sentP": "تم إرسال ملخّص العرض إلى {e}. سنتواصل معكم قريباً.",
-  "whatsapp": "راسلونا عبر واتساب"
+  "whatsapp": "راسلونا عبر واتساب",
+  "perMonth": "/ شهر"
  }
 }

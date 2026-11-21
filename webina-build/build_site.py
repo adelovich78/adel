@@ -145,7 +145,7 @@ for l in LANGS:
         'ui': ui[l], 'contact': ct, 'quote': q, 'cookie': COOKIE[l],
         'details': {'ui': det['ui'], 'roles': det['roles']},
         'groups': c['groups'], 'sec': c['sec'], 'sp': c['sp'], 'sol': c['sol'], 'price': c['price'],
-        'about': c['about'], 'demos': c['demos'], 'meta': c['meta'], 'sectorsPage': c['sectorsPage'],
+        'about': c['about'], 'demos': c['demos'], 'meta': c['meta'], 'sectorsPage': c['sectorsPage'], 'social': c['social'],
         **V2[l],
     }
 TR = DICT['tr']
@@ -220,7 +220,7 @@ NAV = [('home', '/'), ('solutions', '/cozumler'), ('sectors', '/sektorler'),
 
 def dropdown(k):
     if k == 'solutions':
-        items = [(f'/cozumler#{s}', f'sol.items.{s}.t', C.SOL_ICONS[s], False) for s in C.SOLUTIONS]
+        items = [('/sosyal-medya' if s == 'sosyal-medya' else f'/cozumler#{s}', f'sol.items.{s}.t', C.SOL_ICONS[s], False) for s in C.SOLUTIONS]
         return items, None
     if k == 'sectors':
         items = [(BY_KEY[s]['page'], f'sec.{s}.name', BY_KEY[s]['icon'], False) for s in C.FEATURED]
@@ -392,11 +392,36 @@ def solutions_fragments():
                     {tx(f"sol.items.{s}.t", 'h2', 'heading-style-h3')}
                     {tx(f"sol.items.{s}.p", 'p', 'text-size-medium text-color-secondary')}
                     <ul class="check_list is-2" role="list">{''.join(f'<li>{icon("i-check")}{tx(f"sol.items.{s}.points.{j}")}</li>' for j in range(4))}</ul>
+                    {f'<a href="/sosyal-medya" class="button is-secondary solution_more">{tx(f"sol.items.{s}.more")}{icon("i-arrow")}</a>' if s == 'sosyal-medya' else ''}
                   </div>
                 </article>''' for i, s in enumerate(C.SOLUTIONS))
     extras = ''.join(f'''
                 <li class="extras_item" data-reveal style="--d:{n % 3}">{tx(f"services.{i}.title", 'h3', 'heading-style-h6')}{tx(f"services.{i}.text", 'p', 'text-size-small text-color-secondary')}</li>''' for n, i in enumerate(C.EXTRAS))
     return {'SOLUTION_BLOCKS': blocks, 'EXTRAS': extras}
+
+def social_fragments():
+    li = lambda key, n, ico='i-check': ''.join(f'<li>{icon(ico)}{tx(f"{key}.{j}")}</li>' for j in range(n))
+    S = TR['social']
+    return {'SOCIAL_CARDS': f'''
+                <article class="plan_card is-popular" data-reveal style="--d:0">
+                  <h2 class="heading-style-h4">{tx("social.planT")}</h2>
+                  {tx("social.planP", 'p', 'text-color-secondary')}
+                  <p class="plan_price"><span class="plan_amount" dir="ltr" data-amount="socialMonthly">{tl('socialMonthly')}</span>{tx("social.perMonth", 'span', 'plan_once text-color-muted')}</p>
+                  <ul class="plan_items" role="list">{li("social.inc", len(S['inc']))}</ul>
+                  <a href="/teklif?social=1" class="button is-block">{tx("social.cta")}{icon("i-arrow")}</a>
+                </article>
+                <article class="plan_card" data-reveal style="--d:1">
+                  <h2 class="heading-style-h4">{tx("social.setupT")}</h2>
+                  {tx("social.setupP", 'p', 'text-color-secondary')}
+                  <p class="plan_price"><span class="plan_amount">{tx("social.free")}</span></p>
+                  <ul class="plan_items" role="list">{li("social.setup", len(S['setup']))}</ul>
+                </article>
+                <article class="plan_card" data-reveal style="--d:2">
+                  <h2 class="heading-style-h4">{tx("social.notesT")}</h2>
+                  {tx("social.notesP", 'p', 'text-color-secondary')}
+                  <ul class="plan_items" role="list">{li("social.notes", len(S['notes']), 'i-info')}</ul>
+                  <a href="https://wa.me/905399662557" target="_blank" rel="noopener" class="button is-block is-secondary">{icon("i-chat")}{tx("social.wa")}</a>
+                </article>'''}
 
 def sectors_fragments():
     out = []
@@ -525,6 +550,7 @@ PAGES = [
     ('about', 'hakkimizda/index.html', '/hakkimizda', 'about', 'meta.about', TR['about']['text']),
     ('contact', 'iletisim/index.html', '/iletisim', 'contact', 'contact.eyebrow', TR['contact']['text']),
     ('teklif', 'teklif/index.html', '/teklif', 'pricing', 'quote.eyebrow', TR['quote']['lead']),
+    ('social', 'sosyal-medya/index.html', '/sosyal-medya', 'solutions', 'meta.social', TR['social']['text']),
 ] + [(f'sector:{s["key"]}', f'sektorler/{s["slug"]}/index.html', s['page'], 'sectors', f'sec.{s["key"]}.title', TR['sec'][s['key']]['why']) for s in SECTORS]
 
 def render(name, out, path, navkey, titlekey, desc):
@@ -534,7 +560,7 @@ def render(name, out, path, navkey, titlekey, desc):
         body = open(os.path.join(HERE, 'pages', name + '.html'), encoding='utf-8').read()
         body = re.sub(r'\{\{HEADER:(\w+)\}\}', lambda m: header_part.replace('NS.', m.group(1) + '.'), body)
         frag = {'home': home_fragments, 'solutions': solutions_fragments, 'sectors': sectors_fragments, 'demos': demos_fragments,
-                'pricing': pricing_fragments, 'about': about_fragments, 'contact': contact_fragments}.get(name, lambda: {})()
+                'pricing': pricing_fragments, 'about': about_fragments, 'contact': contact_fragments, 'social': social_fragments}.get(name, lambda: {})()
         if name == 'teklif': body, frag = teklif_fragments(body)
     for k, v in frag.items():
         body = body.replace('{{' + k + '}}', v)

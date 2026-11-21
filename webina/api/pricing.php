@@ -30,7 +30,7 @@ $num = function ($v, string $label, float $min, float $max): float {
 };
 
 $keys = ['base', 'extraPage', 'extraLanguage', 'bookingCalendar', 'contentPartial', 'contentFull', 'shop',
-    'logoValue', 'renewalYearly', 'photographer', 'gallery', 'blog', 'promoDiscount'];
+    'logoValue', 'renewalYearly', 'photographer', 'gallery', 'blog', 'promoDiscount', 'socialMonthly'];
 foreach ($keys as $k) {
     if (isset($in['prices'][$k])) $p['prices'][$k] = $int($in['prices'][$k], $k);
 }

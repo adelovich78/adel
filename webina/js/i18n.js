@@ -522,6 +522,7 @@ window.WEBINA_I18N = {
     "Bakım",
     "E-ticaret",
     "SEO & görünürlük",
+    "Sosyal medya",
     "Diğer"
    ],
    "budgetOpts": [
@@ -591,7 +592,9 @@ window.WEBINA_I18N = {
     "cityPh": "İl seçin",
     "districtPh": "İlçe seçin (isteğe bağlı)",
     "mahalle": "Mahalle",
-    "mahallePh": "Mahalle seçin (isteğe bağlı)"
+    "mahallePh": "Mahalle seçin (isteğe bağlı)",
+    "social": "Sosyal medya yönetimi",
+    "socialHint": "Facebook + Instagram: ayda 4 video ve 15 paylaşım, metinler ve yayınlama. Kurulum ücretsiz, Meta reklam bütçesi hariç."
    },
    "opt": {
     "pages": {
@@ -628,6 +631,10 @@ window.WEBINA_I18N = {
      "own": "Fotoğraflarım var",
      "stock": "Hazır (stok) fotoğraflar",
      "pro": "Profesyonel fotoğrafçı (1 gün çekim, İstanbul)"
+    },
+    "social": {
+     "no": "Şimdilik istemiyorum",
+     "yes": "Evet, ekleyin"
     }
    },
    "sum": {
@@ -642,7 +649,8 @@ window.WEBINA_I18N = {
     "note": "Fiyat seçimlerinize göre otomatik hesaplanır. Kesin teklif yazılı olarak onaylanır.",
     "send": "Talebimi gönder",
     "sending": "Gönderiliyor…",
-    "fillContact": "Göndermek için ad, e-posta ve şehir girin"
+    "fillContact": "Göndermek için ad, e-posta ve şehir girin",
+    "monthly": "+ {x} / ay — sosyal medya yönetimi"
    },
    "lines": {
     "base": "Standart paket ({n} sayfa, {l} dil, iletişim, tasarım + SSL + SEO)",
@@ -656,6 +664,7 @@ window.WEBINA_I18N = {
     "shop": "Online mağaza",
     "logo": "Logo tasarımı",
     "domain": "Alan adı + hosting (1. yıl)",
+    "social": "Sosyal medya yönetimi (kurulum ücretsiz)",
     "promo": "İndirim kodu ({c})"
    },
    "errName": "Lütfen adınızı yazın",
@@ -665,6 +674,7 @@ window.WEBINA_I18N = {
    "sentT": "Talebiniz alındı",
    "sentP": "Teklif özetiniz {e} adresine gönderildi. En kısa sürede sizinle iletişime geçeceğiz.",
    "whatsapp": "WhatsApp'tan yazın",
+   "perMonth": "/ ay",
    "promo": {
     "label": "İndirim kodu",
     "ph": "Kodunuz",
@@ -981,6 +991,17 @@ window.WEBINA_I18N = {
       "WhatsApp ile destek",
       "my.webina.com.tr müşteri paneli"
      ]
+    },
+    "sosyal-medya": {
+     "t": "Sosyal medya",
+     "p": "Facebook ve Instagram hesaplarınızı kuruyor, her ay içerik üretip yayınlıyoruz.",
+     "points": [
+      "Ayda 4 video + 15 paylaşım",
+      "Ücretsiz hesap kurulumu",
+      "Meta Business Suite",
+      "Aylık sabit fiyat"
+     ],
+     "more": "Detaylar ve fiyat"
     }
    },
    "extraT": "Ek hizmetler",
@@ -1087,13 +1108,48 @@ window.WEBINA_I18N = {
    "sectors": "Sektörler",
    "demos": "Demolar",
    "pricing": "Fiyatlar",
-   "about": "Hakkımızda"
+   "about": "Hakkımızda",
+   "social": "Sosyal medya yönetimi"
   },
   "sectorsPage": {
    "eyebrow": "Sektörler",
    "t1": "Mesleğiniz için",
    "t2": "hazır bir çözüm.",
    "text": "Mesleğinizi seçin: sitenizin ne içereceğini okuyun ya da canlı demoyu hemen açın."
+  },
+  "social": {
+   "eyebrow": "Sosyal medya",
+   "t1": "Facebook ve Instagram",
+   "t2": "her ay sizin yerinize.",
+   "text": "Hesaplarınızı kuruyoruz, her ay içerik üretip yayınlıyoruz. Siz işinize odaklanın.",
+   "planT": "Aylık paket",
+   "planP": "Facebook ve Instagram için düzenli, profesyonel içerik.",
+   "perMonth": "/ ay",
+   "inc": [
+    "Her ay 4 video (Reels), Facebook ve Instagram için",
+    "Her ay 15 fotoğraflı paylaşım (iki günde bir)",
+    "Metinler ve hashtag'ler",
+    "Aylık içerik takvimi, yayından önce onayınıza sunulur",
+    "Facebook ve Instagram'da yayınlama"
+   ],
+   "cta": "Teklif al",
+   "setupT": "Ücretsiz kurulum",
+   "setupP": "Hesabı olmayan işletmeler için her şeyi sıfırdan kuruyoruz.",
+   "setup": [
+    "Facebook işletme sayfası",
+    "Instagram profesyonel hesap",
+    "Meta Business Suite kurulumu",
+    "Profil ve kapak görselleri, açıklama, WhatsApp butonu"
+   ],
+   "free": "Ücretsiz",
+   "notesT": "Bilmeniz gerekenler",
+   "notesP": "Şeffaf çalışıyoruz.",
+   "notes": [
+    "Videolar logonuz, fotoğraflarınız, ürünleriniz ve metinleriniz kullanılarak yapay zekâ ile hazırlanır.",
+    "Meta reklam bütçesi pakete dahil değildir; reklam yapmak isterseniz bütçe size aittir.",
+    "İçerikler gerçek ürün ve hizmetlerinizi anlatır; sahte yorum veya müşteri kullanmayız."
+   ],
+   "wa": "WhatsApp'tan yazın"
   },
   "stage": {
    "aria": "Öne çıkan projeler",
@@ -1641,6 +1697,7 @@ window.WEBINA_I18N = {
     "Maintenance",
     "E-commerce",
     "SEO & visibility",
+    "Social media",
     "Other"
    ],
    "budgetOpts": [
@@ -1710,7 +1767,9 @@ window.WEBINA_I18N = {
     "cityPh": "Choose a province",
     "districtPh": "Choose a district (optional)",
     "mahalle": "Neighbourhood",
-    "mahallePh": "Choose a neighbourhood (optional)"
+    "mahallePh": "Choose a neighbourhood (optional)",
+    "social": "Social media management",
+    "socialHint": "Facebook + Instagram: 4 videos and 15 posts a month, captions and publishing. Free setup, Meta ads budget not included."
    },
    "opt": {
     "pages": {
@@ -1747,6 +1806,10 @@ window.WEBINA_I18N = {
      "own": "I have my photos",
      "stock": "Ready-made (stock) photos",
      "pro": "Professional photographer (1-day shoot, Istanbul)"
+    },
+    "social": {
+     "no": "Not for now",
+     "yes": "Yes, add it"
     }
    },
    "sum": {
@@ -1761,7 +1824,8 @@ window.WEBINA_I18N = {
     "note": "Price calculated automatically from your choices. The final quote is confirmed in writing.",
     "send": "Send my request",
     "sending": "Sending…",
-    "fillContact": "Enter your name, email and city to send"
+    "fillContact": "Enter your name, email and city to send",
+    "monthly": "+ {x} / month — social media management"
    },
    "lines": {
     "base": "Standard pack ({n} pages, {l} languages, contact, design + SSL + SEO)",
@@ -1775,6 +1839,7 @@ window.WEBINA_I18N = {
     "shop": "Online shop",
     "logo": "Logo design",
     "domain": "Domain + hosting (1st year)",
+    "social": "Social media management (free setup)",
     "promo": "Discount code ({c})"
    },
    "errName": "Please enter your name",
@@ -1784,6 +1849,7 @@ window.WEBINA_I18N = {
    "sentT": "Request received",
    "sentP": "Your quote summary has been sent to {e}. We will contact you shortly.",
    "whatsapp": "Message us on WhatsApp",
+   "perMonth": "/ month",
    "promo": {
     "label": "Discount code",
     "ph": "Your code",
@@ -2100,6 +2166,17 @@ window.WEBINA_I18N = {
       "Support on WhatsApp",
       "my.webina.com.tr client area"
      ]
+    },
+    "sosyal-medya": {
+     "t": "Social media",
+     "p": "We set up your Facebook and Instagram accounts and create and publish content every month.",
+     "points": [
+      "4 videos + 15 posts a month",
+      "Free account setup",
+      "Meta Business Suite",
+      "Fixed monthly price"
+     ],
+     "more": "Details and price"
     }
    },
    "extraT": "Additional services",
@@ -2206,13 +2283,48 @@ window.WEBINA_I18N = {
    "sectors": "Industries",
    "demos": "Demos",
    "pricing": "Pricing",
-   "about": "About"
+   "about": "About",
+   "social": "Social media management"
   },
   "sectorsPage": {
    "eyebrow": "Industries",
    "t1": "A ready-made solution",
    "t2": "for your profession.",
    "text": "Choose your profession: read what your site will include, or open the live demo right away."
+  },
+  "social": {
+   "eyebrow": "Social media",
+   "t1": "Facebook and Instagram,",
+   "t2": "handled for you every month.",
+   "text": "We set up your accounts, then create and publish content every month. You focus on your business.",
+   "planT": "Monthly plan",
+   "planP": "Regular, professional content for Facebook and Instagram.",
+   "perMonth": "/ month",
+   "inc": [
+    "4 videos (Reels) per month for Facebook and Instagram",
+    "15 photo posts per month (every two days)",
+    "Captions and hashtags",
+    "Monthly content calendar, approved by you before posting",
+    "Publishing on Facebook and Instagram"
+   ],
+   "cta": "Get a quote",
+   "setupT": "Free setup",
+   "setupP": "For businesses with no accounts yet, we set everything up from scratch.",
+   "setup": [
+    "Facebook business page",
+    "Instagram professional account",
+    "Meta Business Suite setup",
+    "Profile and cover images, bio, WhatsApp button"
+   ],
+   "free": "Free",
+   "notesT": "Good to know",
+   "notesP": "We work transparently.",
+   "notes": [
+    "Videos are made with AI using your logo, photos, products and texts.",
+    "The Meta ads budget is not included; if you run ads, the budget is yours.",
+    "Content shows your real products and services; we never use fake reviews or customers."
+   ],
+   "wa": "Message us on WhatsApp"
   },
   "stage": {
    "aria": "Featured projects",
@@ -2760,6 +2872,7 @@ window.WEBINA_I18N = {
     "Maintenance",
     "E-commerce",
     "Référencement",
+    "Réseaux sociaux",
     "Autre"
    ],
    "budgetOpts": [
@@ -2829,7 +2942,9 @@ window.WEBINA_I18N = {
     "cityPh": "Choisissez une province",
     "districtPh": "Choisissez un district (facultatif)",
     "mahalle": "Quartier (mahalle)",
-    "mahallePh": "Choisissez un quartier (facultatif)"
+    "mahallePh": "Choisissez un quartier (facultatif)",
+    "social": "Gestion des réseaux sociaux",
+    "socialHint": "Facebook + Instagram : 4 vidéos et 15 publications par mois, textes et publication. Mise en place offerte, budget pub Meta non inclus."
    },
    "opt": {
     "pages": {
@@ -2866,6 +2981,10 @@ window.WEBINA_I18N = {
      "own": "J'ai mes photos",
      "stock": "Photos prêtes (banque d'images)",
      "pro": "Photographe professionnel (1 journée, Istanbul)"
+    },
+    "social": {
+     "no": "Pas pour l’instant",
+     "yes": "Oui, ajoutez-la"
     }
    },
    "sum": {
@@ -2880,7 +2999,8 @@ window.WEBINA_I18N = {
     "note": "Prix calculé automatiquement selon vos choix. Le devis définitif est confirmé par écrit.",
     "send": "Envoyer ma demande",
     "sending": "Envoi…",
-    "fillContact": "Indiquez votre nom, e-mail et ville pour envoyer"
+    "fillContact": "Indiquez votre nom, e-mail et ville pour envoyer",
+    "monthly": "+ {x} / mois — gestion des réseaux sociaux"
    },
    "lines": {
     "base": "Pack standard ({n} pages, {l} langues, contact, design + SSL + SEO)",
@@ -2894,6 +3014,7 @@ window.WEBINA_I18N = {
     "shop": "Boutique en ligne",
     "logo": "Création du logo",
     "domain": "Domaine + hébergement (1re année)",
+    "social": "Gestion des réseaux sociaux (mise en place offerte)",
     "promo": "Code de réduction ({c})"
    },
    "errName": "Indiquez votre nom",
@@ -2903,6 +3024,7 @@ window.WEBINA_I18N = {
    "sentT": "Demande envoyée",
    "sentP": "Le récapitulatif de votre devis a été envoyé à {e}. Nous revenons vers vous rapidement.",
    "whatsapp": "Écrire sur WhatsApp",
+   "perMonth": "/ mois",
    "promo": {
     "label": "Code de réduction",
     "ph": "Votre code",
@@ -3219,6 +3341,17 @@ window.WEBINA_I18N = {
       "Assistance sur WhatsApp",
       "Espace client my.webina.com.tr"
      ]
+    },
+    "sosyal-medya": {
+     "t": "Réseaux sociaux",
+     "p": "Nous créons vos comptes Facebook et Instagram, puis produisons et publions vos contenus chaque mois.",
+     "points": [
+      "4 vidéos + 15 publications par mois",
+      "Création des comptes offerte",
+      "Meta Business Suite",
+      "Prix mensuel fixe"
+     ],
+     "more": "Détails et prix"
     }
    },
    "extraT": "Services complémentaires",
@@ -3325,13 +3458,48 @@ window.WEBINA_I18N = {
    "sectors": "Secteurs",
    "demos": "Démos",
    "pricing": "Tarifs",
-   "about": "À propos"
+   "about": "À propos",
+   "social": "Gestion des réseaux sociaux"
   },
   "sectorsPage": {
    "eyebrow": "Secteurs",
    "t1": "Une solution prête",
    "t2": "pour votre métier.",
    "text": "Choisissez votre métier : découvrez ce que contiendra votre site, ou ouvrez directement la démo en ligne."
+  },
+  "social": {
+   "eyebrow": "Réseaux sociaux",
+   "t1": "Facebook et Instagram,",
+   "t2": "gérés pour vous chaque mois.",
+   "text": "Nous créons vos comptes, puis produisons et publions vos contenus chaque mois. Vous vous concentrez sur votre activité.",
+   "planT": "Formule mensuelle",
+   "planP": "Des contenus réguliers et professionnels pour Facebook et Instagram.",
+   "perMonth": "/ mois",
+   "inc": [
+    "4 vidéos (Reels) par mois pour Facebook et Instagram",
+    "15 publications photo par mois (tous les deux jours)",
+    "Textes et hashtags",
+    "Calendrier mensuel, validé par vous avant publication",
+    "Publication sur Facebook et Instagram"
+   ],
+   "cta": "Demander un devis",
+   "setupT": "Mise en place offerte",
+   "setupP": "Pour les entreprises sans comptes, nous créons tout de zéro.",
+   "setup": [
+    "Page Facebook professionnelle",
+    "Compte Instagram professionnel",
+    "Configuration de Meta Business Suite",
+    "Photo de profil, couverture, bio, bouton WhatsApp"
+   ],
+   "free": "Offert",
+   "notesT": "À savoir",
+   "notesP": "Nous travaillons en toute transparence.",
+   "notes": [
+    "Les vidéos sont réalisées avec l’IA à partir de votre logo, de vos photos, produits et textes.",
+    "Le budget publicitaire Meta n’est pas inclus ; si vous faites de la publicité, le budget est à vous.",
+    "Les contenus montrent vos vrais produits et services ; jamais de faux avis ni de faux clients."
+   ],
+   "wa": "Écrire sur WhatsApp"
   },
   "stage": {
    "aria": "Projets à la une",
@@ -3879,6 +4047,7 @@ window.WEBINA_I18N = {
     "الصيانة",
     "متجر إلكتروني",
     "SEO والظهور",
+    "وسائل التواصل",
     "أخرى"
    ],
    "budgetOpts": [
@@ -3948,7 +4117,9 @@ window.WEBINA_I18N = {
     "cityPh": "اختر المحافظة",
     "districtPh": "اختر المنطقة (اختياري)",
     "mahalle": "الحي",
-    "mahallePh": "اختر الحي (اختياري)"
+    "mahallePh": "اختر الحي (اختياري)",
+    "social": "إدارة وسائل التواصل",
+    "socialHint": "فيسبوك + إنستغرام: 4 فيديوهات و15 منشوراً شهرياً مع النصوص والنشر. الإعداد مجاني، وميزانية إعلانات Meta غير مشمولة."
    },
    "opt": {
     "pages": {
@@ -3985,6 +4156,10 @@ window.WEBINA_I18N = {
      "own": "لدي صوري",
      "stock": "صور جاهزة (مكتبة صور)",
      "pro": "مصوّر محترف (يوم تصوير، إسطنبول)"
+    },
+    "social": {
+     "no": "ليس الآن",
+     "yes": "نعم، أضيفوها"
     }
    },
    "sum": {
@@ -3999,7 +4174,8 @@ window.WEBINA_I18N = {
     "note": "يُحسب السعر تلقائياً حسب اختياراتكم. يُؤكَّد العرض النهائي كتابياً.",
     "send": "إرسال الطلب",
     "sending": "جارٍ الإرسال…",
-    "fillContact": "أدخلوا الاسم والبريد الإلكتروني والمدينة للإرسال"
+    "fillContact": "أدخلوا الاسم والبريد الإلكتروني والمدينة للإرسال",
+    "monthly": "+ {x} / شهر — إدارة وسائل التواصل"
    },
    "lines": {
     "base": "الباقة الأساسية ({n} صفحات، {l} لغات، تواصل، تصميم + SSL + SEO)",
@@ -4013,6 +4189,7 @@ window.WEBINA_I18N = {
     "shop": "متجر إلكتروني",
     "logo": "تصميم الشعار",
     "domain": "النطاق + الاستضافة (السنة الأولى)",
+    "social": "إدارة وسائل التواصل (إعداد مجاني)",
     "promo": "رمز الخصم ({c})"
    },
    "errName": "يرجى كتابة الاسم",
@@ -4022,6 +4199,7 @@ window.WEBINA_I18N = {
    "sentT": "تم إرسال طلبكم",
    "sentP": "تم إرسال ملخّص العرض إلى {e}. سنتواصل معكم قريباً.",
    "whatsapp": "راسلونا عبر واتساب",
+   "perMonth": "/ شهر",
    "promo": {
     "label": "رمز الخصم",
     "ph": "رمزكم",
@@ -4338,6 +4516,17 @@ window.WEBINA_I18N = {
       "دعم عبر واتساب",
       "منطقة العملاء my.webina.com.tr"
      ]
+    },
+    "sosyal-medya": {
+     "t": "وسائل التواصل",
+     "p": "ننشئ حسابات فيسبوك وإنستغرام ونصنع المحتوى وننشره كل شهر.",
+     "points": [
+      "4 فيديوهات + 15 منشوراً شهرياً",
+      "إعداد الحسابات مجاناً",
+      "Meta Business Suite",
+      "سعر شهري ثابت"
+     ],
+     "more": "التفاصيل والسعر"
     }
    },
    "extraT": "خدمات إضافية",
@@ -4444,13 +4633,48 @@ window.WEBINA_I18N = {
    "sectors": "القطاعات",
    "demos": "العروض",
    "pricing": "الأسعار",
-   "about": "من نحن"
+   "about": "من نحن",
+   "social": "إدارة وسائل التواصل"
   },
   "sectorsPage": {
    "eyebrow": "القطاعات",
    "t1": "حل جاهز",
    "t2": "لمهنتك.",
    "text": "اختر مهنتك: اطّلع على ما سيتضمنه موقعك أو افتح العرض الحي مباشرة."
+  },
+  "social": {
+   "eyebrow": "وسائل التواصل",
+   "t1": "فيسبوك وإنستغرام",
+   "t2": "ندير حساباتك كل شهر.",
+   "text": "ننشئ حساباتك ثم نصنع المحتوى وننشره كل شهر. وأنت تتفرغ لعملك.",
+   "planT": "الباقة الشهرية",
+   "planP": "محتوى منتظم واحترافي لفيسبوك وإنستغرام.",
+   "perMonth": "/ شهر",
+   "inc": [
+    "4 فيديوهات (Reels) شهرياً لفيسبوك وإنستغرام",
+    "15 منشوراً بالصور شهرياً (كل يومين)",
+    "النصوص والوسوم",
+    "تقويم محتوى شهري توافق عليه قبل النشر",
+    "النشر على فيسبوك وإنستغرام"
+   ],
+   "cta": "اطلب عرض سعر",
+   "setupT": "إعداد مجاني",
+   "setupP": "للشركات التي لا تملك حسابات، نجهّز كل شيء من البداية.",
+   "setup": [
+    "صفحة أعمال على فيسبوك",
+    "حساب إنستغرام احترافي",
+    "إعداد Meta Business Suite",
+    "صورة الملف والغلاف والوصف وزر واتساب"
+   ],
+   "free": "مجاناً",
+   "notesT": "معلومات مهمة",
+   "notesP": "نعمل بشفافية.",
+   "notes": [
+    "تُنتَج الفيديوهات بالذكاء الاصطناعي باستخدام شعارك وصورك ومنتجاتك ونصوصك.",
+    "ميزانية إعلانات Meta غير مشمولة؛ إن أردت الإعلان فالميزانية خاصة بك.",
+    "يعرض المحتوى منتجاتك وخدماتك الحقيقية؛ لا نستخدم تقييمات أو عملاء مزيفين."
+   ],
+   "wa": "راسلنا على واتساب"
   },
   "stage": {
    "aria": "مشاريع مختارة",

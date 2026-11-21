@@ -32,6 +32,7 @@
     "photographer": 7000,
     "gallery": 1000,
     "blog": 2000,
-    "promoDiscount": 2000
+    "promoDiscount": 2000,
+    "socialMonthly": 5000
   }
 }

@@ -1269,6 +1269,7 @@
     function amount(keys) {
       var cur = pricing.currencyByLang[currentLang] || 'USD';
       var rate = pricing.tlPer[cur] || 1, step = pricing.rounding[cur] || 1;
+      if (keys.split('+').some(function (k) { return pricing.prices[k] == null; })) return null;
       var tl = keys.split('+').reduce(function (s, k) { return s + (pricing.prices[k] || 0); }, 0);
       var v = Math.round(tl / rate / step) * step;
       if (cur === 'TRY') return new Intl.NumberFormat('tr-TR', { maximumFractionDigits: 0 }).format(v) + ' TL';
@@ -1279,6 +1280,7 @@
       var dict = I18N[currentLang];
       document.querySelectorAll('[data-amount]').forEach(function (el) {
         var m = amount(el.getAttribute('data-amount'));
+        if (m == null) return;
         var tpl = el.getAttribute('data-tpl');
         var text = tpl ? lookup(dict, tpl) : null;
         el.textContent = typeof text === 'string' ? text.replace('{x}', m) : m;

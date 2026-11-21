@@ -365,3 +365,93 @@ SERVICE_OPTS = {
     'fr': ['Site web', 'Domaine & hébergement', 'Maintenance', 'E-commerce', 'Référencement', 'Autre'],
     'ar': ['موقع إلكتروني', 'النطاق والاستضافة', 'الصيانة', 'متجر إلكتروني', 'SEO والظهور', 'أخرى'],
 }
+
+# ==========================================================================
+# Sosyal medya (Facebook + Instagram) : page dédiée, entrée « Çözümler », option du devis
+# ==========================================================================
+SOCIAL = {
+ 'tr': {
+  'page': {'eyebrow': 'Sosyal medya', 't1': 'Facebook ve Instagram', 't2': 'her ay sizin yerinize.',
+           'text': 'Hesaplarınızı kuruyoruz, her ay içerik üretip yayınlıyoruz. Siz işinize odaklanın.',
+           'planT': 'Aylık paket', 'planP': 'Facebook ve Instagram için düzenli, profesyonel içerik.', 'perMonth': '/ ay',
+           'inc': ['Her ay 4 video (Reels), Facebook ve Instagram için', 'Her ay 15 fotoğraflı paylaşım (iki günde bir)',
+                   'Metinler ve hashtag\'ler', 'Aylık içerik takvimi, yayından önce onayınıza sunulur', 'Facebook ve Instagram\'da yayınlama'],
+           'cta': 'Teklif al',
+           'setupT': 'Ücretsiz kurulum', 'setupP': 'Hesabı olmayan işletmeler için her şeyi sıfırdan kuruyoruz.',
+           'setup': ['Facebook işletme sayfası', 'Instagram profesyonel hesap', 'Meta Business Suite kurulumu', 'Profil ve kapak görselleri, açıklama, WhatsApp butonu'],
+           'free': 'Ücretsiz',
+           'notesT': 'Bilmeniz gerekenler', 'notesP': 'Şeffaf çalışıyoruz.',
+           'notes': ['Videolar logonuz, fotoğraflarınız, ürünleriniz ve metinleriniz kullanılarak yapay zekâ ile hazırlanır.',
+                     'Meta reklam bütçesi pakete dahil değildir; reklam yapmak isterseniz bütçe size aittir.',
+                     'İçerikler gerçek ürün ve hizmetlerinizi anlatır; sahte yorum veya müşteri kullanmayız.'],
+           'wa': 'WhatsApp\'tan yazın'},
+  'meta': 'Sosyal medya yönetimi',
+  'sol': {'t': 'Sosyal medya', 'p': 'Facebook ve Instagram hesaplarınızı kuruyor, her ay içerik üretip yayınlıyoruz.',
+          'points': ['Ayda 4 video + 15 paylaşım', 'Ücretsiz hesap kurulumu', 'Meta Business Suite', 'Aylık sabit fiyat'], 'more': 'Detaylar ve fiyat'},
+ },
+ 'en': {
+  'page': {'eyebrow': 'Social media', 't1': 'Facebook and Instagram,', 't2': 'handled for you every month.',
+           'text': 'We set up your accounts, then create and publish content every month. You focus on your business.',
+           'planT': 'Monthly plan', 'planP': 'Regular, professional content for Facebook and Instagram.', 'perMonth': '/ month',
+           'inc': ['4 videos (Reels) per month for Facebook and Instagram', '15 photo posts per month (every two days)',
+                   'Captions and hashtags', 'Monthly content calendar, approved by you before posting', 'Publishing on Facebook and Instagram'],
+           'cta': 'Get a quote',
+           'setupT': 'Free setup', 'setupP': 'For businesses with no accounts yet, we set everything up from scratch.',
+           'setup': ['Facebook business page', 'Instagram professional account', 'Meta Business Suite setup', 'Profile and cover images, bio, WhatsApp button'],
+           'free': 'Free',
+           'notesT': 'Good to know', 'notesP': 'We work transparently.',
+           'notes': ['Videos are made with AI using your logo, photos, products and texts.',
+                     'The Meta ads budget is not included; if you run ads, the budget is yours.',
+                     'Content shows your real products and services; we never use fake reviews or customers.'],
+           'wa': 'Message us on WhatsApp'},
+  'meta': 'Social media management',
+  'sol': {'t': 'Social media', 'p': 'We set up your Facebook and Instagram accounts and create and publish content every month.',
+          'points': ['4 videos + 15 posts a month', 'Free account setup', 'Meta Business Suite', 'Fixed monthly price'], 'more': 'Details and price'},
+ },
+ 'fr': {
+  'page': {'eyebrow': 'Réseaux sociaux', 't1': 'Facebook et Instagram,', 't2': 'gérés pour vous chaque mois.',
+           'text': 'Nous créons vos comptes, puis produisons et publions vos contenus chaque mois. Vous vous concentrez sur votre activité.',
+           'planT': 'Formule mensuelle', 'planP': 'Des contenus réguliers et professionnels pour Facebook et Instagram.', 'perMonth': '/ mois',
+           'inc': ['4 vidéos (Reels) par mois pour Facebook et Instagram', '15 publications photo par mois (tous les deux jours)',
+                   'Textes et hashtags', 'Calendrier mensuel, validé par vous avant publication', 'Publication sur Facebook et Instagram'],
+           'cta': 'Demander un devis',
+           'setupT': 'Mise en place offerte', 'setupP': 'Pour les entreprises sans comptes, nous créons tout de zéro.',
+           'setup': ['Page Facebook professionnelle', 'Compte Instagram professionnel', 'Configuration de Meta Business Suite', 'Photo de profil, couverture, bio, bouton WhatsApp'],
+           'free': 'Offert',
+           'notesT': 'À savoir', 'notesP': 'Nous travaillons en toute transparence.',
+           'notes': ['Les vidéos sont réalisées avec l’IA à partir de votre logo, de vos photos, produits et textes.',
+                     'Le budget publicitaire Meta n’est pas inclus ; si vous faites de la publicité, le budget est à vous.',
+                     'Les contenus montrent vos vrais produits et services ; jamais de faux avis ni de faux clients.'],
+           'wa': 'Écrire sur WhatsApp'},
+  'meta': 'Gestion des réseaux sociaux',
+  'sol': {'t': 'Réseaux sociaux', 'p': 'Nous créons vos comptes Facebook et Instagram, puis produisons et publions vos contenus chaque mois.',
+          'points': ['4 vidéos + 15 publications par mois', 'Création des comptes offerte', 'Meta Business Suite', 'Prix mensuel fixe'], 'more': 'Détails et prix'},
+ },
+ 'ar': {
+  'page': {'eyebrow': 'وسائل التواصل', 't1': 'فيسبوك وإنستغرام', 't2': 'ندير حساباتك كل شهر.',
+           'text': 'ننشئ حساباتك ثم نصنع المحتوى وننشره كل شهر. وأنت تتفرغ لعملك.',
+           'planT': 'الباقة الشهرية', 'planP': 'محتوى منتظم واحترافي لفيسبوك وإنستغرام.', 'perMonth': '/ شهر',
+           'inc': ['4 فيديوهات (Reels) شهرياً لفيسبوك وإنستغرام', '15 منشوراً بالصور شهرياً (كل يومين)',
+                   'النصوص والوسوم', 'تقويم محتوى شهري توافق عليه قبل النشر', 'النشر على فيسبوك وإنستغرام'],
+           'cta': 'اطلب عرض سعر',
+           'setupT': 'إعداد مجاني', 'setupP': 'للشركات التي لا تملك حسابات، نجهّز كل شيء من البداية.',
+           'setup': ['صفحة أعمال على فيسبوك', 'حساب إنستغرام احترافي', 'إعداد Meta Business Suite', 'صورة الملف والغلاف والوصف وزر واتساب'],
+           'free': 'مجاناً',
+           'notesT': 'معلومات مهمة', 'notesP': 'نعمل بشفافية.',
+           'notes': ['تُنتَج الفيديوهات بالذكاء الاصطناعي باستخدام شعارك وصورك ومنتجاتك ونصوصك.',
+                     'ميزانية إعلانات Meta غير مشمولة؛ إن أردت الإعلان فالميزانية خاصة بك.',
+                     'يعرض المحتوى منتجاتك وخدماتك الحقيقية؛ لا نستخدم تقييمات أو عملاء مزيفين.'],
+           'wa': 'راسلنا على واتساب'},
+  'meta': 'إدارة وسائل التواصل',
+  'sol': {'t': 'وسائل التواصل', 'p': 'ننشئ حسابات فيسبوك وإنستغرام ونصنع المحتوى وننشره كل شهر.',
+          'points': ['4 فيديوهات + 15 منشوراً شهرياً', 'إعداد الحسابات مجاناً', 'Meta Business Suite', 'سعر شهري ثابت'], 'more': 'التفاصيل والسعر'},
+ },
+}
+for _l, _v in SOCIAL.items():
+    T[_l]['social'] = _v['page']
+    T[_l]['meta']['social'] = _v['meta']
+    T[_l]['sol']['items']['sosyal-medya'] = _v['sol']
+SOLUTIONS.append('sosyal-medya')
+SOL_ICONS['sosyal-medya'] = 'i-instagram'
+for _l, _o in {'tr': 'Sosyal medya', 'en': 'Social media', 'fr': 'Réseaux sociaux', 'ar': 'وسائل التواصل'}.items():
+    SERVICE_OPTS[_l].insert(len(SERVICE_OPTS[_l]) - 1, _o)

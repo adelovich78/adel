@@ -336,7 +336,7 @@
     if (!state.pricing) return;
     $$('input[name]', pf).forEach(function (i) {
       var v = getPath(state.pricing, i.name);
-      i.value = v == null ? '' : v;
+      i.value = v == null ? (i.dataset.default || '') : v;
       i.classList.remove('is-changed');
     });
     previewPricing();
