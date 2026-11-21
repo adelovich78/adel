@@ -98,14 +98,14 @@
     "pro": "Profesyonel fotoğrafçı (1 gün çekim, İstanbul)"
    },
    "social": {
-    "none": "İstemiyorum",
     "basic": "Basic — 8 paylaşım, 4 Story",
     "pro": "Pro — 12 paylaşım, 4 Reels, 8 Story",
     "premium": "Premium — 16 paylaşım, 8 Reels, 12 Story, reklam yönetimi"
    },
    "scope": {
-    "site": "Web sitesi (isteğe bağlı sosyal medya ile)",
-    "social": "Sadece sosyal medya yönetimi"
+    "site": "Web sitesi",
+    "social": "Sosyal medya yönetimi",
+    "both": "Web sitesi + sosyal medya"
    }
   },
   "sum": {
@@ -248,14 +248,14 @@
     "pro": "Professional photographer (1-day shoot, Istanbul)"
    },
    "social": {
-    "none": "No thanks",
     "basic": "Basic — 8 posts, 4 Stories",
     "pro": "Pro — 12 posts, 4 Reels, 8 Stories",
     "premium": "Premium — 16 posts, 8 Reels, 12 Stories, ad management"
    },
    "scope": {
-    "site": "A website (with optional social media)",
-    "social": "Social media management only"
+    "site": "Website",
+    "social": "Social media management",
+    "both": "Website + social media"
    }
   },
   "sum": {
@@ -398,14 +398,14 @@
     "pro": "Photographe professionnel (1 journée, Istanbul)"
    },
    "social": {
-    "none": "Non merci",
     "basic": "Basic — 8 publications, 4 Stories",
     "pro": "Pro — 12 publications, 4 Reels, 8 Stories",
     "premium": "Premium — 16 publications, 8 Reels, 12 Stories, gestion pub"
    },
    "scope": {
-    "site": "Un site web (réseaux sociaux en option)",
-    "social": "Uniquement la gestion des réseaux sociaux"
+    "site": "Site web",
+    "social": "Gestion des réseaux sociaux",
+    "both": "Site web + réseaux sociaux"
    }
   },
   "sum": {
@@ -548,14 +548,14 @@
     "pro": "مصوّر محترف (يوم تصوير، إسطنبول)"
    },
    "social": {
-    "none": "لا، شكراً",
     "basic": "Basic — 8 منشورات، 4 قصص",
     "pro": "Pro — 12 منشوراً، 4 Reels، 8 قصص",
     "premium": "Premium — 16 منشوراً، 8 Reels، 12 قصة، إدارة الإعلانات"
    },
    "scope": {
-    "site": "موقع إلكتروني (مع وسائل التواصل اختيارياً)",
-    "social": "إدارة وسائل التواصل فقط"
+    "site": "موقع إلكتروني",
+    "social": "إدارة وسائل التواصل",
+    "both": "موقع إلكتروني + وسائل التواصل"
    }
   },
   "sum": {

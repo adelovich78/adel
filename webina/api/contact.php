@@ -99,6 +99,7 @@ if ($to !== '') {
             ['Formule', ['basic' => 'Basic', 'pro' => 'Pro', 'premium' => 'Premium'][$clean['social'] ?? ''] ?? '—'],
         ]);
         else $info = array_merge($info, [
+            ['Demande', ($clean['scope'] ?? '') === 'both' ? 'Site web + réseaux sociaux' : 'Site web'],
             ['Langue du formulaire', strtoupper($lang)],
             ['Logo', $yn($clean['logo'] ?? '')],
             ['Nom de domaine', $yn($clean['domain'] ?? '') . (!empty($clean['domainName']) ? ' · ' . $clean['domainName'] : '')],
@@ -112,7 +113,7 @@ if ($to !== '') {
             ['Textes', $fr($clean['content'] ?? '')],
             ['Photos', $fr($clean['photos'] ?? '')],
             ['Site exemple', ($clean['example'] ?? '') ?: '—'],
-            ['Réseaux sociaux', ['basic' => 'Basic', 'pro' => 'Pro', 'premium' => 'Premium'][$clean['social'] ?? ''] ?? 'Non'],
+            ['Réseaux sociaux', ($clean['scope'] ?? '') === 'site' ? 'Non' : (['basic' => 'Basic', 'pro' => 'Pro', 'premium' => 'Premium'][$clean['social'] ?? ''] ?? 'Non')],
             ['Code de réduction', $promo !== '' ? $promo : ($promoRejected ? 'refusé (déjà utilisé ou inconnu)' : '—')],
         ]);
     }

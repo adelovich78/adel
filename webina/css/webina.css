@@ -2323,4 +2323,4 @@ body:has(.sector-dock.is-on) .wa_float { transform: translateY(-72px); }
   .social_dialog-head { padding: 14px 16px; }
 }
 /* Devis « sosyal medya seul » : éléments masqués même s'ils ont un display propre */
-[data-site-only][hidden], [data-site-note][hidden], [data-promo][hidden], [data-social-none][hidden], [data-social-optional][hidden] { display: none !important; }
+[data-site-only][hidden], [data-site-note][hidden], [data-promo][hidden], [data-social-step][hidden] { display: none !important; }

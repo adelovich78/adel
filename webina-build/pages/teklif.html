@@ -22,9 +22,10 @@
                 <!-- 0. Type de demande : site web ou réseaux sociaux seuls -->
                 <fieldset class="quote_step" id="quote-scope">
                   <legend class="quote_step-head"><span class="quote_step-number">01</span><span class="quote_step-title">{{t:quote.q.scope}}</span></legend>
-                  <div class="option_grid is-2">
+                  <div class="option_grid is-3">
                     {{OPT:scope:site:quote.opt.scope.site}}
                     {{OPT:scope:social:quote.opt.scope.social}}
+                    {{OPT:scope:both:quote.opt.scope.both}}
                   </div>
                 </fieldset>
                 <!-- 1. Logo -->
@@ -117,12 +118,11 @@
                   <input class="form_input" name="example" type="url" dir="ltr" maxlength="200" placeholder="https://" aria-label="{{raw:quote.q.example}}">
                 </fieldset>
                 <!-- 9. Sosyal medya (aylık) -->
-                <fieldset class="quote_step" id="quote-social">
-                  <legend class="quote_step-head"><span class="quote_step-number">10</span><span class="quote_step-title">{{t:quote.q.social}} <span class="text-color-muted" data-social-optional>({{t:quote.optional}})</span></span></legend>
+                <fieldset class="quote_step" id="quote-social" data-social-step>
+                  <legend class="quote_step-head"><span class="quote_step-number">10</span><span class="quote_step-title">{{t:quote.q.social}}</span></legend>
                   <p class="quote_hint text-size-small text-color-secondary">{{t:quote.q.socialHint}}</p>
                   <div class="option_grid">
-                    <span class="quote_social-none" data-social-none>{{OPT:social:none:quote.opt.social.none}}</span>
-                    {{OPT:social:basic:quote.opt.social.basic:socialBasic}}
+                                        {{OPT:social:basic:quote.opt.social.basic:socialBasic}}
                     {{OPT:social:pro:quote.opt.social.pro:socialPro}}
                     {{OPT:social:premium:quote.opt.social.premium:socialPremium}}
                   </div>

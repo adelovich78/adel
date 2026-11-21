@@ -63,7 +63,8 @@ function compute_quote(array $p, string $lang, array $a, string $promo = '', ?ar
     $monthly = 0; $monthlyKey = '';
     $plans = ['basic' => 7500, 'pro' => 12500, 'premium' => 19500];
     $sp = is_string($a['social'] ?? null) ? $a['social'] : '';
-    if (isset($plans[$sp])) {
+    // Web seul : pas de formule mensuelle
+    if (isset($plans[$sp]) && ($a['scope'] ?? '') !== 'site') {
         $monthlyKey = 'social' . ucfirst($sp);
         $socialTl = (float)($p['prices'][$monthlyKey] ?? $plans[$sp]);
         $monthly = (int)(round(($socialTl / $per) / $step) * $step);

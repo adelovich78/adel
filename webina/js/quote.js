@@ -28,17 +28,17 @@
 
   var state = {
     logo: '', domain: '', domainName: '', pages: [], customPages: 0, customDesc: '',
-    langs: [], booking: ['form'], content: 'ready', photos: 'own', example: '', promo: '', social: ['basic', 'pro', 'premium'].indexOf(params.get('social')) > -1 ? params.get('social') : 'none',
-    scope: params.get('scope') === 'social' ? 'social' : 'site'
+    langs: [], booking: ['form'], content: 'ready', photos: 'own', example: '', promo: '', social: ['basic', 'pro', 'premium'].indexOf(params.get('social')) > -1 ? params.get('social') : 'pro',
+    // site = web seul ; social = réseaux sociaux seuls ; both = les deux
+    scope: ['social', 'both'].indexOf(params.get('scope')) > -1 ? params.get('scope') : (params.get('social') ? 'both' : 'site')
   };
-  if (state.scope === 'social' && state.social === 'none') state.social = 'pro';
 
   function defaultLangs(l) { return l === 'en' ? ['en', 'tr'] : [l, 'en']; }
 
   /* ---------- Calcul ---------- */
   // Formule réseaux sociaux mensuelle : séparée du total unique
   function monthlyLines(t) {
-    if (['basic', 'pro', 'premium'].indexOf(state.social) < 0) return [];
+    if (state.scope === 'site' || ['basic', 'pro', 'premium'].indexOf(state.social) < 0) return [];
     var key = 'social' + state.social.charAt(0).toUpperCase() + state.social.slice(1);
     return [{ key: key, amount: t[key] }];
   }
@@ -203,7 +203,7 @@
     // Mode « sosyal medya seul » : étapes du site, code promo et notes site masqués
     root.querySelectorAll('[data-total-label]').forEach(function (e) { e.textContent = res.social ? q.sum.monthlyTotal : q.sum.total; });
     root.querySelectorAll('[data-site-only], [data-site-note], [data-promo]').forEach(function (e) { e.hidden = res.social; });
-    root.querySelectorAll('[data-social-none], [data-social-optional]').forEach(function (e) { e.hidden = res.social; });
+    root.querySelectorAll('[data-social-step]').forEach(function (e) { e.hidden = state.scope === 'site'; });
     var n = 0;
     form.querySelectorAll('.quote_step').forEach(function (f) {
       if (!f.hidden) f.querySelector('.quote_step-number').textContent = (++n < 10 ? '0' : '') + n;
@@ -235,8 +235,6 @@
     var el = e.target;
     if (el.type === 'radio') {
       state[el.name] = el.value;
-      // Sosyal medya seul : une formule est obligatoire (Pro par défaut)
-      if (el.name === 'scope' && el.value === 'social' && state.social === 'none') state.social = 'pro';
     }
     else if (el.type === 'checkbox') {
       var arr = state[el.name], i = arr.indexOf(el.value);
