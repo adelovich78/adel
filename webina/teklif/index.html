@@ -326,27 +326,26 @@
                     <input type="text" name="website" tabindex="-1" autocomplete="off" class="news_trap" aria-hidden="true">
                   </div>
                 </fieldset>
-                <!-- Mobile : le code promo est déplacé ici (le résumé est replié dans une feuille) -->
-                <div class="quote_promo-slot" data-promo-slot></div>
+                <!-- Code de réduction : en fin de formulaire, sur tous les écrans -->
+                <div class="promo_component is-inline" data-promo>
+                  <label class="form_label" for="q-promo"><span data-i18n="quote.promo.label">İndirim kodu</span></label>
+                  <div class="promo_field" data-promo-field>
+                    <input class="promo_input" id="q-promo" name="promo" autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="24" dir="ltr" placeholder="Kodunuz" data-i18n-placeholder="quote.promo.ph">
+                    <button type="button" class="button is-small is-secondary" data-promo-apply><span data-i18n="quote.promo.apply">Uygula</span></button>
+                  </div>
+                  <div class="promo_applied" data-promo-applied hidden>
+                    <span class="promo_tag"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span dir="ltr" data-promo-code></span></span>
+                    <span class="text-size-small text-color-secondary"><span data-i18n="quote.promo.applied">Kod uygulandı</span></span>
+                    <button type="button" class="promo_remove" data-promo-remove><span data-i18n="quote.promo.remove">Kaldır</span></button>
+                  </div>
+                  <p class="promo_error text-size-small" role="status" aria-live="polite" data-promo-error></p>
+                </div>
               </form>
 
               <aside class="quote_aside" data-enter style="--d:5">
                 <div class="summary_card" data-summary>
                   <h2 class="heading-style-h5"><span data-i18n="quote.sum.title">Yapılandırmanız</span></h2>
                   <ul class="summary_lines" role="list" data-lines></ul>
-                  <div class="promo_component" data-promo>
-                    <label class="form_label" for="q-promo"><span data-i18n="quote.promo.label">İndirim kodu</span></label>
-                    <div class="promo_field" data-promo-field>
-                      <input class="promo_input" id="q-promo" name="promo" autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="24" dir="ltr" placeholder="Kodunuz" data-i18n-placeholder="quote.promo.ph">
-                      <button type="button" class="button is-small is-secondary" data-promo-apply><span data-i18n="quote.promo.apply">Uygula</span></button>
-                    </div>
-                    <div class="promo_applied" data-promo-applied hidden>
-                      <span class="promo_tag"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span dir="ltr" data-promo-code></span></span>
-                      <span class="text-size-small text-color-secondary"><span data-i18n="quote.promo.applied">Kod uygulandı</span></span>
-                      <button type="button" class="promo_remove" data-promo-remove><span data-i18n="quote.promo.remove">Kaldır</span></button>
-                    </div>
-                    <p class="promo_error text-size-small" role="status" aria-live="polite" data-promo-error></p>
-                  </div>
                   <div class="summary_total">
                     <p class="text-size-small text-color-secondary"><span data-i18n="quote.sum.total">Toplam (tek seferlik)</span></p>
                     <p class="summary_amount" dir="ltr" data-total>—</p>
@@ -499,7 +498,7 @@
   </div>
 
   <script src="/js/i18n.js?v=eac544d44a" defer></script>
-  <script src="/js/tr-cities.js?v=362f0ba783" defer></script><script src="/js/quote.js?v=00b0cf6553" defer></script>
+  <script src="/js/tr-cities.js?v=362f0ba783" defer></script><script src="/js/quote.js?v=96d10ebf3c" defer></script>
   <script src="/js/webina.js?v=c16af19a36" defer></script>
 </body>
 </html>

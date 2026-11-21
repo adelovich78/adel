@@ -137,27 +137,26 @@
                     <input type="text" name="website" tabindex="-1" autocomplete="off" class="news_trap" aria-hidden="true">
                   </div>
                 </fieldset>
-                <!-- Mobile : le code promo est déplacé ici (le résumé est replié dans une feuille) -->
-                <div class="quote_promo-slot" data-promo-slot></div>
+                <!-- Code de réduction : en fin de formulaire, sur tous les écrans -->
+                <div class="promo_component is-inline" data-promo>
+                  <label class="form_label" for="q-promo">{{t:quote.promo.label}}</label>
+                  <div class="promo_field" data-promo-field>
+                    <input class="promo_input" id="q-promo" name="promo" autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="24" dir="ltr" placeholder="{{raw:quote.promo.ph}}" data-i18n-placeholder="quote.promo.ph">
+                    <button type="button" class="button is-small is-secondary" data-promo-apply>{{t:quote.promo.apply}}</button>
+                  </div>
+                  <div class="promo_applied" data-promo-applied hidden>
+                    <span class="promo_tag"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span dir="ltr" data-promo-code></span></span>
+                    <span class="text-size-small text-color-secondary">{{t:quote.promo.applied}}</span>
+                    <button type="button" class="promo_remove" data-promo-remove>{{t:quote.promo.remove}}</button>
+                  </div>
+                  <p class="promo_error text-size-small" role="status" aria-live="polite" data-promo-error></p>
+                </div>
               </form>
 
               <aside class="quote_aside" data-enter style="--d:5">
                 <div class="summary_card" data-summary>
                   <h2 class="heading-style-h5">{{t:quote.sum.title}}</h2>
                   <ul class="summary_lines" role="list" data-lines></ul>
-                  <div class="promo_component" data-promo>
-                    <label class="form_label" for="q-promo">{{t:quote.promo.label}}</label>
-                    <div class="promo_field" data-promo-field>
-                      <input class="promo_input" id="q-promo" name="promo" autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="24" dir="ltr" placeholder="{{raw:quote.promo.ph}}" data-i18n-placeholder="quote.promo.ph">
-                      <button type="button" class="button is-small is-secondary" data-promo-apply>{{t:quote.promo.apply}}</button>
-                    </div>
-                    <div class="promo_applied" data-promo-applied hidden>
-                      <span class="promo_tag"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span dir="ltr" data-promo-code></span></span>
-                      <span class="text-size-small text-color-secondary">{{t:quote.promo.applied}}</span>
-                      <button type="button" class="promo_remove" data-promo-remove>{{t:quote.promo.remove}}</button>
-                    </div>
-                    <p class="promo_error text-size-small" role="status" aria-live="polite" data-promo-error></p>
-                  </div>
                   <div class="summary_total">
                     <p class="text-size-small text-color-secondary">{{t:quote.sum.total}}</p>
                     <p class="summary_amount" dir="ltr" data-total>—</p>

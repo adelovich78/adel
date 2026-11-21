@@ -384,23 +384,6 @@
     promoInput.focus();
   });
 
-  // Mobile : le résumé est replié dans une feuille fermée par défaut ; le champ promo y était invisible.
-  // On le déplace dans le formulaire (même nœud, les écouteurs restent attachés), et on le remet au résumé sur grand écran.
-  var promoHome = promoBox.parentNode, promoAfter = promoBox.nextElementSibling;
-  var promoSlot = root.querySelector('[data-promo-slot]');
-  var mqPromo = window.matchMedia('(max-width: 991px)');
-  function placePromo() {
-    if (!promoSlot) return;
-    if (mqPromo.matches) {
-      if (promoBox.parentNode !== promoSlot) promoSlot.appendChild(promoBox);
-      promoBox.classList.add('is-inline');
-    } else {
-      if (promoBox.parentNode !== promoHome) promoHome.insertBefore(promoBox, promoAfter);
-      promoBox.classList.remove('is-inline');
-    }
-  }
-  placePromo();
-  if (mqPromo.addEventListener) mqPromo.addEventListener('change', placePromo); else mqPromo.addListener(placePromo);
 
   /* ---------- Titre personnalisé (?ad=) ---------- */
   function personalise() {
