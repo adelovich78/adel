@@ -53,7 +53,12 @@
    "mahalle": "Mahalle",
    "mahallePh": "Mahalle seçin (isteğe bağlı)",
    "social": "Sosyal medya yönetimi",
-   "socialHint": "Aylık paket: Instagram + Facebook. Hesap kurulumu ücretsiz, Meta reklam bütçesi hariç."
+   "socialHint": "Aylık paket: Instagram + Facebook. Hesap kurulumu ücretsiz, Meta reklam bütçesi hariç.",
+   "socialDetails": "Paketlerin içeriğini gör",
+   "socialDialogT": "Paket içerikleri",
+   "socialPick": "Bu paketi seç",
+   "socialClose": "Kapat",
+   "socialPicked": "Seçili"
   },
   "opt": {
    "pages": {
@@ -192,7 +197,12 @@
    "mahalle": "Neighbourhood",
    "mahallePh": "Choose a neighbourhood (optional)",
    "social": "Social media management",
-   "socialHint": "Monthly package: Instagram + Facebook. Free account setup, Meta ad budget not included."
+   "socialHint": "Monthly package: Instagram + Facebook. Free account setup, Meta ad budget not included.",
+   "socialDetails": "See what each package includes",
+   "socialDialogT": "Package contents",
+   "socialPick": "Choose this package",
+   "socialClose": "Close",
+   "socialPicked": "Selected"
   },
   "opt": {
    "pages": {
@@ -331,7 +341,12 @@
    "mahalle": "Quartier (mahalle)",
    "mahallePh": "Choisissez un quartier (facultatif)",
    "social": "Gestion des réseaux sociaux",
-   "socialHint": "Formule mensuelle : Instagram + Facebook. Création des comptes offerte, budget publicitaire Meta non inclus."
+   "socialHint": "Formule mensuelle : Instagram + Facebook. Création des comptes offerte, budget publicitaire Meta non inclus.",
+   "socialDetails": "Voir le contenu des offres",
+   "socialDialogT": "Contenu des offres",
+   "socialPick": "Choisir cette offre",
+   "socialClose": "Fermer",
+   "socialPicked": "Choisie"
   },
   "opt": {
    "pages": {
@@ -470,7 +485,12 @@
    "mahalle": "الحي",
    "mahallePh": "اختر الحي (اختياري)",
    "social": "إدارة وسائل التواصل",
-   "socialHint": "باقة شهرية: إنستغرام + فيسبوك. إعداد الحسابات مجاناً، ميزانية إعلانات Meta غير مشمولة."
+   "socialHint": "باقة شهرية: إنستغرام + فيسبوك. إعداد الحسابات مجاناً، ميزانية إعلانات Meta غير مشمولة.",
+   "socialDetails": "اطّلع على محتوى الباقات",
+   "socialDialogT": "محتوى الباقات",
+   "socialPick": "اختر هذه الباقة",
+   "socialClose": "إغلاق",
+   "socialPicked": "مختارة"
   },
   "opt": {
    "pages": {

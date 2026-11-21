@@ -2304,3 +2304,21 @@ body:has(.sector-dock.is-on) .wa_float { transform: translateY(-72px); }
 .social_note p { flex: 1 1 260px; margin: 0; }
 .summary_monthly-title { display: block; font-size: 0.8125rem; opacity: 0.8; }
 .summary_monthly-row { display: flex; justify-content: space-between; gap: 12px; }
+
+/* Devis : popup du contenu des formules réseaux sociaux */
+.social_details-open { display: inline-flex; align-items: center; gap: 8px; margin-top: 14px; padding: 0; border: 0; background: none; color: var(--color-accent-ink, var(--color-accent)); font: inherit; font-weight: 600; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+.social_dialog { width: min(1040px, calc(100vw - 32px)); max-height: calc(100svh - 32px); padding: 0; border: 1px solid var(--color-hairline); border-radius: 18px; background: var(--color-bg); color: var(--color-ink); overflow: auto; overscroll-behavior: contain; }
+.social_dialog::backdrop { background: rgb(0 0 0 / 0.5); }
+.social_dialog-head { position: sticky; top: 0; z-index: 1; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 18px 24px; border-bottom: 1px solid var(--color-hairline); background: inherit; }
+.social_dialog-head h2 { margin: 0; }
+.social_dialog-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; padding: 20px 24px 24px; }
+.social_dialog-card { display: flex; flex-direction: column; gap: 10px; padding: 20px; border: 1px solid var(--color-hairline); border-radius: 14px; }
+.social_dialog-card.is-popular { border-color: var(--color-accent); }
+.social_dialog-card.is-picked { box-shadow: 0 0 0 2px var(--color-accent); }
+.social_dialog-card h3, .social_dialog-card p { margin: 0; }
+.social_dialog-price b { font-size: 1.5rem; font-weight: 700; }
+.social_dialog-card .plan_items { flex: 1; }
+@media (max-width: 767px) {
+  .social_dialog-grid { grid-template-columns: 1fr; padding: 16px; }
+  .social_dialog-head { padding: 14px 16px; }
+}

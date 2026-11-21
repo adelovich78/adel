@@ -532,7 +532,20 @@ def teklif_fragments(body):
                     <div class="option_button is-locked"><span class="option_mark" aria-hidden="true"><svg class="icon"><use href="#i-check"/></svg></span>{tx(f"quote.opt.pages.{k}", "span", "option_label")}<span class="option_price">{icon("i-lock")}{tx("quote.included")}</span></div>'''
                        for k in ['home', 'about', 'services', 'contact'])
     langs = ''.join(f'\n                    {opt("checkbox", "langs", k, f"quote.opt.langs.{k}")}' for k in TR['quote']['opt']['langs'])
-    return body, {'INCLUDED_PAGES': included, 'LANG_OPTS': langs, 'SECTOR_OPTS_Q': options('contact.sectorOpts', 'quote.q.sectorPh')}
+    sd = []
+    for k in ['basic', 'pro', 'premium']:
+        P = TR['social']['plans'][k]; key = 'social' + k.capitalize()
+        items = ''.join(f'<li>{icon("i-check")}{tx(f"social.plans.{k}.items.{j}")}</li>' for j in range(len(P['items'])))
+        sd.append(f'''
+                      <article class="social_dialog-card{' is-popular' if k == 'pro' else ''}" data-social-card="{k}">
+                        <h3 class="heading-style-h5">{tx(f"social.plans.{k}.n")}</h3>
+                        <p class="social_dialog-price" dir="ltr"><b data-amount="{key}">{tl(key)}</b> {tx("social.perMonth")}</p>
+                        {tx(f"social.plans.{k}.p", 'p', 'text-size-small text-color-secondary')}
+                        <ul class="plan_items" role="list">{items}</ul>
+                        {tx(f"social.plans.{k}.out", 'p', 'text-size-small text-color-muted')}
+                        <button type="button" class="button is-block is-small" data-social-pick="{k}">{tx("quote.q.socialPick")}</button>
+                      </article>''')
+    return body, {'SOCIAL_DIALOG': ''.join(sd), 'INCLUDED_PAGES': included, 'LANG_OPTS': langs, 'SECTOR_OPTS_Q': options('contact.sectorOpts', 'quote.q.sectorPh')}
 
 # ==========================================================================
 # Assemblage

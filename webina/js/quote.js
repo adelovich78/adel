@@ -384,6 +384,50 @@
     promoInput.focus();
   });
 
+  // Mobile : le résumé est replié dans une feuille fermée par défaut ; le champ promo y était invisible.
+  // On le déplace dans le formulaire (même nœud, les écouteurs restent attachés), et on le remet au résumé sur grand écran.
+  var promoHome = promoBox.parentNode, promoAfter = promoBox.nextElementSibling;
+  var promoSlot = root.querySelector('[data-promo-slot]');
+  var mqPromo = window.matchMedia('(max-width: 991px)');
+  function placePromo() {
+    if (!promoSlot) return;
+    if (mqPromo.matches) {
+      if (promoBox.parentNode !== promoSlot) promoSlot.appendChild(promoBox);
+      promoBox.classList.add('is-inline');
+    } else {
+      if (promoBox.parentNode !== promoHome) promoHome.insertBefore(promoBox, promoAfter);
+      promoBox.classList.remove('is-inline');
+    }
+  }
+  placePromo();
+  if (mqPromo.addEventListener) mqPromo.addEventListener('change', placePromo); else mqPromo.addListener(placePromo);
+
+  /* ---------- Popup : contenu des formules réseaux sociaux ---------- */
+  var socialDlg = root.querySelector('[data-social-dialog]');
+  if (socialDlg && socialDlg.showModal) {
+    var socialOpener = null;
+    function markPicked() {
+      socialDlg.querySelectorAll('[data-social-card]').forEach(function (c) {
+        var on = c.getAttribute('data-social-card') === state.social;
+        c.classList.toggle('is-picked', on);
+        c.querySelector('[data-social-pick]').classList.toggle('is-secondary', !on);
+      });
+    }
+    function closeSocial() { if (socialDlg.open) socialDlg.close(); }
+    root.querySelector('[data-social-open]').addEventListener('click', function (e) {
+      socialOpener = e.currentTarget; markPicked(); socialDlg.showModal();
+    });
+    socialDlg.querySelector('[data-social-close]').addEventListener('click', closeSocial);
+    // Clic sur le fond (hors de la boîte) : fermeture
+    socialDlg.addEventListener('click', function (e) { if (e.target === socialDlg) closeSocial(); });
+    socialDlg.addEventListener('close', function () { if (socialOpener) socialOpener.focus(); });
+    socialDlg.querySelectorAll('[data-social-pick]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        state.social = b.getAttribute('data-social-pick');
+        syncInputs(); render(); closeSocial();
+      });
+    });
+  }
 
   /* ---------- Titre personnalisé (?ad=) ---------- */
   function personalise() {
