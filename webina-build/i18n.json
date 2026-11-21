@@ -23,7 +23,7 @@
    "newsAlready": "Bu adres zaten abone.",
    "newsErr": "Abonelik başarısız, tekrar deneyin.",
    "follow": "Bizi takip edin",
-   "address": "Maslak, İstanbul"
+   "address": "Hasanpaşa Mah., Hacı Necip Usta Sk., Kadıköy, İstanbul"
   },
   "home": {
    "badge": "Dijital Kreasyon Ajansı",
@@ -415,7 +415,7 @@
    "newsAlready": "This address is already subscribed.",
    "newsErr": "Subscription failed, please try again.",
    "follow": "Follow us",
-   "address": "Maslak, Istanbul"
+   "address": "Hasanpaşa Mah., Hacı Necip Usta Sk., Kadıköy, Istanbul"
   },
   "home": {
    "badge": "Digital Creation Agency",
@@ -807,7 +807,7 @@
    "newsAlready": "Cette adresse est déjà abonnée.",
    "newsErr": "Échec de l'inscription, réessayez.",
    "follow": "Suivez-nous",
-   "address": "Maslak, Istanbul"
+   "address": "Hasanpaşa Mah., Hacı Necip Usta Sk., Kadıköy, Istanbul"
   },
   "home": {
    "badge": "Digital Creation Agency",
@@ -1199,7 +1199,7 @@
    "newsAlready": "هذا العنوان مشترك بالفعل.",
    "newsErr": "فشل الاشتراك، حاولوا مجدداً.",
    "follow": "تابعونا",
-   "address": "ماسلاك، إسطنبول"
+   "address": "حسن باشا، شارع حاجي نجيب أوستا، قاضي كوي، إسطنبول"
   },
   "home": {
    "badge": "وكالة الإبداع الرقمي",

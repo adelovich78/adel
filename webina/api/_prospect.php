@@ -300,7 +300,7 @@ function prospect_html(string $body, string $unsubUrl, string $trade = 'general'
         . ($after ? '<tr><td style="padding:20px 28px 0">' . $after . '</td></tr>' : '')
         // Signature
         . '<tr><td style="padding:4px 28px 26px;font-size:14px;line-height:1.6;color:' . $ink . '"><strong>' . h($CONFIG['mail_from_name'] ?? 'Webina') . '</strong><br>'
-        . '<span style="color:' . $muted . '">' . h($CONFIG['company_address'] ?? 'Maslak, İstanbul') . ($wa ? ' · +' . h($wa) : '') . '</span></td></tr>'
+        . '<span style="color:' . $muted . '">' . h($CONFIG['company_address'] ?? 'Hasanpaşa Mah., Hacı Necip Usta Sk., Kadıköy, İstanbul') . ($wa ? ' · +' . h($wa) : '') . '</span></td></tr>'
         . '</table>'
         // Pied : liens + désinscription
         . '<table role="presentation" width="600" cellpadding="0" cellspacing="0" style="width:100%;max-width:600px"><tr><td style="padding:16px 28px;font-size:12px;line-height:1.6;color:' . $muted . ';text-align:center">'

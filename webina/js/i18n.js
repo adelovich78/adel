@@ -28,7 +28,7 @@ window.WEBINA_I18N = {
    "newsAlready": "Bu adres zaten abone.",
    "newsErr": "Abonelik başarısız, tekrar deneyin.",
    "follow": "Bizi takip edin",
-   "address": "Maslak, İstanbul"
+   "address": "Hasanpaşa Mah., Hacı Necip Usta Sk., Kadıköy, İstanbul"
   },
   "home": {
    "eyebrow": "Mesleğinize özel web siteleri",
@@ -1258,7 +1258,7 @@ window.WEBINA_I18N = {
    "newsAlready": "This address is already subscribed.",
    "newsErr": "Subscription failed, please try again.",
    "follow": "Follow us",
-   "address": "Maslak, Istanbul"
+   "address": "Hasanpaşa Mah., Hacı Necip Usta Sk., Kadıköy, Istanbul"
   },
   "home": {
    "eyebrow": "Websites made for your profession",
@@ -2488,7 +2488,7 @@ window.WEBINA_I18N = {
    "newsAlready": "Cette adresse est déjà abonnée.",
    "newsErr": "Échec de l'inscription, réessayez.",
    "follow": "Suivez-nous",
-   "address": "Maslak, Istanbul"
+   "address": "Hasanpaşa Mah., Hacı Necip Usta Sk., Kadıköy, Istanbul"
   },
   "home": {
    "eyebrow": "Des sites web pensés pour votre métier",
@@ -3718,7 +3718,7 @@ window.WEBINA_I18N = {
    "newsAlready": "هذا العنوان مشترك بالفعل.",
    "newsErr": "فشل الاشتراك، حاولوا مجدداً.",
    "follow": "تابعونا",
-   "address": "ماسلاك، إسطنبول"
+   "address": "حسن باشا، شارع حاجي نجيب أوستا، قاضي كوي، إسطنبول"
   },
   "home": {
    "eyebrow": "مواقع مصممة لمهنتك",
