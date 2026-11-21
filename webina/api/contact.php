@@ -103,6 +103,7 @@ if ($to !== '') {
             ['Textes', $fr($clean['content'] ?? '')],
             ['Photos', $fr($clean['photos'] ?? '')],
             ['Site exemple', ($clean['example'] ?? '') ?: '—'],
+            ['Réseaux sociaux', ['basic' => 'Basic', 'pro' => 'Pro', 'premium' => 'Premium'][$clean['social'] ?? ''] ?? 'Non'],
             ['Code de réduction', $promo !== '' ? $promo : ($promoRejected ? 'refusé (déjà utilisé ou inconnu)' : '—')],
         ]);
     }

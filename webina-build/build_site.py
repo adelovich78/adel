@@ -400,28 +400,27 @@ def solutions_fragments():
     return {'SOLUTION_BLOCKS': blocks, 'EXTRAS': extras}
 
 def social_fragments():
-    li = lambda key, n, ico='i-check': ''.join(f'<li>{icon(ico)}{tx(f"{key}.{j}")}</li>' for j in range(n))
-    S = TR['social']
-    return {'SOCIAL_CARDS': f'''
-                <article class="plan_card is-popular" data-reveal style="--d:0">
-                  <h2 class="heading-style-h4">{tx("social.planT")}</h2>
-                  {tx("social.planP", 'p', 'text-color-secondary')}
-                  <p class="plan_price"><span class="plan_amount" dir="ltr" data-amount="socialMonthly">{tl('socialMonthly')}</span>{tx("social.perMonth", 'span', 'plan_once text-color-muted')}</p>
-                  <ul class="plan_items" role="list">{li("social.inc", len(S['inc']))}</ul>
-                  <a href="/teklif?social=1" class="button is-block">{tx("social.cta")}{icon("i-arrow")}</a>
-                </article>
-                <article class="plan_card" data-reveal style="--d:1">
-                  <h2 class="heading-style-h4">{tx("social.setupT")}</h2>
-                  {tx("social.setupP", 'p', 'text-color-secondary')}
-                  <p class="plan_price"><span class="plan_amount">{tx("social.free")}</span></p>
-                  <ul class="plan_items" role="list">{li("social.setup", len(S['setup']))}</ul>
-                </article>
-                <article class="plan_card" data-reveal style="--d:2">
-                  <h2 class="heading-style-h4">{tx("social.notesT")}</h2>
-                  {tx("social.notesP", 'p', 'text-color-secondary')}
-                  <ul class="plan_items" role="list">{li("social.notes", len(S['notes']), 'i-info')}</ul>
-                  <a href="https://wa.me/905399662557" target="_blank" rel="noopener" class="button is-block is-secondary">{icon("i-chat")}{tx("social.wa")}</a>
-                </article>'''}
+    # 3 formules mensuelles ; prix dynamiques via data-amount (socialBasic/Pro/Premium)
+    cards = []
+    for i, k in enumerate(['basic', 'pro', 'premium']):
+        P = TR['social']['plans'][k]
+        key = 'social' + k.capitalize()
+        pop = k == 'pro'
+        items = ''.join(f'<li>{icon("i-check")}{tx(f"social.plans.{k}.items.{j}")}</li>' for j in range(len(P['items'])))
+        cards.append(f'''
+                <article class="plan_card{' is-popular' if pop else ''}" data-reveal style="--d:{i}">
+                  {f'<span class="plan_badge text-style-mono">{tx("price.popular")}</span>' if pop else ''}
+                  <h2 class="heading-style-h4">{tx(f"social.plans.{k}.n")}</h2>
+                  {tx(f"social.plans.{k}.p", 'p', 'text-color-secondary')}
+                  <p class="plan_price"><span class="plan_amount" dir="ltr" data-amount="{key}">{tl(key)}</span>{tx("social.perMonth", 'span', 'plan_once text-color-muted')}</p>
+                  <ul class="plan_items" role="list">{items}</ul>
+                  {tx(f"social.plans.{k}.out", 'p', 'text-size-small text-color-muted')}
+                  <a href="/teklif?social={k}#quote-social" class="button is-block{'' if pop else ' is-secondary'}">{tx("social.cta")}{icon("i-arrow")}</a>
+                </article>''')
+    note = f'''
+              <div class="social_note" data-reveal>{icon("i-info")}{tx("social.setup", 'p')}
+                <a href="https://wa.me/905399662557" target="_blank" rel="noopener" class="button is-secondary">{icon("i-chat")}{tx("social.wa")}</a></div>'''
+    return {'SOCIAL_CARDS': ''.join(cards), 'SOCIAL_NOTE': note}
 
 def sectors_fragments():
     out = []

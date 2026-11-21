@@ -28,12 +28,18 @@
 
   var state = {
     logo: '', domain: '', domainName: '', pages: [], customPages: 0, customDesc: '',
-    langs: [], booking: ['form'], content: 'ready', photos: 'own', example: '', promo: '', social: params.get('social') === '1' ? 'yes' : 'no'
+    langs: [], booking: ['form'], content: 'ready', photos: 'own', example: '', promo: '', social: ['basic', 'pro', 'premium'].indexOf(params.get('social')) > -1 ? params.get('social') : 'none'
   };
 
   function defaultLangs(l) { return l === 'en' ? ['en', 'tr'] : [l, 'en']; }
 
   /* ---------- Calcul ---------- */
+  // Formule réseaux sociaux mensuelle : séparée du total unique
+  function monthlyLines(t) {
+    if (['basic', 'pro', 'premium'].indexOf(state.social) < 0) return [];
+    var key = 'social' + state.social.charAt(0).toUpperCase() + state.social.slice(1);
+    return [{ key: key, amount: t[key] }];
+  }
   function converted() {
     var cur = pricing.currencyByLang[lang()] || 'USD';
     var rate = pricing.tlPer[cur] || 1;
@@ -42,7 +48,9 @@
     Object.keys(pricing.prices).forEach(function (k) {
       t[k] = Math.round(pricing.prices[k] / rate / step) * step;
     });
-    if (t.socialMonthly == null) t.socialMonthly = Math.round(5000 / rate / step) * step;
+    // Tarifs sosyal medya par défaut tant que l'admin ne les a pas réglés
+    var SOCIAL_DEF = { socialBasic: 7500, socialPro: 12500, socialPremium: 19500 };
+    Object.keys(SOCIAL_DEF).forEach(function (k) { if (t[k] == null) t[k] = Math.round(SOCIAL_DEF[k] / rate / step) * step; });
     return { currency: cur, t: t, rate: rate, step: step };
   }
 
@@ -80,7 +88,7 @@
     return {
       currency: c.currency, t: t, lines: lines, total: total, deposit: deposit, balance: total - deposit,
       depositPercent: pricing.depositPercent, renewal: t.renewalYearly,
-      monthly: state.social === 'yes' ? t.socialMonthly : 0,
+      monthlyLines: monthlyLines(t), monthly: monthlyLines(t).reduce(function (s, l) { return s + l.amount; }, 0),
       includedPages: pricing.includedPages, includedLangs: incLangs
     };
   }
@@ -133,7 +141,7 @@
       var k = el.getAttribute('data-price');
       if (k === 'free') el.textContent = q.free;
       else if (k === 'included') el.textContent = q.included;
-      else if (k === 'socialMonthly') el.textContent = '+' + fmt(res.t[k]) + ' ' + q.perMonth;
+      else if (k.indexOf('social') === 0) el.textContent = '+' + fmt(res.t[k]) + ' ' + q.perMonth;
       else if (res.t[k] != null) el.textContent = res.t[k] ? '+' + fmt(res.t[k]) : q.included;
       else el.textContent = '';
     });
@@ -174,9 +182,19 @@
     });
     prevKeys = keys;
 
+    // Bloc « Aylık » : une ligne par abonnement + total mensuel (non ajouté au total unique)
     root.querySelectorAll('[data-monthly]').forEach(function (e) {
       e.hidden = !res.monthly;
-      e.textContent = res.monthly ? q.sum.monthly.replace('{x}', fmt(res.monthly)) : '';
+      e.innerHTML = '';
+      if (!res.monthly) return;
+      var h = document.createElement('span'); h.className = 'summary_monthly-title'; h.textContent = q.sum.monthlyT; e.appendChild(h);
+      res.monthlyLines.forEach(function (l) {
+        var row = document.createElement('span'); row.className = 'summary_monthly-row';
+        var a = document.createElement('span');
+        a.textContent = q.lines[l.key];
+        var b = document.createElement('span'); b.dir = 'ltr'; b.textContent = fmt(l.amount) + ' ' + q.perMonth;
+        row.appendChild(a); row.appendChild(b); e.appendChild(row);
+      });
     });
     tweenTotal(res.total, cur);
     updateReady();

@@ -2298,3 +2298,9 @@ body:has(.sector-dock.is-on) .wa_float { transform: translateY(-72px); }
 
 .summary_monthly { margin: 10px 0 0; padding: 10px 12px; border-radius: 10px; background-color: color-mix(in srgb, var(--color-accent) 12%, transparent); color: var(--color-accent-ink); font-size: 0.9375rem; font-weight: 600; }
 .summary_monthly[hidden] { display: none; }
+/* Sosyal medya : note sous les formules */
+.social_note { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 16px; margin-top: 24px; padding: 18px 20px; border: 1px solid var(--color-hairline); border-radius: 14px; }
+.social_note > .icon { flex: none; color: var(--color-accent); }
+.social_note p { flex: 1 1 260px; margin: 0; }
+.summary_monthly-title { display: block; font-size: 0.8125rem; opacity: 0.8; }
+.summary_monthly-row { display: flex; justify-content: space-between; gap: 12px; }

@@ -53,7 +53,7 @@
    "mahalle": "Mahalle",
    "mahallePh": "Mahalle seçin (isteğe bağlı)",
    "social": "Sosyal medya yönetimi",
-   "socialHint": "Facebook + Instagram: ayda 4 video ve 15 paylaşım, metinler ve yayınlama. Kurulum ücretsiz, Meta reklam bütçesi hariç."
+   "socialHint": "Aylık paket: Instagram + Facebook. Hesap kurulumu ücretsiz, Meta reklam bütçesi hariç."
   },
   "opt": {
    "pages": {
@@ -92,8 +92,10 @@
     "pro": "Profesyonel fotoğrafçı (1 gün çekim, İstanbul)"
    },
    "social": {
-    "no": "Şimdilik istemiyorum",
-    "yes": "Evet, ekleyin"
+    "none": "İstemiyorum",
+    "basic": "Basic — 8 paylaşım, 4 Story",
+    "pro": "Pro — 12 paylaşım, 4 Reels, 8 Story",
+    "premium": "Premium — 16 paylaşım, 8 Reels, 12 Story, reklam yönetimi"
    }
   },
   "sum": {
@@ -109,7 +111,7 @@
    "send": "Talebimi gönder",
    "sending": "Gönderiliyor...",
    "fillContact": "Göndermek için ad, e-posta ve şehir girin",
-   "monthly": "+ {x} / ay — sosyal medya yönetimi"
+   "monthlyT": "Aylık — sosyal medya"
   },
   "lines": {
    "base": "Standart paket ({n} sayfa, {l} dil, iletişim, tasarım + SSL + SEO)",
@@ -123,7 +125,9 @@
    "shop": "Online mağaza",
    "logo": "Logo tasarımı",
    "domain": "Alan adı + hosting (1. yıl)",
-   "social": "Sosyal medya yönetimi (kurulum ücretsiz)"
+   "socialBasic": "Sosyal medya — Basic paket",
+   "socialPro": "Sosyal medya — Pro paket",
+   "socialPremium": "Sosyal medya — Premium paket"
   },
   "errName": "Lütfen adınızı yazın",
   "errEmail": "Lütfen geçerli bir e-posta girin",
@@ -188,7 +192,7 @@
    "mahalle": "Neighbourhood",
    "mahallePh": "Choose a neighbourhood (optional)",
    "social": "Social media management",
-   "socialHint": "Facebook + Instagram: 4 videos and 15 posts a month, captions and publishing. Free setup, Meta ads budget not included."
+   "socialHint": "Monthly package: Instagram + Facebook. Free account setup, Meta ad budget not included."
   },
   "opt": {
    "pages": {
@@ -227,8 +231,10 @@
     "pro": "Professional photographer (1-day shoot, Istanbul)"
    },
    "social": {
-    "no": "Not for now",
-    "yes": "Yes, add it"
+    "none": "No thanks",
+    "basic": "Basic — 8 posts, 4 Stories",
+    "pro": "Pro — 12 posts, 4 Reels, 8 Stories",
+    "premium": "Premium — 16 posts, 8 Reels, 12 Stories, ad management"
    }
   },
   "sum": {
@@ -244,7 +250,7 @@
    "send": "Send my request",
    "sending": "Sending...",
    "fillContact": "Enter your name, email and city to send",
-   "monthly": "+ {x} / month — social media management"
+   "monthlyT": "Monthly — social media"
   },
   "lines": {
    "base": "Standard pack ({n} pages, {l} languages, contact, design + SSL + SEO)",
@@ -258,7 +264,9 @@
    "shop": "Online shop",
    "logo": "Logo design",
    "domain": "Domain + hosting (1st year)",
-   "social": "Social media management (free setup)"
+   "socialBasic": "Social media — Basic package",
+   "socialPro": "Social media — Pro package",
+   "socialPremium": "Social media — Premium package"
   },
   "errName": "Please enter your name",
   "errEmail": "Please enter a valid email",
@@ -323,7 +331,7 @@
    "mahalle": "Quartier (mahalle)",
    "mahallePh": "Choisissez un quartier (facultatif)",
    "social": "Gestion des réseaux sociaux",
-   "socialHint": "Facebook + Instagram : 4 vidéos et 15 publications par mois, textes et publication. Mise en place offerte, budget pub Meta non inclus."
+   "socialHint": "Formule mensuelle : Instagram + Facebook. Création des comptes offerte, budget publicitaire Meta non inclus."
   },
   "opt": {
    "pages": {
@@ -362,8 +370,10 @@
     "pro": "Photographe professionnel (1 journée, Istanbul)"
    },
    "social": {
-    "no": "Pas pour l’instant",
-    "yes": "Oui, ajoutez-la"
+    "none": "Non merci",
+    "basic": "Basic — 8 publications, 4 Stories",
+    "pro": "Pro — 12 publications, 4 Reels, 8 Stories",
+    "premium": "Premium — 16 publications, 8 Reels, 12 Stories, gestion pub"
    }
   },
   "sum": {
@@ -379,7 +389,7 @@
    "send": "Envoyer ma demande",
    "sending": "Envoi...",
    "fillContact": "Indiquez votre nom, e-mail et ville pour envoyer",
-   "monthly": "+ {x} / mois — gestion des réseaux sociaux"
+   "monthlyT": "Mensuel — réseaux sociaux"
   },
   "lines": {
    "base": "Pack standard ({n} pages, {l} langues, contact, design + SSL + SEO)",
@@ -393,7 +403,9 @@
    "shop": "Boutique en ligne",
    "logo": "Création du logo",
    "domain": "Domaine + hébergement (1re année)",
-   "social": "Gestion des réseaux sociaux (mise en place offerte)"
+   "socialBasic": "Réseaux sociaux — offre Basic",
+   "socialPro": "Réseaux sociaux — offre Pro",
+   "socialPremium": "Réseaux sociaux — offre Premium"
   },
   "errName": "Indiquez votre nom",
   "errEmail": "Indiquez un e-mail valide",
@@ -458,7 +470,7 @@
    "mahalle": "الحي",
    "mahallePh": "اختر الحي (اختياري)",
    "social": "إدارة وسائل التواصل",
-   "socialHint": "فيسبوك + إنستغرام: 4 فيديوهات و15 منشوراً شهرياً مع النصوص والنشر. الإعداد مجاني، وميزانية إعلانات Meta غير مشمولة."
+   "socialHint": "باقة شهرية: إنستغرام + فيسبوك. إعداد الحسابات مجاناً، ميزانية إعلانات Meta غير مشمولة."
   },
   "opt": {
    "pages": {
@@ -497,8 +509,10 @@
     "pro": "مصوّر محترف (يوم تصوير، إسطنبول)"
    },
    "social": {
-    "no": "ليس الآن",
-    "yes": "نعم، أضيفوها"
+    "none": "لا، شكراً",
+    "basic": "Basic — 8 منشورات، 4 قصص",
+    "pro": "Pro — 12 منشوراً، 4 Reels، 8 قصص",
+    "premium": "Premium — 16 منشوراً، 8 Reels، 12 قصة، إدارة الإعلانات"
    }
   },
   "sum": {
@@ -514,7 +528,7 @@
    "send": "إرسال الطلب",
    "sending": "جارٍ الإرسال...",
    "fillContact": "أدخلوا الاسم والبريد الإلكتروني والمدينة للإرسال",
-   "monthly": "+ {x} / شهر — إدارة وسائل التواصل"
+   "monthlyT": "شهرياً — وسائل التواصل"
   },
   "lines": {
    "base": "الباقة الأساسية ({n} صفحات، {l} لغات، تواصل، تصميم + SSL + SEO)",
@@ -528,7 +542,9 @@
    "shop": "متجر إلكتروني",
    "logo": "تصميم الشعار",
    "domain": "النطاق + الاستضافة (السنة الأولى)",
-   "social": "إدارة وسائل التواصل (إعداد مجاني)"
+   "socialBasic": "وسائل التواصل — باقة Basic",
+   "socialPro": "وسائل التواصل — باقة Pro",
+   "socialPremium": "وسائل التواصل — باقة Premium"
   },
   "errName": "يرجى كتابة الاسم",
   "errEmail": "يرجى إدخال بريد إلكتروني صالح",
