@@ -662,8 +662,9 @@ window.WEBINA_I18N = {
     "send": "Talebimi gönder",
     "sending": "Gönderiliyor…",
     "fillContact": "Göndermek için ad, e-posta ve şehir girin",
-    "monthlyT": "Aylık — sosyal medya",
-    "monthlyTotal": "Aylık toplam"
+    "firstTotal": "İlk ödeme (site + sosyal medya 1. ay)",
+    "firstSocial": "İlk ödeme (sosyal medya 1. ay)",
+    "thenMonthly": "Ardından her ay — sosyal medya"
    },
    "lines": {
     "base": "Standart paket ({n} sayfa, {l} dil, iletişim, tasarım + SSL + SEO)",
@@ -677,9 +678,9 @@ window.WEBINA_I18N = {
     "shop": "Online mağaza",
     "logo": "Logo tasarımı",
     "domain": "Alan adı + hosting (1. yıl)",
-    "socialBasic": "Sosyal medya — Basic paket",
-    "socialPro": "Sosyal medya — Pro paket",
-    "socialPremium": "Sosyal medya — Premium paket",
+    "socialBasic": "Sosyal medya — Basic paket (1. ay)",
+    "socialPro": "Sosyal medya — Pro paket (1. ay)",
+    "socialPremium": "Sosyal medya — Premium paket (1. ay)",
     "promo": "İndirim kodu ({c})"
    },
    "errName": "Lütfen adınızı yazın",
@@ -1891,8 +1892,9 @@ window.WEBINA_I18N = {
     "send": "Send my request",
     "sending": "Sending…",
     "fillContact": "Enter your name, email and city to send",
-    "monthlyT": "Monthly — social media",
-    "monthlyTotal": "Monthly total"
+    "firstTotal": "First payment (website + 1st month of social media)",
+    "firstSocial": "First payment (1st month of social media)",
+    "thenMonthly": "Then every month — social media"
    },
    "lines": {
     "base": "Standard pack ({n} pages, {l} languages, contact, design + SSL + SEO)",
@@ -1906,9 +1908,9 @@ window.WEBINA_I18N = {
     "shop": "Online shop",
     "logo": "Logo design",
     "domain": "Domain + hosting (1st year)",
-    "socialBasic": "Social media — Basic package",
-    "socialPro": "Social media — Pro package",
-    "socialPremium": "Social media — Premium package",
+    "socialBasic": "Social media — Basic package (1st month)",
+    "socialPro": "Social media — Pro package (1st month)",
+    "socialPremium": "Social media — Premium package (1st month)",
     "promo": "Discount code ({c})"
    },
    "errName": "Please enter your name",
@@ -3120,8 +3122,9 @@ window.WEBINA_I18N = {
     "send": "Envoyer ma demande",
     "sending": "Envoi…",
     "fillContact": "Indiquez votre nom, e-mail et ville pour envoyer",
-    "monthlyT": "Mensuel — réseaux sociaux",
-    "monthlyTotal": "Total mensuel"
+    "firstTotal": "Premier paiement (site + 1er mois réseaux sociaux)",
+    "firstSocial": "Premier paiement (1er mois réseaux sociaux)",
+    "thenMonthly": "Ensuite chaque mois — réseaux sociaux"
    },
    "lines": {
     "base": "Pack standard ({n} pages, {l} langues, contact, design + SSL + SEO)",
@@ -3135,9 +3138,9 @@ window.WEBINA_I18N = {
     "shop": "Boutique en ligne",
     "logo": "Création du logo",
     "domain": "Domaine + hébergement (1re année)",
-    "socialBasic": "Réseaux sociaux — offre Basic",
-    "socialPro": "Réseaux sociaux — offre Pro",
-    "socialPremium": "Réseaux sociaux — offre Premium",
+    "socialBasic": "Réseaux sociaux — offre Basic (1er mois)",
+    "socialPro": "Réseaux sociaux — offre Pro (1er mois)",
+    "socialPremium": "Réseaux sociaux — offre Premium (1er mois)",
     "promo": "Code de réduction ({c})"
    },
    "errName": "Indiquez votre nom",
@@ -4349,8 +4352,9 @@ window.WEBINA_I18N = {
     "send": "إرسال الطلب",
     "sending": "جارٍ الإرسال…",
     "fillContact": "أدخلوا الاسم والبريد الإلكتروني والمدينة للإرسال",
-    "monthlyT": "شهرياً — وسائل التواصل",
-    "monthlyTotal": "الإجمالي الشهري"
+    "firstTotal": "الدفعة الأولى (الموقع + الشهر الأول من وسائل التواصل)",
+    "firstSocial": "الدفعة الأولى (الشهر الأول من وسائل التواصل)",
+    "thenMonthly": "ثم كل شهر — وسائل التواصل"
    },
    "lines": {
     "base": "الباقة الأساسية ({n} صفحات، {l} لغات، تواصل، تصميم + SSL + SEO)",
@@ -4364,9 +4368,9 @@ window.WEBINA_I18N = {
     "shop": "متجر إلكتروني",
     "logo": "تصميم الشعار",
     "domain": "النطاق + الاستضافة (السنة الأولى)",
-    "socialBasic": "وسائل التواصل — باقة Basic",
-    "socialPro": "وسائل التواصل — باقة Pro",
-    "socialPremium": "وسائل التواصل — باقة Premium",
+    "socialBasic": "وسائل التواصل — باقة Basic (الشهر الأول)",
+    "socialPro": "وسائل التواصل — باقة Pro (الشهر الأول)",
+    "socialPremium": "وسائل التواصل — باقة Premium (الشهر الأول)",
     "promo": "رمز الخصم ({c})"
    },
    "errName": "يرجى كتابة الاسم",

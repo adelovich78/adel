@@ -34,7 +34,7 @@ if ($kind === 'quote') {
     }
     $lang = in_array($clean['lang'] ?? '', ['tr', 'en', 'fr', 'ar'], true) ? $clean['lang'] : 'tr';
     // Code de réduction : consommé ici, une seule fois, avant le calcul du prix
-    $asked = ($clean['scope'] ?? '') === 'social' ? '' : promo_normalise((string)($clean['promo'] ?? ''));
+    $asked = promo_normalise((string)($clean['promo'] ?? ''));
     if ($asked !== '') {
         $pdo = db_or_null();
         $promoRule = $pdo ? promo_consume($pdo, $asked, $name, $email) : null;
@@ -44,8 +44,8 @@ if ($kind === 'quote') {
     $clean['promo'] = $promo;
     // Prix recalculé côté serveur : le navigateur ne peut pas le falsifier
     $quote = compute_quote(load_pricing(), $lang, $clean, $promo, $promoRule);
-    // Réseaux sociaux seuls : la valeur de la vente est le montant mensuel
-    $amount = $quote['scope'] === 'social' ? $quote['monthly'] : $quote['total'];
+    // Valeur de la vente : le premier paiement (site et/ou 1er mois de réseaux sociaux)
+    $amount = $quote['total'];
     $clean['price'] = (string)$amount;
     $clean['currency'] = $quote['currency'];
     $details = json_encode($clean, JSON_UNESCAPED_UNICODE);

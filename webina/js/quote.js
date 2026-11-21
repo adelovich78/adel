@@ -72,6 +72,10 @@
     if (state.photos === 'pro') lines.push({ key: 'photos', amount: t.photographer });
     if (state.logo !== 'yes') lines.push({ key: 'logo', amount: 0, free: true, was: t.logoValue });
     lines.push({ key: 'domain', amount: 0, free: true, was: t.renewalYearly });
+    // Réseaux sociaux : le 1er mois entre dans le premier paiement (le coupon s'applique aussi dessus)
+    var social = state.scope === 'social', ml = monthlyLines(t);
+    if (social) lines = [];
+    lines = lines.concat(ml);
     // Code de réduction : pourcentage du sous-total ou montant fixe (en TL, converti comme les autres prix)
     if (state.promo) {
       var sub = lines.reduce(function (s, l) { return s + l.amount; }, 0), off = 0, label = state.promo;
@@ -85,14 +89,12 @@
       off = Math.min(off, sub);
       if (off > 0) lines.push({ key: 'promo', amount: -off, code: label });
     }
-    var social = state.scope === 'social', ml = monthlyLines(t);
-    if (social) lines = ml.slice();
     var total = lines.reduce(function (s, l) { return s + l.amount; }, 0);
     var deposit = social ? 0 : Math.round(total * pricing.depositPercent / 100);
     return {
       currency: c.currency, t: t, lines: lines, total: total, deposit: deposit, balance: total - deposit,
       depositPercent: pricing.depositPercent, renewal: t.renewalYearly,
-      social: social, monthlyLines: ml, monthly: ml.reduce(function (s, l) { return s + l.amount; }, 0),
+      social: social, scope: ml.length ? (social ? 'social' : 'both') : 'site', monthlyLines: ml, monthly: ml.reduce(function (s, l) { return s + l.amount; }, 0),
       includedPages: pricing.includedPages, includedLangs: incLangs
     };
   }
@@ -179,7 +181,7 @@
         if (l.was) { var w = document.createElement('span'); w.className = 'summary_line-was'; w.textContent = fmt(l.was); b.appendChild(w); }
         var f = document.createElement('span'); f.className = 'summary_line-free'; f.textContent = q.free; b.appendChild(f);
       } else {
-        b.textContent = fmt(l.amount) + (res.social ? ' ' + q.perMonth : '');
+        b.textContent = fmt(l.amount);
       }
       li.appendChild(a); li.appendChild(b);
       list.appendChild(li);
@@ -188,21 +190,21 @@
 
     // Bloc « Aylık » : une ligne par abonnement + total mensuel (non ajouté au total unique)
     root.querySelectorAll('[data-monthly]').forEach(function (e) {
-      e.hidden = !res.monthly || res.social;
+      e.hidden = !res.monthly;
       e.innerHTML = '';
       if (!res.monthly) return;
-      var h = document.createElement('span'); h.className = 'summary_monthly-title'; h.textContent = q.sum.monthlyT; e.appendChild(h);
+      // Après le premier paiement : le montant de la formule chaque mois
       res.monthlyLines.forEach(function (l) {
         var row = document.createElement('span'); row.className = 'summary_monthly-row';
         var a = document.createElement('span');
-        a.textContent = q.lines[l.key];
+        a.textContent = q.sum.thenMonthly;
         var b = document.createElement('span'); b.dir = 'ltr'; b.textContent = fmt(l.amount) + ' ' + q.perMonth;
         row.appendChild(a); row.appendChild(b); e.appendChild(row);
       });
     });
     // Mode « sosyal medya seul » : étapes du site, code promo et notes site masqués
-    root.querySelectorAll('[data-total-label]').forEach(function (e) { e.textContent = res.social ? q.sum.monthlyTotal : q.sum.total; });
-    root.querySelectorAll('[data-site-only], [data-site-note], [data-promo]').forEach(function (e) { e.hidden = res.social; });
+    root.querySelectorAll('[data-total-label]').forEach(function (e) { e.textContent = { site: q.sum.total, both: q.sum.firstTotal, social: q.sum.firstSocial }[res.scope]; });
+    root.querySelectorAll('[data-site-only], [data-site-note]').forEach(function (e) { e.hidden = res.social; });
     root.querySelectorAll('[data-social-step]').forEach(function (e) { e.hidden = state.scope === 'site'; });
     var n = 0;
     form.querySelectorAll('.quote_step').forEach(function (f) {
@@ -309,7 +311,7 @@
     delete details._langsTouched;
     details.customPages = String(state.customPages);
     details.city = c.city;
-    details.promo = state.scope === 'social' ? '' : state.promo;
+    details.promo = state.promo;
     details.lang = lang();
     fetch('/api/contact.php', {
       method: 'POST', credentials: 'same-origin',
