@@ -518,11 +518,12 @@
     e.preventDefault();
     var f = e.target, id = state.sheetId;
     if (f.matches('[data-chat-form]')) {
-      var file = f.file.files[0];
-      if (!f.body.value.trim() && !file) { toast('Écrivez un message ou joignez un fichier'); return; }
+      var files = Array.prototype.slice.call(f.file.files);
+      if (!f.body.value.trim() && !files.length) { toast('Écrivez un message ou joignez un fichier'); return; }
+      if (files.length > 10) { toast('10 fichiers maximum par message'); return; }
       var fd = new FormData();
       fd.append('client_id', id); fd.append('body', f.body.value); fd.append('kind', f.kind.value);
-      if (file) fd.append('file', file);
+      files.forEach(function (x) { fd.append('file[]', x); });
       var sb = f.querySelector('[type=submit]'); sb.disabled = true;
       fetch('/api/clientarea.php?r=chat', { method: 'POST', body: fd, credentials: 'same-origin', headers: { 'X-Requested-With': 'webina' } })
         .then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { if (!r.ok) throw new Error(j.error || 'Envoi impossible'); return j; }); })
@@ -696,10 +697,11 @@
   // Échanges avec le client : messages, propositions à valider, fichiers (dans les deux sens)
   var PROP = { pending: 'En attente de validation', approved: 'Validée par le client', changes: 'Modifications demandées' };
   function chatFile(m) {
-    if (!m.doc_id) return '';
-    var url = '/api/clientarea.php?r=docs&id=' + encodeURIComponent(m.doc_id);
-    if ((m.doc_mime || '').indexOf('image/') === 0) return '<a class="crm_chat-img" href="' + url + '&view=1" target="_blank" rel="noopener"><img src="' + url + '&view=1" alt="' + esc(m.doc_name) + '" loading="lazy"></a>';
-    return '<a class="crm_chat-file" href="' + url + '&view=1" target="_blank" rel="noopener">' + icon('i-link') + esc(m.doc_name) + '</a>';
+    return (m.files || []).map(function (f) {
+      var url = '/api/clientarea.php?r=docs&id=' + encodeURIComponent(f.id);
+      if ((f.mime || '').indexOf('image/') === 0) return '<a class="crm_chat-img" href="' + url + '&view=1" target="_blank" rel="noopener"><img src="' + url + '&view=1" alt="' + esc(f.name) + '" loading="lazy"></a>';
+      return '<a class="crm_chat-file" href="' + url + (f.mime === 'application/pdf' ? '&view=1' : '') + '" target="_blank" rel="noopener">' + icon('i-link') + esc(f.name) + ' <span class="text-color-muted">(' + Math.max(1, Math.round(f.size / 1024)) + ' Ko)</span></a>';
+    }).join('');
   }
   function notesSection(x) {
     var chat = (x.portal && x.portal.chat) || [];
@@ -718,7 +720,7 @@
       (items ? '<ol class="crm_chat" role="list">' + items + '</ol>' : '<p class="crm_empty">Aucun échange pour le moment.</p>') +
       '<form class="crm_chat-form" data-chat-form>' +
         '<textarea class="form_input is-area" name="body" rows="3" placeholder="Votre message au client…" aria-label="Message"></textarea>' +
-        '<div class="crm_chat-tools"><input class="form_input" type="file" name="file" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png" aria-label="Fichier joint">' +
+        '<div class="crm_chat-tools"><input class="form_input" type="file" name="file" multiple accept=".pdf,.doc,.docx,.jpg,.jpeg,.png,.zip" aria-label="Fichiers joints (10 max.)">' +
         '<select class="form_input is-select" name="kind" aria-label="Type"><option value="message">Message</option><option value="proposal">Proposition à valider</option></select>' +
         '<button type="submit" class="button is-small">' + icon('i-send') + 'Envoyer</button></div>' +
       '</form></section>';
@@ -753,7 +755,7 @@
     }
     if (t.closest('[data-doc-add]')) {
       return openModal('Ajouter un document', [
-        { label: 'Fichier (PDF, Word, JPG, PNG — 15 Mo max.)', name: 'file', type: 'file', accept: '.pdf,.doc,.docx,.jpg,.jpeg,.png', required: true, full: true },
+        { label: 'Fichier (PDF, Word, JPG, PNG, ZIP — 15 Mo max.)', name: 'file', type: 'file', accept: '.pdf,.doc,.docx,.jpg,.jpeg,.png,.zip', required: true, full: true },
         { label: 'Titre', name: 'title', placeholder: 'ex. Hizmet Sözleşmesi 2026', full: true },
         { label: 'Type', name: 'kind', type: 'select', options: Object.keys(DOCKIND).map(function (k) { return [k, DOCKIND[k]]; }) },
         { label: 'Espace client', name: 'visible', type: 'select', options: [['1', 'Visible par le client'], ['0', 'Interne uniquement']] }

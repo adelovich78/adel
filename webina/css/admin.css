@@ -543,3 +543,4 @@
 .crm_chat-tools .form_input { width: auto; }
 .crm_chat-tools input[type=file] { flex: 1 1 220px; min-width: 0; }
 .crm_chat-tools select { flex: 0 0 auto; }
+.crm_chat-file { display: flex; width: fit-content; max-width: 100%; overflow-wrap: anywhere; }

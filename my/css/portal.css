@@ -276,3 +276,5 @@ ul, ol { list-style: none; }
 .chat_attach { position: relative; display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px; border: 1.5px dashed var(--line-strong); border-radius: 99px; cursor: pointer; font-weight: 600; font-size: 0.875rem; max-width: 100%; overflow-wrap: anywhere; }
 .chat_attach input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
 .chat_attach:focus-within { outline: 2px solid #23772a; outline-offset: 2px; }
+.chat_file { display: flex; width: fit-content; max-width: 100%; }
+.chat_fsize { font-weight: 400; opacity: 0.6; font-size: 0.8125rem; }

@@ -220,6 +220,9 @@ function crm_schema(PDO $pdo): void {
     if (!in_array('source', $dcols, true)) {
         $pdo->exec("ALTER TABLE crm_documents ADD COLUMN source VARCHAR(8) NOT NULL DEFAULT 'webina', ADD COLUMN note TEXT NULL");
     }
+    // Plusieurs fichiers par message : liste JSON des documents joints
+    $ccols2 = $pdo->query("SHOW TABLES LIKE 'portal_chat'")->fetchColumn() ? array_column($pdo->query('SHOW COLUMNS FROM portal_chat')->fetchAll(), 'Field') : [];
+    if ($ccols2 && !in_array('doc_ids', $ccols2, true)) $pdo->exec('ALTER TABLE portal_chat ADD COLUMN doc_ids TEXT NULL');
     // Messagerie Webina ⇄ client : messages, propositions à valider (logo, textes…), fichiers joints
     $pdo->exec("CREATE TABLE IF NOT EXISTS portal_chat (
         id CHAR(36) NOT NULL PRIMARY KEY,
@@ -228,6 +231,7 @@ function crm_schema(PDO $pdo): void {
         kind VARCHAR(10) NOT NULL DEFAULT 'message',
         body TEXT NULL,
         doc_id CHAR(36) NULL,
+        doc_ids TEXT NULL,
         status VARCHAR(10) NULL,
         reply_to CHAR(36) NULL,
         read_by_client TINYINT(1) NOT NULL DEFAULT 0,
@@ -724,7 +728,8 @@ function crm_files_dir(): string {
 }
 
 const CRM_DOC_TYPES = ['application/pdf' => 'pdf', 'image/jpeg' => 'jpg', 'image/png' => 'png',
-    'application/vnd.openxmlformats-officedocument.wordprocessingml.document' => 'docx', 'application/msword' => 'doc'];
+    'application/vnd.openxmlformats-officedocument.wordprocessingml.document' => 'docx', 'application/msword' => 'doc',
+    'application/zip' => 'zip', 'application/x-zip-compressed' => 'zip', 'application/x-zip' => 'zip'];
 const CRM_DOC_KINDS = ['contract', 'quote', 'invoice', 'other'];
 
 // Enregistre le fichier envoyé (champ « file ») pour un client ; 15 Mo maximum
@@ -732,7 +737,7 @@ function crm_doc_upload(PDO $pdo, string $cid, array $f, string $kind, string $t
     if (($f['error'] ?? UPLOAD_ERR_NO_FILE) !== UPLOAD_ERR_OK) fail('Fichier non reçu (taille maximale du serveur dépassée ?).', 422);
     if ($f['size'] > 15 * 1024 * 1024) fail('Fichier trop lourd (15 Mo maximum).', 422);
     $mime = (new finfo(FILEINFO_MIME_TYPE))->file($f['tmp_name']) ?: '';
-    if (!isset(CRM_DOC_TYPES[$mime])) fail('Format accepté : PDF, Word, JPG ou PNG.', 422);
+    if (!isset(CRM_DOC_TYPES[$mime])) fail('Format accepté : PDF, Word, JPG, PNG ou ZIP.', 422);
     $id = uuid4();
     $stored = $id . '.' . CRM_DOC_TYPES[$mime];
     if (!move_uploaded_file($f['tmp_name'], crm_files_dir() . '/' . $stored)) fail('Enregistrement du fichier impossible.', 500);
@@ -762,4 +767,16 @@ function crm_doc_stream(array $doc, bool $inline = false): void {
     header("Content-Disposition: $disp; filename*=UTF-8''" . rawurlencode($doc['filename']));
     readfile($path);
     exit;
+}
+
+// $_FILES['file'] simple ou multiple (file[]) → liste de fichiers individuels, vides exclus
+function crm_files_list($f): array {
+    if (!is_array($f) || !isset($f['name'])) return [];
+    if (!is_array($f['name'])) return ($f['error'] ?? UPLOAD_ERR_NO_FILE) === UPLOAD_ERR_NO_FILE ? [] : [$f];
+    $out = [];
+    foreach ($f['name'] as $i => $n) {
+        if (($f['error'][$i] ?? UPLOAD_ERR_NO_FILE) === UPLOAD_ERR_NO_FILE) continue;
+        $out[] = ['name' => $n, 'type' => $f['type'][$i] ?? '', 'tmp_name' => $f['tmp_name'][$i], 'error' => $f['error'][$i], 'size' => $f['size'][$i]];
+    }
+    return $out;
 }

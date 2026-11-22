@@ -356,31 +356,40 @@ function portal_send_welcome(PDO $pdo, array $c, string $lang, string $subject, 
 
 /* ---------- Messagerie Webina ⇄ client ---------- */
 function portal_chat_list(PDO $pdo, string $cid): array {
-    $rows = portal_all($pdo, 'SELECT m.id, m.sender, m.kind, m.body, m.status, m.reply_to, m.read_by_client, m.read_by_admin, m.created_at,
-            d.id doc_id, d.title doc_title, d.filename doc_name, d.mime doc_mime, d.size doc_size
-        FROM portal_chat m LEFT JOIN crm_documents d ON d.id = m.doc_id WHERE m.client_id = ? ORDER BY m.created_at', [$cid]);
-    foreach ($rows as &$r) { $r['doc_size'] = $r['doc_size'] !== null ? (int)$r['doc_size'] : null; }
+    $rows = portal_all($pdo, 'SELECT id, sender, kind, body, status, reply_to, doc_id, doc_ids, read_by_client, read_by_admin, created_at FROM portal_chat WHERE client_id = ? ORDER BY created_at', [$cid]);
+    $docs = [];
+    foreach (portal_all($pdo, 'SELECT id, filename, mime, size FROM crm_documents WHERE client_id = ?', [$cid]) as $d) $docs[$d['id']] = $d;
+    foreach ($rows as &$r) {
+        // Fichiers joints : liste (nouveaux messages) ou fichier unique (anciens messages)
+        $ids = $r['doc_ids'] ? (json_decode($r['doc_ids'], true) ?: []) : ($r['doc_id'] ? [$r['doc_id']] : []);
+        $r['files'] = [];
+        foreach ($ids as $fid) if (isset($docs[$fid])) $r['files'][] = ['id' => $fid, 'name' => $docs[$fid]['filename'], 'mime' => $docs[$fid]['mime'], 'size' => (int)$docs[$fid]['size']];
+        unset($r['doc_id'], $r['doc_ids']);
+    }
     unset($r);
     return $rows;
 }
 
 // Nouveau message (texte et/ou fichier) ; une proposition de Webina attend la validation du client
-function portal_chat_post(PDO $pdo, array $c, string $sender, string $body, ?array $file, string $kind = 'message', ?string $replyTo = null): array {
+function portal_chat_post(PDO $pdo, array $c, string $sender, string $body, $files, string $kind = 'message', ?string $replyTo = null): array {
     $body = mb_substr(trim($body), 0, 5000);
-    $hasFile = $file && ($file['error'] ?? UPLOAD_ERR_NO_FILE) !== UPLOAD_ERR_NO_FILE;
+    $files = crm_files_list($files);
+    if (count($files) > 10) fail($sender === 'client' ? 'En fazla 10 dosya gönderebilirsiniz.' : '10 fichiers maximum par message.', 422);
+    $hasFile = (bool)$files;
     if ($body === '' && !$hasFile) fail($sender === 'client' ? 'Mesaj veya dosya ekleyin.' : 'Écrivez un message ou joignez un fichier.', 422);
-    $docId = null;
-    if ($hasFile) {
+    $docIds = [];
+    foreach ($files as $file) {
         $doc = crm_doc_upload($pdo, $c['id'], $file, 'other', '', true, null, $sender === 'client' ? 'client' : 'webina', $body !== '' ? $body : null);
-        $docId = $doc['id'];
+        $docIds[] = $doc['id'];
     }
+    $docId = $docIds[0] ?? null;
     $kind = ($sender === 'webina' && $kind === 'proposal') ? 'proposal' : 'message';
     $id = uuid4();
-    $pdo->prepare('INSERT INTO portal_chat (id, client_id, sender, kind, body, doc_id, status, reply_to, read_by_client, read_by_admin) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)')
-        ->execute([$id, $c['id'], $sender, $kind, $body !== '' ? $body : null, $docId, $kind === 'proposal' ? 'pending' : null, $replyTo, $sender === 'client' ? 1 : 0, $sender === 'webina' ? 1 : 0]);
+    $pdo->prepare('INSERT INTO portal_chat (id, client_id, sender, kind, body, doc_id, doc_ids, status, reply_to, read_by_client, read_by_admin) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)')
+        ->execute([$id, $c['id'], $sender, $kind, $body !== '' ? $body : null, $docId, $docIds ? json_encode($docIds) : null, $kind === 'proposal' ? 'pending' : null, $replyTo, $sender === 'client' ? 1 : 0, $sender === 'webina' ? 1 : 0]);
     $what = $kind === 'proposal' ? 'Proposition envoyée' : ($sender === 'client' ? 'Message du client' : 'Message envoyé au client');
-    crm_log($pdo, $c['id'], null, 'portal', $what . ($body !== '' ? ' : ' . mb_substr($body, 0, 300) : '') . ($docId ? ' [fichier joint]' : ''));
-    if ($sender === 'client') portal_chat_notify_admin($c, 'Nouveau message', $body, $hasFile ? ($file['name'] ?? '') : '');
+    crm_log($pdo, $c['id'], null, 'portal', $what . ($body !== '' ? ' : ' . mb_substr($body, 0, 300) : '') . ($docIds ? ' [' . count($docIds) . ' fichier(s) joint(s)]' : ''));
+    if ($sender === 'client') portal_chat_notify_admin($c, 'Nouveau message', $body, implode(', ', array_column($files, 'name')));
     else portal_chat_notify_client($c, $kind, $body, $hasFile);
     return ['id' => $id];
 }
@@ -406,7 +415,7 @@ function portal_chat_notify_admin(array $c, string $title, string $text, string 
     send_html_mail($to[0], 'Espace client — ' . $title . ' : ' . $c['name'],
         mail_layout('<h2 style="margin:0 0 12px;font-size:20px">' . h($title) . '</h2><p style="margin:0 0 6px"><b>' . h($c['name']) . '</b> · ' . h((string)$c['email']) . ' · ' . h((string)$c['phone']) . '</p>'
             . ($text !== '' ? '<p style="white-space:pre-wrap;background:#f4f6f2;padding:12px;border-radius:8px">' . h($text) . '</p>' : '')
-            . ($fileName !== '' ? '<p style="margin:0">Fichier joint : <b>' . h($fileName) . '</b></p>' : '')
+            . ($fileName !== '' ? '<p style="margin:0">Fichier(s) joint(s) : <b>' . h($fileName) . '</b></p>' : '')
             . '<p style="margin:12px 0 0;color:#777;font-size:13px">Répondre depuis l\'admin : Clients → fiche du client → Échanges.</p>'),
         $c['email'] ?: null);
 }
