@@ -256,3 +256,23 @@ ul, ol { list-style: none; }
 .doc_actions { display: inline-flex; align-items: center; gap: 12px; }
 .doc_btn { display: inline-flex; align-items: center; padding: 7px 14px; border-radius: 99px; background: #23772a; color: #fff; font-size: 0.875rem; font-weight: 600; text-decoration: none; }
 .doc_btn:hover { background: #1f6e26; }
+
+/* Messagerie avec Webina */
+.chat_list { list-style: none; margin: 14px 0; padding: 4px; display: grid; gap: 10px; max-height: 520px; overflow: auto; }
+.chat_empty { opacity: 0.65; }
+.chat_msg { max-width: 86%; padding: 10px 14px; border-radius: 14px; border: 1px solid var(--line); background: var(--surface, #fff); }
+.chat_msg.is-me { justify-self: end; background: color-mix(in srgb, #23772a 9%, var(--surface, #fff)); }
+.chat_msg.is-webina { justify-self: start; }
+.chat_msg.is-proposal { border-color: color-mix(in srgb, #23772a 45%, transparent); box-shadow: 0 1px 0 color-mix(in srgb, #23772a 20%, transparent); }
+.chat_msg.is-answer { background: transparent; border-style: dashed; }
+.chat_meta { margin: 0 0 4px; font-size: 0.75rem; opacity: 0.75; display: flex; flex-wrap: wrap; align-items: center; gap: 4px; }
+.chat_body { margin: 0; white-space: pre-wrap; overflow-wrap: anywhere; }
+.chat_img img { display: block; max-width: min(320px, 100%); max-height: 240px; margin-top: 8px; border-radius: 10px; border: 1px solid var(--line); object-fit: contain; background: #fff; }
+.chat_file { display: inline-flex; align-items: center; gap: 6px; margin-top: 8px; font-weight: 600; color: #1f6e26; overflow-wrap: anywhere; }
+.chat_decide { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+.chat_changes { margin-top: 10px; }
+.chat_form { display: grid; gap: 10px; }
+.chat_tools { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: space-between; }
+.chat_attach { position: relative; display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px; border: 1.5px dashed var(--line-strong); border-radius: 99px; cursor: pointer; font-weight: 600; font-size: 0.875rem; max-width: 100%; overflow-wrap: anywhere; }
+.chat_attach input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+.chat_attach:focus-within { outline: 2px solid #23772a; outline-offset: 2px; }

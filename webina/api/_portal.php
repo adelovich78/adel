@@ -143,11 +143,15 @@ function portal_dashboard(PDO $pdo, array $c): array {
     foreach ($requests as &$q) { $q['unread'] = (int)$q['unread']; $q['replies'] = (int)$q['replies']; }
     unset($q);
     // Contrats et documents partagés par Webina
-    $documents = portal_all($pdo, 'SELECT id, kind, title, filename, mime, size, created_at FROM crm_documents WHERE client_id = ? AND visible = 1 ORDER BY created_at DESC', [$c['id']]);
+    $documents = portal_all($pdo, "SELECT id, kind, title, filename, mime, size, source, note, created_at FROM crm_documents WHERE client_id = ? AND (visible = 1 OR source = 'client') ORDER BY created_at DESC", [$c['id']]);
+    $chat = portal_chat_list($pdo, $c['id']);
+    // Proposition de Webina en attente de validation : action en tête de page
+    foreach ($chat as $m) if ($m['sender'] === 'webina' && $m['kind'] === 'proposal' && $m['status'] === 'pending') { $actions[] = ['level' => 'warning', 'code' => 'proposal', 'service' => null]; break; }
+    $pdo->prepare("UPDATE portal_chat SET read_by_client = 1 WHERE client_id = ? AND sender = 'webina' AND read_by_client = 0")->execute([$c['id']]);
     $pricing = load_pricing();
     return [
         'client' => ['name' => $c['name'], 'company' => $c['company'], 'email' => $c['email'], 'phone' => $c['phone'], 'lang' => $c['lang']],
-        'services' => $services, 'actions' => $actions, 'invoices' => $invoices, 'notices' => $notices, 'requests' => $requests, 'documents' => $documents,
+        'services' => $services, 'actions' => $actions, 'invoices' => $invoices, 'notices' => $notices, 'requests' => $requests, 'documents' => $documents, 'chat' => $chat,
         'pricing' => ['prices' => array_intersect_key($pricing['prices'], array_flip(['base', 'bookingCalendar', 'shop', 'renewalYearly'])),
                       'currencyByLang' => $pricing['currencyByLang'], 'tlPer' => $pricing['tlPer'], 'rounding' => $pricing['rounding']],
         'bank' => array_filter(['name' => $GLOBALS['CONFIG']['bank_name'] ?? null, 'iban' => $GLOBALS['CONFIG']['bank_iban'] ?? null, 'holder' => $GLOBALS['CONFIG']['bank_holder'] ?? null]),
@@ -348,4 +352,81 @@ function portal_send_welcome(PDO $pdo, array $c, string $lang, string $subject, 
         . '<p style="margin:24px 0 8px"><a href="' . h($url) . '" style="display:inline-block;background:#23772a;color:#ffffff;text-decoration:none;font-weight:bold;padding:13px 26px;border-radius:99px">' . h($d['button']) . '</a></p>'
         . '<p style="margin:0;color:#888;font-size:12px">' . h($d['note']) . '<br><a href="' . h(portal_url()) . '" style="color:#1f6f2a">' . h(preg_replace('#^https?://#', '', portal_url())) . '</a></p>';
     return send_html_mail((string)$c['email'], $subject, mail_layout($html, $d['lang'] === 'ar'), email_list($GLOBALS['CONFIG']['notify_email'] ?? '')[0] ?? null);
+}
+
+/* ---------- Messagerie Webina ⇄ client ---------- */
+function portal_chat_list(PDO $pdo, string $cid): array {
+    $rows = portal_all($pdo, 'SELECT m.id, m.sender, m.kind, m.body, m.status, m.reply_to, m.read_by_client, m.read_by_admin, m.created_at,
+            d.id doc_id, d.title doc_title, d.filename doc_name, d.mime doc_mime, d.size doc_size
+        FROM portal_chat m LEFT JOIN crm_documents d ON d.id = m.doc_id WHERE m.client_id = ? ORDER BY m.created_at', [$cid]);
+    foreach ($rows as &$r) { $r['doc_size'] = $r['doc_size'] !== null ? (int)$r['doc_size'] : null; }
+    unset($r);
+    return $rows;
+}
+
+// Nouveau message (texte et/ou fichier) ; une proposition de Webina attend la validation du client
+function portal_chat_post(PDO $pdo, array $c, string $sender, string $body, ?array $file, string $kind = 'message', ?string $replyTo = null): array {
+    $body = mb_substr(trim($body), 0, 5000);
+    $hasFile = $file && ($file['error'] ?? UPLOAD_ERR_NO_FILE) !== UPLOAD_ERR_NO_FILE;
+    if ($body === '' && !$hasFile) fail($sender === 'client' ? 'Mesaj veya dosya ekleyin.' : 'Écrivez un message ou joignez un fichier.', 422);
+    $docId = null;
+    if ($hasFile) {
+        $doc = crm_doc_upload($pdo, $c['id'], $file, 'other', '', true, null, $sender === 'client' ? 'client' : 'webina', $body !== '' ? $body : null);
+        $docId = $doc['id'];
+    }
+    $kind = ($sender === 'webina' && $kind === 'proposal') ? 'proposal' : 'message';
+    $id = uuid4();
+    $pdo->prepare('INSERT INTO portal_chat (id, client_id, sender, kind, body, doc_id, status, reply_to, read_by_client, read_by_admin) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)')
+        ->execute([$id, $c['id'], $sender, $kind, $body !== '' ? $body : null, $docId, $kind === 'proposal' ? 'pending' : null, $replyTo, $sender === 'client' ? 1 : 0, $sender === 'webina' ? 1 : 0]);
+    $what = $kind === 'proposal' ? 'Proposition envoyée' : ($sender === 'client' ? 'Message du client' : 'Message envoyé au client');
+    crm_log($pdo, $c['id'], null, 'portal', $what . ($body !== '' ? ' : ' . mb_substr($body, 0, 300) : '') . ($docId ? ' [fichier joint]' : ''));
+    if ($sender === 'client') portal_chat_notify_admin($c, 'Nouveau message', $body, $hasFile ? ($file['name'] ?? '') : '');
+    else portal_chat_notify_client($c, $kind, $body, $hasFile);
+    return ['id' => $id];
+}
+
+// Réponse du client à une proposition : validée ou modifications demandées (avec commentaire)
+function portal_chat_answer(PDO $pdo, array $c, string $msgId, string $decision, string $comment): void {
+    $m = portal_one($pdo, "SELECT * FROM portal_chat WHERE id = ? AND client_id = ? AND sender = 'webina' AND kind = 'proposal'", [$msgId, $c['id']]);
+    if (!$m) fail('Öneri bulunamadı.', 404);
+    $decision = $decision === 'approved' ? 'approved' : 'changes';
+    $comment = mb_substr(trim($comment), 0, 5000);
+    if ($decision === 'changes' && $comment === '') fail('Lütfen istediğiniz değişiklikleri yazın.', 422);
+    $pdo->prepare('UPDATE portal_chat SET status = ? WHERE id = ?')->execute([$decision, $msgId]);
+    $pdo->prepare("INSERT INTO portal_chat (id, client_id, sender, kind, body, status, reply_to, read_by_client, read_by_admin) VALUES (?, ?, 'client', 'answer', ?, ?, ?, 1, 0)")
+        ->execute([uuid4(), $c['id'], $comment !== '' ? $comment : null, $decision, $msgId]);
+    $label = $decision === 'approved' ? 'Proposition validée par le client' : 'Modifications demandées par le client';
+    crm_log($pdo, $c['id'], null, 'portal', $label . ($m['body'] ? ' (« ' . mb_substr($m['body'], 0, 120) . ' »)' : '') . ($comment !== '' ? ' : ' . $comment : ''));
+    portal_chat_notify_admin($c, $label, trim(($m['body'] ? 'Proposition : ' . $m['body'] . "\n\n" : '') . ($comment !== '' ? 'Réponse du client : ' . $comment : '')), '');
+}
+
+function portal_chat_notify_admin(array $c, string $title, string $text, string $fileName): void {
+    $to = email_list($GLOBALS['CONFIG']['notify_email'] ?? '');
+    if (!$to) return;
+    send_html_mail($to[0], 'Espace client — ' . $title . ' : ' . $c['name'],
+        mail_layout('<h2 style="margin:0 0 12px;font-size:20px">' . h($title) . '</h2><p style="margin:0 0 6px"><b>' . h($c['name']) . '</b> · ' . h((string)$c['email']) . ' · ' . h((string)$c['phone']) . '</p>'
+            . ($text !== '' ? '<p style="white-space:pre-wrap;background:#f4f6f2;padding:12px;border-radius:8px">' . h($text) . '</p>' : '')
+            . ($fileName !== '' ? '<p style="margin:0">Fichier joint : <b>' . h($fileName) . '</b></p>' : '')
+            . '<p style="margin:12px 0 0;color:#777;font-size:13px">Répondre depuis l\'admin : Clients → fiche du client → Échanges.</p>'),
+        $c['email'] ?: null);
+}
+
+function portal_chat_notify_client(array $c, string $kind, string $body, bool $hasFile): void {
+    if (!filter_var((string)$c['email'], FILTER_VALIDATE_EMAIL)) return;
+    $lang = $c['lang'] ?: 'tr';
+    $T = [
+        'tr' => ['Webina\'dan yeni bir mesajınız var', 'Webina\'dan onayınızı bekleyen bir öneri', 'Müşteri alanınızda görüntüleyin ve yanıtlayın:', 'Dosya eklendi.'],
+        'en' => ['You have a new message from Webina', 'A proposal from Webina is waiting for your approval', 'View and reply in your client area:', 'A file is attached.'],
+        'fr' => ['Vous avez un nouveau message de Webina', 'Une proposition de Webina attend votre validation', 'Consultez-la et répondez dans votre espace client :', 'Un fichier est joint.'],
+        'ar' => ['لديك رسالة جديدة من Webina', 'اقتراح من Webina بانتظار موافقتك', 'اطّلع عليه وردّ من منطقة العملاء:', 'تم إرفاق ملف.'],
+    ];
+    $L = $T[$lang] ?? $T['tr'];
+    $subject = $kind === 'proposal' ? $L[1] : $L[0];
+    $url = portal_url();
+    $html = '<h2 style="margin:0 0 12px;font-size:20px">' . h($subject) . '</h2>'
+        . ($body !== '' ? '<p style="white-space:pre-wrap;background:#f4f6f2;padding:12px;border-radius:8px;margin:0 0 12px">' . h(mb_substr($body, 0, 1200)) . '</p>' : '')
+        . ($hasFile ? '<p style="margin:0 0 12px;color:#555">' . h($L[3]) . '</p>' : '')
+        . '<p style="margin:0 0 8px;color:#555">' . h($L[2]) . '</p>'
+        . '<p style="margin:0"><a href="' . h($url) . '" style="display:inline-block;background:#23772a;color:#fff;text-decoration:none;font-weight:bold;padding:11px 22px;border-radius:99px">' . h(preg_replace('#^https?://#', '', $url)) . '</a></p>';
+    send_html_mail((string)$c['email'], $subject, mail_layout($html, $lang === 'ar'), email_list($GLOBALS['CONFIG']['notify_email'] ?? '')[0] ?? null);
 }

@@ -8,7 +8,7 @@
   <meta name="theme-color" content="#ffffff">
   <link rel="icon" type="image/png" href="/images/favicon.png">
   <link rel="preload" href="/fonts/schibsted-grotesk-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="/css/portal.css?v=b758914c62">
+  <link rel="stylesheet" href="/css/portal.css?v=547a274bdb">
 </head>
 <body>
   <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -86,6 +86,19 @@
           <h2 class="panel_title"><svg class="icon" aria-hidden="true"><use href="#i-layout"/></svg><span data-t="documents">Sözleşmeler ve belgeler</span></h2>
           <div data-documents></div>
         </section>
+        <section class="panel_card is-wide" id="chat">
+          <h2 class="panel_title"><svg class="icon" aria-hidden="true"><use href="#i-chat"/></svg><span data-t="chatT">Webina ile yazışma</span></h2>
+          <p class="panel_text" data-t="chatP">Önerilerimizi (logo, metin, tasarım…) burada görüp onaylayabilirsiniz. Siz de bize mesaj, not ve dosya (logo, fotoğraf, metin, imzalı sözleşme…) gönderebilirsiniz.</p>
+          <ol class="chat_list" role="list" data-chat></ol>
+          <form class="chat_form" data-chat-form novalidate>
+            <label class="sr-only" for="c-body" data-t="chatPh">Mesajınız</label>
+            <textarea class="field_input is-area" id="c-body" name="body" rows="3" maxlength="5000"></textarea>
+            <div class="chat_tools">
+              <label class="chat_attach"><input type="file" name="file" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png" data-chat-file><svg class="icon" aria-hidden="true"><use href="#i-layout"/></svg><span data-chat-fname data-t="attach">Dosya ekle</span></label>
+              <button type="submit" class="button" data-t="send">Gönder</button>
+            </div>
+          </form>
+        </section>
         <section class="panel_card">
           <h2 class="panel_title"><svg class="icon" aria-hidden="true"><use href="#i-bell"/></svg><span data-t="notices">Bildirimler</span></h2>
           <div data-notices></div>
@@ -150,6 +163,6 @@
   </dialog>
 
   <div class="toast" role="status" aria-live="polite" data-toast></div>
-  <script src="/js/portal.js?v=95d6a2a526" defer></script>
+  <script src="/js/portal.js?v=0c91dd5f4e" defer></script>
 </body>
 </html>

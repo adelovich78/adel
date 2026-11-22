@@ -215,6 +215,26 @@ function crm_schema(PDO $pdo): void {
         created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
         INDEX idx_client (client_id, created_at)
     ) $o");
+    // Documents envoyés par le client lui-même + note qui les accompagne
+    $dcols = array_column($pdo->query('SHOW COLUMNS FROM crm_documents')->fetchAll(), 'Field');
+    if (!in_array('source', $dcols, true)) {
+        $pdo->exec("ALTER TABLE crm_documents ADD COLUMN source VARCHAR(8) NOT NULL DEFAULT 'webina', ADD COLUMN note TEXT NULL");
+    }
+    // Messagerie Webina ⇄ client : messages, propositions à valider (logo, textes…), fichiers joints
+    $pdo->exec("CREATE TABLE IF NOT EXISTS portal_chat (
+        id CHAR(36) NOT NULL PRIMARY KEY,
+        client_id CHAR(36) NOT NULL,
+        sender VARCHAR(8) NOT NULL,
+        kind VARCHAR(10) NOT NULL DEFAULT 'message',
+        body TEXT NULL,
+        doc_id CHAR(36) NULL,
+        status VARCHAR(10) NULL,
+        reply_to CHAR(36) NULL,
+        read_by_client TINYINT(1) NOT NULL DEFAULT 0,
+        read_by_admin TINYINT(1) NOT NULL DEFAULT 0,
+        created_at DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+        INDEX idx_client (client_id, created_at)
+    ) $o");
     $pdo->exec("CREATE TABLE IF NOT EXISTS crm_activity (
         id CHAR(36) NOT NULL PRIMARY KEY,
         client_id CHAR(36) NULL,
@@ -708,7 +728,7 @@ const CRM_DOC_TYPES = ['application/pdf' => 'pdf', 'image/jpeg' => 'jpg', 'image
 const CRM_DOC_KINDS = ['contract', 'quote', 'invoice', 'other'];
 
 // Enregistre le fichier envoyé (champ « file ») pour un client ; 15 Mo maximum
-function crm_doc_upload(PDO $pdo, string $cid, array $f, string $kind, string $title, bool $visible, ?string $pid = null): array {
+function crm_doc_upload(PDO $pdo, string $cid, array $f, string $kind, string $title, bool $visible, ?string $pid = null, string $source = 'webina', ?string $note = null): array {
     if (($f['error'] ?? UPLOAD_ERR_NO_FILE) !== UPLOAD_ERR_OK) fail('Fichier non reçu (taille maximale du serveur dépassée ?).', 422);
     if ($f['size'] > 15 * 1024 * 1024) fail('Fichier trop lourd (15 Mo maximum).', 422);
     $mime = (new finfo(FILEINFO_MIME_TYPE))->file($f['tmp_name']) ?: '';
@@ -719,9 +739,12 @@ function crm_doc_upload(PDO $pdo, string $cid, array $f, string $kind, string $t
     $name = mb_substr(preg_replace('/[^\p{L}\p{N} ._()-]+/u', '_', basename((string)$f['name'])), 0, 200) ?: $stored;
     $title = mb_substr(trim($title), 0, 200) ?: preg_replace('/\.[^.]+$/', '', $name);
     $kind = in_array($kind, CRM_DOC_KINDS, true) ? $kind : 'other';
-    $pdo->prepare('INSERT INTO crm_documents (id, client_id, project_id, kind, title, filename, mime, size, stored, visible) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)')
-        ->execute([$id, $cid, $pid, $kind, $title, $name, $mime, (int)$f['size'], $stored, $visible ? 1 : 0]);
-    crm_log($pdo, $cid, null, 'document', 'Document ajouté : ' . $title . ($visible ? ' (visible dans l\'espace client)' : ''));
+    $note = $note !== null ? (mb_substr(trim($note), 0, 2000) ?: null) : null;
+    $pdo->prepare('INSERT INTO crm_documents (id, client_id, project_id, kind, title, filename, mime, size, stored, visible, source, note) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)')
+        ->execute([$id, $cid, $pid, $kind, $title, $name, $mime, (int)$f['size'], $stored, $visible ? 1 : 0, $source === 'client' ? 'client' : 'webina', $note]);
+    crm_log($pdo, $cid, null, 'document', $source === 'client'
+        ? 'Document envoyé par le client : ' . $title . ($note ? "\n" . $note : '')
+        : 'Document ajouté : ' . $title . ($visible ? ' (visible dans l\'espace client)' : ''));
     $st = $pdo->prepare('SELECT * FROM crm_documents WHERE id = ?'); $st->execute([$id]);
     return $st->fetch();
 }
@@ -735,7 +758,7 @@ function crm_doc_stream(array $doc, bool $inline = false): void {
     header('Content-Length: ' . filesize($path));
     header('X-Content-Type-Options: nosniff');
     header('Cache-Control: private, no-store');
-    $disp = $inline && $doc['mime'] === 'application/pdf' ? 'inline' : 'attachment';
+    $disp = $inline && ($doc['mime'] === 'application/pdf' || strpos($doc['mime'], 'image/') === 0) ? 'inline' : 'attachment';
     header("Content-Disposition: $disp; filename*=UTF-8''" . rawurlencode($doc['filename']));
     readfile($path);
     exit;

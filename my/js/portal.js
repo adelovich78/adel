@@ -14,14 +14,14 @@
       changePlan: 'Paketimi değiştir', changePlanP: 'Yeni paketinizi seçin. Farkı ve tarihi sizinle birlikte netleştiririz.', note: 'Not (isteğe bağlı)', sendRequest: 'Talebi gönder',
       errEmail: 'Lütfen geçerli bir e-posta yazın.', errCode: 'Kod hatalı veya süresi dolmuş.', errLink: 'Bu giriş bağlantısı geçersiz veya süresi dolmuş. E-postanızla giriş yapabilirsiniz.', errGeneric: 'Bir sorun oluştu, lütfen tekrar deneyin.',
       allGood: 'Her şey yolunda', allGoodP: 'Şu anda yapmanız gereken bir şey yok.', todo: '{n} işlem bekliyor', todo1: '1 işlem bekliyor',
-      act: { pay: 'Faturanızı ödeyin: {number} · {amount} · son gün {date}', renew: 'Aboneliğiniz {date} tarihinde yenilenmeli ({days})', renewLate: 'Aboneliğinizin süresi {date} tarihinde doldu', domain: 'Alan adınız {date} tarihinde sona eriyor ({days})', domainLate: 'Alan adınızın süresi {date} tarihinde doldu', preview: 'Siteniz önizlemede: inceleyin ve onaylayın', ssl: 'SSL sertifikanızın süresi doldu, ilgileniyoruz' },
+      act: { pay: 'Faturanızı ödeyin: {number} · {amount} · son gün {date}', renew: 'Aboneliğiniz {date} tarihinde yenilenmeli ({days})', renewLate: 'Aboneliğinizin süresi {date} tarihinde doldu', domain: 'Alan adınız {date} tarihinde sona eriyor ({days})', domainLate: 'Alan adınızın süresi {date} tarihinde doldu', preview: 'Siteniz önizlemede: inceleyin ve onaylayın', proposal: 'Onayınızı bekleyen bir önerimiz var', ssl: 'SSL sertifikanızın süresi doldu, ilgileniyoruz' },
       btn: { pay: 'Nasıl ödenir?', renew: 'Yenilemeyi onayla', preview: 'Önizlemeyi aç', approve: 'Siteyi onayla', open: 'Siteyi aç', upgrade: 'Paketimi değiştir' },
       tile: { domain: 'Alan adı', hosting: 'Hosting', ssl: 'SSL', sub: 'Abonelik', left: 'Kalan süre', payment: 'Ödeme durumu' },
       st: { ok: 'Aktif', soon: 'Yakında yenilenmeli', expired: 'Süresi doldu', none: 'Bilgi yok', active: 'Aktif', pending: 'Hazırlanıyor', paid: 'Ödendi', due: 'Ödeme bekleniyor', overdue: 'Gecikmiş', unpaid: 'Ödenmedi' },
       site: { building: 'Hazırlanıyor', preview: 'Önizlemede', live: 'Yayında', suspended: 'Durduruldu' },
       plan: { vitrin: 'Vitrin', randevu: 'Randevu', eticaret: 'E-ticaret', ozel: 'Özel' },
       until: '{date} tarihine kadar', next: 'Sonraki ödeme: {date}', perYear: '/ yıl', days: '{n} gün', daysLeft: '{n} gün kaldı', daysAgo: '{n} gün geçti', today: 'bugün',
-      noService: 'Henüz aktif bir hizmetiniz yok. Siteniz hazırlandığında burada görünecek.', noInvoice: 'Henüz fatura yok.', documents: 'Sözleşmeler ve belgeler', noDocument: 'Henüz belge yok. İmzalanan sözleşmeniz burada görünecek.', open: 'Görüntüle', download: 'İndir', dk: { contract: 'Sözleşme', quote: 'İmzalı teklif', invoice: 'Fatura', other: 'Belge' }, noNotice: 'Yeni bildirim yok.',
+      noService: 'Henüz aktif bir hizmetiniz yok. Siteniz hazırlandığında burada görünecek.', noInvoice: 'Henüz fatura yok.', chatT: 'Webina ile yazışma', chatP: 'Önerilerimizi (logo, metin, tasarım…) burada görüp onaylayabilirsiniz. Siz de bize mesaj, not ve dosya (logo, fotoğraf, metin, imzalı sözleşme…) gönderebilirsiniz.', chatPh: 'Mesajınız, notunuz…', attach: 'Dosya ekle', chatEmpty: 'Henüz mesaj yok. İlk mesajınızı yazabilirsiniz.', you: 'Siz', proposal: 'Öneri', propPending: 'Onayınızı bekliyor', propApproved: 'Onayladınız', propChanges: 'Değişiklik istediniz', approve: 'Onaylıyorum', askChanges: 'Değişiklik istiyorum', changesPh: 'Hangi değişiklikleri istiyorsunuz?', sendChanges: 'Değişiklikleri gönder', cancel: 'Vazgeç', answered: 'Yanıtınız iletildi, teşekkürler.', sent: 'Mesajınız gönderildi.', empty: 'Mesaj yazın veya dosya ekleyin.', ansApproved: '✓ Öneriyi onayladınız', ansChanges: '✎ Değişiklik istediniz', documents: 'Sözleşmeler ve belgeler', noDocument: 'Henüz belge yok. İmzalanan sözleşmeniz burada görünecek.', open: 'Görüntüle', download: 'İndir', dk: { contract: 'Sözleşme', quote: 'İmzalı teklif', invoice: 'Fatura', other: 'Belge' }, noNotice: 'Yeni bildirim yok.',
       th: { number: 'No', label: 'Açıklama', date: 'Tarih', due: 'Son gün', amount: 'Tutar', status: 'Durum' },
       bankT: 'Havale / EFT ile ödeme', bankRef: 'Açıklamaya fatura numarasını yazın.', payWa: 'WhatsApp ile ödeme bilgisi isteyin',
       sent: 'Talebiniz bize ulaştı. En kısa sürede dönüş yapacağız.', saved: 'Bilgileriniz kaydedildi.', approved: 'Teşekkürler! Sitenizi yayına almak için hazırlanıyoruz.',
@@ -38,14 +38,14 @@
       changePlan: 'Change my plan', changePlanP: 'Choose your new plan. We will confirm the difference and the date with you.', note: 'Note (optional)', sendRequest: 'Send request',
       errEmail: 'Please enter a valid email.', errCode: 'Wrong or expired code.', errLink: 'This login link is invalid or has expired. You can sign in with your email.', errGeneric: 'Something went wrong, please try again.',
       allGood: 'All good', allGoodP: 'There is nothing you need to do right now.', todo: '{n} actions needed', todo1: '1 action needed',
-      act: { pay: 'Pay your invoice: {number} · {amount} · due {date}', renew: 'Your subscription renews on {date} ({days})', renewLate: 'Your subscription expired on {date}', domain: 'Your domain expires on {date} ({days})', domainLate: 'Your domain expired on {date}', preview: 'Your site is ready to preview: check it and approve it', ssl: 'Your SSL certificate expired, we are on it' },
+      act: { pay: 'Pay your invoice: {number} · {amount} · due {date}', renew: 'Your subscription renews on {date} ({days})', renewLate: 'Your subscription expired on {date}', domain: 'Your domain expires on {date} ({days})', domainLate: 'Your domain expired on {date}', preview: 'Your site is ready to preview: check it and approve it', proposal: 'A proposal is waiting for your approval', ssl: 'Your SSL certificate expired, we are on it' },
       btn: { pay: 'How to pay', renew: 'Confirm renewal', preview: 'Open preview', approve: 'Approve the site', open: 'Open site', upgrade: 'Change my plan' },
       tile: { domain: 'Domain', hosting: 'Hosting', ssl: 'SSL', sub: 'Subscription', left: 'Time left', payment: 'Payment status' },
       st: { ok: 'Active', soon: 'Renewal due soon', expired: 'Expired', none: 'No data', active: 'Active', pending: 'In progress', paid: 'Paid', due: 'Payment due', overdue: 'Overdue', unpaid: 'Unpaid' },
       site: { building: 'In progress', preview: 'In preview', live: 'Live', suspended: 'Suspended' },
       plan: { vitrin: 'Showcase', randevu: 'Booking', eticaret: 'E-commerce', ozel: 'Custom' },
       until: 'until {date}', next: 'Next payment: {date}', perYear: '/ year', days: '{n} days', daysLeft: '{n} days left', daysAgo: '{n} days ago', today: 'today',
-      noService: 'You have no active service yet. Your site will appear here once it is ready.', noInvoice: 'No invoices yet.', documents: 'Contracts and documents', noDocument: 'No documents yet. Your signed contract will appear here.', open: 'View', download: 'Download', dk: { contract: 'Contract', quote: 'Signed quote', invoice: 'Invoice', other: 'Document' }, noNotice: 'No new notifications.',
+      noService: 'You have no active service yet. Your site will appear here once it is ready.', noInvoice: 'No invoices yet.', chatT: 'Messages with Webina', chatP: 'See and approve our proposals here (logo, texts, design…). You can also send us messages, notes and files (logo, photos, texts, signed contract…).', chatPh: 'Your message or note…', attach: 'Attach a file', chatEmpty: 'No messages yet. You can write the first one.', you: 'You', proposal: 'Proposal', propPending: 'Waiting for your approval', propApproved: 'You approved it', propChanges: 'You asked for changes', approve: 'I approve', askChanges: 'I want changes', changesPh: 'Which changes would you like?', sendChanges: 'Send my changes', cancel: 'Cancel', answered: 'Your answer has been sent, thank you.', sent: 'Your message has been sent.', empty: 'Write a message or attach a file.', ansApproved: '✓ You approved the proposal', ansChanges: '✎ You asked for changes', documents: 'Contracts and documents', noDocument: 'No documents yet. Your signed contract will appear here.', open: 'View', download: 'Download', dk: { contract: 'Contract', quote: 'Signed quote', invoice: 'Invoice', other: 'Document' }, noNotice: 'No new notifications.',
       th: { number: 'No.', label: 'Description', date: 'Date', due: 'Due', amount: 'Amount', status: 'Status' },
       bankT: 'Pay by bank transfer', bankRef: 'Put the invoice number in the reference.', payWa: 'Ask for payment details on WhatsApp',
       sent: 'We received your request and will get back to you shortly.', saved: 'Your details were saved.', approved: 'Thank you! We are getting your site ready to go live.',
@@ -62,14 +62,14 @@
       changePlan: 'Changer de formule', changePlanP: 'Choisissez votre nouvelle formule. Nous confirmons avec vous la différence et la date.', note: 'Note (facultatif)', sendRequest: 'Envoyer la demande',
       errEmail: 'Saisissez une adresse e-mail valide.', errCode: 'Code incorrect ou expiré.', errLink: 'Ce lien de connexion n’est plus valable. Connectez-vous avec votre e-mail.', errGeneric: 'Une erreur est survenue, réessayez.',
       allGood: 'Tout est en ordre', allGoodP: 'Vous n’avez rien à faire pour le moment.', todo: '{n} actions à faire', todo1: '1 action à faire',
-      act: { pay: 'Réglez votre facture : {number} · {amount} · avant le {date}', renew: 'Votre abonnement se renouvelle le {date} ({days})', renewLate: 'Votre abonnement a expiré le {date}', domain: 'Votre nom de domaine expire le {date} ({days})', domainLate: 'Votre nom de domaine a expiré le {date}', preview: 'Votre site est prêt : vérifiez-le et validez-le', ssl: 'Votre certificat SSL a expiré, nous nous en occupons' },
+      act: { pay: 'Réglez votre facture : {number} · {amount} · avant le {date}', renew: 'Votre abonnement se renouvelle le {date} ({days})', renewLate: 'Votre abonnement a expiré le {date}', domain: 'Votre nom de domaine expire le {date} ({days})', domainLate: 'Votre nom de domaine a expiré le {date}', preview: 'Votre site est prêt : vérifiez-le et validez-le', proposal: 'Une proposition attend votre validation', ssl: 'Votre certificat SSL a expiré, nous nous en occupons' },
       btn: { pay: 'Comment payer', renew: 'Confirmer le renouvellement', preview: 'Voir la prévisualisation', approve: 'Valider le site', open: 'Ouvrir le site', upgrade: 'Changer de formule' },
       tile: { domain: 'Nom de domaine', hosting: 'Hébergement', ssl: 'SSL', sub: 'Abonnement', left: 'Temps restant', payment: 'Paiement' },
       st: { ok: 'Actif', soon: 'À renouveler bientôt', expired: 'Expiré', none: 'Non renseigné', active: 'Actif', pending: 'En cours', paid: 'Payé', due: 'Paiement attendu', overdue: 'En retard', unpaid: 'Non payée' },
       site: { building: 'En création', preview: 'En prévisualisation', live: 'En ligne', suspended: 'Suspendu' },
       plan: { vitrin: 'Vitrine', randevu: 'Rendez-vous', eticaret: 'E-commerce', ozel: 'Sur mesure' },
       until: 'jusqu’au {date}', next: 'Prochain paiement : {date}', perYear: '/ an', days: '{n} jours', daysLeft: 'encore {n} jours', daysAgo: 'il y a {n} jours', today: 'aujourd’hui',
-      noService: 'Aucun service actif pour l’instant. Votre site apparaîtra ici dès qu’il sera prêt.', noInvoice: 'Aucune facture.', documents: 'Contrats et documents', noDocument: 'Aucun document pour l’instant. Votre contrat signé apparaîtra ici.', open: 'Voir', download: 'Télécharger', dk: { contract: 'Contrat', quote: 'Devis signé', invoice: 'Facture', other: 'Document' }, noNotice: 'Aucune nouvelle notification.',
+      noService: 'Aucun service actif pour l’instant. Votre site apparaîtra ici dès qu’il sera prêt.', noInvoice: 'Aucune facture.', chatT: 'Échanges avec Webina', chatP: 'Consultez et validez ici nos propositions (logo, textes, maquette…). Vous pouvez aussi nous envoyer messages, notes et fichiers (logo, photos, textes, contrat signé…).', chatPh: 'Votre message ou note…', attach: 'Joindre un fichier', chatEmpty: 'Aucun message pour l’instant. Vous pouvez écrire le premier.', you: 'Vous', proposal: 'Proposition', propPending: 'En attente de votre validation', propApproved: 'Vous l’avez validée', propChanges: 'Vous avez demandé des modifications', approve: 'Je valide', askChanges: 'Je veux des modifications', changesPh: 'Quelles modifications souhaitez-vous ?', sendChanges: 'Envoyer mes modifications', cancel: 'Annuler', answered: 'Votre réponse a été transmise, merci.', sent: 'Votre message a été envoyé.', empty: 'Écrivez un message ou joignez un fichier.', ansApproved: '✓ Vous avez validé la proposition', ansChanges: '✎ Vous avez demandé des modifications', documents: 'Contrats et documents', noDocument: 'Aucun document pour l’instant. Votre contrat signé apparaîtra ici.', open: 'Voir', download: 'Télécharger', dk: { contract: 'Contrat', quote: 'Devis signé', invoice: 'Facture', other: 'Document' }, noNotice: 'Aucune nouvelle notification.',
       th: { number: 'N°', label: 'Libellé', date: 'Date', due: 'Échéance', amount: 'Montant', status: 'Statut' },
       bankT: 'Paiement par virement', bankRef: 'Indiquez le numéro de facture en référence.', payWa: 'Demander les coordonnées de paiement sur WhatsApp',
       sent: 'Votre demande nous est parvenue. Nous revenons vers vous rapidement.', saved: 'Vos informations sont enregistrées.', approved: 'Merci ! Nous préparons la mise en ligne de votre site.',
@@ -86,14 +86,14 @@
       changePlan: 'تغيير الباقة', changePlanP: 'اختر باقتك الجديدة، وسنؤكد معك الفرق والتاريخ.', note: 'ملاحظة (اختياري)', sendRequest: 'إرسال الطلب',
       errEmail: 'اكتب بريداً إلكترونياً صالحاً.', errCode: 'الرمز خاطئ أو منتهي الصلاحية.', errLink: 'رابط الدخول غير صالح أو منتهي. يمكنك الدخول بالبريد الإلكتروني.', errGeneric: 'حدث خطأ، حاول مرة أخرى.',
       allGood: 'كل شيء على ما يرام', allGoodP: 'لا يوجد ما تحتاج إلى فعله الآن.', todo: '{n} إجراءات مطلوبة', todo1: 'إجراء واحد مطلوب',
-      act: { pay: 'ادفع فاتورتك: {number} · {amount} · قبل {date}', renew: 'يتجدد اشتراكك في {date} ({days})', renewLate: 'انتهى اشتراكك في {date}', domain: 'ينتهي نطاقك في {date} ({days})', domainLate: 'انتهى نطاقك في {date}', preview: 'موقعك جاهز للمعاينة: راجعه ووافق عليه', ssl: 'انتهت شهادة SSL ونحن نعمل على تجديدها' },
+      act: { pay: 'ادفع فاتورتك: {number} · {amount} · قبل {date}', renew: 'يتجدد اشتراكك في {date} ({days})', renewLate: 'انتهى اشتراكك في {date}', domain: 'ينتهي نطاقك في {date} ({days})', domainLate: 'انتهى نطاقك في {date}', preview: 'موقعك جاهز للمعاينة: راجعه ووافق عليه', proposal: 'هناك اقتراح بانتظار موافقتك', ssl: 'انتهت شهادة SSL ونحن نعمل على تجديدها' },
       btn: { pay: 'طريقة الدفع', renew: 'تأكيد التجديد', preview: 'افتح المعاينة', approve: 'الموافقة على الموقع', open: 'افتح الموقع', upgrade: 'تغيير الباقة' },
       tile: { domain: 'النطاق', hosting: 'الاستضافة', ssl: 'SSL', sub: 'الاشتراك', left: 'المدة المتبقية', payment: 'حالة الدفع' },
       st: { ok: 'نشط', soon: 'يجب التجديد قريباً', expired: 'منتهٍ', none: 'لا توجد بيانات', active: 'نشط', pending: 'قيد الإعداد', paid: 'مدفوع', due: 'بانتظار الدفع', overdue: 'متأخر', unpaid: 'غير مدفوعة' },
       site: { building: 'قيد الإعداد', preview: 'قيد المعاينة', live: 'منشور', suspended: 'موقوف' },
       plan: { vitrin: 'واجهة', randevu: 'مواعيد', eticaret: 'متجر إلكتروني', ozel: 'مخصص' },
       until: 'حتى {date}', next: 'الدفعة التالية: {date}', perYear: '/ سنة', days: '{n} يوماً', daysLeft: 'متبقٍ {n} يوماً', daysAgo: 'منذ {n} يوماً', today: 'اليوم',
-      noService: 'لا توجد خدمة نشطة بعد. سيظهر موقعك هنا عندما يصبح جاهزاً.', noInvoice: 'لا توجد فواتير بعد.', documents: 'العقود والمستندات', noDocument: 'لا توجد مستندات بعد. سيظهر عقدك الموقّع هنا.', open: 'عرض', download: 'تنزيل', dk: { contract: 'عقد', quote: 'عرض سعر موقّع', invoice: 'فاتورة', other: 'مستند' }, noNotice: 'لا توجد إشعارات جديدة.',
+      noService: 'لا توجد خدمة نشطة بعد. سيظهر موقعك هنا عندما يصبح جاهزاً.', noInvoice: 'لا توجد فواتير بعد.', chatT: 'المراسلات مع Webina', chatP: 'اطّلع هنا على اقتراحاتنا (الشعار، النصوص، التصميم…) ووافق عليها. ويمكنك أيضاً إرسال رسائل وملاحظات وملفات (الشعار، الصور، النصوص، العقد الموقّع…).', chatPh: 'رسالتك أو ملاحظتك…', attach: 'إرفاق ملف', chatEmpty: 'لا توجد رسائل بعد. يمكنك كتابة أول رسالة.', you: 'أنت', proposal: 'اقتراح', propPending: 'بانتظار موافقتك', propApproved: 'وافقت عليه', propChanges: 'طلبت تعديلات', approve: 'أوافق', askChanges: 'أريد تعديلات', changesPh: 'ما التعديلات التي تريدها؟', sendChanges: 'إرسال التعديلات', cancel: 'إلغاء', answered: 'تم إرسال ردّك، شكراً.', sent: 'تم إرسال رسالتك.', empty: 'اكتب رسالة أو أرفق ملفاً.', ansApproved: '✓ وافقت على الاقتراح', ansChanges: '✎ طلبت تعديلات', documents: 'العقود والمستندات', noDocument: 'لا توجد مستندات بعد. سيظهر عقدك الموقّع هنا.', open: 'عرض', download: 'تنزيل', dk: { contract: 'عقد', quote: 'عرض سعر موقّع', invoice: 'فاتورة', other: 'مستند' }, noNotice: 'لا توجد إشعارات جديدة.',
       th: { number: 'رقم', label: 'الوصف', date: 'التاريخ', due: 'الاستحقاق', amount: 'المبلغ', status: 'الحالة' },
       bankT: 'الدفع بالتحويل البنكي', bankRef: 'اكتب رقم الفاتورة في وصف التحويل.', payWa: 'اطلب بيانات الدفع عبر واتساب',
       sent: 'وصلنا طلبك وسنعود إليك قريباً.', saved: 'تم حفظ بياناتك.', approved: 'شكراً! نستعد لنشر موقعك.',
@@ -229,6 +229,7 @@
     var b = L().btn;
     if (a.code === 'pay') return '<button type="button" class="button is-small" data-go-pay>' + esc(b.pay) + '</button>';
     if (a.code === 'renew' || a.code === 'domain') return '<button type="button" class="button is-small" data-renew="' + esc(a.service) + '">' + icon('i-refresh') + esc(b.renew) + '</button>';
+    if (a.code === 'proposal') return '<a class="button is-small" href="#chat">' + esc(L().proposal) + icon('i-arrow') + '</a>';
     if (a.code === 'preview') return '<a class="button is-small is-secondary" href="' + esc(a.url) + '" target="_blank" rel="noopener">' + esc(b.preview) + icon('i-arrow') + '</a><button type="button" class="button is-small" data-approve="' + esc(a.service) + '">' + icon('i-check') + esc(b.approve) + '</button>';
     return '';
   }
@@ -282,10 +283,13 @@
     else dc.innerHTML = '<ul class="doc_list" role="list">' + docs.map(function (x) {
       var url = '/api/portal.php?r=doc&id=' + encodeURIComponent(x.id);
       var kb = Math.max(1, Math.round(Number(x.size) / 1024));
-      return '<li class="doc_item"><span class="doc_info"><b>' + esc(x.title) + '</b><span>' + esc((l.dk || {})[x.kind] || x.kind) + ' · ' + date(x.created_at) + ' · ' + (kb > 1024 ? (kb / 1024).toFixed(1) + ' MB' : kb + ' KB') + '</span></span>' +
+      return '<li class="doc_item"><span class="doc_info"><b>' + esc(x.title) + '</b><span>' + esc(x.source === 'client' ? l.fromYou : ((l.dk || {})[x.kind] || x.kind)) + ' · ' + date(x.created_at) + ' · ' + (kb > 1024 ? (kb / 1024).toFixed(1) + ' MB' : kb + ' KB') + '</span></span>' +
         '<span class="doc_actions">' + (x.mime === 'application/pdf' ? '<a class="text_link" href="' + url + '&view=1" target="_blank" rel="noopener">' + esc(l.open) + '</a>' : '') +
         '<a class="doc_btn" href="' + url + '" download>' + esc(l.download) + '</a></span></li>';
     }).join('') + '</ul>';
+
+    // 3 ter. Échanges avec Webina
+    renderChat();
 
     // 4. Notifications + demandes récentes
     var no = $('[data-notices]');
@@ -414,6 +418,62 @@
     var f = e.target;
     api('account', { method: 'PATCH', body: { name: f.name.value, company: f.company.value, phone: f.phone.value, lang: lang } })
       .then(function () { toast(L().saved); f.querySelector('button').blur(); return load(); }).catch(function (ex) { toast(ex.message); });
+  });
+  /* ---------- Messagerie avec Webina ---------- */
+  function chatFile(m) {
+    if (!m.doc_id) return '';
+    var url = '/api/portal.php?r=doc&id=' + encodeURIComponent(m.doc_id);
+    if ((m.doc_mime || '').indexOf('image/') === 0) return '<a class="chat_img" href="' + url + '&view=1" target="_blank" rel="noopener"><img src="' + url + '&view=1" alt="' + esc(m.doc_name) + '" loading="lazy"></a>';
+    return '<a class="chat_file" href="' + url + (m.doc_mime === 'application/pdf' ? '&view=1" target="_blank" rel="noopener"' : '" download') + '>' + icon('i-layout') + esc(m.doc_name) + '</a>';
+  }
+  function renderChat() {
+    var l = L(), list = $('[data-chat]'), chat = data.chat || [];
+    if (!chat.length) { list.innerHTML = '<li class="chat_empty">' + esc(l.chatEmpty) + '</li>'; return; }
+    list.innerHTML = chat.map(function (m) {
+      var mine = m.sender === 'client';
+      var when = date(m.created_at);
+      if (m.kind === 'answer') return '<li class="chat_msg is-me is-answer"><p class="chat_meta">' + esc(m.status === 'approved' ? l.ansApproved : l.ansChanges) + ' · ' + when + '</p>' + (m.body ? '<p class="chat_body">' + esc(m.body) + '</p>' : '') + '</li>';
+      var prop = m.kind === 'proposal';
+      var st = prop ? { pending: l.propPending, approved: l.propApproved, changes: l.propChanges }[m.status] : '';
+      return '<li class="chat_msg ' + (mine ? 'is-me' : 'is-webina') + (prop ? ' is-proposal' : '') + '" data-msg="' + esc(m.id) + '">' +
+        '<p class="chat_meta">' + (mine ? esc(l.you) : 'Webina') + (prop ? ' · <b>' + esc(l.proposal) + '</b> · <span class="pill is-' + (m.status === 'approved' ? 'ok' : m.status === 'changes' ? 'critical' : 'warning') + '">' + esc(st) + '</span>' : '') + ' · ' + when + '</p>' +
+        (m.body ? '<p class="chat_body">' + esc(m.body) + '</p>' : '') + chatFile(m) +
+        (prop && m.status === 'pending' ? '<div class="chat_decide"><button type="button" class="button is-small" data-decide="approved">' + icon('i-check') + esc(l.approve) + '</button><button type="button" class="button is-small is-secondary" data-decide="changes">' + esc(l.askChanges) + '</button></div>' +
+          '<div class="chat_changes" hidden><textarea class="field_input is-area" rows="3" placeholder="' + esc(l.changesPh) + '"></textarea><div class="chat_decide"><button type="button" class="button is-small" data-send-changes>' + esc(l.sendChanges) + '</button><button type="button" class="button is-small is-secondary" data-cancel-changes>' + esc(l.cancel) + '</button></div></div>' : '') +
+        '</li>';
+    }).join('');
+    $('[data-chat-form] textarea').placeholder = l.chatPh;
+    list.scrollTop = list.scrollHeight;
+  }
+  function answer(id, decision, comment) {
+    return api('answer', { method: 'POST', body: { id: id, decision: decision, comment: comment || '' } }).then(function () { toast(L().answered); return load(); });
+  }
+  $('[data-chat]').addEventListener('click', function (e) {
+    var li = e.target.closest('[data-msg]'); if (!li) return;
+    var dec = e.target.closest('[data-decide]');
+    if (dec && dec.dataset.decide === 'approved') { answer(li.dataset.msg, 'approved').catch(function (ex) { toast(ex.message); }); return; }
+    if (dec) { $('.chat_changes', li).hidden = false; $('.chat_changes textarea', li).focus(); return; }
+    if (e.target.closest('[data-cancel-changes]')) { $('.chat_changes', li).hidden = true; return; }
+    if (e.target.closest('[data-send-changes]')) {
+      var t = $('.chat_changes textarea', li).value.trim();
+      if (!t) { $('.chat_changes textarea', li).focus(); return; }
+      answer(li.dataset.msg, 'changes', t).catch(function (ex) { toast(ex.message); });
+    }
+  });
+  var chatFileInput = $('[data-chat-file]');
+  chatFileInput.addEventListener('change', function () { $('[data-chat-fname]').textContent = chatFileInput.files[0] ? chatFileInput.files[0].name : L().attach; });
+  $('[data-chat-form]').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var f = e.target, btn = f.querySelector('[type=submit]'), text = f.body.value.trim(), file = chatFileInput.files[0];
+    if (!text && !file) { toast(L().empty); f.body.focus(); return; }
+    var fd = new FormData();
+    fd.append('body', text); if (file) fd.append('file', file);
+    btn.disabled = true;
+    fetch('/api/portal.php?r=chat', { method: 'POST', body: fd, credentials: 'same-origin', headers: { 'X-Requested-With': 'webina' } })
+      .then(function (res) { return res.json().catch(function () { return {}; }).then(function (j) { if (!res.ok) throw new Error(j.error || L().errGeneric); return j; }); })
+      .then(function () { toast(L().sent); f.reset(); $('[data-chat-fname]').textContent = L().attach; return load(); })
+      .catch(function (ex) { toast(ex.message); })
+      .then(function () { btn.disabled = false; });
   });
   $('[data-support]').addEventListener('submit', function (e) {
     e.preventDefault();

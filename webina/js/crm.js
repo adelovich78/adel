@@ -517,6 +517,19 @@
   sheetPanel.addEventListener('submit', function (e) {
     e.preventDefault();
     var f = e.target, id = state.sheetId;
+    if (f.matches('[data-chat-form]')) {
+      var file = f.file.files[0];
+      if (!f.body.value.trim() && !file) { toast('Écrivez un message ou joignez un fichier'); return; }
+      var fd = new FormData();
+      fd.append('client_id', id); fd.append('body', f.body.value); fd.append('kind', f.kind.value);
+      if (file) fd.append('file', file);
+      var sb = f.querySelector('[type=submit]'); sb.disabled = true;
+      fetch('/api/clientarea.php?r=chat', { method: 'POST', body: fd, credentials: 'same-origin', headers: { 'X-Requested-With': 'webina' } })
+        .then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { if (!r.ok) throw new Error(j.error || 'Envoi impossible'); return j; }); })
+        .then(function () { toast(f.kind.value === 'proposal' ? 'Proposition envoyée au client' : 'Message envoyé'); openClient(id, true); })
+        .catch(function (ex) { toast(ex.message); sb.disabled = false; });
+      return;
+    }
     if (f.matches('[data-note-form]')) {
       if (!f.text.value.trim()) return;
       crm('r=notes', { method: 'POST', body: { client_id: id, text: f.text.value } }).then(function () { openClient(id, true); load(); });
@@ -670,12 +683,45 @@
       '<button type="button" class="button is-small is-secondary" data-doc-add>' + icon('i-plus') + 'Ajouter</button></div>' +
       (docs.length ? '<ul class="crm_pays" role="list">' + docs.map(function (dc) {
         var url = '/api/clientarea.php?r=docs&id=' + encodeURIComponent(dc.id);
-        return '<li><span><b>' + esc(dc.title) + '</b> · ' + esc(DOCKIND[dc.kind] || dc.kind) + ' · ' + fmtDate(dc.created_at) + ' · ' + Math.max(1, Math.round(Number(dc.size) / 1024)) + ' Ko' +
-          ' · <span class="' + (Number(dc.visible) ? '' : 'is-muted') + '">' + (Number(dc.visible) ? 'visible par le client' : 'interne') + '</span></span><span></span>' +
+        var fromClient = dc.source === 'client';
+        return '<li><span><b>' + esc(dc.title) + '</b> · ' + (fromClient ? '<span class="crm_due">envoyé par le client</span>' : esc(DOCKIND[dc.kind] || dc.kind)) + ' · ' + fmtDate(dc.created_at) + ' · ' + Math.max(1, Math.round(Number(dc.size) / 1024)) + ' Ko' +
+          (fromClient ? '' : ' · <span class="' + (Number(dc.visible) ? '' : 'is-muted') + '">' + (Number(dc.visible) ? 'visible par le client' : 'interne') + '</span>') +
+          (dc.note ? '<br><span class="text-color-secondary">« ' + esc(dc.note) + ' »</span>' : '') + '</span><span></span>' +
           '<span class="crm_inline"><a class="button is-small is-secondary" href="' + url + '&view=1" target="_blank" rel="noopener">Ouvrir</a>' +
-          '<button type="button" class="button is-small is-secondary" data-doc-visible="' + esc(dc.id) + '" data-v="' + (Number(dc.visible) ? 0 : 1) + '">' + (Number(dc.visible) ? 'Masquer' : 'Montrer au client') + '</button>' +
+          (fromClient ? '' : '<button type="button" class="button is-small is-secondary" data-doc-visible="' + esc(dc.id) + '" data-v="' + (Number(dc.visible) ? 0 : 1) + '">' + (Number(dc.visible) ? 'Masquer' : 'Montrer au client') + '</button>') +
           '<button type="button" class="icon-button is-danger" data-doc-del="' + esc(dc.id) + '" aria-label="Supprimer le document">' + icon('i-trash') + '</button></span></li>';
-      }).join('') + '</ul>' : '<p class="crm_empty">Aucun document. Ajoutez le contrat signé : le client le retrouvera dans son espace.</p>') + '</section>';
+      }).join('') + '</ul>' : '<p class="crm_empty">Aucun document. Ajoutez le contrat signé : le client le retrouvera dans son espace.</p>') + '</section>' +
+      notesSection(x);
+  }
+  // Échanges avec le client : messages, propositions à valider, fichiers (dans les deux sens)
+  var PROP = { pending: 'En attente de validation', approved: 'Validée par le client', changes: 'Modifications demandées' };
+  function chatFile(m) {
+    if (!m.doc_id) return '';
+    var url = '/api/clientarea.php?r=docs&id=' + encodeURIComponent(m.doc_id);
+    if ((m.doc_mime || '').indexOf('image/') === 0) return '<a class="crm_chat-img" href="' + url + '&view=1" target="_blank" rel="noopener"><img src="' + url + '&view=1" alt="' + esc(m.doc_name) + '" loading="lazy"></a>';
+    return '<a class="crm_chat-file" href="' + url + '&view=1" target="_blank" rel="noopener">' + icon('i-link') + esc(m.doc_name) + '</a>';
+  }
+  function notesSection(x) {
+    var chat = (x.portal && x.portal.chat) || [];
+    var items = chat.map(function (m) {
+      var mine = m.sender === 'webina';
+      var when = d(m.created_at) ? d(m.created_at).toLocaleString('fr-FR', { dateStyle: 'medium', timeStyle: 'short' }) : '';
+      if (m.kind === 'answer') {
+        return '<li class="crm_chat-msg is-client is-answer"><p class="crm_chat-meta">' + (m.status === 'approved' ? '✓ Proposition validée' : '✎ Modifications demandées') + ' · ' + when + '</p>' + (m.body ? '<p class="crm_chat-body">' + esc(m.body) + '</p>' : '') + '</li>';
+      }
+      return '<li class="crm_chat-msg ' + (mine ? 'is-webina' : 'is-client') + (m.kind === 'proposal' ? ' is-proposal' : '') + '">' +
+        '<p class="crm_chat-meta">' + (mine ? 'Webina' : 'Client') + (m.kind === 'proposal' ? ' · <b>Proposition</b> · <span class="crm_chat-st is-' + esc(m.status) + '">' + esc(PROP[m.status] || '') + '</span>' : '') + ' · ' + when + '</p>' +
+        (m.body ? '<p class="crm_chat-body">' + esc(m.body) + '</p>' : '') + chatFile(m) + '</li>';
+    }).join('');
+    return '<section class="crm_section" id="crm-chat"><h3 class="crm_section-title">Échanges avec le client</h3>' +
+      '<p class="text-size-small text-color-secondary">Envoyez un message, un fichier ou une proposition à valider (logo, textes, maquette…). Le client répond depuis son espace et reçoit un e-mail à chaque envoi.</p>' +
+      (items ? '<ol class="crm_chat" role="list">' + items + '</ol>' : '<p class="crm_empty">Aucun échange pour le moment.</p>') +
+      '<form class="crm_chat-form" data-chat-form>' +
+        '<textarea class="form_input is-area" name="body" rows="3" placeholder="Votre message au client…" aria-label="Message"></textarea>' +
+        '<div class="crm_chat-tools"><input class="form_input" type="file" name="file" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png" aria-label="Fichier joint">' +
+        '<select class="form_input is-select" name="kind" aria-label="Type"><option value="message">Message</option><option value="proposal">Proposition à valider</option></select>' +
+        '<button type="submit" class="button is-small">' + icon('i-send') + 'Envoyer</button></div>' +
+      '</form></section>';
   }
   function uploadDoc(id, data) {
     if (!data.file) return Promise.reject(new Error('Choisissez un fichier.'));

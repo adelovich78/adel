@@ -7,6 +7,7 @@
 //   notices  POST {client_id|null, level, title, body, expires_on} | DELETE &id=
 //   requests GET (demandes ouvertes) | PATCH &id= {status: done}
 //   welcome  GET &client_id= [&lang=] (brouillon) | POST {client_id, lang, subject, body} (envoi + ouverture de l'accès)
+//   chat     POST multipart {client_id, body, kind: message|proposal, file} → message au client
 //   docs     POST multipart {client_id, kind, title, visible, file} | GET &id= [&view=1] | PATCH &id= {visible, title} | DELETE &id=
 require __DIR__ . '/_bootstrap.php';
 require __DIR__ . '/_quote.php';
@@ -68,12 +69,23 @@ case 'welcome':
 
 case 'client':
     $cid = $uuid($id);
+    // Ouvrir la fiche = messages du client lus
+    $pdo->prepare("UPDATE portal_chat SET read_by_admin = 1 WHERE client_id = ? AND sender = 'client'")->execute([$cid]);
     json_out([
         'invoices' => portal_all($pdo, 'SELECT * FROM crm_invoices WHERE client_id = ? ORDER BY issued_on DESC', [$cid]),
         'notices' => portal_all($pdo, 'SELECT * FROM crm_notices WHERE client_id = ? ORDER BY created_at DESC', [$cid]),
         'requests' => portal_all($pdo, 'SELECT * FROM portal_requests WHERE client_id = ? ORDER BY created_at DESC LIMIT 20', [$cid]),
-        'documents' => portal_all($pdo, 'SELECT id, project_id, kind, title, filename, mime, size, visible, created_at FROM crm_documents WHERE client_id = ? ORDER BY created_at DESC', [$cid]),
+        'documents' => portal_all($pdo, 'SELECT id, project_id, kind, title, filename, mime, size, visible, source, note, created_at FROM crm_documents WHERE client_id = ? ORDER BY created_at DESC', [$cid]),
+        'chat' => portal_chat_list($pdo, $cid),
     ]);
+
+case 'chat':
+    // Webina écrit au client : message ou proposition à valider, avec fichier joint facultatif (multipart)
+    if ($method !== 'POST') break;
+    $cid = $uuid((string)($_POST['client_id'] ?? ''));
+    $c = portal_one($pdo, 'SELECT * FROM crm_clients WHERE id = ?', [$cid]);
+    if (!$c) fail('Client introuvable.', 404);
+    json_out(portal_chat_post($pdo, $c, 'webina', (string)($_POST['body'] ?? ''), $_FILES['file'] ?? null, (string)($_POST['kind'] ?? 'message')), 201);
 
 case 'docs':
     // Contrats et documents du client : envoi (multipart), téléchargement, visibilité, suppression

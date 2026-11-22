@@ -5,6 +5,8 @@
 //   POST link   {token}              → ouvre la session avec le lien envoyé par Webina
 //   GET  me                          → tableau de bord complet
 //   GET  doc &id= [&view=1]          → télécharge un contrat / document partagé
+//   POST chat (multipart body, file)  → message / fichier du client à Webina
+//   POST answer {id, decision, comment} → validation d'une proposition (approved | changes)
 //   POST request {kind, service, detail}
 //   PATCH account {name, phone, company, lang}
 //   POST logout
@@ -60,9 +62,25 @@ case 'doc':
     if (!$c) fail('Oturum yok.', 401);
     $id = (string)($_GET['id'] ?? '');
     if (!preg_match('/^[0-9a-f-]{36}$/', $id)) fail('Belge bulunamadı.', 404);
-    $doc = portal_one($pdo, 'SELECT * FROM crm_documents WHERE id = ? AND client_id = ? AND visible = 1', [$id, $c['id']]);
+    $doc = portal_one($pdo, "SELECT * FROM crm_documents WHERE id = ? AND client_id = ? AND (visible = 1 OR source = 'client')", [$id, $c['id']]);
     if (!$doc) fail('Belge bulunamadı.', 404);
     crm_doc_stream($doc, !empty($_GET['view']));
+
+case 'chat':
+    // Le client écrit à Webina : message, note, fichier (logo, textes, photos, contrat signé…)
+    if ($method !== 'POST') break;
+    $c = portal_client($pdo);
+    if (!$c) fail('Oturum yok.', 401);
+    rate_limit('portal_chat', 60, 3600);
+    json_out(portal_chat_post($pdo, $c, 'client', (string)($_POST['body'] ?? ''), $_FILES['file'] ?? null), 201);
+
+case 'answer':
+    // Réponse à une proposition de Webina : approved | changes (+ commentaire)
+    if ($method !== 'POST') break;
+    $c = portal_client($pdo);
+    if (!$c) fail('Oturum yok.', 401);
+    portal_chat_answer($pdo, $c, (string)($in['id'] ?? ''), (string)($in['decision'] ?? ''), (string)($in['comment'] ?? ''));
+    json_out(['ok' => true]);
 
 case 'me':
     $c = portal_client($pdo);
