@@ -51,6 +51,9 @@ if (($html = crm_digest_html($pdo)) && ($to = email_list($CONFIG['notify_email']
 }
 // Rappels d'échéance au client (domaine + hébergement) : J-30, J-15, puis chaque jour dès J-7 et en retard
 $reminders = crm_client_reminders($pdo);
+// Abonnements mensuels : facture créée 5 jours avant l'échéance ; puis rappels des factures impayées (J-3, J0, tous les 3 jours de retard)
+$billed = crm_monthly_billing($pdo);
+$payReminders = crm_invoice_reminders($pdo);
 // Le 1er du mois (ou forcé via ?monthly=1) : compte rendu à l'admin + rapport « état du site » à chaque client
 $monthly = false;
 $clientReports = 0;
@@ -62,5 +65,5 @@ if (date('j') === '1' || !empty($_GET['monthly'])) {
 }
 // Un lot de prospection au passage (le gros du travail est fait par la tâche fréquente ?only=prospect)
 $prospect = run_prospect($pdo);
-json_out(['ok' => true, 'created' => $made, 'digest' => $sent, 'reminders' => $reminders, 'monthly' => $monthly,
+json_out(['ok' => true, 'created' => $made, 'digest' => $sent, 'reminders' => $reminders, 'billed' => $billed, 'payReminders' => $payReminders, 'monthly' => $monthly,
     'clientReports' => $clientReports, 'prospectMails' => $prospect['prospectMails'], 'waSent' => $prospect['waSent']]);

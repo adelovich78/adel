@@ -544,3 +544,9 @@
 .crm_chat-tools input[type=file] { flex: 1 1 220px; min-width: 0; }
 .crm_chat-tools select { flex: 0 0 auto; }
 .crm_chat-file { display: flex; width: fit-content; max-width: 100%; overflow-wrap: anywhere; }
+
+/* Logo du client et abonnement mensuel */
+.crm_avatar[data-logo-up] { border: 0; cursor: pointer; font: inherit; }
+.crm_avatar.is-logo { padding: 0; overflow: hidden; background: #fff; box-shadow: inset 0 0 0 1px var(--color-hairline); }
+.crm_avatar.is-logo img { width: 100%; height: 100%; object-fit: contain; }
+.crm_monthly-line { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; margin: 6px 0 2px; font-size: 0.875rem; }

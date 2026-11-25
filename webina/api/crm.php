@@ -57,6 +57,7 @@ $PROJECT_FIELDS = ['name' => 200, 'status' => CRM_PROJECT_STATUS, 'start_date' =
     'currency' => ['TRY', 'USD', 'EUR'], 'hosting_renewal' => 'date', 'hosting_amount' => 'num', 'notes' => 5000,
     // Espace client : ce que le client voit sur my.webina.com.tr
     'domain' => 190, 'plan' => ['vitrin', 'randevu', 'eticaret', 'ozel'], 'site_status' => ['building', 'preview', 'live', 'suspended'],
+    'kind' => ['site', 'social', 'other'], 'billing' => ['once', 'monthly'], 'monthly_amount' => 'num', 'next_billing' => 'date',
     'preview_url' => 255, 'domain_expires' => 'date', 'ssl_status' => ['active', 'pending', 'expired'], 'ssl_expires' => 'date'];
 
 switch ($r) {
@@ -107,6 +108,7 @@ case 'clients':
             'tasks' => all($pdo, "SELECT * FROM crm_tasks WHERE client_id IN ($ph) ORDER BY done_at IS NOT NULL, due_at", $ids),
             'projects' => all($pdo, "SELECT p.*, (SELECT COALESCE(SUM(amount), 0) FROM crm_payments WHERE project_id = p.id) paid FROM crm_projects p WHERE client_id IN ($ph) ORDER BY created_at DESC", $ids),
             'payments' => all($pdo, "SELECT pay.*, p.name project_name FROM crm_payments pay JOIN crm_projects p ON p.id = pay.project_id WHERE p.client_id IN ($ph) ORDER BY paid_at DESC", $ids),
+            'domains' => all($pdo, "SELECT * FROM crm_domains WHERE client_id IN ($ph) ORDER BY expires IS NULL, expires", $ids),
             'activity' => all($pdo, "SELECT * FROM crm_activity WHERE client_id IN ($ph) ORDER BY created_at DESC LIMIT 200", $ids),
         ]);
     }
@@ -180,6 +182,52 @@ case 'deals':
         need_id($id);
         $pdo->prepare('DELETE FROM crm_tasks WHERE deal_id = ? AND done_at IS NULL')->execute([$id]);
         $pdo->prepare('DELETE FROM crm_deals WHERE id = ?')->execute([$id]);
+        json_out(['ok' => true]);
+    }
+    break;
+
+/* ---------- Noms de domaine du client ---------- */
+case 'domains':
+    $clean = function (array $in): array {
+        $o = [];
+        if (isset($in['name'])) {
+            $n = strtolower(trim(preg_replace('#^(https?://)?(www\.)?#i', '', (string)$in['name']), " /"));
+            if (!preg_match('/^[a-z0-9.-]+\.[a-z0-9-]{2,}$/u', $n)) fail('Nom de domaine invalide (ex. xy-academy.net).', 422);
+            $o['name'] = $n;
+        }
+        if (array_key_exists('expires', $in)) { $t = trim((string)$in['expires']); $o['expires'] = $t === '' ? null : date('Y-m-d', strtotime($t)); }
+        if (array_key_exists('renew_price', $in)) $o['renew_price'] = trim((string)$in['renew_price']) === '' ? null : (float)$in['renew_price'];
+        if (array_key_exists('project_id', $in)) $o['project_id'] = trim((string)$in['project_id']) === '' ? null : need_id((string)$in['project_id']);
+        return $o;
+    };
+    if ($method === 'POST') {
+        $cid = need_id((string)($in['client_id'] ?? ''));
+        $o = $clean($in);
+        if (empty($o['name'])) fail('Nom de domaine requis.', 422);
+        $did = uuid4();
+        $pdo->prepare('INSERT INTO crm_domains (id, client_id, project_id, name, expires, renew_price) VALUES (?, ?, ?, ?, ?, ?)')
+            ->execute([$did, $cid, $o['project_id'] ?? null, $o['name'], $o['expires'] ?? null, $o['renew_price'] ?? null]);
+        crm_log($pdo, $cid, null, 'project', 'Nom de domaine ajouté : ' . $o['name']);
+        json_out(['domain' => one($pdo, 'SELECT * FROM crm_domains WHERE id = ?', [$did])], 201);
+    }
+    if ($method === 'PATCH') {
+        need_id($id);
+        $dm = one($pdo, 'SELECT * FROM crm_domains WHERE id = ?', [$id]);
+        if (!$dm) fail('Domaine introuvable.', 404);
+        if (!empty($in['renew'])) {
+            // Renouvelé : +1 an à partir de l'échéance (ou d'aujourd'hui si aucune)
+            $base = $dm['expires'] ?: date('Y-m-d');
+            $pdo->prepare('UPDATE crm_domains SET expires = ? WHERE id = ?')->execute([date('Y-m-d', strtotime($base . ' +1 year')), $id]);
+            crm_log($pdo, $dm['client_id'], null, 'project', 'Domaine ' . $dm['name'] . ' renouvelé jusqu\'au ' . date('d/m/Y', strtotime($base . ' +1 year')));
+        } else {
+            $o = $clean($in);
+            foreach ($o as $k => $v) $pdo->prepare("UPDATE crm_domains SET $k = ? WHERE id = ?")->execute([$v, $id]);
+        }
+        json_out(['domain' => one($pdo, 'SELECT * FROM crm_domains WHERE id = ?', [$id])]);
+    }
+    if ($method === 'DELETE') {
+        need_id($id);
+        $pdo->prepare('DELETE FROM crm_domains WHERE id = ?')->execute([$id]);
         json_out(['ok' => true]);
     }
     break;

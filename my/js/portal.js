@@ -14,9 +14,9 @@
       changePlan: 'Paketimi değiştir', changePlanP: 'Yeni paketinizi seçin. Farkı ve tarihi sizinle birlikte netleştiririz.', note: 'Not (isteğe bağlı)', sendRequest: 'Talebi gönder',
       errEmail: 'Lütfen geçerli bir e-posta yazın.', errCode: 'Kod hatalı veya süresi dolmuş.', errLink: 'Bu giriş bağlantısı geçersiz veya süresi dolmuş. E-postanızla giriş yapabilirsiniz.', errGeneric: 'Bir sorun oluştu, lütfen tekrar deneyin.',
       allGood: 'Her şey yolunda', allGoodP: 'Şu anda yapmanız gereken bir şey yok.', todo: '{n} işlem bekliyor', todo1: '1 işlem bekliyor',
-      act: { pay: 'Faturanızı ödeyin: {number} · {amount} · son gün {date}', renew: 'Aboneliğiniz {date} tarihinde yenilenmeli ({days})', renewLate: 'Aboneliğinizin süresi {date} tarihinde doldu', domain: 'Alan adınız {date} tarihinde sona eriyor ({days})', domainLate: 'Alan adınızın süresi {date} tarihinde doldu', preview: 'Siteniz önizlemede: inceleyin ve onaylayın', proposal: 'Onayınızı bekleyen bir önerimiz var', ssl: 'SSL sertifikanızın süresi doldu, ilgileniyoruz' },
+      act: { pay: 'Faturanızı ödeyin: {number} · {amount} · son gün {date}', renew: 'Aboneliğiniz {date} tarihinde yenilenmeli ({days})', renewLate: 'Aboneliğinizin süresi {date} tarihinde doldu', domain: 'Alan adınız {date} tarihinde sona eriyor ({days})', domainLate: 'Alan adınızın süresi {date} tarihinde doldu', preview: 'Siteniz önizlemede: inceleyin ve onaylayın', proposal: 'Onayınızı bekleyen bir önerimiz var', balance: '{name}: kalan ödemeniz {amount}', domainName: '{name} alan adınız {date} tarihinde sona eriyor ({days})', ssl: 'SSL sertifikanızın süresi doldu, ilgileniyoruz' },
       btn: { pay: 'Nasıl ödenir?', renew: 'Yenilemeyi onayla', preview: 'Önizlemeyi aç', approve: 'Siteyi onayla', open: 'Siteyi aç', upgrade: 'Paketimi değiştir' },
-      tile: { domain: 'Alan adı', hosting: 'Hosting', ssl: 'SSL', sub: 'Abonelik', left: 'Kalan süre', payment: 'Ödeme durumu' },
+      tile: { domain: 'Alan adı', domains: 'Alan adlarınız', hosting: 'Hosting', ssl: 'SSL', sub: 'Abonelik', left: 'Kalan süre', payment: 'Ödeme durumu', monthly: 'Aylık abonelik', nextPay: 'Sonraki ödeme', started: 'Başlangıç', balance: 'Ödemeler' }, social: 'Sosyal medya yönetimi', perMonth: '/ ay', paidOf: '{paid} ödendi · toplam {total}', remaining: 'Kalan: {x}', noDomain: 'Henüz alan adı yok',
       st: { ok: 'Aktif', soon: 'Yakında yenilenmeli', expired: 'Süresi doldu', none: 'Bilgi yok', active: 'Aktif', pending: 'Hazırlanıyor', paid: 'Ödendi', due: 'Ödeme bekleniyor', overdue: 'Gecikmiş', unpaid: 'Ödenmedi' },
       site: { building: 'Hazırlanıyor', preview: 'Önizlemede', live: 'Yayında', suspended: 'Durduruldu' },
       plan: { vitrin: 'Vitrin', randevu: 'Randevu', eticaret: 'E-ticaret', ozel: 'Özel' },
@@ -38,9 +38,9 @@
       changePlan: 'Change my plan', changePlanP: 'Choose your new plan. We will confirm the difference and the date with you.', note: 'Note (optional)', sendRequest: 'Send request',
       errEmail: 'Please enter a valid email.', errCode: 'Wrong or expired code.', errLink: 'This login link is invalid or has expired. You can sign in with your email.', errGeneric: 'Something went wrong, please try again.',
       allGood: 'All good', allGoodP: 'There is nothing you need to do right now.', todo: '{n} actions needed', todo1: '1 action needed',
-      act: { pay: 'Pay your invoice: {number} · {amount} · due {date}', renew: 'Your subscription renews on {date} ({days})', renewLate: 'Your subscription expired on {date}', domain: 'Your domain expires on {date} ({days})', domainLate: 'Your domain expired on {date}', preview: 'Your site is ready to preview: check it and approve it', proposal: 'A proposal is waiting for your approval', ssl: 'Your SSL certificate expired, we are on it' },
+      act: { pay: 'Pay your invoice: {number} · {amount} · due {date}', renew: 'Your subscription renews on {date} ({days})', renewLate: 'Your subscription expired on {date}', domain: 'Your domain expires on {date} ({days})', domainLate: 'Your domain expired on {date}', preview: 'Your site is ready to preview: check it and approve it', proposal: 'A proposal is waiting for your approval', balance: '{name}: remaining balance {amount}', domainName: 'Your domain {name} expires on {date} ({days})', ssl: 'Your SSL certificate expired, we are on it' },
       btn: { pay: 'How to pay', renew: 'Confirm renewal', preview: 'Open preview', approve: 'Approve the site', open: 'Open site', upgrade: 'Change my plan' },
-      tile: { domain: 'Domain', hosting: 'Hosting', ssl: 'SSL', sub: 'Subscription', left: 'Time left', payment: 'Payment status' },
+      tile: { domain: 'Domain', domains: 'Your domains', hosting: 'Hosting', ssl: 'SSL', sub: 'Subscription', left: 'Time left', payment: 'Payment status', monthly: 'Monthly subscription', nextPay: 'Next payment', started: 'Started', balance: 'Payments' }, social: 'Social media management', perMonth: '/ month', paidOf: '{paid} paid · total {total}', remaining: 'Remaining: {x}', noDomain: 'No domain yet',
       st: { ok: 'Active', soon: 'Renewal due soon', expired: 'Expired', none: 'No data', active: 'Active', pending: 'In progress', paid: 'Paid', due: 'Payment due', overdue: 'Overdue', unpaid: 'Unpaid' },
       site: { building: 'In progress', preview: 'In preview', live: 'Live', suspended: 'Suspended' },
       plan: { vitrin: 'Showcase', randevu: 'Booking', eticaret: 'E-commerce', ozel: 'Custom' },
@@ -62,9 +62,9 @@
       changePlan: 'Changer de formule', changePlanP: 'Choisissez votre nouvelle formule. Nous confirmons avec vous la différence et la date.', note: 'Note (facultatif)', sendRequest: 'Envoyer la demande',
       errEmail: 'Saisissez une adresse e-mail valide.', errCode: 'Code incorrect ou expiré.', errLink: 'Ce lien de connexion n’est plus valable. Connectez-vous avec votre e-mail.', errGeneric: 'Une erreur est survenue, réessayez.',
       allGood: 'Tout est en ordre', allGoodP: 'Vous n’avez rien à faire pour le moment.', todo: '{n} actions à faire', todo1: '1 action à faire',
-      act: { pay: 'Réglez votre facture : {number} · {amount} · avant le {date}', renew: 'Votre abonnement se renouvelle le {date} ({days})', renewLate: 'Votre abonnement a expiré le {date}', domain: 'Votre nom de domaine expire le {date} ({days})', domainLate: 'Votre nom de domaine a expiré le {date}', preview: 'Votre site est prêt : vérifiez-le et validez-le', proposal: 'Une proposition attend votre validation', ssl: 'Votre certificat SSL a expiré, nous nous en occupons' },
+      act: { pay: 'Réglez votre facture : {number} · {amount} · avant le {date}', renew: 'Votre abonnement se renouvelle le {date} ({days})', renewLate: 'Votre abonnement a expiré le {date}', domain: 'Votre nom de domaine expire le {date} ({days})', domainLate: 'Votre nom de domaine a expiré le {date}', preview: 'Votre site est prêt : vérifiez-le et validez-le', proposal: 'Une proposition attend votre validation', balance: '{name} : reste à payer {amount}', domainName: 'Votre domaine {name} expire le {date} ({days})', ssl: 'Votre certificat SSL a expiré, nous nous en occupons' },
       btn: { pay: 'Comment payer', renew: 'Confirmer le renouvellement', preview: 'Voir la prévisualisation', approve: 'Valider le site', open: 'Ouvrir le site', upgrade: 'Changer de formule' },
-      tile: { domain: 'Nom de domaine', hosting: 'Hébergement', ssl: 'SSL', sub: 'Abonnement', left: 'Temps restant', payment: 'Paiement' },
+      tile: { domain: 'Nom de domaine', domains: 'Vos noms de domaine', hosting: 'Hébergement', ssl: 'SSL', sub: 'Abonnement', left: 'Temps restant', payment: 'Paiement', monthly: 'Abonnement mensuel', nextPay: 'Prochain paiement', started: 'Début', balance: 'Paiements' }, social: 'Gestion des réseaux sociaux', perMonth: '/ mois', paidOf: '{paid} payé · total {total}', remaining: 'Reste : {x}', noDomain: 'Pas encore de nom de domaine',
       st: { ok: 'Actif', soon: 'À renouveler bientôt', expired: 'Expiré', none: 'Non renseigné', active: 'Actif', pending: 'En cours', paid: 'Payé', due: 'Paiement attendu', overdue: 'En retard', unpaid: 'Non payée' },
       site: { building: 'En création', preview: 'En prévisualisation', live: 'En ligne', suspended: 'Suspendu' },
       plan: { vitrin: 'Vitrine', randevu: 'Rendez-vous', eticaret: 'E-commerce', ozel: 'Sur mesure' },
@@ -86,9 +86,9 @@
       changePlan: 'تغيير الباقة', changePlanP: 'اختر باقتك الجديدة، وسنؤكد معك الفرق والتاريخ.', note: 'ملاحظة (اختياري)', sendRequest: 'إرسال الطلب',
       errEmail: 'اكتب بريداً إلكترونياً صالحاً.', errCode: 'الرمز خاطئ أو منتهي الصلاحية.', errLink: 'رابط الدخول غير صالح أو منتهي. يمكنك الدخول بالبريد الإلكتروني.', errGeneric: 'حدث خطأ، حاول مرة أخرى.',
       allGood: 'كل شيء على ما يرام', allGoodP: 'لا يوجد ما تحتاج إلى فعله الآن.', todo: '{n} إجراءات مطلوبة', todo1: 'إجراء واحد مطلوب',
-      act: { pay: 'ادفع فاتورتك: {number} · {amount} · قبل {date}', renew: 'يتجدد اشتراكك في {date} ({days})', renewLate: 'انتهى اشتراكك في {date}', domain: 'ينتهي نطاقك في {date} ({days})', domainLate: 'انتهى نطاقك في {date}', preview: 'موقعك جاهز للمعاينة: راجعه ووافق عليه', proposal: 'هناك اقتراح بانتظار موافقتك', ssl: 'انتهت شهادة SSL ونحن نعمل على تجديدها' },
+      act: { pay: 'ادفع فاتورتك: {number} · {amount} · قبل {date}', renew: 'يتجدد اشتراكك في {date} ({days})', renewLate: 'انتهى اشتراكك في {date}', domain: 'ينتهي نطاقك في {date} ({days})', domainLate: 'انتهى نطاقك في {date}', preview: 'موقعك جاهز للمعاينة: راجعه ووافق عليه', proposal: 'هناك اقتراح بانتظار موافقتك', balance: '{name}: المبلغ المتبقي {amount}', domainName: 'ينتهي نطاقك {name} في {date} ({days})', ssl: 'انتهت شهادة SSL ونحن نعمل على تجديدها' },
       btn: { pay: 'طريقة الدفع', renew: 'تأكيد التجديد', preview: 'افتح المعاينة', approve: 'الموافقة على الموقع', open: 'افتح الموقع', upgrade: 'تغيير الباقة' },
-      tile: { domain: 'النطاق', hosting: 'الاستضافة', ssl: 'SSL', sub: 'الاشتراك', left: 'المدة المتبقية', payment: 'حالة الدفع' },
+      tile: { domain: 'النطاق', domains: 'نطاقاتك', hosting: 'الاستضافة', ssl: 'SSL', sub: 'الاشتراك', left: 'المدة المتبقية', payment: 'حالة الدفع', monthly: 'الاشتراك الشهري', nextPay: 'الدفعة التالية', started: 'البداية', balance: 'المدفوعات' }, social: 'إدارة وسائل التواصل', perMonth: '/ شهر', paidOf: 'مدفوع {paid} · الإجمالي {total}', remaining: 'المتبقي: {x}', noDomain: 'لا يوجد نطاق بعد',
       st: { ok: 'نشط', soon: 'يجب التجديد قريباً', expired: 'منتهٍ', none: 'لا توجد بيانات', active: 'نشط', pending: 'قيد الإعداد', paid: 'مدفوع', due: 'بانتظار الدفع', overdue: 'متأخر', unpaid: 'غير مدفوعة' },
       site: { building: 'قيد الإعداد', preview: 'قيد المعاينة', live: 'منشور', suspended: 'موقوف' },
       plan: { vitrin: 'واجهة', randevu: 'مواعيد', eticaret: 'متجر إلكتروني', ozel: 'مخصص' },
@@ -222,12 +222,14 @@
     var s = L().act;
     if (a.code === 'pay') return fill(s.pay, { number: a.number, amount: money(a.amount, a.currency), date: date(a.date) });
     if (a.code === 'renew') return fill(a.days < 0 ? s.renewLate : s.renew, { date: date(a.date), days: daysText(a.days) });
+    if (a.code === 'domain' && a.name) return fill(s.domainName, { name: a.name, date: date(a.date), days: daysText(a.days) });
     if (a.code === 'domain') return fill(a.days < 0 ? s.domainLate : s.domain, { date: date(a.date), days: daysText(a.days) });
+    if (a.code === 'balance') return fill(s.balance, { name: a.name, amount: money(a.amount, a.currency) });
     return s[a.code] || '';
   }
   function actionButtons(a) {
     var b = L().btn;
-    if (a.code === 'pay') return '<button type="button" class="button is-small" data-go-pay>' + esc(b.pay) + '</button>';
+    if (a.code === 'pay' || a.code === 'balance') return '<button type="button" class="button is-small" data-go-pay>' + esc(b.pay) + '</button>';
     if (a.code === 'renew' || a.code === 'domain') return '<button type="button" class="button is-small" data-renew="' + esc(a.service) + '">' + icon('i-refresh') + esc(b.renew) + '</button>';
     if (a.code === 'proposal') return '<a class="button is-small" href="#chat">' + esc(L().proposal) + icon('i-arrow') + '</a>';
     if (a.code === 'preview') return '<a class="button is-small is-secondary" href="' + esc(a.url) + '" target="_blank" rel="noopener">' + esc(b.preview) + icon('i-arrow') + '</a><button type="button" class="button is-small" data-approve="' + esc(a.service) + '">' + icon('i-check') + esc(b.approve) + '</button>';
@@ -237,6 +239,8 @@
   function render() {
     var d = data, l = L();
     $('[data-name]').textContent = d.client.name;
+    var lg = $('[data-logo]');
+    if (d.client.logo) { lg.src = '/api/portal.php?r=doc&id=' + encodeURIComponent(d.client.logo) + '&view=1'; lg.hidden = false; } else lg.hidden = true;
     $('[data-today]').textContent = new Date().toLocaleDateString(LOC[lang], { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
 
     // 1. La réponse d'abord : faut-il agir ?
@@ -314,11 +318,38 @@
   }
   function tone(st) { return { ok: 'ok', active: 'ok', paid: 'ok', soon: 'warning', due: 'warning', pending: 'neutral', none: 'neutral', expired: 'critical', overdue: 'critical' }[st] || 'neutral'; }
 
+  function domainsTile(s) {
+    var l = L(), doms = s.domains || [];
+    if (!doms.length) return tile('i-globe', l.tile.domain, esc(l.noDomain), '', 'neutral');
+    var worst = doms.reduce(function (w, d) { return ['expired', 'soon'].indexOf(d.status) > -1 && w !== 'expired' ? d.status : w; }, 'ok');
+    return '<div class="tile is-' + tone(worst) + '"><p class="tile_title">' + icon('i-globe') + esc(doms.length > 1 ? l.tile.domains : l.tile.domain) + '</p><ul class="dom_list" role="list">' +
+      doms.map(function (d) { return '<li><b dir="ltr">' + esc(d.name) + '</b><span>' + (d.expires ? fill(l.until, { date: date(d.expires) }) : '') + '</span></li>'; }).join('') + '</ul></div>';
+  }
+  function paymentTile(s) {
+    var l = L(), pay = s.payment, cur = s.subscription.currency, b = s.balance || {};
+    var sub = pay.status !== 'paid' && pay.amount ? fill(l.remaining, { x: money(pay.amount, cur) }) + (pay.due ? ' · ' + date(pay.due) : '') : '';
+    if (s.billing === 'once' && b.total > 0) sub = (sub ? sub + '<br>' : '') + fill(l.paidOf, { paid: money(b.paid, cur), total: money(b.total, cur) });
+    return tile('i-card', l.tile.payment, esc(l.st[pay.status]), sub, tone(pay.status));
+  }
+  // Abonnement mensuel (réseaux sociaux…) : prix, prochaine échéance, paiement
+  function monthlyCard(s) {
+    var l = L(), m = s.monthly || {}, cur = s.subscription.currency;
+    var head = '<div class="service_head"><div><p class="service_domain">' + esc(s.name) + '</p><p class="service_meta"><span class="pill is-ok">' + esc(s.kind === 'social' ? l.social : l.tile.monthly) + '</span></p></div></div>';
+    var left = m.days;
+    var tiles =
+      tile('i-layout', l.tile.monthly, '<span dir="ltr">' + money(m.amount || 0, cur) + '</span> <span class="tile_price">' + esc(l.perMonth) + '</span>', m.start ? esc(l.tile.started) + ' : ' + date(m.start) : '', 'neutral') +
+      tile('i-calendar', l.tile.nextPay, m.next ? date(m.next) : '—', left != null ? esc(daysText(left)) : '', left != null && left <= 3 ? 'warning' : 'neutral') +
+      paymentTile(s);
+    return '<article class="service_card">' + head + '<div class="tile_grid">' + tiles + '</div></article>';
+  }
   function serviceCard(s) {
+    if (s.billing === 'monthly' || s.kind === 'social') return monthlyCard(s);
     var l = L();
     var siteTone = { live: 'ok', preview: 'warning', building: 'neutral', suspended: 'critical' }[s.site.status] || 'neutral';
-    var url = s.domain ? 'https://' + s.domain.replace(/^https?:\/\//, '') : null;
-    var head = '<div class="service_head"><div><p class="service_domain" dir="ltr">' + esc(s.domain || s.name) + '</p><p class="service_meta">' +
+    // Domaine principal du site : celui indiqué sur le service, sinon le premier de la liste
+    var mainDomain = s.domain || (s.domains && s.domains[0] && s.domains[0].name);
+    var url = mainDomain ? 'https://' + mainDomain.replace(/^https?:\/\//, '') : null;
+    var head = '<div class="service_head"><div><p class="service_domain" dir="ltr">' + esc(mainDomain || s.name) + '</p><p class="service_meta">' +
       (s.plan ? esc(l.plan[s.plan] || s.plan) + ' · ' : '') + '<span class="pill is-' + siteTone + '">' + esc(l.site[s.site.status] || s.site.status) + '</span></p></div><div class="service_links">' +
       (url && s.site.status === 'live' ? '<a class="button is-small is-secondary" href="' + esc(url) + '" target="_blank" rel="noopener">' + esc(l.btn.open) + icon('i-arrow') + '</a>' : '') +
       (s.site.preview && s.site.status !== 'live' ? '<a class="button is-small is-secondary" href="' + esc(s.site.preview) + '" target="_blank" rel="noopener">' + esc(l.btn.preview) + icon('i-arrow') + '</a>' : '') +
@@ -327,12 +358,12 @@
     var left = sub.days;
     var pct = left == null ? 0 : Math.max(0, Math.min(100, Math.round(left / 365 * 100)));
     var tiles =
-      tile('i-globe', l.tile.domain, esc(l.st[d.status]), d.expires ? fill(l.until, { date: date(d.expires) }) : '', tone(d.status)) +
+      domainsTile(s) +
       tile('i-server', l.tile.hosting, esc(l.st[h.status]), h.expires ? fill(l.until, { date: date(h.expires) }) : '', tone(h.status)) +
       tile('i-lock', l.tile.ssl, esc(l.st[s.ssl.status] || s.ssl.status), s.ssl.expires ? fill(l.until, { date: date(s.ssl.expires) }) : '', tone(s.ssl.status)) +
       tile('i-layout', l.tile.sub, (sub.plan ? esc(l.plan[sub.plan] || sub.plan) : '—') + (sub.price ? ' <span class="tile_price" dir="ltr">' + money(sub.price, sub.currency) + ' ' + esc(l.perYear) + '</span>' : ''), sub.next ? fill(l.next, { date: date(sub.next) }) : '', 'neutral') +
       '<div class="tile is-' + tone(h.status) + '"><p class="tile_title">' + icon('i-calendar') + esc(l.tile.left) + '</p><p class="tile_value is-big">' + (left == null ? '—' : esc(left < 0 ? 0 : left)) + '<span class="tile_unit">' + (left == null ? '' : esc(fill(l.days, { n: '' }).trim())) + '</span></p><span class="meter"><span style="--w:' + pct + '%"></span></span></div>' +
-      tile('i-card', l.tile.payment, esc(l.st[pay.status]), pay.status !== 'paid' && pay.amount ? '<span dir="ltr">' + money(pay.amount, sub.currency) + '</span>' + (pay.due ? ' · ' + date(pay.due) : '') : '', tone(pay.status));
+      paymentTile(s);
     var acts = '<div class="service_actions">' +
       '<button type="button" class="button is-small is-secondary" data-renew="' + esc(s.id) + '">' + icon('i-refresh') + esc(l.btn.renew) + '</button>' +
       '<button type="button" class="button is-small is-secondary" data-upgrade="' + esc(s.id) + '">' + icon('i-swap') + esc(l.btn.upgrade) + '</button></div>';

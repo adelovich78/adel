@@ -101,6 +101,12 @@ function portal_dashboard(PDO $pdo, array $c): array {
     unset($i);
     $actions = [];
     $services = [];
+    // Paiements reçus par service et noms de domaine du client
+    $paid = [];
+    foreach (portal_all($pdo, 'SELECT pay.project_id, SUM(pay.amount) s FROM crm_payments pay JOIN crm_projects p ON p.id = pay.project_id WHERE p.client_id = ? GROUP BY pay.project_id', [$c['id']]) as $row) $paid[$row['project_id']] = (float)$row['s'];
+    $domains = portal_all($pdo, 'SELECT id, project_id, name, expires FROM crm_domains WHERE client_id = ? ORDER BY expires IS NULL, expires', [$c['id']]);
+    $firstSite = null;
+    foreach ($projects as $p) if (($p['kind'] ?? 'site') === 'site') { $firstSite = $p['id']; break; }
     foreach ($projects as $p) {
         // Une facture sans service rattaché compte pour le service quand le client n'en a qu'un
         $single = count($projects) === 1;
@@ -108,7 +114,20 @@ function portal_dashboard(PDO $pdo, array $c): array {
         $ssl = $p['ssl_status'];
         if ($p['ssl_expires'] && portal_days($p['ssl_expires']) < 0) $ssl = 'expired';
         $sub = portal_date_status($p['hosting_renewal']);
+        $kind = $p['kind'] ?? 'site';
+        $monthly = ($p['billing'] ?? 'once') === 'monthly';
+        // Reste à payer d'un service à paiement unique (création du site…) : montant − paiements reçus
+        $balance = $monthly ? 0.0 : max(0.0, (float)$p['amount'] - ($paid[$p['id']] ?? 0.0));
+        $unpaidSum = array_sum(array_column($unpaid, 'amount'));
+        $dueAmount = $monthly ? $unpaidSum : max($unpaidSum, $balance);
+        // Noms de domaine : ceux rattachés au service, sinon (un seul site) tous ceux du client, sinon l'ancien champ unique
+        $doms = array_values(array_filter($domains, fn($d) => $d['project_id'] === $p['id'] || (!$d['project_id'] && $p['id'] === $firstSite)));
+        if (!$doms && $p['domain']) $doms = [['id' => null, 'name' => $p['domain'], 'expires' => $p['domain_expires']]];
+        $doms = array_map(fn($d) => ['name' => $d['name'], 'expires' => $d['expires'], 'days' => portal_days($d['expires']), 'status' => portal_date_status($d['expires'])], $doms);
         $svc = [
+            'kind' => $kind, 'billing' => $monthly ? 'monthly' : 'once', 'domains' => $doms,
+            'monthly' => $monthly ? ['amount' => (float)$p['monthly_amount'], 'next' => $p['next_billing'], 'days' => portal_days($p['next_billing']), 'start' => $p['start_date']] : null,
+            'balance' => ['total' => (float)$p['amount'], 'paid' => $paid[$p['id']] ?? 0.0, 'due' => $balance],
             'id' => $p['id'], 'name' => $p['name'], 'plan' => $p['plan'], 'domain' => $p['domain'],
             'site' => ['status' => $p['site_status'], 'preview' => $p['preview_url']],
             'domainInfo' => ['expires' => $p['domain_expires'], 'days' => portal_days($p['domain_expires']), 'status' => portal_date_status($p['domain_expires'])],
@@ -116,16 +135,23 @@ function portal_dashboard(PDO $pdo, array $c): array {
             'ssl' => ['status' => $ssl, 'expires' => $p['ssl_expires']],
             'subscription' => ['plan' => $p['plan'], 'price' => $p['hosting_amount'] !== null ? (float)$p['hosting_amount'] : null, 'currency' => $p['currency'],
                                'next' => $p['hosting_renewal'], 'days' => portal_days($p['hosting_renewal']), 'start' => $p['start_date']],
-            'payment' => ['status' => $unpaid ? (in_array('overdue', array_column($unpaid, 'status'), true) ? 'overdue' : 'due') : 'paid',
-                          'amount' => array_sum(array_column($unpaid, 'amount')), 'due' => $unpaid ? min(array_column($unpaid, 'due_on')) : null],
+            'payment' => ['status' => in_array('overdue', array_column($unpaid, 'status'), true) ? 'overdue' : ($dueAmount > 0 ? 'due' : 'paid'),
+                          'amount' => $dueAmount, 'due' => $unpaid ? min(array_column($unpaid, 'due_on')) : null],
         ];
         // Actions demandées au client, de la plus urgente à la moins urgente
         foreach ($unpaid as $u) $actions[] = ['level' => $u['status'] === 'overdue' ? 'critical' : 'warning', 'code' => 'pay', 'service' => $p['id'], 'number' => $u['number'], 'amount' => $u['amount'], 'currency' => $u['currency'], 'date' => $u['due_on']];
-        if (in_array($sub, ['soon', 'expired'], true)) $actions[] = ['level' => $sub === 'expired' ? 'critical' : 'warning', 'code' => 'renew', 'service' => $p['id'], 'date' => $p['hosting_renewal'], 'days' => portal_days($p['hosting_renewal'])];
-        $dom = portal_date_status($p['domain_expires']);
-        if (in_array($dom, ['soon', 'expired'], true) && $p['domain_expires'] !== $p['hosting_renewal']) $actions[] = ['level' => $dom === 'expired' ? 'critical' : 'warning', 'code' => 'domain', 'service' => $p['id'], 'date' => $p['domain_expires'], 'days' => portal_days($p['domain_expires'])];
-        if ($p['site_status'] === 'preview' && $p['preview_url']) $actions[] = ['level' => 'info', 'code' => 'preview', 'service' => $p['id'], 'url' => $p['preview_url']];
-        if ($ssl === 'expired') $actions[] = ['level' => 'critical', 'code' => 'ssl', 'service' => $p['id']];
+        // Solde restant sans facture qui le couvre (ex. 2e tranche de la création du site)
+        if (!$monthly && $balance > $unpaidSum) $actions[] = ['level' => 'info', 'code' => 'balance', 'service' => $p['id'], 'name' => $p['name'], 'amount' => $balance - $unpaidSum, 'currency' => $p['currency']];
+        // Domaines du service qui expirent bientôt
+        foreach ($doms as $dd) if (in_array($dd['status'], ['soon', 'expired'], true) && $kind === 'site' && $dd['expires'] !== $p['domain_expires']) $actions[] = ['level' => $dd['status'] === 'expired' ? 'critical' : 'warning', 'code' => 'domain', 'service' => $p['id'], 'date' => $dd['expires'], 'days' => $dd['days'], 'name' => $dd['name']];
+        // Hébergement, domaine, aperçu et SSL ne concernent que les sites
+        if ($kind === 'site') {
+            if (in_array($sub, ['soon', 'expired'], true)) $actions[] = ['level' => $sub === 'expired' ? 'critical' : 'warning', 'code' => 'renew', 'service' => $p['id'], 'date' => $p['hosting_renewal'], 'days' => portal_days($p['hosting_renewal'])];
+            $dom = portal_date_status($p['domain_expires']);
+            if (in_array($dom, ['soon', 'expired'], true) && $p['domain_expires'] !== $p['hosting_renewal']) $actions[] = ['level' => $dom === 'expired' ? 'critical' : 'warning', 'code' => 'domain', 'service' => $p['id'], 'date' => $p['domain_expires'], 'days' => portal_days($p['domain_expires'])];
+            if ($p['site_status'] === 'preview' && $p['preview_url']) $actions[] = ['level' => 'info', 'code' => 'preview', 'service' => $p['id'], 'url' => $p['preview_url']];
+            if ($ssl === 'expired') $actions[] = ['level' => 'critical', 'code' => 'ssl', 'service' => $p['id']];
+        }
         $services[] = $svc;
     }
     // Factures sans service rattaché (client à plusieurs services, ou aucun service) : action à part
@@ -143,14 +169,14 @@ function portal_dashboard(PDO $pdo, array $c): array {
     foreach ($requests as &$q) { $q['unread'] = (int)$q['unread']; $q['replies'] = (int)$q['replies']; }
     unset($q);
     // Contrats et documents partagés par Webina
-    $documents = portal_all($pdo, "SELECT id, kind, title, filename, mime, size, source, note, created_at FROM crm_documents WHERE client_id = ? AND (visible = 1 OR source = 'client') ORDER BY created_at DESC", [$c['id']]);
+    $documents = portal_all($pdo, "SELECT id, kind, title, filename, mime, size, source, note, created_at FROM crm_documents WHERE client_id = ? AND kind <> 'logo' AND (visible = 1 OR source = 'client') ORDER BY created_at DESC", [$c['id']]);
     $chat = portal_chat_list($pdo, $c['id']);
     // Proposition de Webina en attente de validation : action en tête de page
     foreach ($chat as $m) if ($m['sender'] === 'webina' && $m['kind'] === 'proposal' && $m['status'] === 'pending') { $actions[] = ['level' => 'warning', 'code' => 'proposal', 'service' => null]; break; }
     $pdo->prepare("UPDATE portal_chat SET read_by_client = 1 WHERE client_id = ? AND sender = 'webina' AND read_by_client = 0")->execute([$c['id']]);
     $pricing = load_pricing();
     return [
-        'client' => ['name' => $c['name'], 'company' => $c['company'], 'email' => $c['email'], 'phone' => $c['phone'], 'lang' => $c['lang']],
+        'client' => ['name' => $c['name'], 'company' => $c['company'], 'email' => $c['email'], 'phone' => $c['phone'], 'lang' => $c['lang'], 'logo' => $c['logo_doc'] ?? null],
         'services' => $services, 'actions' => $actions, 'invoices' => $invoices, 'notices' => $notices, 'requests' => $requests, 'documents' => $documents, 'chat' => $chat,
         'pricing' => ['prices' => array_intersect_key($pricing['prices'], array_flip(['base', 'bookingCalendar', 'shop', 'renewalYearly'])),
                       'currencyByLang' => $pricing['currencyByLang'], 'tlPer' => $pricing['tlPer'], 'rounding' => $pricing['rounding']],

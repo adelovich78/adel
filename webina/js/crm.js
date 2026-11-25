@@ -140,7 +140,7 @@
       if (Number(c.open_deals)) busy.push(c.open_deals + ' vente' + (c.open_deals > 1 ? 's' : ''));
       if (Number(c.open_tasks)) busy.push(c.open_tasks + ' tâche' + (c.open_tasks > 1 ? 's' : ''));
       return '<tr class="crm_row" data-open-client="' + esc(c.id) + '" tabindex="0">' +
-        '<td><span class="crm_name">' + (c.kind === 'company' ? '<span class="crm_avatar is-company">' : '<span class="crm_avatar">') + esc(initials(c.name)) + '</span><span><b>' + esc(c.name) + '</b>' + (c.company && c.kind !== 'company' ? '<span class="crm_sub">' + esc(c.company) + '</span>' : '') + '</span></span></td>' +
+        '<td><span class="crm_name">' + (c.logo_doc ? '<span class="crm_avatar is-logo"><img src="/api/clientarea.php?r=docs&id=' + esc(c.logo_doc) + '&view=1" alt="" loading="lazy"></span>' : (c.kind === 'company' ? '<span class="crm_avatar is-company">' : '<span class="crm_avatar">') + esc(initials(c.name)) + '</span>') + '<span><b>' + esc(c.name) + '</b>' + (c.company && c.kind !== 'company' ? '<span class="crm_sub">' + esc(c.company) + '</span>' : '') + '</span></span></td>' +
         '<td><span class="crm_sub">' + esc(c.email || '') + '</span><span class="crm_sub">' + esc(c.phone || '') + '</span></td>' +
         '<td><span class="admin_badge is-' + esc(c.status) + '">' + esc(STATUS[c.status] || c.status) + '</span></td>' +
         '<td class="is-muted">' + (busy.join(' · ') || '—') + '</td>' +
@@ -421,7 +421,10 @@
   function renderSheet(x) {
     var c = x.client;
     var openDeals = x.deals.filter(function (dl) { return ['won', 'lost'].indexOf(dl.stage) < 0; });
-    var html = '<header class="crm_sheet-head"><span class="crm_avatar is-lg' + (c.kind === 'company' ? ' is-company' : '') + '">' + esc(initials(c.name)) + '</span>' +
+    var avatar = c.logo_doc
+      ? '<button type="button" class="crm_avatar is-lg is-logo" data-logo-up title="Changer le logo"><img src="/api/clientarea.php?r=docs&id=' + esc(c.logo_doc) + '&view=1" alt="Logo"></button>'
+      : '<button type="button" class="crm_avatar is-lg' + (c.kind === 'company' ? ' is-company' : '') + '" data-logo-up title="Ajouter le logo de la société">' + esc(initials(c.name)) + '</button>';
+    var html = '<header class="crm_sheet-head">' + avatar + '<input type="file" accept=".png,.jpg,.jpeg" data-logo-file hidden>' +
       '<div class="crm_sheet-id"><h2 class="crm_sheet-name">' + esc(c.name) + '</h2><p class="text-size-small text-color-secondary">' +
       [c.company && c.kind !== 'company' ? c.company : null, c.source, 'créé ' + fmtDate(c.created_at)].filter(Boolean).map(esc).join(' · ') +
       (x.parent ? ' · <button type="button" class="text-link" data-open-client="' + esc(x.parent.id) + '">' + esc(x.parent.name) + '</button>' : '') + '</p></div>' +
@@ -472,6 +475,7 @@
           '<button type="button" class="icon-button" data-edit-project aria-label="Modifier">' + icon('i-edit') + '</button></span></div>' +
           '<div class="crm_money"><span>Total <b>' + money(p.amount, p.currency) + '</b></span><span>Payé <b>' + money(p.paid, p.currency) + '</b></span><span class="' + (rest > 0 ? 'crm_due' : '') + '">Reste <b>' + money(Math.max(0, rest), p.currency) + '</b></span>' +
           '<span class="crm_progress"><span style="--w:' + (Number(p.amount) ? Math.min(100, Math.round(Number(p.paid) / Number(p.amount) * 100)) : 0) + '%"></span></span></div>' +
+          (p.billing === 'monthly' ? '<p class="crm_monthly-line">' + icon('i-repeat') + 'Abonnement <b>' + money(p.monthly_amount || 0, p.currency) + ' / mois</b>' + (p.next_billing ? ' · prochaine facture pour le ' + fmtDate(p.next_billing) + ' (créée 5 jours avant)' : ' · <span class="crm_due">indiquez la prochaine échéance</span>') + '</p>' : '') +
           '<p class="text-size-small text-color-secondary">' + [p.start_date ? 'Début ' + fmtDate(p.start_date) : '', p.delivery_date ? 'Livraison ' + fmtDate(p.delivery_date) : '', p.hosting_renewal ? 'Hébergement jusqu\'au ' + fmtDate(p.hosting_renewal) + (p.hosting_amount ? ' (' + money(p.hosting_amount, p.currency) + '/an)' : '') : ''].filter(Boolean).join(' · ') + '</p>' +
           (pays.length ? '<ul class="crm_pays" role="list">' + pays.map(function (pay) { return '<li><span>' + fmtDate(pay.paid_at) + (pay.method ? ' · ' + esc(pay.method) : '') + (pay.note ? ' · ' + esc(pay.note) : '') + '</span><b>' + money(pay.amount, pay.currency) + '</b><button type="button" class="icon-button is-danger" data-delete-payment="' + esc(pay.id) + '" aria-label="Supprimer le paiement">' + icon('i-trash') + '</button></li>'; }).join('') + '</ul>' : '') +
           (p.domain || p.plan ? '<p class="text-size-small crm_portal-line">' + [p.domain ? '<b>' + esc(p.domain) + '</b>' : '', p.plan ? 'Formule ' + esc(PLAN[p.plan] || p.plan) : '', 'Site ' + esc(SITE[p.site_status] || p.site_status), 'SSL ' + esc(SSL[p.ssl_status] || p.ssl_status), p.domain_expires ? 'Domaine jusqu\'au ' + fmtDate(p.domain_expires) : ''].filter(Boolean).join(' · ') + '</p>' : '') +
@@ -482,6 +486,7 @@
           '</div></div>';
       }).join('') : '<p class="crm_empty">Aucun projet.</p>') + '</section>';
 
+    html += domainsSection(c, x);
     html += docsSection(c, x);
     html += portalSection(c, x);
 
@@ -498,6 +503,15 @@
 
   sheetPanel.addEventListener('change', function (e) {
     var t = e.target, id = state.sheetId;
+    if (t.matches('[data-logo-file]')) {
+      if (!t.files[0]) return;
+      var fd = new FormData(); fd.append('client_id', id); fd.append('file', t.files[0]);
+      fetch('/api/clientarea.php?r=logo', { method: 'POST', body: fd, credentials: 'same-origin', headers: { 'X-Requested-With': 'webina' } })
+        .then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { if (!r.ok) throw new Error(j.error || 'Envoi impossible'); return j; }); })
+        .then(function () { toast('Logo enregistré : il apparaît aussi dans l\'espace du client'); openClient(id, true); loadClients().then(renderClients); })
+        .catch(function (ex) { toast(ex.message); });
+      return;
+    }
     if (t.closest('[data-client-form]')) {
       var body = {}; body[t.name] = t.value;
       crm('r=clients&id=' + id, { method: 'PATCH', body: body }).then(function () { toast('Enregistré'); loadClients().then(renderClients); }).catch(function (ex) { toast(ex.message); });
@@ -556,6 +570,15 @@
     } else if (t.closest('[data-edit-project]')) {
       var pid = t.closest('[data-project]').dataset.project;
       crm('r=clients&id=' + id).then(function (x) { editProject(x.projects.filter(function (p) { return p.id === pid; })[0]); });
+    } else if (t.closest('[data-dom-add],[data-dom-edit],[data-dom-renew],[data-dom-del]')) {
+      var de = t.closest('[data-dom-edit]'), dr = t.closest('[data-dom-renew]'), dd = t.closest('[data-dom-del]');
+      if (dr) { crm('r=domains&id=' + dr.dataset.domRenew, { method: 'PATCH', body: { renew: true } }).then(function () { toast('Domaine renouvelé (+1 an)'); openClient(id, true); }).catch(function (ex) { toast(ex.message); }); return; }
+      if (dd) { if (!W.confirm('Supprimer ce nom de domaine de la fiche ?')) return; crm('r=domains&id=' + dd.dataset.domDel, { method: 'DELETE' }).then(function () { openClient(id, true); }); return; }
+      crm('r=clients&id=' + id).then(function (x) {
+        domainModal(id, x, de ? x.domains.filter(function (dm) { return dm.id === de.dataset.domEdit; })[0] : null);
+      });
+    } else if (t.closest('[data-logo-up]')) {
+      $('[data-logo-file]', sheetPanel).click();
     } else if (t.closest('[data-followup]')) {
       var fdid = t.closest('[data-deal-line]').dataset.dealLine;
       var tomorrow = new Date(Date.now() + 3 * 864e5); tomorrow.setHours(10, 0, 0, 0);
@@ -675,6 +698,34 @@
       }).join('') + '</ul>';
     }
     return html + '</section>';
+  }
+  // Noms de domaine du client (plusieurs extensions), avec échéance et renouvellement
+  function domainsSection(c, x) {
+    var today = new Date().toISOString().slice(0, 10);
+    var doms = x.domains || [];
+    return '<section class="crm_section"><div class="crm_section-head"><h3 class="crm_section-title">Noms de domaine</h3>' +
+      '<button type="button" class="button is-small is-secondary" data-dom-add>' + icon('i-plus') + 'Domaine</button></div>' +
+      (doms.length ? '<ul class="crm_pays" role="list">' + doms.map(function (dm) {
+        var days = dm.expires ? Math.round((new Date(dm.expires) - new Date(today)) / 864e5) : null;
+        var st = days == null ? '<span class="is-muted">échéance non renseignée</span>' : days < 0 ? '<span class="crm_due">expiré le ' + fmtDate(dm.expires) + '</span>' : (days <= 30 ? '<span class="crm_due">' : '<span>') + 'jusqu\'au ' + fmtDate(dm.expires) + ' (' + days + ' j)</span>';
+        return '<li><span><b dir="ltr">' + esc(dm.name) + '</b> · ' + st + (dm.renew_price ? ' · ' + money(dm.renew_price, dm.currency) + '/an' : '') + '</span><span></span>' +
+          '<span class="crm_inline"><button type="button" class="button is-small is-secondary" data-dom-renew="' + esc(dm.id) + '">' + icon('i-repeat') + '+1 an</button>' +
+          '<button type="button" class="icon-button" data-dom-edit="' + esc(dm.id) + '" aria-label="Modifier">' + icon('i-edit') + '</button>' +
+          '<button type="button" class="icon-button is-danger" data-dom-del="' + esc(dm.id) + '" aria-label="Supprimer">' + icon('i-trash') + '</button></span></li>';
+      }).join('') + '</ul>' : '<p class="crm_empty">Aucun nom de domaine. Ajoutez-les (ex. xy-academy.net, .tr, .info) : le client les voit dans son espace et reçoit un rappel avant l\'expiration.</p>') + '</section>';
+  }
+  function domainModal(id, x, dm) {
+    dm = dm || {};
+    openModal(dm.id ? 'Modifier le domaine' : 'Ajouter un nom de domaine', [
+      { label: 'Nom de domaine', name: 'name', required: true, value: dm.name || '', placeholder: 'xy-academy.net', full: true },
+      { label: 'Expire le', name: 'expires', type: 'date', value: dm.expires || '' },
+      { label: 'Prix du renouvellement / an', name: 'renew_price', type: 'number', step: '1', value: dm.renew_price || '' },
+      { label: 'Service', name: 'project_id', type: 'select', value: dm.project_id || '', options: [['', '—']].concat((x.projects || []).map(function (p) { return [p.id, p.name]; })), full: true }
+    ], function (data) {
+      if (dm.id) return crm('r=domains&id=' + dm.id, { method: 'PATCH', body: data }).then(function () { toast('Domaine mis à jour'); openClient(id, true); });
+      data.client_id = id;
+      return crm('r=domains', { method: 'POST', body: data }).then(function () { toast('Domaine ajouté'); openClient(id, true); });
+    }, dm.id ? 'Enregistrer' : 'Ajouter');
   }
   // Contrats et documents du client (rangés hors du site public, visibles ou non dans son espace)
   var DOCKIND = { contract: 'Contrat', quote: 'Devis signé', invoice: 'Facture', other: 'Document' };
@@ -908,7 +959,12 @@
   function newProject(clientId) {
     openModal('Nouveau projet', [
       { label: 'Client', name: 'client_id', type: 'client', value: clientId || '', full: true },
-      { label: 'Nom du projet', name: 'name', required: true, value: 'Site web' }, { label: 'Montant', name: 'amount', type: 'number', step: '1' },
+      { label: 'Nom du projet', name: 'name', required: true, value: 'Site web' }, { label: 'Montant (paiement unique)', name: 'amount', type: 'number', step: '1' },
+      { label: 'Type de service', name: 'kind', type: 'select', options: [['site', 'Site web'], ['social', 'Réseaux sociaux'], ['other', 'Autre']], value: 'site' },
+      { label: 'Facturation', name: 'billing', type: 'select', options: [['once', 'Paiement unique'], ['monthly', 'Abonnement mensuel']], value: 'once' },
+      { label: 'Montant mensuel', name: 'monthly_amount', type: 'number', step: '1', value: '' },
+      { label: 'Prochaine échéance mensuelle', name: 'next_billing', type: 'date', value: '' },
+
       { label: 'Devise', name: 'currency', type: 'select', options: CUR }, { label: 'Livraison prévue', name: 'delivery_date', type: 'date' },
       { label: 'Renouvellement hébergement', name: 'hosting_renewal', type: 'date' }, { label: 'Prix hébergement / an', name: 'hosting_amount', type: 'number', step: '1' }
     ], function (data) {
@@ -918,7 +974,12 @@
   }
   function editProject(p) {
     openModal('Modifier le projet', [
-      { label: 'Nom', name: 'name', value: p.name, full: true }, { label: 'Montant', name: 'amount', type: 'number', value: Number(p.amount), step: '1' },
+      { label: 'Nom', name: 'name', value: p.name, full: true }, { label: 'Montant (paiement unique)', name: 'amount', type: 'number', value: Number(p.amount), step: '1' },
+      { label: 'Type de service', name: 'kind', type: 'select', options: [['site', 'Site web'], ['social', 'Réseaux sociaux'], ['other', 'Autre']], value: p.kind || 'site' },
+      { label: 'Facturation', name: 'billing', type: 'select', options: [['once', 'Paiement unique'], ['monthly', 'Abonnement mensuel']], value: p.billing || 'once' },
+      { label: 'Montant mensuel', name: 'monthly_amount', type: 'number', step: '1', value: p.monthly_amount },
+      { label: 'Prochaine échéance mensuelle', name: 'next_billing', type: 'date', value: p.next_billing },
+
       { label: 'Devise', name: 'currency', type: 'select', options: CUR, value: p.currency }, { label: 'Début', name: 'start_date', type: 'date', value: p.start_date },
       { label: 'Livraison', name: 'delivery_date', type: 'date', value: p.delivery_date }, { label: 'Renouvellement hébergement', name: 'hosting_renewal', type: 'date', value: p.hosting_renewal },
       { label: 'Prix hébergement / an', name: 'hosting_amount', type: 'number', value: p.hosting_amount, step: '1' },

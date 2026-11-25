@@ -75,7 +75,7 @@ case 'client':
         'invoices' => portal_all($pdo, 'SELECT * FROM crm_invoices WHERE client_id = ? ORDER BY issued_on DESC', [$cid]),
         'notices' => portal_all($pdo, 'SELECT * FROM crm_notices WHERE client_id = ? ORDER BY created_at DESC', [$cid]),
         'requests' => portal_all($pdo, 'SELECT * FROM portal_requests WHERE client_id = ? ORDER BY created_at DESC LIMIT 20', [$cid]),
-        'documents' => portal_all($pdo, 'SELECT id, project_id, kind, title, filename, mime, size, visible, source, note, created_at FROM crm_documents WHERE client_id = ? ORDER BY created_at DESC', [$cid]),
+        'documents' => portal_all($pdo, 'SELECT id, project_id, kind, title, filename, mime, size, visible, source, note, created_at FROM crm_documents WHERE client_id = ? AND kind <> \'logo\' ORDER BY created_at DESC', [$cid]),
         'chat' => portal_chat_list($pdo, $cid),
     ]);
 
@@ -86,6 +86,23 @@ case 'chat':
     $c = portal_one($pdo, 'SELECT * FROM crm_clients WHERE id = ?', [$cid]);
     if (!$c) fail('Client introuvable.', 404);
     json_out(portal_chat_post($pdo, $c, 'webina', (string)($_POST['body'] ?? ''), $_FILES['file'] ?? null, (string)($_POST['kind'] ?? 'message')), 201);
+
+case 'logo':
+    // Logo de la société du client : affiché devant son nom (fiche admin + espace client)
+    if ($method !== 'POST') break;
+    $cid = $uuid((string)($_POST['client_id'] ?? ''));
+    $c = portal_one($pdo, 'SELECT * FROM crm_clients WHERE id = ?', [$cid]);
+    if (!$c) fail('Client introuvable.', 404);
+    $f = $_FILES['file'] ?? [];
+    $mime = !empty($f['tmp_name']) ? ((new finfo(FILEINFO_MIME_TYPE))->file($f['tmp_name']) ?: '') : '';
+    if (!in_array($mime, ['image/png', 'image/jpeg'], true)) fail('Logo : image PNG ou JPG.', 422);
+    $doc = crm_doc_upload($pdo, $cid, $f, 'logo', 'Logo', true);
+    if ($c['logo_doc']) {
+        $old = portal_one($pdo, 'SELECT * FROM crm_documents WHERE id = ?', [$c['logo_doc']]);
+        if ($old) { @unlink(crm_files_dir() . '/' . basename($old['stored'])); $pdo->prepare('DELETE FROM crm_documents WHERE id = ?')->execute([$old['id']]); }
+    }
+    $pdo->prepare('UPDATE crm_clients SET logo_doc = ? WHERE id = ?')->execute([$doc['id'], $cid]);
+    json_out(['ok' => true, 'logo' => $doc['id']]);
 
 case 'docs':
     // Contrats et documents du client : envoi (multipart), téléchargement, visibilité, suppression
@@ -128,15 +145,8 @@ case 'invoices':
         $cur = in_array($in['currency'] ?? '', ['TRY', 'USD', 'EUR'], true) ? $in['currency'] : 'TRY';
         $issued = $date($in['issued_on'] ?? date('Y-m-d')) ?? date('Y-m-d');
         $due = $date($in['due_on'] ?? '') ?? date('Y-m-d', strtotime($issued . ' +7 day'));
-        // Numéro lisible : WB-2026-0001, à la suite dans l'année
-        $year = substr($issued, 0, 4);
-        $n = (int)portal_one($pdo, 'SELECT COUNT(*) n FROM crm_invoices WHERE number LIKE ?', ["WB-$year-%"])['n'] + 1;
-        do { $number = sprintf('WB-%s-%04d', $year, $n++); } while (portal_one($pdo, 'SELECT 1 x FROM crm_invoices WHERE number = ?', [$number]));
-        $iid = uuid4();
-        $pdo->prepare('INSERT INTO crm_invoices (id, client_id, project_id, number, label, amount, currency, issued_on, due_on) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)')
-            ->execute([$iid, $cid, $pid, $number, $label, $amount, $cur, $issued, $due]);
-        crm_log($pdo, $cid, null, 'invoice', 'Facture ' . $number . ' : ' . money((int)$amount, $cur) . ' — ' . $label);
-        json_out(['invoice' => portal_one($pdo, 'SELECT * FROM crm_invoices WHERE id = ?', [$iid])], 201);
+        $inv = crm_invoice_create($pdo, $cid, $pid, $label, $amount, $cur, $issued, $due);
+        json_out(['invoice' => $inv], 201);
     }
     if ($method === 'PATCH') {
         $i = portal_one($pdo, 'SELECT * FROM crm_invoices WHERE id = ?', [$uuid($id)]);

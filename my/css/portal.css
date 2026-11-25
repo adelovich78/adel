@@ -278,3 +278,13 @@ ul, ol { list-style: none; }
 .chat_attach:focus-within { outline: 2px solid #23772a; outline-offset: 2px; }
 .chat_file { display: flex; width: fit-content; max-width: 100%; }
 .chat_fsize { font-weight: 400; opacity: 0.6; font-size: 0.8125rem; }
+
+/* Logo de la société, noms de domaine */
+.dash_title { display: flex; align-items: center; gap: 14px; }
+.dash_logo { width: 56px; height: 56px; flex: none; object-fit: contain; border-radius: 12px; background: #fff; box-shadow: inset 0 0 0 1px var(--line); padding: 4px; }
+.dash_logo[hidden] { display: none; }
+.dom_list { list-style: none; margin: 4px 0 0; padding: 0; display: grid; gap: 6px; }
+.dom_list li { display: flex; flex-direction: column; }
+.dom_list b { font-weight: 600; overflow-wrap: anywhere; }
+.dom_list span { font-size: 0.8125rem; opacity: 0.7; }
+@media (max-width: 600px) { .dash_logo { width: 44px; height: 44px; } }

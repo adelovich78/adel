@@ -220,6 +220,30 @@ function crm_schema(PDO $pdo): void {
     if (!in_array('source', $dcols, true)) {
         $pdo->exec("ALTER TABLE crm_documents ADD COLUMN source VARCHAR(8) NOT NULL DEFAULT 'webina', ADD COLUMN note TEXT NULL");
     }
+    // Type de service et facturation : site (paiement unique + hébergement annuel) ou abonnement mensuel (réseaux sociaux…)
+    $pcols2 = array_column($pdo->query('SHOW COLUMNS FROM crm_projects')->fetchAll(), 'Field');
+    if (!in_array('kind', $pcols2, true)) {
+        $pdo->exec("ALTER TABLE crm_projects ADD COLUMN kind VARCHAR(10) NOT NULL DEFAULT 'site', ADD COLUMN billing VARCHAR(8) NOT NULL DEFAULT 'once',
+            ADD COLUMN monthly_amount DECIMAL(12,2) NULL, ADD COLUMN next_billing DATE NULL");
+        // Projets existants dont le nom évoque les réseaux sociaux : abonnement mensuel
+        $pdo->exec("UPDATE crm_projects SET kind = 'social', billing = 'monthly', monthly_amount = amount
+            WHERE LOWER(name) REGEXP 'social|sosyal|réseau|reseau|instagram|facebook'");
+    }
+    // Logo de la société du client (affiché devant son nom)
+    $ccols3 = array_column($pdo->query('SHOW COLUMNS FROM crm_clients')->fetchAll(), 'Field');
+    if (!in_array('logo_doc', $ccols3, true)) $pdo->exec('ALTER TABLE crm_clients ADD COLUMN logo_doc CHAR(36) NULL');
+    // Noms de domaine d'un client (plusieurs extensions : .net, .tr, .info…)
+    $pdo->exec("CREATE TABLE IF NOT EXISTS crm_domains (
+        id CHAR(36) NOT NULL PRIMARY KEY,
+        client_id CHAR(36) NOT NULL,
+        project_id CHAR(36) NULL,
+        name VARCHAR(190) NOT NULL,
+        expires DATE NULL,
+        renew_price DECIMAL(12,2) NULL,
+        currency CHAR(3) NOT NULL DEFAULT 'TRY',
+        created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        INDEX idx_client (client_id), INDEX idx_expires (expires)
+    ) $o");
     // Plusieurs fichiers par message : liste JSON des documents joints
     $ccols2 = $pdo->query("SHOW TABLES LIKE 'portal_chat'")->fetchColumn() ? array_column($pdo->query('SHOW COLUMNS FROM portal_chat')->fetchAll(), 'Field') : [];
     if ($ccols2 && !in_array('doc_ids', $ccols2, true)) $pdo->exec('ALTER TABLE portal_chat ADD COLUMN doc_ids TEXT NULL');
@@ -484,6 +508,26 @@ function crm_client_reminders(PDO $pdo): int {
             }
         }
     }
+    // Noms de domaine enregistrés un par un (xy.net, xy.tr…)
+    $rows = $pdo->query("SELECT d.id, d.expires AS expiry, d.name AS domain, d.name, NULL AS plan, d.renew_price AS hosting_amount, d.currency,
+            c.id AS client_id, c.name AS client, c.email, c.lang
+        FROM crm_domains d JOIN crm_clients c ON c.id = d.client_id
+        WHERE d.expires IS NOT NULL AND d.expires <= (CURDATE() + INTERVAL 30 DAY)")->fetchAll();
+    foreach ($rows as $r) {
+        if (!filter_var((string)$r['email'], FILTER_VALIDATE_EMAIL)) continue;
+        $days = (int)floor((strtotime($r['expiry']) - strtotime('today')) / 86400);
+        $stage = $days <= 7 ? 'daily:' . date('Y-m-d') : ($days <= 15 ? 'd15' : 'm1');
+        $rkey = 'rem:dom:' . $r['id'] . ':' . $r['expiry'] . ':' . $stage;
+        $ins = $pdo->prepare('INSERT IGNORE INTO crm_reminders (id, rkey, project_id, kind, stage, sent_on) VALUES (?, ?, ?, ?, ?, CURDATE())');
+        $ins->execute([uuid4(), $rkey, $r['id'], 'domain', $stage]);
+        if ($ins->rowCount() !== 1) continue;
+        if (crm_send_client_reminder($r, 'domain', $days)) {
+            $sent++;
+            crm_log($pdo, $r['client_id'], null, 'auto', 'Domaine ' . $r['domain'] . ' — rappel envoyé au client (' . ($days < 0 ? abs($days) . ' j de retard' : 'J-' . $days) . ')');
+        } else {
+            $pdo->prepare('DELETE FROM crm_reminders WHERE rkey = ?')->execute([$rkey]);
+        }
+    }
     return $sent;
 }
 
@@ -730,7 +774,7 @@ function crm_files_dir(): string {
 const CRM_DOC_TYPES = ['application/pdf' => 'pdf', 'image/jpeg' => 'jpg', 'image/png' => 'png',
     'application/vnd.openxmlformats-officedocument.wordprocessingml.document' => 'docx', 'application/msword' => 'doc',
     'application/zip' => 'zip', 'application/x-zip-compressed' => 'zip', 'application/x-zip' => 'zip'];
-const CRM_DOC_KINDS = ['contract', 'quote', 'invoice', 'other'];
+const CRM_DOC_KINDS = ['contract', 'quote', 'invoice', 'other', 'logo'];
 
 // Enregistre le fichier envoyé (champ « file ») pour un client ; 15 Mo maximum
 function crm_doc_upload(PDO $pdo, string $cid, array $f, string $kind, string $title, bool $visible, ?string $pid = null, string $source = 'webina', ?string $note = null): array {
@@ -779,4 +823,102 @@ function crm_files_list($f): array {
         $out[] = ['name' => $n, 'type' => $f['type'][$i] ?? '', 'tmp_name' => $f['tmp_name'][$i], 'error' => $f['error'][$i], 'size' => $f['size'][$i]];
     }
     return $out;
+}
+
+/* ---------- Factures ---------- */
+// Numéro lisible WB-2026-0001, à la suite dans l'année
+function crm_invoice_create(PDO $pdo, string $cid, ?string $pid, string $label, float $amount, string $cur, string $issued, string $due): array {
+    $year = substr($issued, 0, 4);
+    $st = $pdo->prepare('SELECT COUNT(*) FROM crm_invoices WHERE number LIKE ?'); $st->execute(["WB-$year-%"]);
+    $n = (int)$st->fetchColumn() + 1;
+    $chk = $pdo->prepare('SELECT 1 FROM crm_invoices WHERE number = ?');
+    do { $number = sprintf('WB-%s-%04d', $year, $n++); $chk->execute([$number]); } while ($chk->fetchColumn());
+    $iid = uuid4();
+    $pdo->prepare('INSERT INTO crm_invoices (id, client_id, project_id, number, label, amount, currency, issued_on, due_on) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)')
+        ->execute([$iid, $cid, $pid, $number, $label, $amount, $cur, $issued, $due]);
+    crm_log($pdo, $cid, null, 'invoice', 'Facture ' . $number . ' : ' . money((int)$amount, $cur) . ' — ' . $label);
+    $st = $pdo->prepare('SELECT * FROM crm_invoices WHERE id = ?'); $st->execute([$iid]);
+    return $st->fetch();
+}
+
+// Abonnements mensuels : facture créée 5 jours avant chaque échéance, puis échéance avancée d'un mois
+function crm_monthly_billing(PDO $pdo): int {
+    crm_schema($pdo);
+    $made = 0;
+    $months = ['tr' => ['Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran', 'Temmuz', 'Ağustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık']];
+    $rows = $pdo->query("SELECT p.*, c.lang FROM crm_projects p JOIN crm_clients c ON c.id = p.client_id
+        WHERE p.billing = 'monthly' AND p.monthly_amount > 0 AND p.next_billing IS NOT NULL
+          AND p.status IN ('in_progress', 'delivered') AND p.next_billing <= (CURDATE() + INTERVAL 5 DAY)")->fetchAll();
+    foreach ($rows as $p) {
+        $due = $p['next_billing'];
+        $guard = 0;
+        while ($due <= date('Y-m-d', strtotime('+5 day')) && $guard++ < 12) {
+            $ins = $pdo->prepare('INSERT IGNORE INTO crm_reminders (id, rkey, project_id, kind, stage, sent_on) VALUES (?, ?, ?, ?, ?, CURDATE())');
+            $ins->execute([uuid4(), 'bill:' . $p['id'] . ':' . $due, $p['id'], 'billing', 'invoice']);
+            if ($ins->rowCount() === 1) {
+                $m = $months['tr'][(int)date('n', strtotime($due)) - 1] . ' ' . date('Y', strtotime($due));
+                crm_invoice_create($pdo, $p['client_id'], $p['id'], $p['name'] . ' — aylık abonelik (' . $m . ')', (float)$p['monthly_amount'], $p['currency'], date('Y-m-d'), $due);
+                $made++;
+            }
+            $due = date('Y-m-d', strtotime($due . ' +1 month'));
+        }
+        $pdo->prepare('UPDATE crm_projects SET next_billing = ? WHERE id = ?')->execute([$due, $p['id']]);
+    }
+    return $made;
+}
+
+/* ---------- Rappels automatiques des factures impayées ---------- */
+// J-3, jour de l'échéance, puis tous les 3 jours de retard ; une fois par étape grâce à crm_reminders
+function crm_invoice_reminders(PDO $pdo): int {
+    crm_schema($pdo);
+    $sent = 0;
+    $rows = $pdo->query("SELECT i.*, c.name client, c.email, c.lang, c.id cid, p.name project FROM crm_invoices i
+        JOIN crm_clients c ON c.id = i.client_id LEFT JOIN crm_projects p ON p.id = i.project_id
+        WHERE i.paid_at IS NULL AND i.due_on <= (CURDATE() + INTERVAL 3 DAY)")->fetchAll();
+    foreach ($rows as $r) {
+        if (!filter_var((string)$r['email'], FILTER_VALIDATE_EMAIL)) continue;
+        $days = (int)floor((strtotime($r['due_on']) - strtotime('today')) / 86400);
+        if ($days > 0) $stage = 'd3';
+        elseif ($days === 0) $stage = 'd0';
+        else $stage = 'late' . intdiv(-$days - 1, 3);
+        $rkey = 'inv:' . $r['id'] . ':' . $stage;
+        $ins = $pdo->prepare('INSERT IGNORE INTO crm_reminders (id, rkey, project_id, kind, stage, sent_on) VALUES (?, ?, ?, ?, ?, CURDATE())');
+        $ins->execute([uuid4(), $rkey, $r['id'], 'invoice', $stage]);
+        if ($ins->rowCount() !== 1) continue;
+        if (crm_send_invoice_reminder($r, $days)) {
+            $sent++;
+            crm_log($pdo, $r['cid'], null, 'auto', 'Rappel de paiement envoyé : facture ' . $r['number'] . ' (' . ($days < 0 ? abs($days) . ' j de retard' : ($days === 0 ? 'échéance aujourd\'hui' : 'J-' . $days)) . ')');
+        } else {
+            $pdo->prepare('DELETE FROM crm_reminders WHERE rkey = ?')->execute([$rkey]);
+        }
+    }
+    return $sent;
+}
+
+function crm_send_invoice_reminder(array $r, int $days): bool {
+    global $CONFIG;
+    $lang = in_array($r['lang'] ?? '', ['tr', 'en', 'fr', 'ar'], true) ? $r['lang'] : 'tr';
+    $amount = money((int)$r['amount'], $r['currency']);
+    $date = date('d/m/Y', strtotime($r['due_on']));
+    $T = [
+        'tr' => ['Ödeme hatırlatması', 'Ödeme gecikti', 'Merhaba {n},', '{x} tutarındaki {no} numaralı faturanızın son ödeme tarihi {d}.', '{no} numaralı faturanızın ({x}) son ödeme tarihi {d} idi; ödemeniz henüz bize ulaşmadı.', 'Ödeme bilgileri', 'Açıklama', 'Faturalarınızı müşteri panelinizde görebilirsiniz:', 'Ödemeyi yaptıysanız bu e-postayı dikkate almayın. Teşekkür ederiz.'],
+        'en' => ['Payment reminder', 'Payment overdue', 'Hello {n},', 'Invoice {no} for {x} is due on {d}.', 'Invoice {no} ({x}) was due on {d}; we have not received your payment yet.', 'Payment details', 'Reference', 'See your invoices in your client area:', 'If you have already paid, please ignore this email. Thank you.'],
+        'fr' => ['Rappel de paiement', 'Paiement en retard', 'Bonjour {n},', 'Votre facture {no} de {x} arrive à échéance le {d}.', 'Votre facture {no} ({x}) était due le {d} ; nous n’avons pas encore reçu votre paiement.', 'Coordonnées de paiement', 'Libellé', 'Retrouvez vos factures dans votre espace client :', 'Si vous avez déjà payé, ignorez simplement cet e-mail. Merci.'],
+        'ar' => ['تذكير بالدفع', 'تأخر الدفع', 'مرحباً {n}،', 'تستحق الفاتورة {no} بقيمة {x} في {d}.', 'كانت الفاتورة {no} ({x}) مستحقة في {d} ولم يصلنا الدفع بعد.', 'معلومات الدفع', 'البيان', 'اطّلع على فواتيرك في منطقة العملاء:', 'إذا كنت قد دفعت بالفعل فتجاهل هذه الرسالة. شكراً لك.'],
+    ];
+    $L = $T[$lang];
+    $f = fn($s) => str_replace(['{n}', '{no}', '{x}', '{d}'], [trim(explode(' ', (string)$r['client'])[0]), $r['number'], $amount, $date], $s);
+    $late = $days < 0;
+    $iban = $CONFIG['bank_iban'] ?? '';
+    $bank = $iban ? '<table cellpadding="0" cellspacing="0" style="margin:14px 0;background:#f4f6f2;border-radius:8px;width:100%"><tr><td style="padding:12px 14px;font-size:14px">'
+        . '<b>' . h($L[5]) . '</b><br>' . h($CONFIG['bank_holder'] ?? '') . ($CONFIG['bank_name'] ?? '' ? ' · ' . h($CONFIG['bank_name']) : '') . '<br><span style="font-family:monospace;font-size:15px;letter-spacing:1px">' . h($iban) . '</span>'
+        . '<br>' . h($L[6]) . ' : ' . h($r['number']) . '</td></tr></table>' : '';
+    $url = function_exists('portal_url') ? portal_url() : rtrim($CONFIG['portal_url'] ?? 'https://my.webina.com.tr', '/');
+    $html = '<h2 style="margin:0 0 12px;font-size:20px;color:' . ($late ? '#b3261e' : '#121812') . '">' . h($late ? $L[1] : $L[0]) . '</h2>'
+        . '<p style="margin:0 0 8px">' . h($f($L[2])) . '</p>'
+        . '<p style="margin:0 0 8px">' . h($f($late ? $L[4] : $L[3])) . '</p>'
+        . '<p style="margin:0 0 4px;color:#555">' . h($r['label']) . '</p>' . $bank
+        . '<p style="margin:0 0 6px;color:#555">' . h($L[7]) . ' <a href="' . h($url) . '" style="color:#1f6f2a">' . h(preg_replace('#^https?://#', '', $url)) . '</a></p>'
+        . '<p style="margin:12px 0 0;color:#888;font-size:12px">' . h($L[8]) . '</p>';
+    return send_html_mail((string)$r['email'], ($late ? $L[1] : $L[0]) . ' — ' . $r['number'], mail_layout($html, $lang === 'ar'), email_list($CONFIG['notify_email'] ?? '')[0] ?? null);
 }
