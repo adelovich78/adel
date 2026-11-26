@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Admin Dashboard User Guide — Cover</title>
+<style>
+  @font-face { font-family: "DM Sans"; src: url("assets/dmsans.woff2") format("woff2"); font-weight: 100 1000; }
+  @page { size: A4; margin: 0; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; width: 210mm; height: 297mm; }
+  body { font-family: "DM Sans", Arial, sans-serif; color: #111; background: #fff; position: relative; overflow: hidden; }
+  .bar { position: absolute; left: 0; top: 0; bottom: 0; width: 9mm; background: #111; }
+  .bar::after { content: ""; position: absolute; left: 0; right: 0; top: 118mm; height: 42mm; background: #74d21c; }
+  .wrap { position: absolute; left: 26mm; right: 20mm; top: 20mm; bottom: 18mm; display: flex; flex-direction: column; }
+  .agency { display: flex; align-items: center; gap: 6mm; }
+  .agency img { width: 46mm; height: auto; }
+  .tag { margin-left: auto; font-size: 8.5pt; letter-spacing: .22em; text-transform: uppercase; color: #666; text-align: right; line-height: 1.6; }
+  .kicker { margin-top: 40mm; font-size: 10pt; font-weight: 700; letter-spacing: .28em; text-transform: uppercase; color: #4f9a10; }
+  h1 { margin: 6mm 0 0; font-size: 44pt; line-height: 1.02; letter-spacing: -.02em; font-weight: 800; }
+  h1 span { display: block; color: #74d21c; }
+  .sub { margin-top: 8mm; font-size: 14pt; line-height: 1.45; color: #333; max-width: 140mm; }
+  .rule { margin-top: 12mm; width: 60mm; height: 3mm; background: #74d21c; }
+  .client { margin-top: auto; display: grid; grid-template-columns: 46mm 1fr; gap: 10mm; align-items: center; padding: 9mm; border: 1px solid #e6e6e6; border-radius: 4mm; background: #fafafa; }
+  .client img { width: 46mm; height: auto; }
+  .client dl { margin: 0; display: grid; grid-template-columns: 34mm 1fr; row-gap: 2.6mm; font-size: 10pt; }
+  .client dt { color: #777; text-transform: uppercase; letter-spacing: .12em; font-size: 7.5pt; font-weight: 700; padding-top: 1mm; }
+  .client dd { margin: 0; font-weight: 600; }
+  .foot { margin-top: 9mm; display: flex; justify-content: space-between; font-size: 8.5pt; color: #777; }
+  .foot b { color: #111; }
+</style>
+</head>
+<body>
+  <div class="bar"></div>
+  <div class="wrap">
+    <div class="agency">
+      <img src="assets/webina-logo.png" alt="Webina — Digital Creation Agency">
+      <div class="tag">User documentation<br>Confidential — client copy</div>
+    </div>
+
+    <div class="kicker">Administrator handbook</div>
+    <h1>Admin Dashboard <span>User Guide</span></h1>
+    <p class="sub">A step-by-step guide to running XY Academy — English Speaking Café: schedule, bookings, programs, teachers, events, memberships, payments, library and settings.</p>
+    <div class="rule"></div>
+
+    <div class="client">
+      <img src="assets/logo-full-light.png" alt="XY Academy Speaking Café">
+      <dl>
+        <dt>Prepared for</dt><dd>XY Academy — English Speaking Café</dd>
+        <dt>Website</dt><dd>https://xy-academy.net</dd>
+        <dt>Admin access</dt><dd>https://xy-academy.net/login</dd>
+        <dt>Version</dt><dd>1.0 — November 2026</dd>
+        <dt>Prepared by</dt><dd>Webina — Digital Creation Agency</dd>
+      </dl>
+    </div>
+    <div class="foot"><span><b>WEBINA</b> · Digital Creation Agency</span><span>webina.com.tr</span></div>
+  </div>
+</body>
+</html>

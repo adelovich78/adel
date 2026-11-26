@@ -1,0 +1,554 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>XY Academy — Admin Dashboard User Guide</title>
+<style>
+  @font-face { font-family: "DM Sans"; src: url("assets/dmsans.woff2") format("woff2"); font-weight: 100 1000; }
+  @page { size: A4; margin: 18mm 17mm 20mm 17mm; }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: "DM Sans", Arial, sans-serif; font-size: 10pt; line-height: 1.55; color: #1c1c1c; }
+  h1 { font-size: 22pt; line-height: 1.1; margin: 0 0 3mm; font-weight: 800; letter-spacing: -.01em; }
+  h1 .num { display: inline-block; min-width: 13mm; color: #74d21c; }
+  h2 { font-size: 13pt; margin: 7mm 0 2mm; font-weight: 800; break-after: avoid; }
+  h3 { font-size: 10.5pt; margin: 5mm 0 1.5mm; font-weight: 800; }
+  p { margin: 0 0 2.5mm; }
+  section.chapter { break-before: page; }
+  section.chapter:first-of-type { break-before: auto; }
+  .lead { font-size: 11pt; color: #444; margin-bottom: 5mm; }
+  .chapter-head { border-bottom: 2.5px solid #111; padding-bottom: 3mm; margin-bottom: 5mm; position: relative; }
+  .chapter-head::after { content: ""; position: absolute; left: 0; bottom: -2.5px; width: 30mm; height: 2.5px; background: #74d21c; }
+  .eyebrow { font-size: 7.5pt; font-weight: 800; letter-spacing: .22em; text-transform: uppercase; color: #4f9a10; margin-bottom: 1.5mm; }
+  figure { margin: 4mm 0 4mm; break-inside: avoid; }
+  figure img { width: 100%; border: 1px solid #dcdcdc; border-radius: 2.5mm; display: block; }
+  figure.tall img { max-height: 190mm; width: auto; max-width: 100%; margin: 0 auto; }
+  figure.half img { width: 62%; margin: 0 auto; }
+  figure.phone img { width: 46%; margin: 0 auto; }
+  figcaption { font-size: 8.5pt; color: #666; margin-top: 1.8mm; text-align: center; }
+  ol.legend { list-style: none; padding: 0; margin: 2mm 0 4mm; display: grid; grid-template-columns: 1fr 1fr; gap: 1.6mm 6mm; break-inside: avoid; }
+  ol.legend.single { grid-template-columns: 1fr; }
+  ol.legend li { display: grid; grid-template-columns: 6.5mm 1fr; gap: 2mm; align-items: start; font-size: 9pt; }
+  ol.legend li b.n { display: inline-grid; place-items: center; width: 5.5mm; height: 5.5mm; border-radius: 50%; background: #111; color: #74d21c; font-size: 7.5pt; font-weight: 800; border: 1.5px solid #74d21c; }
+  ol.steps { margin: 1mm 0 3mm; padding-left: 5mm; }
+  ol.steps li { margin-bottom: 1.2mm; }
+  ul { margin: 1mm 0 3mm; padding-left: 5mm; }
+  ul li { margin-bottom: 1mm; }
+  .tip, .warn, .note { break-inside: avoid; border-radius: 2mm; padding: 3mm 4mm; margin: 3mm 0 4mm; font-size: 9.2pt; display: block; }
+  .tip { background: #f1fbe6; border-left: 3px solid #74d21c; }
+  .warn { background: #fff4e5; border-left: 3px solid #e0890b; }
+  .note { background: #f3f3f3; border-left: 3px solid #111; }
+  .tip::before { content: "TIP"; } .warn::before { content: "IMPORTANT"; } .note::before { content: "GOOD TO KNOW"; }
+  .tip::before, .warn::before, .note::before { display: block; font-size: 6.8pt; font-weight: 800; letter-spacing: .14em; margin-bottom: 1mm; }
+  table { width: 100%; border-collapse: collapse; margin: 2mm 0 4mm; font-size: 9pt; break-inside: avoid; }
+  th { text-align: left; background: #111; color: #fff; font-size: 7.5pt; letter-spacing: .1em; text-transform: uppercase; padding: 2mm 3mm; }
+  td { padding: 2mm 3mm; border-bottom: 1px solid #e5e5e5; vertical-align: top; }
+  tr:nth-child(even) td { background: #fafafa; }
+  code, .ui { font-family: "DM Sans", Arial, sans-serif; font-weight: 700; background: #f0f0f0; border-radius: 1mm; padding: .2mm 1.4mm; font-size: 9pt; }
+  .pill { display: inline-block; border-radius: 10mm; padding: .2mm 2.2mm; font-size: 8pt; font-weight: 700; }
+  .p-green { background: #dfe9e2; color: #0f4a37; } .p-amber { background: #f3e4c4; color: #7a5410; } .p-red { background: #f6dcda; color: #a1231b; } .p-grey { background: #eee; color: #555; }
+  .toc { columns: 2; column-gap: 10mm; margin-top: 4mm; }
+  .toc div { break-inside: avoid; display: flex; gap: 3mm; padding: 2.2mm 0; border-bottom: 1px dotted #ccc; font-size: 10pt; }
+  .toc b { color: #74d21c; min-width: 8mm; }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 6mm; }
+  .kbd { display: inline-block; border: 1px solid #bbb; border-bottom-width: 2px; border-radius: 1mm; padding: 0 1.4mm; font-size: 8.5pt; font-weight: 700; }
+</style>
+</head>
+<body>
+
+<!-- ===================== SOMMAIRE ===================== -->
+<section class="chapter">
+  <div class="chapter-head"><div class="eyebrow">XY Academy — Admin Dashboard</div><h1>Contents</h1></div>
+  <p class="lead">This guide explains, screen by screen, how to manage the XY Academy English Speaking Café website from the administrator dashboard. Every screenshot uses <b>numbered green markers</b>; the list under each picture explains what each marker does.</p>
+  <div class="toc">
+    <div><b>01</b> Signing in &amp; your account</div>
+    <div><b>02</b> Dashboard layout</div>
+    <div><b>03</b> The overview page</div>
+    <div><b>04</b> Sessions &amp; schedule</div>
+    <div><b>05</b> Bookings &amp; waitlists</div>
+    <div><b>06</b> Programs &amp; prices</div>
+    <div><b>07</b> Teachers</div>
+    <div><b>08</b> Events &amp; guests</div>
+    <div><b>09</b> Membership plans &amp; members</div>
+    <div><b>10</b> Payments</div>
+    <div><b>11</b> Users, families &amp; companies</div>
+    <div><b>12</b> The library</div>
+    <div><b>13</b> Contact messages</div>
+    <div><b>14</b> Settings</div>
+    <div><b>15</b> What your customers &amp; teachers see</div>
+    <div><b>16</b> Daily routine checklist</div>
+    <div><b>17</b> FAQ &amp; troubleshooting</div>
+    <div><b>18</b> Glossary &amp; support</div>
+  </div>
+
+  <h2>How the platform works in one minute</h2>
+  <p>XY Academy is a café-style English club. Learners pick a <b>program</b> (Small Group Conversation, 1-to-1 Coaching, Conversation Tables, Business English, Pronunciation Lab, Kids, Teens), then choose a <b>session</b> (a date, time and teacher). Each session has a limited number of <b>seats</b> — maximum 5 learners plus 1 native teacher for groups. When a session is full, new learners join a <b>waitlist</b> automatically.</p>
+  <p>Learners pay online by card, pay at the café, or use a <b>membership credit</b>. Teachers record attendance and progress. As the administrator, you control everything: schedule, prices, capacities, teachers, events, memberships, payments, users, books and site settings.</p>
+  <div class="note">You never need to touch code or cPanel for day-to-day work. Everything in this guide is done from your browser at <b>https://xy-academy.net/login</b>.</div>
+</section>
+
+<!-- ===================== 01 ===================== -->
+<section class="chapter">
+  <div class="chapter-head"><div class="eyebrow">Chapter 01</div><h1><span class="num">01</span>Signing in &amp; your account</h1></div>
+  <p class="lead">Open <b>https://xy-academy.net/login</b> on a computer, tablet or phone. Admins, teachers, parents, companies and learners all use the same sign-in page — the platform opens the right dashboard for each role.</p>
+  <figure><img src="shots/01-login.jpg" alt="Sign-in page"><figcaption>Figure 1 — The sign-in page</figcaption></figure>
+  <ol class="legend">
+    <li><b class="n">1</b><span><b>Email</b> — the admin email chosen during installation.</span></li>
+    <li><b class="n">2</b><span><b>Password</b> — case sensitive, at least 10 characters for admins.</span></li>
+    <li><b class="n">3</b><span><b>Sign in</b> — admins land directly on the admin overview.</span></li>
+    <li><b class="n">4</b><span><b>Forgot password?</b> — sends a reset link valid for 1 hour.</span></li>
+  </ol>
+  <h2>Security good practice</h2>
+  <ul>
+    <li>After 8 wrong attempts the form is blocked for 5 minutes — wait, then try again.</li>
+    <li>Change your password from <span class="ui">Users</span> → your account → <span class="ui">New password</span>.</li>
+    <li>Create a separate admin account for each staff member instead of sharing one password.</li>
+    <li>Always click <span class="ui">Sign out</span> in the sidebar on a shared computer.</li>
+  </ul>
+  <div class="warn">Before going live, delete the demo accounts (<b>student@demo.cafe</b>, <b>parent@demo.cafe</b>, <b>hr@demo.cafe</b> and the demo learners) from <span class="ui">Users</span>. Demo teacher accounts can be kept but should get new passwords.</div>
+</section>
+
+<!-- ===================== 02 ===================== -->
+<section class="chapter">
+  <div class="chapter-head"><div class="eyebrow">Chapter 02</div><h1><span class="num">02</span>Dashboard layout</h1></div>
+  <p class="lead">Every admin screen shares the same structure: a dark sidebar on the left, a top bar, and the working area.</p>
+  <div class="grid2">
+    <figure style="margin-top:0"><img src="shots/03-sidebar.jpg" alt="Sidebar" style="width:78%;margin:0 auto"><figcaption>Figure 2 — The admin sidebar</figcaption></figure>
+    <div>
+      <h3>Overview</h3><p><b>Dashboard</b> — key figures and shortcuts.<br><b>Settings</b> — contact details, rules and texts.</p>
+      <h3>Café</h3><p><b>Sessions</b> — the schedule (dates, teachers, seats).<br><b>Bookings</b> — every seat reservation and waitlist.<br><b>Programs</b> — what you sell, with prices and levels.<br><b>Teachers</b> — native teacher profiles.<br><b>Events</b> — quiz nights, debates, karaoke…<br><b>Event guests</b> — who registered to which event.</p>
+      <h3>Business</h3><p><b>Users</b> — all accounts (learners, parents, teachers, companies, admins).<br><b>Companies</b> — corporate clients.<br><b>Plans</b> — membership offers.<br><b>Memberships</b> — who subscribed to which plan.<br><b>Payments</b> — every transaction.</p>
+      <h3>Content</h3><p><b>Library</b> — downloadable books by level.<br><b>Messages</b> — contact form messages (a number shows unread ones).</p>
+      <h3>Account</h3><p><b>Website</b> opens the public site; <b>Sign out</b> ends your session.</p>
+    </div>
+  </div>
+  <h2>Light &amp; dark mode, phone use</h2>
+  <p>The moon / sun button in the top-right corner switches between light and dark mode. Your choice is remembered on that device.</p>
+  <div class="grid2">
+    <figure><img src="shots/26-dark.jpg" alt="Dark mode"><figcaption>Figure 3 — Dark mode</figcaption></figure>
+    <figure class="phone"><img src="shots/27-mobile.jpg" alt="Mobile"><figcaption>Figure 4 — On a phone, tap ☰ to open the menu</figcaption></figure>
+  </div>
+</section>
+
+<!-- ===================== 03 ===================== -->
+<section class="chapter">
+  <div class="chapter-head"><div class="eyebrow">Chapter 03</div><h1><span class="num">03</span>The overview page</h1></div>
+  <p class="lead">Your daily starting point. It shows how the café is doing and what is coming next.</p>
+  <figure class="tall"><img src="shots/02-overview.jpg" alt="Admin overview"><figcaption>Figure 5 — Admin overview</figcaption></figure>
+</section>
+<section>
+  <ol class="legend">
+    <li><b class="n">1</b><span><b>Navigation</b> — all admin sections (chapter 02).</span></li>
+    <li><b class="n">2</b><span><b>Theme</b> — light / dark mode.</span></li>
+    <li><b class="n">3</b><span><b>Revenue this month</b> — total of paid payments since the 1st; below it, the amount still to collect at the café.</span></li>
+    <li><b class="n">4</b><span><b>Bookings · 7 days</b> — seats booked for the coming week and number of people on waitlists.</span></li>
+    <li><b class="n">5</b><span><b>Fill rate · 7 days</b> — percentage of seats already taken in the coming week.</span></li>
+    <li><b class="n">6</b><span><b>Active members</b> — current memberships, learners and unread messages.</span></li>
+    <li><b class="n">7</b><span><b>Next sessions</b> — live seat dots (● taken, ○ free), waitlist count, price. <span class="ui">Open</span> edits the session and shows its roster.</span></li>
+    <li><b class="n">8</b><span><b>Revenue · 10 weeks</b> and <b>popular programs</b> (confirmed + attended bookings).</span></li>
+    <li><b class="n">9</b><span><b>Recent payments</b> — <span class="ui">Mark paid</span> confirms money received at the counter.</span></li>
+    <li><b class="n">10</b><span><b>Generate a recurring schedule</b> — create weeks of sessions in one click (chapter 04).</span></li>
+    <li><b class="n">11</b><span><b>Shortcuts</b> — create a session or an event directly.</span></li>
+  </ol>
+  <div class="tip">A low fill rate for the coming week is the right moment to post on social media or send a newsletter about the free seats.</div>
+</section>
+
+<!-- ===================== 04 ===================== -->
+<section class="chapter">
+  <div class="chapter-head"><div class="eyebrow">Chapter 04</div><h1><span class="num">04</span>Sessions &amp; schedule</h1></div>
+  <p class="lead">A <b>session</b> is one occurrence of a program: a date, a time, a teacher, a room and a number of seats. Learners can only book sessions that exist here.</p>
+  <figure><img src="shots/04-sessions.jpg" alt="Sessions list"><figcaption>Figure 6 — Sessions list</figcaption></figure>
+  <ol class="legend">
+    <li><b class="n">1</b><span><b>New session</b> — create a single session.</span></li>
+    <li><b class="n">2</b><span><b>Search</b> — by program, teacher or title.</span></li>
+    <li><b class="n">3</b><span><b>Status filter</b> — scheduled, cancelled, completed.</span></li>
+    <li><b class="n">4</b><span><b>Seats</b> — seated learners / capacity (e.g. 5 / 5 = full).</span></li>
+    <li><b class="n">5</b><span><b>Waitlist</b> — how many people are waiting for a seat.</span></li>
+    <li><b class="n">6</b><span><b>Edit / delete</b> — delete only sessions created by mistake; otherwise set the status to <i>Cancelled</i>.</span></li>
+  </ol>
+</section>
+<section style="break-before: page">
+  <h2>Creating or editing a session</h2>
+  <figure><img src="shots/05-session-edit.jpg" alt="Edit session"><figcaption>Figure 7 — Edit a session (with its roster on the right)</figcaption></figure>
+  <ol class="legend">
+    <li><b class="n">1</b><span><b>Program</b> — defines default price, duration and level range.</span></li>
+    <li><b class="n">2</b><span><b>Teacher</b> — the native teacher hosting the table.</span></li>
+    <li><b class="n">3</b><span><b>Level</b> — restrict to one CEFR level (A1–C2) or leave “Any”.</span></li>
+    <li><b class="n">4</b><span><b>Starts / Ends</b> — date and time. End must be after start.</span></li>
+    <li><b class="n">5</b><span><b>Capacity</b> — number of learner seats (5 for groups, 1 for 1-to-1).</span></li>
+    <li><b class="n">6</b><span><b>Price override</b> — leave empty to use the program price; fill it for a special price.</span></li>
+    <li><b class="n">7</b><span><b>Status</b> — Scheduled (bookable), Cancelled, Completed.</span></li>
+    <li><b class="n">8</b><span><b>Roster</b> — confirmed learners and waitlist in order. ✕ cancels a learner. <span class="ui">Add learner</span> books someone manually.</span></li>
+  </ol>
+  <div class="note"><b>Overbooking protection:</b> the platform locks each session while a seat is being booked, so two people can never take the last seat at the same time. You cannot lower the capacity below the number of learners already seated. If you <b>increase</b> the capacity, people on the waitlist are moved in automatically.</div>
+</section>
+<section>
+  <h2>Generating a recurring schedule</h2>
+  <p>On the overview page, the <b>Generate a recurring schedule</b> panel creates many sessions at once — for example every Tuesday and Thursday at 18:00 for the next 8 weeks.</p>
+  <div class="grid2">
+    <figure style="margin-top:0"><img src="shots/06-generator.jpg" alt="Schedule generator"><figcaption>Figure 8 — Recurring schedule generator</figcaption></figure>
+    <div>
+      <ol class="legend single">
+        <li><b class="n">1</b><span><b>Program</b> — its duration sets the end time.</span></li>
+        <li><b class="n">2</b><span><b>Teacher</b> and <b>Level</b> (optional).</span></li>
+        <li><b class="n">3</b><span><b>Time</b> — start time of every session.</span></li>
+        <li><b class="n">4</b><span><b>Weeks</b> — 1 to 26 weeks from tomorrow. Also set <b>Capacity</b> and <b>Room</b>.</span></li>
+        <li><b class="n">5</b><span><b>Days</b> — tick one or more weekdays.</span></li>
+        <li><b class="n">6</b><span><b>Create sessions</b> — a message confirms how many were created.</span></li>
+      </ol>
+      <div class="warn">Running the generator twice creates duplicates. If that happens, filter the session list and delete the extra ones (only if nobody booked them).</div>
+    </div>
+  </div>
+  <h2>Cancelling a session</h2>
+  <ol class="steps">
+    <li>Open the session and set <b>Status</b> to <i>Cancelled</i>, then <span class="ui">Save</span>. It disappears from the booking page.</li>
+    <li>In the roster, cancel each learner with ✕ so membership credits are returned automatically.</li>
+    <li>Contact the learners (email/phone from <span class="ui">Users</span>) and refund online payments from your Stripe dashboard if needed.</li>
+  </ol>
+</section>
+
+<!-- ===================== 05 ===================== -->
+<section class="chapter">
+  <div class="chapter-head"><div class="eyebrow">Chapter 05</div><h1><span class="num">05</span>Bookings &amp; waitlists</h1></div>
+  <p class="lead">Every seat taken (or requested) on a session is a <b>booking</b>. Most bookings are made by learners themselves; you can also create and manage them here.</p>
+  <figure><img src="shots/07-bookings.jpg" alt="Bookings"><figcaption>Figure 9 — Bookings list</figcaption></figure>
+  <ol class="legend">
+    <li><b class="n">1</b><span><b>Status filter</b> — e.g. show only the waitlist.</span></li>
+    <li><b class="n">2</b><span><b>Status</b> of the booking (see table below).</span></li>
+    <li><b class="n">3</b><span><b>Wait #</b> — position in the waitlist.</span></li>
+    <li><b class="n">4</b><span><b>Actions</b> — Present, Absent, Confirm, Edit (teacher note), Cancel.</span></li>
+  </ol>
+  <table>
+    <tr><th style="width:28%">Status</th><th>Meaning</th></tr>
+    <tr><td><span class="pill p-amber">Pending</span></td><td>Seat held while the learner pays online (20 minutes by default). If not paid in time, the seat is released automatically and offered to the waitlist.</td></tr>
+    <tr><td><span class="pill p-green">Confirmed</span></td><td>Seat secured: paid online, paid with a membership credit, or “pay at the café”.</td></tr>
+    <tr><td><span class="pill p-amber">Waitlist</span></td><td>Session full. The learner is in line and will be promoted automatically when a seat opens.</td></tr>
+    <tr><td><span class="pill p-green">Attended</span> / <span class="pill p-red">No show</span></td><td>Set after the session by the teacher or by you. Used for attendance statistics.</td></tr>
+    <tr><td><span class="pill p-red">Cancelled</span></td><td>Seat released. Membership credits are returned automatically.</td></tr>
+  </table>
+  <h2>How the waitlist works</h2>
+  <ul>
+    <li>When a confirmed learner cancels, the <b>first</b> person on the waitlist gets the seat and an email.</li>
+    <li>If they have a membership credit, they are confirmed immediately. Otherwise their seat is held for up to 12 hours so they can pay from their dashboard.</li>
+    <li>Learners can cancel for free until the limit set in <span class="ui">Settings</span> (12 hours before by default). After that, only you can cancel.</li>
+  </ul>
+</section>
+<section>
+  <h2>Booking a seat for someone (phone or walk-in)</h2>
+  <figure><img src="shots/08-booking-new.jpg" alt="New booking"><figcaption>Figure 10 — New booking</figcaption></figure>
+  <ol class="legend">
+    <li><b class="n">1</b><span><b>Session</b> — upcoming sessions only.</span></li>
+    <li><b class="n">2</b><span><b>Learner</b> — the person who will attend (create the user first if new).</span></li>
+    <li><b class="n">3</b><span><b>Payment</b> — pay at the café, membership credit, or online link in their dashboard.</span></li>
+    <li><b class="n">4</b><span><b>Save</b> — if the session is full, the learner is added to the waitlist instead.</span></li>
+  </ol>
+</section>
+
+<!-- ===================== 06 ===================== -->
+<section class="chapter">
+  <div class="chapter-head"><div class="eyebrow">Chapter 06</div><h1><span class="num">06</span>Programs &amp; prices</h1></div>
+  <p class="lead">Programs are the products shown on the website (Programs page, home page carousel, booking wizard). Changing a price here updates the whole site instantly.</p>
+  <figure><img src="shots/09-programs.jpg" alt="Programs"><figcaption>Figure 11 — Programs list</figcaption></figure>
+  <ol class="legend">
+    <li><b class="n">1</b><span><b>Seats</b> — default capacity for new sessions.</span></li>
+    <li><b class="n">2</b><span><b>Price</b> — price per session.</span></li>
+    <li><b class="n">3</b><span><b>Active</b> — only active programs are visible and bookable.</span></li>
+    <li><b class="n">4</b><span><b>Edit / delete</b> — prefer deactivating to deleting.</span></li>
+  </ol>
+</section>
+<section>
+  <div class="tip">The <b>Goals</b> field (e.g. <i>conversation, career</i>) helps the booking wizard recommend this program to learners who chose that goal.</div>
+  <figure class="tall"><img src="shots/10-program-edit.jpg" alt="Edit program"><figcaption>Figure 12 — Edit a program</figcaption></figure>
+  <ol class="legend">
+    <li><b class="n">1</b><span><b>Name</b> — shown everywhere on the site.</span></li>
+    <li><b class="n">2</b><span><b>URL slug</b> — web address, e.g. /programs/<i>business-english</i>. Avoid changing it once published.</span></li>
+    <li><b class="n">3</b><span><b>Category</b> — group, 1-to-1, table, business, pronunciation, kids, teens.</span></li>
+    <li><b class="n">4</b><span><b>Min / max level</b> — learners outside this range cannot select it.</span></li>
+    <li><b class="n">5</b><span><b>Default capacity</b> — groups: 5 learners + 1 teacher.</span></li>
+    <li><b class="n">6</b><span><b>Price per session</b>.</span></li>
+    <li><b class="n">7</b><span><b>Included in memberships</b> — can be paid with membership credits.</span></li>
+    <li><b class="n">8</b><span><b>Image</b> — optional photo (JPG, PNG or WEBP).</span></li>
+    <li><b class="n">9</b><span><b>Active</b> — untick to hide the program without losing its history.</span></li>
+  </ol>
+</section>
+
+<!-- ===================== 07 ===================== -->
+<section class="chapter">
+  <div class="chapter-head"><div class="eyebrow">Chapter 07</div><h1><span class="num">07</span>Teachers</h1></div>
+  <p class="lead">Teacher profiles appear on the Teachers page, the home page and the booking wizard. A teacher who needs to log in (to mark attendance and write progress reports) also needs a user account.</p>
+  <h2>Adding a new teacher — 3 steps</h2>
+  <ol class="steps">
+    <li><span class="ui">Users</span> → <span class="ui">New user</span>: first name, last name, email, <b>Role = Teacher</b>, a password. Save.</li>
+    <li><span class="ui">Teachers</span> → <span class="ui">New teacher</span>: fill the profile and choose that user in <b>Login account</b>. Save.</li>
+    <li>Assign the teacher to sessions (chapter 04). Send them the login address and their password.</li>
+  </ol>
+  <figure class="tall"><img src="shots/11-teacher-edit.jpg" alt="Edit teacher"><figcaption>Figure 13 — Teacher profile</figcaption></figure>
+  <ol class="legend">
+    <li><b class="n">1</b><span><b>Display name</b> — public name.</span></li>
+    <li><b class="n">2</b><span><b>Login account</b> — links the profile to a user with role Teacher.</span></li>
+    <li><b class="n">3</b><span><b>Accent</b> — British, American, Irish…</span></li>
+    <li><b class="n">4</b><span><b>Bio</b> — short presentation shown on the Teachers page.</span></li>
+    <li><b class="n">5</b><span><b>Specialties</b> — comma separated (Business, Kids…).</span></li>
+    <li><b class="n">6</b><span><b>Photo</b> — square portrait recommended. Without photo, elegant initials are shown.</span></li>
+    <li><b class="n">7</b><span><b>1-to-1 hourly rate</b> — internal reference.</span></li>
+    <li><b class="n">8</b><span><b>Active</b> — untick when a teacher leaves.</span></li>
+  </ol>
+</section>
+
+<!-- ===================== 08 ===================== -->
+<section class="chapter">
+  <div class="chapter-head"><div class="eyebrow">Chapter 08</div><h1><span class="num">08</span>Events &amp; guests</h1></div>
+  <p class="lead">Quiz nights, debates, movie nights, networking, book club and karaoke appear on the Events page and on the home page. Members whose plan includes events join for free.</p>
+  <figure><img src="shots/12-events.jpg" alt="Events"><figcaption>Figure 14 — Events list</figcaption></figure>
+  <ol class="legend">
+    <li><b class="n">1</b><span><b>New event</b>.</span></li>
+    <li><b class="n">2</b><span><b>Seats</b> — registered guests / capacity.</span></li>
+    <li><b class="n">3</b><span><b>Price</b> — 0 = free event.</span></li>
+  </ol>
+</section>
+<section>
+  <figure><img src="shots/13-event-edit.jpg" alt="Edit event"><figcaption>Figure 15 — Edit an event</figcaption></figure>
+  <ol class="legend">
+    <li><b class="n">1</b><span><b>Type</b> — sets the icon and label.</span></li>
+    <li><b class="n">2</b><span><b>Title</b> and description.</span></li>
+    <li><b class="n">3</b><span><b>Starts / Ends</b>.</span></li>
+    <li><b class="n">4</b><span><b>Capacity</b> — when full, new guests join a waitlist.</span></li>
+    <li><b class="n">5</b><span><b>Price</b>.</span></li>
+    <li><b class="n">6</b><span><b>Min level</b> — recommended level.</span></li>
+    <li><b class="n">7</b><span><b>Published</b> — untick to prepare an event before announcing it.</span></li>
+  </ol>
+  <h2>Event guests</h2>
+  <figure><img src="shots/14-registrations.jpg" alt="Event guests"><figcaption>Figure 16 — Event guests</figcaption></figure>
+  <ol class="legend">
+    <li><b class="n">1</b><span><b>Status</b> — pending (awaiting payment), confirmed, waitlist, cancelled, attended.</span></li>
+    <li><b class="n">2</b><span><b>Edit</b> — change a guest’s status (e.g. move someone from waitlist to confirmed).</span></li>
+  </ol>
+</section>
+
+<!-- ===================== 09 ===================== -->
+<section class="chapter">
+  <div class="chapter-head"><div class="eyebrow">Chapter 09</div><h1><span class="num">09</span>Membership plans &amp; members</h1></div>
+  <p class="lead"><b>Plans</b> are the offers on the Memberships page (Espresso, Flat White, Club Unlimited). <b>Memberships</b> are the subscriptions purchased by your customers.</p>
+  <figure><img src="shots/15-plan-edit.jpg" alt="Edit plan"><figcaption>Figure 17 — Edit a membership plan</figcaption></figure>
+  <ol class="legend">
+    <li><b class="n">1</b><span><b>Price</b> per period.</span></li>
+    <li><b class="n">2</b><span><b>Period</b> — monthly, quarterly or yearly.</span></li>
+    <li><b class="n">3</b><span><b>Credits per month</b> — 1 credit = 1 session. <b>0 = unlimited</b>.</span></li>
+    <li><b class="n">4</b><span><b>Free events</b> — members join events at no cost.</span></li>
+    <li><b class="n">5</b><span><b>Perks</b> — one line per benefit, shown as a list on the site.</span></li>
+    <li><b class="n">6</b><span><b>Featured</b> — highlighted card with the “Most loved” ribbon.</span></li>
+  </ol>
+</section>
+<section>
+  <h2>Members</h2>
+  <figure><img src="shots/16-memberships.jpg" alt="Memberships"><figcaption>Figure 18 — Memberships</figcaption></figure>
+  <ol class="legend">
+    <li><b class="n">1</b><span><b>Status</b> — pending (not paid yet), active, expired, cancelled.</span></li>
+    <li><b class="n">2</b><span><b>Credits</b> remaining for the current period.</span></li>
+    <li><b class="n">3</b><span><b>Edit</b> — extend the end date, add credits (gesture, compensation) or activate a membership paid in cash.</span></li>
+  </ol>
+  <div class="note">A membership becomes <b>active automatically</b> when the payment succeeds. If a customer pays in cash, open <span class="ui">Payments</span> and click <span class="ui">Mark paid</span> on the matching membership payment — dates and credits are set for you.</div>
+</section>
+
+<!-- ===================== 10 ===================== -->
+<section class="chapter">
+  <div class="chapter-head"><div class="eyebrow">Chapter 10</div><h1><span class="num">10</span>Payments</h1></div>
+  <p class="lead">Every booking, membership and paid event creates a payment record, even when it is paid with a credit or free.</p>
+  <figure><img src="shots/17-payments.jpg" alt="Payments"><figcaption>Figure 19 — Payments filtered on “pending”</figcaption></figure>
+  <ol class="legend">
+    <li><b class="n">1</b><span><b>Status filter</b> — pending, paid, failed, refunded, cancelled.</span></li>
+    <li><b class="n">2</b><span><b>Method</b> — see table below.</span></li>
+    <li><b class="n">3</b><span><b>Status</b> of the payment.</span></li>
+    <li><b class="n">4</b><span><b>Mark paid</b> — confirms cash / card received at the counter. Bookings, memberships and events linked to it are confirmed automatically.</span></li>
+  </ol>
+  <div class="warn">Until the Stripe keys are added (by Webina, in the server configuration), online payments run in <b>demo mode</b>: no real money is taken. Ask Webina to switch to live mode before launch.</div>
+  <table>
+    <tr><th style="width:22%">Method</th><th>Meaning</th></tr>
+    <tr><td><b>stripe</b></td><td>Online card payment. Confirmed automatically by Stripe. Refunds are made from your Stripe dashboard (stripe.com), then set the status to <i>refunded</i> here.</td></tr>
+    <tr><td><b>onsite</b></td><td>“Pay at the café”. The seat is confirmed; click <span class="ui">Mark paid</span> when the learner pays.</td></tr>
+    <tr><td><b>credit</b></td><td>Paid with a membership credit (amount 0).</td></tr>
+    <tr><td><b>free</b></td><td>Free session or event.</td></tr>
+  </table>
+</section>
+
+<!-- ===================== 11 ===================== -->
+<section class="chapter">
+  <div class="chapter-head"><div class="eyebrow">Chapter 11</div><h1><span class="num">11</span>Users, families &amp; companies</h1></div>
+  <p class="lead">All accounts live in <b>Users</b>. Each user has one <b>role</b> that decides what they see.</p>
+  <table>
+    <tr><th style="width:18%">Role</th><th>What they can do</th></tr>
+    <tr><td><b>Student</b></td><td>Book seats, pay, manage their membership, follow their progress, download books for their level.</td></tr>
+    <tr><td><b>Parent</b></td><td>Add children, book for them, follow each child’s progress and teacher notes.</td></tr>
+    <tr><td><b>Teacher</b></td><td>See their schedule and rosters, mark attendance, write notes and progress reports.</td></tr>
+    <tr><td><b>Corporate</b></td><td>Add employees, book seats for them, follow attendance and progress for the company.</td></tr>
+    <tr><td><b>Admin</b></td><td>Everything described in this guide.</td></tr>
+  </table>
+  <figure><img src="shots/18-users.jpg" alt="Users"><figcaption>Figure 20 — Users list</figcaption></figure>
+  <ol class="legend">
+    <li><b class="n">1</b><span><b>New user</b>.</span></li>
+    <li><b class="n">2</b><span><b>Search</b> by name or email.</span></li>
+    <li><b class="n">3</b><span><b>Role filter</b>.</span></li>
+    <li><b class="n">4</b><span><b>Role</b> of each account.</span></li>
+  </ol>
+</section>
+<section>
+  <figure class="tall"><img src="shots/19-user-edit.jpg" alt="Edit user"><figcaption>Figure 21 — Edit a user</figcaption></figure>
+  <ol class="legend">
+    <li><b class="n">1</b><span><b>Email</b> — login identifier (must be unique). Children may have no email.</span></li>
+    <li><b class="n">2</b><span><b>Role</b>.</span></li>
+    <li><b class="n">3</b><span><b>CEFR level</b> — also unlocks library shelves. Teachers update it with progress reports.</span></li>
+    <li><b class="n">4</b><span><b>Parent</b> — links a child to a parent account.</span></li>
+    <li><b class="n">5</b><span><b>Company</b> — links an employee to a corporate client.</span></li>
+    <li><b class="n">6</b><span><b>New password</b> — set a new password for someone who is locked out.</span></li>
+    <li><b class="n">7</b><span><b>Active</b> — untick to block access without deleting history.</span></li>
+  </ol>
+  <h2>Companies</h2>
+  <figure><img src="shots/20-companies.jpg" alt="Companies"><figcaption>Figure 22 — Companies</figcaption></figure>
+  <p>A company is created automatically when a business signs up as “A company”. You can also create one here, then create a user with role <b>Corporate</b> linked to it. The HR contact can then add employees from their own dashboard; employees receive a temporary password by email.</p>
+</section>
+
+<!-- ===================== 12 ===================== -->
+<section class="chapter">
+  <div class="chapter-head"><div class="eyebrow">Chapter 12</div><h1><span class="num">12</span>The library</h1></div>
+  <p class="lead">Downloadable books are organised by CEFR level. A learner can download books for <b>their level and below</b>; higher levels are visible but locked. Parents and companies get the levels of their children / employees. Files are stored privately and cannot be shared by direct link.</p>
+  <figure><img src="shots/21-books.jpg" alt="Books"><figcaption>Figure 23 — Library admin</figcaption></figure>
+  <ol class="legend">
+    <li><b class="n">1</b><span><b>Level filter</b>.</span></li>
+    <li><b class="n">2</b><span><b>Downloads</b> counter.</span></li>
+    <li><b class="n">3</b><span><b>New book</b>.</span></li>
+  </ol>
+</section>
+<section>
+  <figure class="tall"><img src="shots/22-book-edit.jpg" alt="Edit book"><figcaption>Figure 24 — Add or edit a book</figcaption></figure>
+  <ol class="legend">
+    <li><b class="n">1</b><span><b>CEFR level</b> — who can download it.</span></li>
+    <li><b class="n">2</b><span><b>Category</b> — Conversation, Grammar, Business, Kids, Exams…</span></li>
+    <li><b class="n">3</b><span><b>File</b> — PDF, EPUB, ZIP or MP3, up to 40 MB.</span></li>
+    <li><b class="n">4</b><span><b>Cover color</b> — used for the generated cover.</span></li>
+    <li><b class="n">5</b><span><b>Cover image</b> — optional real cover.</span></li>
+    <li><b class="n">6</b><span><b>Published</b> — untick to hide a book.</span></li>
+  </ol>
+  <figure><img src="shots/23-library-public.jpg" alt="Library public"><figcaption>Figure 25 — What a B1 learner sees: shelves up to B1 open, higher levels locked</figcaption></figure>
+  <div class="warn">Only upload books you have the right to distribute (your own material or licensed content).</div>
+</section>
+
+<!-- ===================== 13 ===================== -->
+<section class="chapter">
+  <div class="chapter-head"><div class="eyebrow">Chapter 13</div><h1><span class="num">13</span>Contact messages</h1></div>
+  <p class="lead">Messages sent from the Contact page are saved here and also emailed to the contact address from Settings. The sidebar shows the number of unread messages.</p>
+  <figure><img src="shots/24-messages.jpg" alt="Messages"><figcaption>Figure 26 — Messages</figcaption></figure>
+  <ol class="legend">
+    <li><b class="n">1</b><span><b>Read</b> — “No” for new messages.</span></li>
+    <li><b class="n">2</b><span><b>Read</b> opens the message and marks it as read. Reply from your own mailbox to the sender’s email.</span></li>
+  </ol>
+
+  <!-- ===================== 14 ===================== -->
+  <div class="chapter-head" style="margin-top:10mm"><div class="eyebrow">Chapter 14</div><h1><span class="num">14</span>Settings</h1></div>
+  <p class="lead">General information and business rules used across the website.</p>
+</section>
+<section>
+  <figure class="tall"><img src="shots/25-settings.jpg" alt="Settings"><figcaption>Figure 27 — Settings</figcaption></figure>
+  <table>
+    <tr><th style="width:34%">Setting</th><th>Effect</th></tr>
+    <tr><td><b>1 · Currency</b></td><td>ISO code used for all prices (EUR, USD, GBP, TRY…).</td></tr>
+    <tr><td><b>2 · Contact email, phone, address, hours</b></td><td>Shown in the footer and on the Contact page. Contact form messages are sent to this email.</td></tr>
+    <tr><td><b>Instagram / LinkedIn / WhatsApp</b></td><td>Social links in the footer (leave empty to hide).</td></tr>
+    <tr><td><b>3 · Seat hold during online payment</b></td><td>Minutes a seat is reserved while a learner pays by card (default 20).</td></tr>
+    <tr><td><b>4 · Free cancellation until</b></td><td>Hours before the session when learners can still cancel themselves (default 12).</td></tr>
+    <tr><td><b>5 · Allow “pay at the café”</b></td><td>1 = option visible in the booking wizard, 0 = online or credit only.</td></tr>
+    <tr><td><b>6 · Hero tagline / subtitle</b></td><td>Main text on the home page video.</td></tr>
+    <tr><td><b>Stats (learners, nationalities, sessions)</b></td><td>Animated numbers on the home page.</td></tr>
+    <tr><td><b>7 · Trial session price</b></td><td>Price mentioned in the call-to-action banners.</td></tr>
+    <tr><td><b>Business “from” price</b></td><td>Price per employee shown on the Business page.</td></tr>
+  </table>
+  <p>Click <span class="ui">Save settings</span> at the bottom. Changes are live immediately.</p>
+</section>
+
+<!-- ===================== 15 ===================== -->
+<section class="chapter">
+  <div class="chapter-head"><div class="eyebrow">Chapter 15</div><h1><span class="num">15</span>What your customers &amp; teachers see</h1></div>
+  <p class="lead">Knowing the other side helps you answer questions by phone or at the counter.</p>
+  <h2>The booking wizard (learners)</h2>
+  <figure><img src="shots/28-booking-wizard.jpg" alt="Booking wizard"><figcaption>Figure 28 — Booking wizard at xy-academy.net/book</figcaption></figure>
+  <ol class="legend">
+    <li><b class="n">1</b><span><b>6 steps</b>: Level → Goal → Program → Teacher → Date &amp; seat → Confirm.</span></li>
+    <li><b class="n">2</b><span><b>Days</b> with available sessions.</span></li>
+    <li><b class="n">3</b><span><b>Session</b> with live seats (● teacher in amber, ● taken, ○ free) or “Waitlist”.</span></li>
+    <li><b class="n">4</b><span><b>Summary</b> — level, program, time and total price.</span></li>
+  </ol>
+</section>
+<section>
+  <h2>The teacher studio</h2>
+  <figure><img src="shots/29-teacher.jpg" alt="Teacher studio"><figcaption>Figure 29 — Teacher dashboard</figcaption></figure>
+  <ol class="legend">
+    <li><b class="n">1</b><span><b>Today / week</b> — sessions and seated learners.</span></li>
+    <li><b class="n">2</b><span><b>Attendance</b> — ✓ present, ✕ absent for each learner.</span></li>
+    <li><b class="n">3</b><span><b>Note</b> — a comment the learner (and parent) sees in their dashboard.</span></li>
+  </ol>
+  <p>Further down, <b>My students &amp; progress reports</b> lets teachers score speaking, listening, pronunciation, vocabulary and confidence (0–100) and update the CEFR level. Learners and parents see these as charts in their dashboards.</p>
+  <h2>The public website</h2>
+  <figure><img src="shots/30-site-home.jpg" alt="Home"><figcaption>Figure 30 — Home page (light and dark mode available to visitors)</figcaption></figure>
+</section>
+
+<!-- ===================== 16 ===================== -->
+<section class="chapter">
+  <div class="chapter-head"><div class="eyebrow">Chapter 16</div><h1><span class="num">16</span>Daily routine checklist</h1></div>
+  <table>
+    <tr><th style="width:22%">When</th><th>Task</th><th style="width:22%">Where</th></tr>
+    <tr><td><b>Every morning</b></td><td>Check the fill rate and today’s sessions; read new messages.</td><td>Overview · Messages</td></tr>
+    <tr><td><b>Before each session</b></td><td>Open the session roster; prepare the table for the confirmed learners.</td><td>Sessions → Open</td></tr>
+    <tr><td><b>At the counter</b></td><td>Click <span class="ui">Mark paid</span> for learners who pay on site.</td><td>Payments (filter: pending)</td></tr>
+    <tr><td><b>After each session</b></td><td>Make sure attendance is marked (teacher or you).</td><td>Bookings · Teacher studio</td></tr>
+    <tr><td><b>Every week</b></td><td>Generate the schedule for upcoming weeks; publish the next events.</td><td>Overview → Generator · Events</td></tr>
+    <tr><td><b>Every month</b></td><td>Review revenue, popular programs, expiring memberships; adjust prices if needed.</td><td>Overview · Memberships · Programs</td></tr>
+    <tr><td><b>Every month</b></td><td>Check that a website + database backup exists (cPanel → JetBackup / Backup).</td><td>cPanel (or ask Webina)</td></tr>
+  </table>
+
+  <div class="chapter-head" style="margin-top:10mm"><div class="eyebrow">Chapter 17</div><h1><span class="num">17</span>FAQ &amp; troubleshooting</h1></div>
+  <h3>A learner says the session is full but wants to come.</h3>
+  <p>Book them from <span class="ui">Bookings</span> → <span class="ui">New booking</span>: they will be placed on the waitlist. To give them a seat anyway, first increase the session capacity — the waitlist moves up automatically.</p>
+  <h3>A booking stays “pending”.</h3>
+  <p>The learner started an online payment but did not finish. The seat is released automatically after the hold time. If they paid you in cash, use <span class="ui">Mark paid</span> on their payment.</p>
+  <h3>A learner forgot their password.</h3>
+  <p>They click <i>Forgot password?</i> on the sign-in page. If the email doesn’t arrive (check spam), set a new password in <span class="ui">Users</span> → edit → <span class="ui">New password</span>.</p>
+  <h3>I changed a price but old bookings show the old price.</h3>
+  <p>Normal: existing payments keep the price at the time of booking. New bookings use the new price.</p>
+  <h3>A teacher cannot see their schedule.</h3>
+  <p>Check that their user has <b>Role = Teacher</b>, that the teacher profile has this user as <b>Login account</b>, and that sessions are assigned to them.</p>
+  <h3>A learner cannot download a book.</h3>
+  <p>The book level is higher than the learner’s CEFR level. Update their level (or ask the teacher to submit a progress report).</p>
+  <h3>Emails are not received.</h3>
+  <p>Check spam folders and that the sender mailbox exists in cPanel → Email Accounts. Contact Webina if the problem persists.</p>
+  <h3>Can I delete something?</h3>
+  <p>Prefer <b>deactivating</b> (Active / Published unticked). Items linked to bookings or payments cannot be deleted to protect your history.</p>
+</section>
+
+<!-- ===================== 18 ===================== -->
+<section class="chapter">
+  <div class="chapter-head"><div class="eyebrow">Chapter 18</div><h1><span class="num">18</span>Glossary &amp; support</h1></div>
+  <table>
+    <tr><th style="width:24%">Term</th><th>Definition</th></tr>
+    <tr><td><b>CEFR</b></td><td>Common European Framework of Reference: levels A1, A2 (beginner), B1, B2 (intermediate), C1, C2 (advanced).</td></tr>
+    <tr><td><b>Program</b></td><td>A type of class sold on the site (e.g. Business English).</td></tr>
+    <tr><td><b>Session</b></td><td>One dated occurrence of a program, with a teacher and a capacity.</td></tr>
+    <tr><td><b>Seat / capacity</b></td><td>Number of learners allowed in a session (teacher not included).</td></tr>
+    <tr><td><b>Waitlist</b></td><td>Ordered queue of learners waiting for a seat in a full session.</td></tr>
+    <tr><td><b>Seat hold</b></td><td>Time a seat is reserved while a learner pays online.</td></tr>
+    <tr><td><b>Credit</b></td><td>One session included in a membership plan.</td></tr>
+    <tr><td><b>Roster</b></td><td>List of learners booked on a session.</td></tr>
+    <tr><td><b>Attendance rate</b></td><td>Attended ÷ (attended + no show).</td></tr>
+  </table>
+
+  <h2>Support</h2>
+  <div style="display:grid;grid-template-columns:42mm 1fr;gap:8mm;align-items:center;margin-top:4mm;padding:6mm;border:1px solid #e5e5e5;border-radius:3mm;">
+    <img src="assets/webina-logo.png" alt="Webina" style="width:42mm">
+    <div>
+      <p style="margin:0 0 2mm"><b>Webina — Digital Creation Agency</b></p>
+      <p style="margin:0 0 2mm">For technical help, new features (AI pronunciation, mobile app, online lessons), Stripe activation or hosting questions, contact your Webina project manager.</p>
+      <p style="margin:0;color:#666;font-size:9pt">Please include: the page address, a screenshot, and what you were trying to do.</p>
+    </div>
+  </div>
+  <div class="note" style="margin-top:6mm">Technical information for Webina: PHP 8.3 + MySQL on cPanel; configuration file <b>config/config.php</b>; error logs in <b>storage/logs/</b>; REST API at <b>/api/v1</b>.</div>
+</section>
+
+</body>
+</html>
