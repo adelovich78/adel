@@ -26,6 +26,12 @@ ServerSignature Off
   RewriteRule ^demolar/?$ /sektorler/ [R=301,L]
   RewriteRule ^index\.html$ / [R=301,L]
 
+  # Une seule adresse par page : la barre oblique finale (/hakkimizda -> /hakkimizda/).
+  # Apache le fait déjà pour les dossiers, mais en passant parfois par http : ici c'est direct et en https.
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteCond %{REQUEST_URI} !/$
+  RewriteRule ^(.+)$ https://webina.com.tr/$1/ [R=301,L,NE]
+
   # Bloquer fichiers cachés, sauvegardes, archives, journaux, sources
   RewriteRule (^|/)\.(?!well-known/) - [F,L]
   RewriteRule \.(zip|rar|7z|tar|gz|tgz|bak|old|orig|save|swp|sql|log|ini|env|sh|py|md|lock|dist)$ - [F,NC,L]

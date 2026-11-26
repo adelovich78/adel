@@ -46,7 +46,7 @@
   function waText(c) {
     var name = c.company || c.name;
     var real = REALSITE[c.trade];
-    var proof = real ? 'Müşterilerimizden biri: ' + real.join(' ve ') : 'Örnek: ' + (DEMO[c.trade] || 'https://webina.com.tr/sektorler');
+    var proof = real ? 'Müşterilerimizden biri: ' + real.join(' ve ') : 'Örnek: ' + (DEMO[c.trade] || 'https://webina.com.tr/sektorler/');
     return 'Merhaba, ben Webina\'dan yazıyorum. ' + name + ' için mesleğinize özel, telefonda hızlı açılan bir web sitesi hazırlıyoruz ' +
       '(alan adı, hosting ve logo ilk yıl ücretsiz, 17.000 TL\'den başlayan fiyatlarla). ' + proof +
       ' — Uygun olursanız 10 dakikalık kısa bir görüşme yapabilir miyiz?';

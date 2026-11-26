@@ -316,7 +316,7 @@
     var p = new URLSearchParams(extra || {});
     if (code) p.set('kod', code);
     var q = p.toString();
-    return location.origin + '/teklif' + (q ? '?' + q : '');
+    return location.origin + '/teklif/' + (q ? '?' + q : '');
   }
   // « %25 » ou « 1.000 TL » ; anciens codes sans valeur : réduction par défaut des tarifs
   function discountLabel(c) {

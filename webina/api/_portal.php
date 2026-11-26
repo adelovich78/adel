@@ -330,7 +330,7 @@ function portal_send_noaccess(string $email, string $lang): bool {
     if (!$L) return false;
     $html = '<p style="margin:0 0 12px;font-weight:600">' . h($L[1]) . '</p>'
         . '<p style="margin:0 0 16px;color:#555">' . h($L[2]) . '</p>'
-        . '<p style="margin:0"><a href="https://wa.me/905399662557" style="color:#1f6f2a">WhatsApp</a> · <a href="https://webina.com.tr/iletisim" style="color:#1f6f2a">webina.com.tr/iletisim</a></p>';
+        . '<p style="margin:0"><a href="https://wa.me/905399662557" style="color:#1f6f2a">WhatsApp</a> · <a href="https://webina.com.tr/iletisim/" style="color:#1f6f2a">webina.com.tr/iletisim</a></p>';
     return send_html_mail($email, $L[0], mail_layout($html, $lang === 'ar'));
 }
 

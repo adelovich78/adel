@@ -565,6 +565,18 @@ PAGES = [
     ('social', 'sosyal-medya/index.html', '/sosyal-medya', 'solutions', 'meta.social', TR['social']['text']),
 ] + [(f'sector:{s["key"]}', f'sektorler/{s["slug"]}/index.html', s['page'], 'sectors', f'sec.{s["key"]}.title', TR['sec'][s['key']]['why']) for s in SECTORS]
 
+# Adresse canonique d'une page : toujours terminée par « / » (Apache sert les dossiers ainsi,
+# et le sitemap les liste de la même façon). Sans cela Google voit deux adresses pour une même page.
+def slashed(p):
+    return p if p.endswith('/') else p + '/'
+
+# Les liens internes pointent eux aussi vers l'adresse avec « / » : un clic de moins à rediriger,
+# et aucun signal contradictoire pour les moteurs de recherche (ancre et paramètres conservés).
+def slash_links(page):
+    paths = sorted({p[2] for p in PAGES if p[2] != '/'} | {'/kart'}, key=len, reverse=True)
+    pat = re.compile(r'href="(' + '|'.join(re.escape(x) for x in paths) + r')(?=[\"#?])')
+    return pat.sub(lambda m: 'href="' + m.group(1) + '/', page)
+
 def render(name, out, path, navkey, titlekey, desc):
     if name.startswith('sector:'):
         body = sector_body(BY_KEY[name.split(':')[1]]); frag = {}
@@ -579,7 +591,7 @@ def render(name, out, path, navkey, titlekey, desc):
     title = get(TR, titlekey) if name == 'home' else f'{get(TR, titlekey)} — Webina'
     page = layout.replace('{{BODY}}', body)
     page = page.replace('{{TITLE}}', html.escape(title)).replace('{{DESC}}', html.escape(desc))
-    page = page.replace('{{PATH}}', path).replace('{{PAGE}}', '' if name == 'home' else titlekey)
+    page = page.replace('{{PATH}}', slashed(path)).replace('{{PAGE}}', '' if name == 'home' else titlekey)
     page = page.replace('{{LDJSON}}', ldjson if name == 'home' else '')
     first = HERO[0]['img']
     preload = (f'<link rel="preload" as="image" href="/images/{first}" imagesrcset="{hero_srcset(first)}" '
@@ -592,6 +604,7 @@ def render(name, out, path, navkey, titlekey, desc):
     page = re.sub(r'\{\{t:([\w.]+)\}\}', lambda m: f'<span {ti(m.group(1))}>{t(m.group(1))}</span>', page)
     page = re.sub(r'\{\{i18n:([\w.]+)\}\}', lambda m: ti(m.group(1)), page)
     page = re.sub(r'\{\{raw:([\w.]+)\}\}', lambda m: t(m.group(1)), page)
+    page = slash_links(page)
     left = re.findall(r'\{\{[^}]*\}\}', page)
     assert not left, (name, left[:5])
     dest = os.path.join(OUT, out)
