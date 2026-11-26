@@ -155,7 +155,7 @@ $subtitle = (string)setting_t('hero_subtitle', '');
         <div class="section-header_component">
           <div class="max-width-large">
             <div class="eyebrow margin-bottom margin-small" data-reveal><?= t('Native teachers') ?></div>
-            <h2 class="heading-style-h2" data-split><?= t('Accents from') ?> <span class="serif-italic"><?= t('six') ?></span> <?= t('corners of the English-speaking world.') ?></h2>
+            <h2 class="heading-style-h2" data-split><?= t('Accents from') ?> <span class="serif-italic"><?= t('four') ?></span> <?= t('corners of the English-speaking world.') ?></h2>
           </div>
           <a href="<?= url('teachers') ?>" class="button is-secondary" data-reveal><?= t('Meet the team') ?> <?= icon('arrow', 'button_arrow') ?></a>
         </div>
@@ -237,7 +237,7 @@ $subtitle = (string)setting_t('hero_subtitle', '');
         <div class="quotes_slider">
           <?php foreach ([
             ['After three months of tables, I led my first meeting in English without notes. My manager asked what changed.', 'Elif Y.', 'Product manager · B1 → B2', 'mono-bg-0'],
-            ['My daughter used to hide behind me. Now she corrects my pronunciation at dinner. Maya is magic.', 'Mehmet K.', 'Parent of Defne, 8', 'mono-bg-2'],
+            ['My daughter used to hide behind me. Now she corrects my pronunciation at dinner. Hatice is magic.', 'Mehmet K.', 'Parent of Defne, 8', 'mono-bg-2'],
             ['It doesn’t feel like a class. It feels like meeting friends who happen to be brilliant teachers.', 'Can D.', 'Software engineer · C1', 'mono-bg-1'],
             ['We moved our whole team’s training here. Engagement went from “mandatory” to “can I book another one?”.', 'Zeynep A.', 'HR Director, Anadolu Lojistik', 'mono-bg-3'],
           ] as $k => $q): ?>
@@ -263,7 +263,7 @@ $subtitle = (string)setting_t('hero_subtitle', '');
           ['Do I need to take a level test?', __('No. Choose the level that feels right (A1 to C2). After your first table, your teacher confirms or adjusts it and records it in your dashboard.')],
           ['What if a session is full?', __('Join the waitlist in one click. When a seat opens, it is automatically offered to the next person and you get an email instantly.')],
           ['Can I cancel?', __('Yes — free cancellation up to :hours hours before the session. Membership credits are returned automatically.', ['hours' => (int)setting('cancellation_hours', 12)])],
-          ['Are the teachers really native speakers?', __('Yes. All our teachers are native English speakers from the UK, Ireland, the US, Canada and Australia, and trained in conversation coaching.')],
+          ['Are the teachers really native speakers?', __('Yes. All our teachers are native English speakers from the UK, the US, Canada and Australia, and trained in conversation coaching.')],
           ['Do you offer programs for companies?', __('Absolutely. Our Business English team builds tailored programs, with a corporate dashboard to follow employees’ bookings and progress.')],
         ] as $k => $f): ?>
         <div class="faq_item" data-faq>

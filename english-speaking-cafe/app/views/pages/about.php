@@ -1,7 +1,7 @@
 <?php
 $heading = t('We built the place we') . ' <span class="serif-italic">' . t('wished existed.') . '</span>';
 $eyebrow = __('Our story');
-$aside = t('XY Academy started with one table, five strangers and a pot of coffee. Today it’s a boutique café-club where English finally becomes something you speak — not something you study.');
+$aside = t('XY Academy started with one table, five strangers and a pot of coffee. Today it’s a boutique café-club where English finally becomes something you speak — not something you study.') . '<br><br><b>' . t('Founded by Hatice Söz Xynidis & Nikolas Xynidis') . '</b> — ' . t('native English speakers, co-founders of the café.');
 $media = 'hero';
 require APP . '/views/partials/page-hero.php';
 ?>

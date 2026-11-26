@@ -53,7 +53,7 @@ return [
     'Grab a seat' => 'Yerini kap', 'Live seat availability. Full? Join the waitlist in one tap.' => 'Canlı yer durumu. Dolu mu? Tek dokunuşla bekleme listesine katıl.',
     'Track your progress' => 'Gelişimini takip et', 'Speaking, listening, pronunciation, vocabulary & confidence.' => 'Konuşma, dinleme, telaffuz, kelime bilgisi ve özgüven.',
     'A table of five learners and one native teacher' => 'Beş öğrenci ve bir anadili İngilizce öğretmenden oluşan masa', 'per table' => 'masa başına', 'You' => 'Sen',
-    'Accents from' => 'İngilizce konuşulan dünyanın', 'six' => 'altı', 'corners of the English-speaking world.' => 'farklı köşesinden aksanlar.',
+    'Accents from' => 'İngilizce konuşulan dünyanın', 'four' => 'dört', 'corners of the English-speaking world.' => 'farklı köşesinden aksanlar.',
     'Meet the team' => 'Ekiple tanışın', 'After hours' => 'Mesai sonrası', 'Quiz nights, debates &' => 'Quiz geceleri, münazaralar ve', 'karaoke.' => 'karaoke.',
     'Full calendar' => 'Tüm takvim', 'New events are brewing. Check back soon!' => 'Yeni etkinlikler demleniyor. Yakında tekrar bakın!',
     'A notebook and coffee cups on a café table' => 'Kafe masasında bir defter ve kahve fincanları', '18 books · A1 → C2' => '18 kitap · A1 → C2',
@@ -70,11 +70,11 @@ return [
     'Can I cancel?' => 'İptal edebilir miyim?',
     'Yes — free cancellation up to :hours hours before the session. Membership credits are returned automatically.' => 'Evet — seanstan :hours saat öncesine kadar ücretsiz iptal. Üyelik kredileri otomatik olarak iade edilir.',
     'Are the teachers really native speakers?' => 'Öğretmenler gerçekten anadili İngilizce mi?',
-    'Yes. All our teachers are native English speakers from the UK, Ireland, the US, Canada and Australia, and trained in conversation coaching.' => 'Evet. Tüm öğretmenlerimiz Birleşik Krallık, İrlanda, ABD, Kanada ve Avustralya’dan gelen, sohbet koçluğu eğitimi almış anadili İngilizce olan kişilerdir.',
+    'Yes. All our teachers are native English speakers from the UK, the US, Canada and Australia, and trained in conversation coaching.' => 'Evet. Tüm öğretmenlerimiz Birleşik Krallık, ABD, Kanada ve Avustralya kökenli, sohbet koçluğu eğitimi almış anadili İngilizce olan kişilerdir.',
     'Do you offer programs for companies?' => 'Şirketlere yönelik programlarınız var mı?',
     'Absolutely. Our Business English team builds tailored programs, with a corporate dashboard to follow employees’ bookings and progress.' => 'Kesinlikle. İş İngilizcesi ekibimiz, çalışanların rezervasyonlarını ve gelişimini takip edebileceğiniz kurumsal bir panelle size özel programlar hazırlar.',
     'After three months of tables, I led my first meeting in English without notes. My manager asked what changed.' => 'Üç aylık masalardan sonra ilk İngilizce toplantımı notsuz yönettim. Müdürüm neyin değiştiğini sordu.',
-    'My daughter used to hide behind me. Now she corrects my pronunciation at dinner. Maya is magic.' => 'Kızım eskiden arkama saklanırdı. Şimdi akşam yemeğinde telaffuzumu düzeltiyor. Maya sihirli biri.',
+    'My daughter used to hide behind me. Now she corrects my pronunciation at dinner. Hatice is magic.' => 'Kızım eskiden arkama saklanırdı. Şimdi akşam yemeğinde telaffuzumu düzeltiyor. Hatice Hoca sihirli biri.',
     'It doesn’t feel like a class. It feels like meeting friends who happen to be brilliant teachers.' => 'Ders gibi hissettirmiyor. Harika öğretmen olan arkadaşlarla buluşmak gibi.',
     'We moved our whole team’s training here. Engagement went from “mandatory” to “can I book another one?”.' => 'Tüm ekibimizin eğitimini buraya taşıdık. Katılım “zorunlu”dan “bir tane daha ayırtabilir miyim?”e dönüştü.',
     'Product manager · B1 → B2' => 'Ürün müdürü · B1 → B2', 'Parent of Defne, 8' => 'Defne’nin (8) babası', 'Software engineer · C1' => 'Yazılım mühendisi · C1', 'HR Director, Anadolu Lojistik' => 'İK Direktörü, Anadolu Lojistik',
@@ -111,7 +111,7 @@ return [
     'Pricing' => 'Fiyatlandırma', 'per hour.' => 'saat başı.',
     'Book single sessions, or join Club Unlimited for a monthly 1-to-1 included. Packs and corporate rates available on request.' => 'Tek seans ayırtın ya da her ay bir birebir seansın dahil olduğu Club Unlimited’a katılın. Paketler ve kurumsal fiyatlar talep üzerine.',
     'Book a coaching' => 'Koçluk ayırt', 'Ask about packs' => 'Paketleri sor', 'A conversation at the café' => 'Kafede bir sohbet',
-    'Choose your coach' => 'Koçunu seç', 'Six accents.' => 'Altı aksan.', 'One standard.' => 'Tek standart.',
+    'Choose your coach' => 'Koçunu seç', 'Four accents.' => 'Dört aksan.', 'One standard.' => 'Tek standart.',
 
     // --- Business
     'English that' => 'Anlaşma kapatan', 'closes deals.' => 'İngilizce.', 'Business English & corporate programs' => 'İş İngilizcesi ve kurumsal programlar',
@@ -135,11 +135,11 @@ return [
 
     // --- Professeurs
     'Native teachers.' => 'Anadili İngilizce öğretmenler.', 'Real people.' => 'Gerçek insanlar.', 'The team' => 'Ekip',
-    'Trained conversation coaches from the UK, Ireland, Scotland, the US, Canada and Australia — chosen for their warmth as much as their expertise.' => 'Birleşik Krallık, İrlanda, İskoçya, ABD, Kanada ve Avustralya’dan eğitimli sohbet koçları — uzmanlıkları kadar sıcaklıkları için de seçildiler.',
+    'Trained conversation coaches from the UK, the US, Canada and Australia — chosen for their warmth as much as their expertise.' => 'Birleşik Krallık, ABD, Kanada ve Avustralya kökenli eğitimli sohbet koçları — uzmanlıkları kadar sıcaklıkları için de seçildiler.',
     'British' => 'İngiliz', 'American' => 'Amerikan', 'Irish' => 'İrlanda', 'Scottish' => 'İskoç', 'Canadian' => 'Kanada', 'Australian' => 'Avustralya', 'South African' => 'Güney Afrika', 'New Zealand' => 'Yeni Zelanda',
     'Conversation' => 'Sohbet', 'Storytelling' => 'Hikâye anlatımı', 'Idioms' => 'Deyimler', 'Kids' => 'Çocuklar', 'Teens' => 'Gençler', 'Drama' => 'Drama',
     'Pronunciation' => 'Telaffuz', 'Accent' => 'Aksan', 'Public speaking' => 'Topluluk önünde konuşma', 'IELTS' => 'IELTS', 'Cambridge' => 'Cambridge', 'Academic' => 'Akademik',
-    'Travel' => 'Seyahat', 'Everyday English' => 'Günlük İngilizce', 'Grammar' => 'Dilbilgisi', 'Vocabulary' => 'Kelime bilgisi', 'Readers' => 'Okuma kitapları',
+    'Travel' => 'Seyahat', 'University life' => 'Üniversite hayatı', 'Business basics' => 'İş dünyasına giriş', 'Everyday English' => 'Günlük İngilizce', 'Grammar' => 'Dilbilgisi', 'Vocabulary' => 'Kelime bilgisi', 'Readers' => 'Okuma kitapları',
 
     // --- Abonnements
     'Monthly plans with session credits, free events and priority on waitlists. Cancel anytime from your dashboard.' => 'Seans kredili aylık planlar, ücretsiz etkinlikler ve bekleme listelerinde öncelik. Panelinizden istediğiniz zaman iptal edin.',
@@ -159,6 +159,7 @@ return [
     'Every session is a conversation, not a lecture. You speak more in one hour here than in a week of classes.' => 'Her seans bir sohbettir, ders anlatımı değil. Burada bir saatte, bir haftalık dersten daha fazla konuşursunuz.',
     'Native teachers, CEFR-based progress tracking and a library that grows with your level.' => 'Anadili İngilizce öğretmenler, CEFR tabanlı gelişim takibi ve seviyenizle büyüyen bir kütüphane.',
     'Meet people from dozens of countries at tables, quiz nights and networking events.' => 'Masalarda, quiz gecelerinde ve networking etkinliklerinde onlarca ülkeden insanla tanışın.',
+    'Founded by Hatice Söz Xynidis & Nikolas Xynidis' => 'Kurucular: Hatice Söz Xynidis ve Nikolas Xynidis', 'native English speakers, co-founders of the café.' => 'anadili İngilizce olan, kafenin kurucu ortakları.',
     'Warm lights in the café' => 'Kafede sıcak ışıklar', 'Tomorrow' => 'Yarın', 'From café tables to' => 'Kafe masalarından', 'your pocket.' => 'cebinize.',
     'We’re building AI-powered pronunciation feedback, speaking practice between sessions, a mobile app and online lessons — all connected to the progress your teachers track at the café.' => 'Yapay zekâ destekli telaffuz geri bildirimi, seanslar arası konuşma pratiği, mobil uygulama ve online dersler geliştiriyoruz — hepsi öğretmenlerinizin kafede takip ettiği gelişiminize bağlı.',
 

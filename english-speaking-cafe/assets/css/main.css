@@ -730,3 +730,7 @@ body, [class*="heading-style"], .text-style-serif, .serif-italic { font-variant-
    pas d'overflow (qui décale la ligne de base), découpe par clip-path */
 .hero_rotator { display: inline-grid; vertical-align: baseline; height: auto; overflow: visible; clip-path: inset(-.1em -.4em -.3em -.4em); }
 .hero_rotator span { line-height: inherit; }
+
+/* Portraits des professeurs : cadrage sur le visage */
+.teacher-card_visual img { object-position: center 18%; }
+.teacher-card_visual::after { content: ""; position: absolute; inset: 55% 0 0; background: linear-gradient(transparent, rgba(18,16,14,.35)); pointer-events: none; }

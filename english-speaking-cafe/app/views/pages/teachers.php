@@ -1,7 +1,7 @@
 <?php
 $heading = t('Native teachers.') . ' <span class="serif-italic">' . t('Real people.') . '</span>';
 $eyebrow = __('The team');
-$aside = t('Trained conversation coaches from the UK, Ireland, Scotland, the US, Canada and Australia — chosen for their warmth as much as their expertise.');
+$aside = t('Trained conversation coaches from the UK, the US, Canada and Australia — chosen for their warmth as much as their expertise.');
 require APP . '/views/partials/page-hero.php';
 ?>
 <section>

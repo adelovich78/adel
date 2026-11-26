@@ -21,7 +21,7 @@ Installation dans un sous-dossier : décommenter `RewriteBase /sous-dossier/` da
 | Élève | student@demo.cafe |
 | Parent (2 enfants) | parent@demo.cafe |
 | Entreprise (3 salariés) | hr@demo.cafe |
-| Professeur | olivia@xyacademy.cafe |
+| Professeur | julia@xyacademy.cafe |
 | Admin | celui créé à l'installation |
 
 À supprimer dans *Admin → Users* avant la mise en ligne.

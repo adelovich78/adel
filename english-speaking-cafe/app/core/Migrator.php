@@ -9,13 +9,14 @@ namespace App\Core;
 
 final class Migrator
 {
-    public const VERSION = 2;
+    public const VERSION = 3;
 
     public static function run(): void
     {
         $v = (int)(DB::val("SELECT `value` FROM settings WHERE `key` = 'schema_version'") ?? 1);
         if ($v >= self::VERSION) return;
         if ($v < 2) self::v2();
+        if ($v < 3) self::v3();
         DB::q("INSERT INTO settings (`key`, `value`, label) VALUES ('schema_version', ?, 'Schema version') ON DUPLICATE KEY UPDATE `value` = VALUES(`value`)", [(string)self::VERSION]);
     }
 
@@ -84,5 +85,59 @@ final class Migrator
         DB::q("INSERT IGNORE INTO settings (`key`, `value`, label) VALUES ('opening_hours_tr', 'Pzt–Cum 9:00–21:30 · Cmt 10:00–18:00', 'Opening hours (Turkish)')");
         DB::q("INSERT IGNORE INTO settings (`key`, `value`, label) VALUES ('hero_subtitle_tr', ?, 'Hero subtitle (Turkish)')",
             ['Anadili İngilizce olan öğretmenlerle, beş kişilik masalarda, güzel bir kahve eşliğinde gerçek İngilizce pratiği yaptığınız butik bir kafe.']);
+    }
+
+    /** v3 : l'équipe passe à 4 professeurs (photos, CV, textes EN/TR) */
+    private static function v3(): void
+    {
+        // ancien nom (données de démo) => nouveau profil
+        $team = [
+            'Maya Thompson' => ['Hatice Söz Xynidis', 'hatice', 'Hatice', 'Söz Xynidis', 'London, UK', 'British', 75, 0, 'assets/img/teachers/hatice-soz-xynidis.jpg', 'Kids,Teens,IELTS,Pronunciation',
+                'Co-founder & Director · Native speaker raised in London',
+                'Born and raised in London to a Turkish family, Hatice is a native English speaker who is also fully fluent in Turkish — so she knows exactly where Turkish speakers get stuck. She holds a BA (Hons) in English Language & Linguistics, an MA in TESOL and the Cambridge CELTA, and has taught for more than 15 years in the UK and in Istanbul. She co-founded XY Academy with Nikolas Xynidis to create the place she always wished existed for her own students: a warm café where English is spoken, not just studied. Today she directs the academy, designs every program, trains the team and still teaches the Kids & Teens clubs and IELTS preparation.',
+                'Kurucu ortak ve Direktör · Londra’da büyümüş, anadili İngilizce',
+                'Türk bir ailenin kızı olarak Londra’da doğup büyüyen Hatice, anadili İngilizce olan ve Türkçeyi de akıcı konuşan bir eğitmen — bu yüzden Türkçe konuşanların nerede zorlandığını çok iyi biliyor. İngiliz Dili ve Dilbilimi lisans (BA Hons), TESOL yüksek lisans derecelerine ve Cambridge CELTA sertifikasına sahip; 15 yılı aşkın süredir Birleşik Krallık’ta ve İstanbul’da ders veriyor. XY Academy’yi Nikolas Xynidis ile birlikte, öğrencileri için hep hayal ettiği yeri yaratmak için kurdu: İngilizcenin sadece çalışıldığı değil, konuşulduğu sıcak bir kafe. Bugün akademiyi yönetiyor, tüm programları tasarlıyor, ekibi yetiştiriyor ve Çocuk-Genç kulüpleri ile IELTS hazırlığında hâlâ ders veriyor.'],
+            'Olivia Bennett' => ['Julia Rombert', 'julia', 'Julia', 'Rombert', 'Istanbul, Türkiye', 'American', 85, 1, 'assets/img/teachers/julia-rombert.jpg', 'Business,Negotiation,Presentations,Networking',
+                'International business expert · Business English coach',
+                'Julia grew up in Salt Lake City and studied languages and linguistics at the University of Utah before building a career in international business — sales, negotiations and partnerships between the US, Europe and Türkiye. Now living in Istanbul, she coaches professionals and teams on meetings, presentations, negotiations and networking in English, with the real-world reflexes only a business insider can teach.',
+                'Uluslararası iş uzmanı · İş İngilizcesi koçu',
+                'Salt Lake City’de büyüyen Julia, University of Utah’ta diller ve dilbilim okuduktan sonra uluslararası iş dünyasında kariyer yaptı: ABD, Avrupa ve Türkiye arasında satış, müzakere ve ortaklıklar. Şimdi İstanbul’da yaşayan Julia, profesyonellere ve ekiplere İngilizce toplantı, sunum, müzakere ve networking koçluğu yapıyor — ancak iş dünyasının içinden biri olarak öğretilebilecek gerçek reflekslerle.'],
+            'Liam O’Connor' => ['Nikolas Xynidis', 'nikolas', 'Nikolas', 'Xynidis', 'Istanbul, Türkiye', 'Canadian', 45, 2, 'assets/img/teachers/nikolas-xynidis.jpg', 'Conversation,Teens,University life,Business basics',
+                'Co-founder · Conversation host · English & Business student',
+                'Raised bilingual by a Canadian father, Nikolas speaks English as a native with a relaxed North-American accent. He is in the final year of his degree in English Language & International Business, which makes him the perfect host for university students, young professionals and teens: real-life topics, today’s vocabulary, zero pressure. He co-founded XY Academy with Hatice, runs our conversation tables and evening groups, and looks after the café’s community, events and partnerships.',
+                'Kurucu ortak · Sohbet sunucusu · İngilizce ve İşletme öğrencisi',
+                'Kanadalı babası sayesinde iki dilli büyüyen Nikolas, rahat bir Kuzey Amerika aksanıyla İngilizceyi anadili olarak konuşuyor. İngiliz Dili ve Uluslararası İşletme bölümünün son sınıfında; bu da onu üniversite öğrencileri, genç profesyoneller ve gençler için ideal bir sunucu yapıyor: gerçek hayat konuları, güncel kelimeler, sıfır baskı. XY Academy’yi Hatice ile birlikte kurdu; sohbet masalarımızı ve akşam gruplarımızı yönetiyor, kafenin topluluğu, etkinlikleri ve iş birliklerinden sorumlu.'],
+            'James Carter' => ['Ethan Clarke', 'ethan', 'Ethan', 'Clarke', 'Melbourne, Australia', 'Australian', 65, 3, 'assets/img/teachers/ethan-clarke.jpg', 'Pronunciation,Public speaking,Everyday English,Travel',
+                'Pronunciation & public-speaking coach',
+                'A Melbourne native, Ethan trained as an actor before moving into teaching with the Cambridge CELTA and a specialism in phonetics. After five years teaching in Sydney, London and Barcelona, he settled in Istanbul, where he runs our Pronunciation Lab: sounds, stress, rhythm and intonation — and the confidence to use them. Learners love his energy and his very practical drills.',
+                'Telaffuz ve topluluk önünde konuşma koçu',
+                'Melbourne doğumlu Ethan, öğretmenliğe geçmeden önce oyunculuk eğitimi aldı; Cambridge CELTA sertifikası ve fonetik uzmanlığıyla Sidney, Londra ve Barselona’da beş yıl ders verdi. Şimdi İstanbul’da yaşıyor ve Telaffuz Atölyemizi yönetiyor: sesler, vurgu, ritim ve tonlama — ve bunları kullanma özgüveni. Öğrenciler enerjisini ve son derece pratik alıştırmalarını çok seviyor.'],
+        ];
+        $ids = [];
+        foreach ($team as $old => [$name, $slug, $first, $last, $origin, $accent, $rate, $order, $photo, $spec, $head, $bio, $headTr, $bioTr]) {
+            $row = DB::one('SELECT * FROM teachers WHERE display_name = ?', [$name]) ?? DB::one('SELECT * FROM teachers WHERE display_name = ?', [$old]);
+            $data = ['display_name' => $name, 'origin' => $origin, 'accent' => $accent, 'hourly_rate' => $rate, 'sort_order' => $order, 'photo' => $photo, 'specialties' => $spec,
+                     'headline' => $head, 'bio' => $bio, 'headline_tr' => $headTr, 'bio_tr' => $bioTr, 'is_active' => 1];
+            if ($row) { DB::update('teachers', $data, 'id = ?', [$row['id']]); $id = (int)$row['id']; }
+            else $id = DB::insert('teachers', $data);
+            $ids[$old] = $id;
+            // Compte de connexion lié : nouveau nom (+ e-mail de démo renommé)
+            if ($row && $row['user_id']) {
+                $u = DB::one('SELECT email FROM users WHERE id = ?', [$row['user_id']]);
+                $upd = ['first_name' => $first, 'last_name' => $last];
+                $newEmail = $slug . '@xyacademy.cafe';
+                if ($u && $u['email'] && str_ends_with((string)$u['email'], '@xyacademy.cafe') && !DB::val('SELECT id FROM users WHERE email = ?', [$newEmail])) $upd['email'] = $newEmail;
+                DB::update('users', $upd, 'id = ?', [$row['user_id']]);
+            }
+        }
+        // Anciens profils de démo restants : séances et rapports réattribués, profils désactivés
+        foreach (['Isla MacLeod' => 'Maya Thompson', 'Noah Williams' => 'James Carter'] as $gone => $to) {
+            $g = DB::one('SELECT * FROM teachers WHERE display_name = ?', [$gone]);
+            if (!$g) continue;
+            DB::q('UPDATE sessions SET teacher_id = ? WHERE teacher_id = ?', [$ids[$to], $g['id']]);
+            DB::q('UPDATE progress SET teacher_id = ? WHERE teacher_id = ?', [$ids[$to], $g['id']]);
+            DB::update('teachers', ['is_active' => 0], 'id = ?', [$g['id']]);
+            if ($g['user_id']) DB::update('users', ['is_active' => 0], 'id = ?', [$g['user_id']]);
+        }
     }
 }

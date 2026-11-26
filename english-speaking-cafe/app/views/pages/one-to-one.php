@@ -36,7 +36,7 @@ require APP . '/views/partials/page-hero.php';
 </section>
 <section>
   <div class="padding-global"><div class="container-large"><div class="padding-section-large">
-    <div class="section-header_component"><div class="max-width-large"><div class="eyebrow margin-bottom margin-small" data-reveal><?= t('Choose your coach') ?></div><h2 class="heading-style-h2" data-split><?= t('Six accents.') ?> <span class="serif-italic"><?= t('One standard.') ?></span></h2></div></div>
+    <div class="section-header_component"><div class="max-width-large"><div class="eyebrow margin-bottom margin-small" data-reveal><?= t('Choose your coach') ?></div><h2 class="heading-style-h2" data-split><?= t('Four accents.') ?> <span class="serif-italic"><?= t('One standard.') ?></span></h2></div></div>
     <div class="teachers_grid"><?php foreach ($teachers as $i => $t) include APP . '/views/partials/teacher-card.php'; ?></div>
   </div></div></div>
 </section>
