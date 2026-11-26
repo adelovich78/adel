@@ -1,6 +1,7 @@
 <?php /** @var array $t @var int $i */ ?>
 <article class="teacher-card_component" data-reveal>
   <div class="teacher-card_visual mono-bg-<?= (int)$i % 6 ?>">
+    <?php if (stripos((string)$t['headline'], 'founder') !== false): ?><span class="teacher-card_founder"><?= t('Co-founder') ?></span><?php endif; ?>
     <span class="teacher-card_flag"><?= e(__($t['accent'])) ?> · <?= e(explode(',', $t['origin'])[0]) ?></span>
     <?php if ($t['photo']): ?><img src="<?= e(media_url($t['photo'])) ?>" alt="<?= e($t['display_name']) ?>" loading="lazy">
     <?php else: ?><span class="teacher-card_monogram"><?= e(initials($t['display_name'])) ?></span><?php endif; ?>

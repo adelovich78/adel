@@ -9,7 +9,7 @@ namespace App\Core;
 
 final class Migrator
 {
-    public const VERSION = 3;
+    public const VERSION = 4;
 
     public static function run(): void
     {
@@ -17,6 +17,7 @@ final class Migrator
         if ($v >= self::VERSION) return;
         if ($v < 2) self::v2();
         if ($v < 3) self::v3();
+        if ($v < 4) self::v4();
         DB::q("INSERT INTO settings (`key`, `value`, label) VALUES ('schema_version', ?, 'Schema version') ON DUPLICATE KEY UPDATE `value` = VALUES(`value`)", [(string)self::VERSION]);
     }
 
@@ -97,7 +98,7 @@ final class Migrator
                 'Born and raised in London to a Turkish family, Hatice is a native English speaker who is also fully fluent in Turkish — so she knows exactly where Turkish speakers get stuck. She holds a BA (Hons) in English Language & Linguistics, an MA in TESOL and the Cambridge CELTA, and has taught for more than 15 years in the UK and in Istanbul. She co-founded XY Academy with Nikolas Xynidis to create the place she always wished existed for her own students: a warm café where English is spoken, not just studied. Today she directs the academy, designs every program, trains the team and still teaches the Kids & Teens clubs and IELTS preparation.',
                 'Kurucu ortak ve Direktör · Londra’da büyümüş, anadili İngilizce',
                 'Türk bir ailenin kızı olarak Londra’da doğup büyüyen Hatice, anadili İngilizce olan ve Türkçeyi de akıcı konuşan bir eğitmen — bu yüzden Türkçe konuşanların nerede zorlandığını çok iyi biliyor. İngiliz Dili ve Dilbilimi lisans (BA Hons), TESOL yüksek lisans derecelerine ve Cambridge CELTA sertifikasına sahip; 15 yılı aşkın süredir Birleşik Krallık’ta ve İstanbul’da ders veriyor. XY Academy’yi Nikolas Xynidis ile birlikte, öğrencileri için hep hayal ettiği yeri yaratmak için kurdu: İngilizcenin sadece çalışıldığı değil, konuşulduğu sıcak bir kafe. Bugün akademiyi yönetiyor, tüm programları tasarlıyor, ekibi yetiştiriyor ve Çocuk-Genç kulüpleri ile IELTS hazırlığında hâlâ ders veriyor.'],
-            'Olivia Bennett' => ['Julia Rombert', 'julia', 'Julia', 'Rombert', 'Istanbul, Türkiye', 'American', 85, 1, 'assets/img/teachers/julia-rombert.jpg', 'Business,Negotiation,Presentations,Networking',
+            'Olivia Bennett' => ['Julia Rombert', 'julia', 'Julia', 'Whitmore', 'Istanbul, Türkiye', 'American', 85, 1, 'assets/img/teachers/julia-whitmore.jpg', 'Business,Negotiation,Presentations,Networking',
                 'International business expert · Business English coach',
                 'Julia grew up in Salt Lake City and studied languages and linguistics at the University of Utah before building a career in international business — sales, negotiations and partnerships between the US, Europe and Türkiye. Now living in Istanbul, she coaches professionals and teams on meetings, presentations, negotiations and networking in English, with the real-world reflexes only a business insider can teach.',
                 'Uluslararası iş uzmanı · İş İngilizcesi koçu',
@@ -138,6 +139,19 @@ final class Migrator
             DB::q('UPDATE progress SET teacher_id = ? WHERE teacher_id = ?', [$ids[$to], $g['id']]);
             DB::update('teachers', ['is_active' => 0], 'id = ?', [$g['id']]);
             if ($g['user_id']) DB::update('users', ['is_active' => 0], 'id = ?', [$g['user_id']]);
+        }
+    }
+
+    /** v4 : Julia change de nom de famille ; ordre d'affichage (cofondateurs en premier) */
+    private static function v4(): void
+    {
+        $j = DB::one("SELECT * FROM teachers WHERE display_name = 'Julia Rombert'");
+        if ($j) {
+            DB::update('teachers', ['display_name' => 'Julia Whitmore', 'photo' => 'assets/img/teachers/julia-whitmore.jpg'], 'id = ?', [$j['id']]);
+            if ($j['user_id']) DB::update('users', ['last_name' => 'Whitmore'], 'id = ?', [$j['user_id']]);
+        }
+        foreach (['Hatice Söz Xynidis' => 0, 'Nikolas Xynidis' => 1, 'Julia Whitmore' => 2, 'Ethan Clarke' => 3] as $name => $order) {
+            DB::q('UPDATE teachers SET sort_order = ? WHERE display_name = ?', [$order, $name]);
         }
     }
 }

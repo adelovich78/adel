@@ -139,7 +139,7 @@ return [
     'British' => 'İngiliz', 'American' => 'Amerikan', 'Irish' => 'İrlanda', 'Scottish' => 'İskoç', 'Canadian' => 'Kanada', 'Australian' => 'Avustralya', 'South African' => 'Güney Afrika', 'New Zealand' => 'Yeni Zelanda',
     'Conversation' => 'Sohbet', 'Storytelling' => 'Hikâye anlatımı', 'Idioms' => 'Deyimler', 'Kids' => 'Çocuklar', 'Teens' => 'Gençler', 'Drama' => 'Drama',
     'Pronunciation' => 'Telaffuz', 'Accent' => 'Aksan', 'Public speaking' => 'Topluluk önünde konuşma', 'IELTS' => 'IELTS', 'Cambridge' => 'Cambridge', 'Academic' => 'Akademik',
-    'Travel' => 'Seyahat', 'University life' => 'Üniversite hayatı', 'Business basics' => 'İş dünyasına giriş', 'Everyday English' => 'Günlük İngilizce', 'Grammar' => 'Dilbilgisi', 'Vocabulary' => 'Kelime bilgisi', 'Readers' => 'Okuma kitapları',
+    'Travel' => 'Seyahat', 'Co-founder' => 'Kurucu ortak', 'University life' => 'Üniversite hayatı', 'Business basics' => 'İş dünyasına giriş', 'Everyday English' => 'Günlük İngilizce', 'Grammar' => 'Dilbilgisi', 'Vocabulary' => 'Kelime bilgisi', 'Readers' => 'Okuma kitapları',
 
     // --- Abonnements
     'Monthly plans with session credits, free events and priority on waitlists. Cancel anytime from your dashboard.' => 'Seans kredili aylık planlar, ücretsiz etkinlikler ve bekleme listelerinde öncelik. Panelinizden istediğiniz zaman iptal edin.',

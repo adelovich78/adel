@@ -160,7 +160,7 @@ $subtitle = (string)setting_t('hero_subtitle', '');
           <a href="<?= url('teachers') ?>" class="button is-secondary" data-reveal><?= t('Meet the team') ?> <?= icon('arrow', 'button_arrow') ?></a>
         </div>
         <div class="teachers_grid">
-          <?php foreach (array_slice($teachers, 0, 3) as $i => $t) include APP . '/views/partials/teacher-card.php'; ?>
+          <?php foreach (array_slice($teachers, 0, 4) as $i => $t) include APP . '/views/partials/teacher-card.php'; ?>
         </div>
       </div>
     </div>

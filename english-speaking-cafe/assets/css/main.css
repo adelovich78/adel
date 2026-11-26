@@ -734,3 +734,9 @@ body, [class*="heading-style"], .text-style-serif, .serif-italic { font-variant-
 /* Portraits des professeurs : cadrage sur le visage */
 .teacher-card_visual img { object-position: center 18%; }
 .teacher-card_visual::after { content: ""; position: absolute; inset: 55% 0 0; background: linear-gradient(transparent, rgba(18,16,14,.35)); pointer-events: none; }
+
+/* Équipe : 2 colonnes (cofondateurs en haut, professeurs en bas) */
+.teachers_grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2rem; max-width: 66rem; margin-left: auto; margin-right: auto; }
+.teachers_grid .teacher-card_visual { aspect-ratio: 4 / 3.4; }
+.teacher-card_founder { position: absolute; right: 1rem; top: 1rem; z-index: 2; background: var(--amber-2); color: var(--espresso-ink); padding: .35rem .75rem; border-radius: var(--radius-round); font-size: .72rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+@media (max-width: 700px) { .teachers_grid { grid-template-columns: 1fr; } .teachers_grid .teacher-card_visual { aspect-ratio: 4 / 4.2; } }
