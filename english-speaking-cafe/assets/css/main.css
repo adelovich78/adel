@@ -725,3 +725,8 @@ body, [class*="heading-style"], .text-style-serif, .serif-italic { font-variant-
   .navbar_link { padding: .45rem .4rem; font-size: .8rem; }
   .navbar_button-wrapper .button.hide-tablet-nav { display: none; }
 }
+
+/* Mot tournant aligné sur la ligne de base du texte :
+   pas d'overflow (qui décale la ligne de base), découpe par clip-path */
+.hero_rotator { display: inline-grid; vertical-align: baseline; height: auto; overflow: visible; clip-path: inset(-.1em -.4em -.3em -.4em); }
+.hero_rotator span { line-height: inherit; }
