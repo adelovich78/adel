@@ -37,7 +37,9 @@
             <?php if (setting('linkedin')): ?><a class="footer_link" href="<?= e(setting('linkedin')) ?>" target="_blank" rel="noopener">LinkedIn ↗</a><?php endif; ?>
           </div>
         </div>
-        <div class="footer_wordmark" aria-hidden="true" data-footer-wordmark><span>Speak</span> <span>for</span> <span>real.</span></div>
+        <div class="footer_wordmark" aria-hidden="true" data-footer-wordmark>
+          <div class="footer_wordmark-track" data-marquee><div class="footer_wordmark-group"><span>Speak English</span><i>✦</i><em>for real.</em><i>✦</i><span>Engage</span><i>✦</i><em>Learn</em><i>✦</i><span>Connect</span><i>✦</i></div><div class="footer_wordmark-group"><span>Speak English</span><i>✦</i><em>for real.</em><i>✦</i><span>Engage</span><i>✦</i><em>Learn</em><i>✦</i><span>Connect</span><i>✦</i></div></div>
+        </div>
       </div>
       <div class="footer_bottom">
         <span>© <?= date('Y') ?> XY Academy — English Speaking Café. Engage · Learn · Connect.</span>

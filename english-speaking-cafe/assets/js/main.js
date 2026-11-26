@@ -293,7 +293,7 @@
 
     // Footer : grand mot-symbole
     $$('[data-footer-wordmark]').forEach(function (w) {
-      gsap.from($$('span', w), { yPercent: 60, opacity: 0, stagger: .1, duration: 1.4, ease: 'expo.out', scrollTrigger: { trigger: w, start: 'top 95%' } });
+      gsap.from(w, { yPercent: 40, opacity: 0, duration: 1.4, ease: 'expo.out', scrollTrigger: { trigger: w, start: 'top 98%' } });
     });
 
     // Hero d'accueil (après préchargement)

@@ -235,10 +235,10 @@ $tagline = (string)setting('hero_tagline', 'SPEAK ENGLISH. FOR REAL.');
         <div class="eyebrow margin-bottom margin-medium">Overheard at the café</div>
         <div class="quotes_slider">
           <?php foreach ([
-            ['After three months of tables, I led my first meeting in English without notes. My manager asked what changed.', 'Sofia M.', 'Product manager · B1 → B2', 'mono-bg-0'],
-            ['My daughter used to hide behind me. Now she corrects my pronunciation at dinner. Maya is magic.', 'Karim H.', 'Parent of Lina, 8', 'mono-bg-2'],
-            ['It doesn’t feel like a class. It feels like meeting friends who happen to be brilliant teachers.', 'Kenji T.', 'Engineer · C1', 'mono-bg-1'],
-            ['We moved our whole team’s training here. Engagement went from “mandatory” to “can I book another one?”.', 'Claire D.', 'HR Director, Northwind', 'mono-bg-3'],
+            ['After three months of tables, I led my first meeting in English without notes. My manager asked what changed.', 'Elif Y.', 'Product manager · B1 → B2', 'mono-bg-0'],
+            ['My daughter used to hide behind me. Now she corrects my pronunciation at dinner. Maya is magic.', 'Mehmet K.', 'Parent of Defne, 8', 'mono-bg-2'],
+            ['It doesn’t feel like a class. It feels like meeting friends who happen to be brilliant teachers.', 'Can D.', 'Software engineer · C1', 'mono-bg-1'],
+            ['We moved our whole team’s training here. Engagement went from “mandatory” to “can I book another one?”.', 'Zeynep A.', 'HR Director, Anadolu Lojistik', 'mono-bg-3'],
           ] as $k => $q): ?>
           <figure class="<?= $k === 0 ? 'is-active' : '' ?>" style="margin:0">
             <blockquote class="quote_item" style="margin:0">“<?= e($q[0]) ?>”</blockquote>
