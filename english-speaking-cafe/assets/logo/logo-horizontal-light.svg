@@ -11,6 +11,6 @@
   <path d="M22 168c26-14 56-16 78-2 22-14 52-12 78 2" fill="none" stroke="#c0923a" stroke-width="7" stroke-linecap="round"/>
   <path d="M16 182c30-14 62-15 84 0 22-15 54-14 84 0" fill="none" stroke="#0f4a37" stroke-width="7" stroke-linecap="round"/>
 </g>
-<text x="128" y="66" font-family="'Fraunces','Cormorant Garamond',Georgia,serif" font-size="44" font-weight="700" letter-spacing="1" fill="#0f4a37">XY ACADEMY</text>
-<text x="130" y="96" font-family="'Manrope','Helvetica Neue',Arial,sans-serif" font-size="17" font-weight="600" letter-spacing="6.4" fill="#c0923a">SPEAKING CAFÉ</text>
+<text x="128" y="66" font-family="'Playfair Display',Georgia,serif" font-size="44" font-weight="700" letter-spacing="1" fill="#0f4a37">XY ACADEMY</text>
+<text x="130" y="96" font-family="'DM Sans','Helvetica Neue',Arial,sans-serif" font-size="17" font-weight="600" letter-spacing="6.4" fill="#c0923a">SPEAKING CAFÉ</text>
 </svg>

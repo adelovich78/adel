@@ -6,13 +6,13 @@
    ========================================================= */
 
 /* ---------- 1. Fonts & tokens ---------- */
-@font-face { font-family: "Fraunces"; src: url("../fonts/fraunces.woff2") format("woff2"); font-weight: 100 900; font-style: normal; font-display: swap; }
-@font-face { font-family: "Fraunces"; src: url("../fonts/fraunces-italic.woff2") format("woff2"); font-weight: 100 900; font-style: italic; font-display: swap; }
-@font-face { font-family: "Manrope"; src: url("../fonts/manrope.woff2") format("woff2"); font-weight: 200 800; font-style: normal; font-display: swap; }
+@font-face { font-family: "Playfair Display"; src: url("../fonts/playfair.woff2") format("woff2"); font-weight: 400 900; font-style: normal; font-display: swap; }
+@font-face { font-family: "Playfair Display"; src: url("../fonts/playfair-italic.woff2") format("woff2"); font-weight: 400 900; font-style: italic; font-display: swap; }
+@font-face { font-family: "DM Sans"; src: url("../fonts/dmsans.woff2") format("woff2"); font-weight: 100 1000; font-style: normal; font-display: swap; }
 
 :root {
-  --font-display: "Fraunces", "Times New Roman", Georgia, serif;
-  --font-body: "Manrope", "Helvetica Neue", Arial, sans-serif;
+  --font-display: "Playfair Display", "Times New Roman", Georgia, serif;
+  --font-body: "DM Sans", "Helvetica Neue", Arial, sans-serif;
 
   /* Palette de marque */
   --cream: #f7f3ea; --cream-2: #efe7d8; --cream-3: #e4d8c3;
@@ -113,9 +113,9 @@ button { font: inherit; color: inherit; }
 }
 
 /* ---------- 4. Typographie ---------- */
-.heading-style-display { font-family: var(--font-display); font-size: clamp(3.4rem, 10.5vw, 10.5rem); line-height: .88; letter-spacing: -.035em; font-weight: 500; font-variation-settings: "opsz" 144, "SOFT" 30; }
-.heading-style-h1 { font-family: var(--font-display); font-size: clamp(2.8rem, 6.4vw, 6rem); line-height: .95; letter-spacing: -.03em; font-weight: 500; font-variation-settings: "opsz" 144; }
-.heading-style-h2 { font-family: var(--font-display); font-size: clamp(2.2rem, 4.6vw, 4.25rem); line-height: 1; letter-spacing: -.025em; font-weight: 500; font-variation-settings: "opsz" 120; }
+.heading-style-display { font-family: var(--font-display); font-size: clamp(3.4rem, 10.5vw, 10.5rem); line-height: .88; letter-spacing: -.035em; font-weight: 500; }
+.heading-style-h1 { font-family: var(--font-display); font-size: clamp(2.8rem, 6.4vw, 6rem); line-height: .95; letter-spacing: -.03em; font-weight: 500; }
+.heading-style-h2 { font-family: var(--font-display); font-size: clamp(2.2rem, 4.6vw, 4.25rem); line-height: 1; letter-spacing: -.025em; font-weight: 500; }
 .heading-style-h3 { font-family: var(--font-display); font-size: clamp(1.7rem, 3vw, 2.6rem); line-height: 1.08; letter-spacing: -.02em; font-weight: 500; }
 .heading-style-h4 { font-family: var(--font-display); font-size: clamp(1.35rem, 2vw, 1.75rem); line-height: 1.15; letter-spacing: -.01em; font-weight: 500; }
 .heading-style-h5 { font-family: var(--font-body); font-size: 1.15rem; line-height: 1.3; font-weight: 700; }
@@ -296,9 +296,9 @@ html:not(.js) .preloader_component, html.is-loaded .preloader_component { displa
 .hero_eyebrow { color: rgba(247,243,234,.8); }
 .hero_eyebrow::before { box-shadow: 0 0 0 4px rgba(217,166,80,.25); animation: pulse 2s infinite; }
 @keyframes pulse { 50% { box-shadow: 0 0 0 9px rgba(217,166,80,0); } }
-.hero_heading { font-family: var(--font-display); font-weight: 500; font-size: clamp(3.6rem, 12.4vw, 13rem); line-height: .84; letter-spacing: -.045em; font-variation-settings: "opsz" 144, "SOFT" 50; }
+.hero_heading { font-family: var(--font-display); font-weight: 500; font-size: clamp(3.6rem, 12.4vw, 13rem); line-height: .84; letter-spacing: -.035em; }
 .hero_heading .line { display: block; overflow: hidden; padding-bottom: .06em; }
-.hero_heading .serif-italic { color: var(--amber-2); font-weight: 300; }
+.hero_heading .serif-italic { color: var(--amber-2); font-weight: 400; }
 .hero_bottom { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr) auto; gap: 2rem; align-items: end; border-top: 1px solid rgba(247,243,234,.2); padding-top: 1.75rem; }
 .hero_rotator { display: inline-grid; vertical-align: bottom; overflow: hidden; height: 1.3em; }
 .hero_rotator span { grid-area: 1/1; transform: translateY(110%); color: var(--amber-2); font-family: var(--font-display); font-style: italic; }
@@ -509,7 +509,7 @@ html:not(.js) .preloader_component, html.is-loaded .preloader_component { displa
 .cta_video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: .35; }
 .cta_component { position: relative; z-index: 2; text-align: center; }
 .cta_heading { font-family: var(--font-display); font-size: clamp(3rem, 9vw, 8.5rem); line-height: .9; letter-spacing: -.04em; font-weight: 400; }
-.cta_heading em { color: var(--amber-2); font-weight: 300; }
+.cta_heading em { color: var(--amber-2); font-weight: 400; }
 
 /* Footer */
 .footer_component { position: relative; background: var(--espresso-ink); color: var(--cream); overflow: hidden; --logo-primary: var(--cream); --logo-accent: var(--amber-2); --logo-dots: var(--espresso-ink); }
@@ -682,3 +682,6 @@ html:not(.js) .preloader_component, html.is-loaded .preloader_component { displa
   .book_cover { padding: .9rem .9rem .9rem 1.2rem; }
   .hero_heading { font-size: 4.1rem; }
 }
+/* Playfair : chiffres alignés (B1, prix, dates) */
+body, [class*="heading-style"], .text-style-serif, .serif-italic { font-variant-numeric: lining-nums; }
+.navbar_link { white-space: nowrap; }

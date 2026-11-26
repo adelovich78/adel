@@ -8,8 +8,8 @@
 <meta name="theme-color" content="#0f4a37">
 <link rel="icon" type="image/svg+xml" href="<?= asset('logo/favicon.svg') ?>">
 <link rel="apple-touch-icon" href="<?= asset('logo/apple-touch-icon.png') ?>">
-<link rel="preload" href="<?= url('assets/fonts/fraunces.woff2') ?>" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="<?= url('assets/fonts/manrope.woff2') ?>" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="<?= url('assets/fonts/playfair.woff2') ?>" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="<?= url('assets/fonts/dmsans.woff2') ?>" as="font" type="font/woff2" crossorigin>
 <script>
   // Thème mémorisé + détection JS (avant peinture)
   (function () {

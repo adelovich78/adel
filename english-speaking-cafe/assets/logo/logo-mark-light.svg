@@ -11,5 +11,5 @@
   <path d="M22 168c26-14 56-16 78-2 22-14 52-12 78 2" fill="none" stroke="#c0923a" stroke-width="7" stroke-linecap="round"/>
   <path d="M16 182c30-14 62-15 84 0 22-15 54-14 84 0" fill="none" stroke="#0f4a37" stroke-width="7" stroke-linecap="round"/>
 </g>
-<text x="200" y="350" text-anchor="middle" font-family="'Fraunces','Cormorant Garamond',Georgia,serif" font-size="92" font-weight="700" fill="#0f4a37">XY</text>
+<text x="200" y="350" text-anchor="middle" font-family="'Playfair Display',Georgia,serif" font-size="92" font-weight="700" fill="#0f4a37">XY</text>
 </svg>

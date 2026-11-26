@@ -12,7 +12,7 @@ $tagline = (string)setting('hero_tagline', 'SPEAK ENGLISH. FOR REAL.');
     <div class="hero_grain" aria-hidden="true"></div>
   </div>
   <a href="<?= url('book') ?>" class="hero_badge" aria-label="Book a seat" data-cursor-label="Book">
-    <svg viewBox="0 0 200 200" aria-hidden="true"><defs><path id="circ" d="M100 100m-78 0a78 78 0 1 1 156 0a78 78 0 1 1-156 0"/></defs><text fill="#f7f3ea" font-size="13" font-weight="700" letter-spacing="2.2" font-family="Manrope, sans-serif"><textPath href="#circ">BOOK A SEAT • MAX 5 PER TABLE • NATIVE TEACHERS •</textPath></text></svg>
+    <svg viewBox="0 0 200 200" aria-hidden="true"><defs><path id="circ" d="M100 100m-78 0a78 78 0 1 1 156 0a78 78 0 1 1-156 0"/></defs><text fill="#f7f3ea" font-size="13" font-weight="700" letter-spacing="2.2" font-family="DM Sans, sans-serif"><textPath href="#circ">BOOK A SEAT • MAX 5 PER TABLE • NATIVE TEACHERS •</textPath></text></svg>
     <span class="hero_badge-core"><span>A1→C2</span></span>
   </a>
   <div class="padding-global">

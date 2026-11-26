@@ -95,16 +95,16 @@ $guessUrl = ((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https
 <title>Install — XY Academy Speaking Café</title>
 <link rel="icon" href="assets/logo/favicon.svg">
 <style>
-@font-face{font-family:Fraunces;src:url(assets/fonts/fraunces.woff2) format("woff2");font-weight:100 900}
-@font-face{font-family:Manrope;src:url(assets/fonts/manrope.woff2) format("woff2");font-weight:200 800}
+@font-face{font-family:"Playfair Display";src:url(assets/fonts/playfair.woff2) format("woff2");font-weight:400 900}
+@font-face{font-family:"DM Sans";src:url(assets/fonts/dmsans.woff2) format("woff2");font-weight:100 1000}
 :root{--cream:#f7f3ea;--esp:#1f1a17;--green:#0f4a37;--amber:#c0923a;--line:#e4dccd}
-*{box-sizing:border-box}body{margin:0;font-family:Manrope,system-ui,sans-serif;background:var(--cream);color:var(--esp)}
+*{box-sizing:border-box}body{margin:0;font-family:"DM Sans",system-ui,sans-serif;background:var(--cream);color:var(--esp)}
 .install_wrap{max-width:760px;margin:0 auto;padding:48px 16px 80px}
 .install_logo{width:220px;display:block;margin:0 auto 24px}
-h1{font-family:Fraunces,Georgia,serif;font-weight:600;font-size:2.4rem;text-align:center;margin:0 0 8px;color:var(--green)}
+h1{font-family:"Playfair Display",Georgia,serif;font-weight:600;font-size:2.4rem;text-align:center;margin:0 0 8px;color:var(--green)}
 .install_sub{text-align:center;color:#6f655b;margin:0 0 32px}
 .install_card{background:#fff;border:1px solid var(--line);border-radius:20px;padding:28px;margin-bottom:20px}
-h2{font-family:Fraunces,Georgia,serif;font-size:1.25rem;margin:0 0 16px}
+h2{font-family:"Playfair Display",Georgia,serif;font-size:1.25rem;margin:0 0 16px}
 .install_grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 @media(max-width:640px){.install_grid{grid-template-columns:1fr}}
 label{display:block;font-size:.82rem;font-weight:600;margin-bottom:6px}
@@ -116,7 +116,7 @@ input:focus{outline:2px solid var(--amber);border-color:transparent}
 .ok{color:var(--green)}.ko{color:#b3261e;font-weight:700}
 .install_error{background:#fbe9e7;color:#8c1d18;border-radius:12px;padding:14px 16px;margin-bottom:16px}
 .install_success{background:#e8f1ec;color:var(--green);border-radius:16px;padding:24px}
-button,.btn{display:inline-block;background:var(--green);color:var(--cream);border:0;border-radius:999px;padding:16px 28px;font:600 1rem Manrope,sans-serif;cursor:pointer;text-decoration:none}
+button,.btn{display:inline-block;background:var(--green);color:var(--cream);border:0;border-radius:999px;padding:16px 28px;font:600 1rem "DM Sans",sans-serif;cursor:pointer;text-decoration:none}
 .help{font-size:.78rem;color:#7d7266;margin-top:4px}
 code{background:#f1ebdf;padding:2px 6px;border-radius:6px}
 </style>
