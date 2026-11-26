@@ -2325,3 +2325,21 @@ body:has(.sector-dock.is-on) .wa_float { transform: translateY(-72px); }
 /* Devis « sosyal medya seul » : éléments masqués même s'ils ont un display propre */
 [data-site-only][hidden], [data-site-note][hidden], [data-promo][hidden], [data-social-step][hidden] { display: none !important; }
 .summary_monthly-row > span[dir="ltr"] { white-space: nowrap; }
+
+/* Pages légales (KVKK, confidentialité, cookies) */
+.legal_doc { max-width: 46rem; margin-inline: auto; }
+.legal_doc h1 { margin: 6px 0 14px; }
+.legal_updated { margin: 0; }
+.legal_h { margin: 32px 0 8px; }
+.legal_doc p { margin: 0 0 10px; }
+.legal_list { margin: 0 0 10px; padding: 0; list-style: none; display: grid; gap: 8px; }
+.legal_list li { position: relative; padding-inline-start: 20px; }
+.legal_list li::before { content: ""; position: absolute; inset-inline-start: 2px; top: 10px; width: 7px; height: 7px; border-radius: 2px; background-color: var(--color-accent); }
+.legal_contact { margin-top: 36px; padding: 20px 22px; border: 1px solid var(--color-hairline); border-radius: 14px; background-color: var(--color-surface); }
+.legal_contact h2 { margin: 0 0 8px; }
+.legal_contact p { margin: 0; }
+.footer_legal { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 16px; margin-top: 6px; font-size: 0.8125rem; }
+.footer_legal a, .footer_legal .footer_cookie { color: var(--color-text-muted); text-decoration: none; }
+.footer_legal a:hover, .footer_legal .footer_cookie:hover { color: var(--color-ink); text-decoration: underline; }
+.form_consent { margin: 4px 0 0; }
+.form_consent a { color: var(--color-accent-ink); text-decoration: underline; }

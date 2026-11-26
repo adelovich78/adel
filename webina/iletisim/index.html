@@ -22,7 +22,7 @@
   
   <link rel="preload" href="/fonts/schibsted-grotesk-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/fonts/schibsted-grotesk-latin-ext-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="/css/webina.css?v=c060951401">
+  <link rel="stylesheet" href="/css/webina.css?v=5ca8bfe5c6">
   <script>
     // Thème et langue appliqués avant le premier rendu (évite le flash)
     (function () {
@@ -259,6 +259,7 @@
                       <input type="text" name="website" tabindex="-1" autocomplete="off" class="news_trap" aria-hidden="true">
                     </div>
                     <p class="form_error text-size-small" role="alert"></p>
+                  <p class="form_consent text-size-small text-color-muted" data-i18n-html="footer.consent">Formu göndererek &lt;a href=&quot;/kvkk/&quot;&gt;KVKK Aydınlatma Metni&lt;/a&gt;&#x27;ni okuduğunuzu ve bilgilerinizin talebinize yanıt vermek için işlenmesini kabul ettiğinizi onaylarsınız.</p>
                     <button type="submit" class="button is-large is-block" data-label-idle="contact.send" data-label-busy="contact.sending"><span data-i18n="contact.send">Talebimi gönder</span><svg class="icon" aria-hidden="true"><use href="#i-send"/></svg></button>
                   </form>
                   <div class="form_success" hidden tabindex="-1">
@@ -325,7 +326,8 @@
             </div>
           </div>
           <div class="footer_bottom">
-            <p class="text-size-small text-color-muted">© <span data-year>2026</span> Webina — <span data-i18n="footer.rights">Dijital Kreasyon Ajansı</span> · <button type="button" class="footer_cookie" data-cookie-open><span data-i18n="cookie.settings">Çerez ayarları</span></button></p>
+            <p class="text-size-small text-color-muted">© <span data-year>2026</span> Webina — <span data-i18n="footer.rights">Dijital Kreasyon Ajansı</span></p>
+            <nav class="footer_legal" aria-label="Legal"><a href="/kvkk/"><span data-i18n="footer.legalKvkk">KVKK</span></a><a href="/gizlilik-politikasi/"><span data-i18n="footer.legalPrivacy">Gizlilik</span></a><a href="/cerez-politikasi/"><span data-i18n="footer.legalCookies">Çerezler</span></a><button type="button" class="footer_cookie" data-cookie-open><span data-i18n="cookie.settings">Çerez ayarları</span></button></nav>
             <nav class="footer_nav" aria-label="Footer"><a href="/" class="footer_nav-link" data-i18n="nav.home">Ana Sayfa</a>
 <a href="/cozumler/" class="footer_nav-link" data-i18n="nav.solutions">Çözümler</a>
 <a href="/sektorler/" class="footer_nav-link" data-i18n="nav.sectors">Sektörler</a>
@@ -352,7 +354,7 @@
         <img src="/images/webina-logo-dark.png" alt="Webina" width="36" height="36" class="cookie_logo nav_logo is-dark">
         <h2 class="cookie_title" id="cookie-title"><span data-i18n="cookie.title">Gizliliğinize saygı duyuyoruz</span></h2>
         <p class="cookie_text"><span data-i18n="cookie.text">Sitenin çalışması için gerekli çerezleri kullanıyoruz. İzin verirseniz, ziyaretleri ölçmek ve size uygun içerik göstermek için ek çerezler de kullanabiliriz.</span></p>
-        <p class="cookie_text text-color-muted"><span data-i18n="cookie.text2">Seçiminizi istediğiniz zaman sayfanın altındaki «Çerez ayarları» bağlantısından değiştirebilirsiniz.</span></p>
+        <p class="cookie_text text-color-muted"><span data-i18n="cookie.text2">Seçiminizi istediğiniz zaman sayfanın altındaki «Çerez ayarları» bağlantısından değiştirebilirsiniz.</span> <a href="/cerez-politikasi/"><span data-i18n="footer.legalCookies">Çerezler</span></a></p>
         <div class="cookie_actions">
           <button type="button" class="button is-secondary" data-cookie-settings><span data-i18n="cookie.settings">Çerez ayarları</span></button>
           <button type="button" class="button is-secondary" data-cookie-reject><span data-i18n="cookie.reject">Reddet ve kapat</span></button>
@@ -384,8 +386,8 @@
     </div>
   </div>
 
-  <script src="/js/i18n.js?v=48c68af4fa" defer></script>
+  <script src="/js/i18n.js?v=d87702550f" defer></script>
   
-  <script src="/js/webina.js?v=c16af19a36" defer></script>
+  <script src="/js/webina.js?v=941519e329" defer></script>
 </body>
 </html>

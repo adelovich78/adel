@@ -35,6 +35,11 @@
       var v = lookup(dict, el.getAttribute('data-i18n'));
       if (typeof v === 'string') el.textContent = v;
     });
+    // Texte contenant un lien (mention KVKK sous les formulaires) : notre propre contenu, jamais une saisie visiteur
+    document.querySelectorAll('[data-i18n-html]').forEach(function (el) {
+      var v = lookup(dict, el.getAttribute('data-i18n-html'));
+      if (typeof v === 'string') el.innerHTML = v;
+    });
     document.querySelectorAll('[data-i18n-aria]').forEach(function (el) {
       var v = lookup(dict, el.getAttribute('data-i18n-aria'));
       if (typeof v === 'string') el.setAttribute('aria-label', v);

@@ -23,7 +23,11 @@
    "newsAlready": "Bu adres zaten abone.",
    "newsErr": "Abonelik başarısız, tekrar deneyin.",
    "follow": "Bizi takip edin",
-   "address": "Hasanpaşa Mah., Hacı Necip Usta Sk., Kadıköy, İstanbul"
+   "address": "Hasanpaşa Mah., Hacı Necip Usta Sk., Kadıköy, İstanbul",
+   "legalKvkk": "KVKK",
+   "legalPrivacy": "Gizlilik",
+   "legalCookies": "Çerezler",
+   "consent": "Formu göndererek <a href=\"/kvkk/\">KVKK Aydınlatma Metni</a>'ni okuduğunuzu ve bilgilerinizin talebinize yanıt vermek için işlenmesini kabul ettiğinizi onaylarsınız."
   },
   "home": {
    "badge": "Dijital Kreasyon Ajansı",
@@ -415,7 +419,11 @@
    "newsAlready": "This address is already subscribed.",
    "newsErr": "Subscription failed, please try again.",
    "follow": "Follow us",
-   "address": "Hasanpaşa Mah., Hacı Necip Usta Sk., Kadıköy, Istanbul"
+   "address": "Hasanpaşa Mah., Hacı Necip Usta Sk., Kadıköy, Istanbul",
+   "legalKvkk": "Data notice",
+   "legalPrivacy": "Privacy",
+   "legalCookies": "Cookies",
+   "consent": "By sending this form you confirm that you have read our <a href=\"/kvkk/\">personal data notice</a> and agree that your details are used to answer your request."
   },
   "home": {
    "badge": "Digital Creation Agency",
@@ -807,7 +815,11 @@
    "newsAlready": "Cette adresse est déjà abonnée.",
    "newsErr": "Échec de l'inscription, réessayez.",
    "follow": "Suivez-nous",
-   "address": "Hasanpaşa Mah., Hacı Necip Usta Sk., Kadıköy, Istanbul"
+   "address": "Hasanpaşa Mah., Hacı Necip Usta Sk., Kadıköy, Istanbul",
+   "legalKvkk": "Données (KVKK)",
+   "legalPrivacy": "Confidentialité",
+   "legalCookies": "Cookies",
+   "consent": "En envoyant ce formulaire, vous confirmez avoir lu notre <a href=\"/kvkk/\">information sur les données personnelles</a> et acceptez que vos informations servent à répondre à votre demande."
   },
   "home": {
    "badge": "Digital Creation Agency",
@@ -1199,7 +1211,11 @@
    "newsAlready": "هذا العنوان مشترك بالفعل.",
    "newsErr": "فشل الاشتراك، حاولوا مجدداً.",
    "follow": "تابعونا",
-   "address": "حسن باشا، شارع حاجي نجيب أوستا، قاضي كوي، إسطنبول"
+   "address": "حسن باشا، شارع حاجي نجيب أوستا، قاضي كوي، إسطنبول",
+   "legalKvkk": "حماية البيانات",
+   "legalPrivacy": "الخصوصية",
+   "legalCookies": "ملفات الارتباط",
+   "consent": "بإرسال هذا النموذج تؤكد أنك اطّلعت على <a href=\"/kvkk/\">إشعار حماية البيانات</a> وتوافق على استخدام بياناتك للردّ على طلبك."
   },
   "home": {
    "badge": "وكالة الإبداع الرقمي",

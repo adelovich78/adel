@@ -145,7 +145,7 @@ for l in LANGS:
         'ui': ui[l], 'contact': ct, 'quote': q, 'cookie': COOKIE[l],
         'details': {'ui': det['ui'], 'roles': det['roles']},
         'groups': c['groups'], 'sec': c['sec'], 'sp': c['sp'], 'sol': c['sol'], 'price': c['price'],
-        'about': c['about'], 'demos': c['demos'], 'meta': c['meta'], 'sectorsPage': c['sectorsPage'], 'social': c['social'],
+        'about': c['about'], 'demos': c['demos'], 'meta': c['meta'], 'sectorsPage': c['sectorsPage'], 'social': c['social'], 'legal': c['legal'],
         **V2[l],
     }
 TR = DICT['tr']
@@ -422,6 +422,23 @@ def social_fragments():
                 <a href="https://wa.me/905399662557" target="_blank" rel="noopener" class="button is-secondary">{icon("i-chat")}{tx("social.wa")}</a></div>'''
     return {'SOCIAL_CARDS': ''.join(cards), 'SOCIAL_NOTE': note}
 
+def legal_fragments(key):
+    """Une page légale : titre, date de mise à jour, introduction, sections, contact."""
+    L = TR['legal']
+    pg = L['pages'][key]
+    out = [f'\n                <p class="legal_updated text-size-small text-color-muted">{tx("legal.updated")} : {C.LEGAL_UPDATED}</p>',
+           f'\n                <h1 class="heading-style-h2">{tx(f"legal.pages.{key}.t")}</h1>',
+           f'\n                {tx(f"legal.pages.{key}.lead", "p", "text-size-large text-color-secondary")}']
+    for i, sec in enumerate(pg['s']):
+        out.append(f'\n                <h2 class="heading-style-h5 legal_h">{tx(f"legal.pages.{key}.s.{i}.h")}</h2>')
+        if 'p' in sec:
+            out += [f'\n                {tx(f"legal.pages.{key}.s.{i}.p.{j}", "p")}' for j in range(len(sec['p']))]
+        else:
+            items = ''.join(f'<li>{tx(f"legal.pages.{key}.s.{i}.li.{j}")}</li>' for j in range(len(sec['li'])))
+            out.append(f'\n                <ul class="legal_list" role="list">{items}</ul>')
+    out.append(f'\n                <div class="legal_contact"><h2 class="heading-style-h5">{tx("legal.contactT")}</h2>{tx("legal.contactP", "p")}</div>')
+    return {'LEGAL_BODY': ''.join(out)}
+
 def sectors_fragments():
     out = []
     for g in C.GROUPS:
@@ -563,6 +580,9 @@ PAGES = [
     ('contact', 'iletisim/index.html', '/iletisim', 'contact', 'contact.eyebrow', TR['contact']['text']),
     ('teklif', 'teklif/index.html', '/teklif', 'pricing', 'quote.eyebrow', TR['quote']['lead']),
     ('social', 'sosyal-medya/index.html', '/sosyal-medya', 'solutions', 'meta.social', TR['social']['text']),
+    ('legal:kvkk', 'kvkk/index.html', '/kvkk', None, 'meta.legal_kvkk', TR['legal']['pages']['kvkk']['d']),
+    ('legal:gizlilik', 'gizlilik-politikasi/index.html', '/gizlilik-politikasi', None, 'meta.legal_gizlilik', TR['legal']['pages']['gizlilik']['d']),
+    ('legal:cerez', 'cerez-politikasi/index.html', '/cerez-politikasi', None, 'meta.legal_cerez', TR['legal']['pages']['cerez']['d']),
 ] + [(f'sector:{s["key"]}', f'sektorler/{s["slug"]}/index.html', s['page'], 'sectors', f'sec.{s["key"]}.title', TR['sec'][s['key']]['why']) for s in SECTORS]
 
 # Adresse canonique d'une page : toujours terminée par « / » (Apache sert les dossiers ainsi,
@@ -580,6 +600,9 @@ def slash_links(page):
 def render(name, out, path, navkey, titlekey, desc):
     if name.startswith('sector:'):
         body = sector_body(BY_KEY[name.split(':')[1]]); frag = {}
+    elif name.startswith('legal:'):
+        body = open(os.path.join(HERE, 'pages', 'legal.html'), encoding='utf-8').read()
+        frag = legal_fragments(name.split(':')[1])
     else:
         body = open(os.path.join(HERE, 'pages', name + '.html'), encoding='utf-8').read()
         body = re.sub(r'\{\{HEADER:(\w+)\}\}', lambda m: header_part.replace('NS.', m.group(1) + '.'), body)

@@ -475,6 +475,13 @@ SOCIAL = {
           'points': ['3 باقات: Basic وPro وPremium', 'إنستغرام + فيسبوك', 'منشورات وقصص وReels', 'إعداد الحسابات مجاناً'], 'more': 'الباقات والأسعار'},
  },
 }
+# Pages légales (KVKK, confidentialité, cookies) : textes dans legal.py
+from legal import LEGAL, LEGAL_UPDATED
+for _l, _v in LEGAL.items():
+    T[_l]['legal'] = _v
+    for _k, _pg in _v['pages'].items():
+        T[_l]['meta']['legal_' + _k] = _pg['t']
+
 for _l, _v in SOCIAL.items():
     T[_l]['social'] = _v['page']
     T[_l]['meta']['social'] = _v['meta']
