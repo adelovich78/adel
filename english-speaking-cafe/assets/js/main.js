@@ -157,7 +157,7 @@
           n.textContent.split(/(\s+)/).forEach(function (part) {
             if (!part) return;
             if (/^\s+$/.test(part)) { frag.appendChild(document.createTextNode(' ')); return; }
-            var w = document.createElement('span'); w.className = 'split-word'; w.style.overflow = 'hidden'; w.style.verticalAlign = 'top'; w.style.paddingBottom = '.08em'; w.style.marginBottom = '-.08em';
+            var w = document.createElement('span'); w.className = 'split-word'; w.style.overflow = 'hidden'; w.style.verticalAlign = 'top'; w.style.paddingBottom = '.2em'; w.style.marginBottom = '-.2em';
             var inner = document.createElement('span'); inner.className = 'split-inner'; inner.textContent = part;
             w.appendChild(inner); frag.appendChild(w);
           });

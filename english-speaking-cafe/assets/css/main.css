@@ -301,7 +301,7 @@ html:not(.js) .preloader_component, html.is-loaded .preloader_component { displa
 .hero_eyebrow::before { box-shadow: 0 0 0 4px rgba(217,166,80,.25); animation: pulse 2s infinite; }
 @keyframes pulse { 50% { box-shadow: 0 0 0 9px rgba(217,166,80,0); } }
 .hero_heading { font-family: var(--font-display); font-weight: 500; font-size: clamp(3.6rem, 12.4vw, 13rem); line-height: .84; letter-spacing: -.035em; }
-.hero_heading .line { display: block; overflow: hidden; padding-bottom: .06em; }
+.hero_heading .line { display: block; overflow: hidden; padding-bottom: .22em; margin-bottom: -.16em; }
 .hero_heading .serif-italic { color: var(--amber-2); font-weight: 400; }
 .hero_bottom { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr) auto; gap: 2rem; align-items: end; border-top: 1px solid rgba(247,243,234,.2); padding-top: 1.75rem; }
 .hero_rotator { display: inline-grid; vertical-align: bottom; overflow: hidden; height: 1.3em; }
