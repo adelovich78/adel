@@ -70,11 +70,11 @@ final class Booking
                  FROM sessions s JOIN programs p ON p.id = s.program_id WHERE s.id = ? FOR UPDATE',
                 [$sessionId]
             );
-            if (!$s || $s['status'] !== 'scheduled') throw new \DomainException('This session is no longer available.');
-            if (strtotime($s['starts_at']) <= time()) throw new \DomainException('This session has already started.');
+            if (!$s || $s['status'] !== 'scheduled') throw new \DomainException(__('This session is no longer available.'));
+            if (strtotime($s['starts_at']) <= time()) throw new \DomainException(__('This session has already started.'));
 
             $dup = DB::val("SELECT id FROM bookings WHERE session_id = ? AND user_id = ? AND status IN ('pending','confirmed','waitlist','attended')", [$sessionId, $participantId]);
-            if ($dup) throw new \DomainException('This learner is already booked (or waitlisted) on this session.');
+            if ($dup) throw new \DomainException(__('This learner is already booked (or waitlisted) on this session.'));
 
             $taken = (int)DB::val('SELECT COUNT(*) FROM bookings WHERE session_id = ? AND status IN ' . self::SEATED, [$sessionId]);
             $now = date('Y-m-d H:i:s');
@@ -103,9 +103,9 @@ final class Booking
             }
 
             if ($method === 'credit') {
-                if (!$s['membership_eligible']) throw new \DomainException('This program is not included in memberships.');
+                if (!$s['membership_eligible']) throw new \DomainException(__('This program is not included in memberships.'));
                 $m = self::usableMembership($payerId, $participantId);
-                if (!$m) throw new \DomainException('No membership credits available.');
+                if (!$m) throw new \DomainException(__('No membership credits available.'));
                 if ((int)$m['plan_credits'] > 0) {
                     DB::q('UPDATE memberships SET credits_remaining = credits_remaining - 1 WHERE id = ? AND credits_remaining > 0', [$m['id']]);
                 }
@@ -135,10 +135,10 @@ final class Booking
     public static function cancel(int $bookingId, bool $force = false): void
     {
         $b = DB::one('SELECT b.*, s.starts_at FROM bookings b JOIN sessions s ON s.id = b.session_id WHERE b.id = ?', [$bookingId]);
-        if (!$b || in_array($b['status'], ['cancelled', 'attended', 'no_show'], true)) throw new \DomainException('This booking cannot be cancelled.');
+        if (!$b || in_array($b['status'], ['cancelled', 'attended', 'no_show'], true)) throw new \DomainException(__('This booking cannot be cancelled.'));
         $hours = (int)setting('cancellation_hours', 12);
         if (!$force && $b['status'] !== 'waitlist' && strtotime($b['starts_at']) - time() < $hours * 3600) {
-            throw new \DomainException("Cancellations are possible up to {$hours}h before the session. Please contact us.");
+            throw new \DomainException(__('Cancellations are possible up to :hh before the session. Please contact us.', ['h' => $hours]));
         }
         DB::tx(function () use ($b) {
             DB::q('SELECT id FROM sessions WHERE id = ? FOR UPDATE', [$b['session_id']]);

@@ -18,7 +18,7 @@ $links = match ($role) {
 $cur = '/' . trim(\App\Core\Router::currentPath(), '/');
 ?>
 <!doctype html>
-<html lang="en">
+<html lang="<?= lang() ?>">
 <head>
 <?php require APP . '/views/partials/head.php'; ?>
 <meta name="robots" content="noindex">
@@ -30,29 +30,30 @@ $cur = '/' . trim(\App\Core\Router::currentPath(), '/');
     <a class="dash_logo" href="<?= url('/') ?>" aria-label="Back to website"><?= logo('horizontal') ?></a>
     <nav class="dash_nav" aria-label="Dashboard">
       <?php foreach ($links as $group => $items): ?>
-        <div class="dash_nav-title"><?= e($group) ?></div>
+        <div class="dash_nav-title"><?= e($role === 'admin' ? $group : __($group)) ?></div>
         <?php foreach ($items as [$href, $ic, $label]):
           [$label, $count] = array_pad(explode('|', $label), 2, null);
           $path = '/' . trim(strtok($href, '#'), '/');
           $active = $cur === $path || ($path !== '/admin' && $path !== '/dashboard' && str_starts_with($cur, $path . '/')); ?>
-          <a class="dash_link<?= $active && !str_contains($href, '#') ? ' w--current' : '' ?>" href="<?= url($href) ?>"><?= icon($ic) ?><?= e($label) ?><?php if ($count): ?><span class="badge"><?= (int)$count ?></span><?php endif; ?></a>
+          <a class="dash_link<?= $active && !str_contains($href, '#') ? ' w--current' : '' ?>" href="<?= url($href) ?>"><?= icon($ic) ?><?= e($role === 'admin' ? $label : __($label)) ?><?php if ($count): ?><span class="badge"><?= (int)$count ?></span><?php endif; ?></a>
         <?php endforeach; ?>
       <?php endforeach; ?>
-      <div class="dash_nav-title">Account</div>
-      <a class="dash_link" href="<?= url('/') ?>"><?= icon('coffee') ?>Website</a>
-      <form method="post" action="<?= url('logout') ?>"><?= csrf_field() ?><button class="dash_link" style="width:100%;background:none;border:0;cursor:pointer" type="submit"><?= icon('logout') ?>Sign out</button></form>
+      <div class="dash_nav-title"><?= t('Account') ?></div>
+      <a class="dash_link" href="<?= url('/') ?>"><?= icon('coffee') ?><?= t('Website') ?></a>
+      <form method="post" action="<?= url('logout') ?>"><?= csrf_field() ?><button class="dash_link" style="width:100%;background:none;border:0;cursor:pointer" type="submit"><?= icon('logout') ?><?= t('Sign out') ?></button></form>
     </nav>
-    <div class="dash_user"><span class="dash_avatar"><?= e(initials(($me['first_name'] ?? '') . ' ' . ($me['last_name'] ?? ''))) ?></span><span class="text-size-small"><b><?= e($me['first_name'] ?? '') ?></b><br><span style="opacity:.6;text-transform:capitalize"><?= e($role) ?></span></span></div>
+    <div class="dash_user"><span class="dash_avatar"><?= e(initials(($me['first_name'] ?? '') . ' ' . ($me['last_name'] ?? ''))) ?></span><span class="text-size-small"><b><?= e($me['first_name'] ?? '') ?></b><br><span style="opacity:.6"><?= t(ucfirst($role)) ?></span></span></div>
   </aside>
   <div class="dash_main">
     <header class="dash_topbar">
       <div style="display:flex;align-items:center;gap:.75rem">
         <button class="navbar_icon-button dash_menu-btn" type="button" data-dash-toggle aria-label="Menu"><?= icon('menu') ?></button>
-        <span class="eyebrow"><?= e($title ?? '') ?></span>
+        <span class="eyebrow"><?= e(($role ?? '') === 'admin' ? ($title ?? '') : __($title ?? '')) ?></span>
       </div>
       <div style="display:flex;gap:.5rem;align-items:center">
+        <div class="lang-switch"><?php foreach (LANGS as $code => $name): ?><a href="<?= e(lang_url($code)) ?>" class="lang-switch_link<?= lang() === $code ? ' is-active' : '' ?>"><?= strtoupper($code) ?></a><?php endforeach; ?></div>
         <button class="navbar_icon-button" type="button" data-theme-toggle aria-label="Toggle dark mode"><?= icon('moon', 'theme-icon-moon') . icon('sun', 'theme-icon-sun') ?></button>
-        <?php if ($role !== 'admin' && $role !== 'teacher'): ?><a class="button is-small" href="<?= url('book') ?>">Book a seat <?= icon('arrow', 'button_arrow') ?></a><?php endif; ?>
+        <?php if ($role !== 'admin' && $role !== 'teacher'): ?><a class="button is-small" href="<?= url('book') ?>"><?= t('Book a seat') ?> <?= icon('arrow', 'button_arrow') ?></a><?php endif; ?>
       </div>
     </header>
     <main class="dash_content" id="main"><?= $content ?></main>

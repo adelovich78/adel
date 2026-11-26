@@ -50,7 +50,7 @@ final class SiteController
     public function program(string $slug): void
     {
         $p = DB::one('SELECT * FROM programs WHERE slug = ? AND is_active = 1', [$slug]);
-        if (!$p) abort(404, 'Program not found.');
+        if (!$p) abort(404, __('Program not found.'));
         $sessions = \App\Core\Booking::availableSessions(['program' => $slug, 'limit' => 12]);
         View::render('pages/program', ['title' => $p['name'], 'p' => $p, 'sessions' => $sessions, 'others' => DB::all('SELECT * FROM programs WHERE is_active = 1 AND id <> ? ORDER BY sort_order LIMIT 3', [$p['id']])]);
     }
@@ -97,13 +97,13 @@ final class SiteController
         if (input('website')) redirect('/contact');
         if (!$d['name'] || !filter_var($d['email'], FILTER_VALIDATE_EMAIL) || mb_strlen((string)$d['message']) < 5) {
             keep_old($d);
-            flash('error', 'Please fill in your name, a valid email and a message.');
+            flash('error', __('Please fill in your name, a valid email and a message.'));
             redirect('/contact');
         }
         DB::insert('contact_messages', array_map(fn($v) => mb_substr((string)$v, 0, 5000), $d));
         Mailer::send((string)setting('contact_email', config('mail.from')), 'New contact message — ' . $d['topic'], '<p><b>' . e($d['name']) . '</b> (' . e($d['email']) . ')</p><p>' . nl2br(e($d['message'])) . '</p>');
         clear_old();
-        flash('success', 'Thank you! Our team will get back to you within 24 hours.');
+        flash('success', __('Thank you! Our team will get back to you within 24 hours.'));
         redirect('/contact');
     }
 
@@ -140,14 +140,14 @@ final class SiteController
     {
         $u = Auth::require();
         $b = DB::one('SELECT * FROM books WHERE id = ? AND is_published = 1', [(int)$id]);
-        if (!$b) abort(404, 'Book not found.');
+        if (!$b) abort(404, __('Book not found.'));
         $max = self::maxLibraryLevel($u);
         if (cefr_index($b['level']) > cefr_index($max)) {
-            flash('error', 'This book unlocks at level ' . $b['level'] . '. Keep speaking — you’ll get there!');
+            flash('error', __('This book unlocks at level :level. Keep speaking — you’ll get there!', ['level' => $b['level']]));
             redirect('/library');
         }
         $path = realpath(STORAGE . '/books/' . basename($b['file_path']));
-        if (!$path || !str_starts_with($path, realpath(STORAGE . '/books'))) abort(404, 'File missing.');
+        if (!$path || !str_starts_with($path, realpath(STORAGE . '/books'))) abort(404, __('File missing.'));
         DB::q('UPDATE books SET downloads = downloads + 1 WHERE id = ?', [$b['id']]);
         DB::insert('book_downloads', ['book_id' => $b['id'], 'user_id' => $u['id']]);
         $name = preg_replace('/[^A-Za-z0-9\-]+/', '-', $b['level'] . '-' . $b['title']) . '.' . pathinfo($path, PATHINFO_EXTENSION);

@@ -22,7 +22,7 @@ final class Payment
     public static function checkoutUrl(int $paymentId): string
     {
         $p = DB::one('SELECT * FROM payments WHERE id = ?', [$paymentId]);
-        if (!$p || $p['status'] !== 'pending') throw new \DomainException('This payment is not payable.');
+        if (!$p || $p['status'] !== 'pending') throw new \DomainException(__('This payment is not payable.'));
         if (!self::stripeEnabled()) return url('checkout/' . $paymentId);
 
         $label = self::label($p);

@@ -51,6 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !is_file($lock)) {
             require APP . '/core/helpers.php';
             require APP . '/core/DB.php';
             require APP . '/core/Booking.php';
+            require APP . '/core/Migrator.php';
             require APP . '/controllers/AdminController.php';
             require ROOT . '/database/seed.php';
             $pdo = App\Core\DB::pdo();
@@ -68,6 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !is_file($lock)) {
             if ((int)App\Core\DB::val('SELECT COUNT(*) FROM programs') === 0) {
                 seed_database(!empty($_POST['demo']), strtoupper($f('currency', 'EUR')) ?: 'EUR');
             }
+            App\Core\Migrator::run();
             $email = mb_strtolower($f('admin_email'));
             $existing = App\Core\DB::val('SELECT id FROM users WHERE email = ?', [$email]);
             $hash = password_hash((string)$_POST['admin_pass'], PASSWORD_DEFAULT);

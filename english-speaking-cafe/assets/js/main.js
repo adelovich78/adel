@@ -126,7 +126,7 @@
       var a = e.target.closest('a');
       if (!a || e.defaultPrevented || e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
       var href = a.getAttribute('href');
-      if (!href || href.charAt(0) === '#' || a.target === '_blank' || a.hasAttribute('download') || /^(mailto|tel):/.test(href)) return;
+      if (!href || href.charAt(0) === '#' || a.target === '_blank' || a.hasAttribute('download') || a.hasAttribute('data-no-transition') || /^(mailto|tel):/.test(href)) return;
       if (a.origin !== location.origin || /\/library\/download\//.test(a.pathname)) return;
       if (a.pathname === location.pathname && a.search === location.search) return;
       e.preventDefault();

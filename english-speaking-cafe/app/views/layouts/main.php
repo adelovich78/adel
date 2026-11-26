@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="<?= lang() ?>">
 <head><?php require APP . '/views/partials/head.php'; ?></head>
 <body class="<?= e($bodyClass ?? '') ?>">
 <a class="skip-link" href="#main">Skip to content</a>

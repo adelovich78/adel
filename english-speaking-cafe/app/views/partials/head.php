@@ -1,7 +1,7 @@
 <?php /** <head> commun : thème appliqué avant rendu pour éviter le flash */ ?>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title><?= e(($title ?? '') ? $title . ' — XY Academy Speaking Café' : 'XY Academy — English Speaking Café') ?></title>
+<title><?= e(($title ?? '') ? __($title) . ' — XY Academy Speaking Café' : 'XY Academy — English Speaking Café') ?></title>
 <meta name="description" content="<?= e($description ?? 'XY Academy Speaking Café — a premium café-style English speaking club. Practise real English with native teachers in tables of five, 1-to-1 coaching, business English and events.') ?>">
 <meta property="og:title" content="<?= e($title ?? 'Speak English. For real.') ?> — XY Academy Speaking Café">
 <meta property="og:image" content="<?= e(full_url('assets/img/hero-cafe.jpg')) ?>">

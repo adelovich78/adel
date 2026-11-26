@@ -7,7 +7,8 @@ return [
     'app' => [
         'name' => 'XY Academy — English Speaking Café',
         'url' => '',                 // ex : https://www.mondomaine.com (vide = auto)
-        'timezone' => 'Europe/Paris',
+        'timezone' => 'Europe/Istanbul',
+        'locale' => 'tr',            // langue par défaut : tr (turc) ou en
         'debug' => false,
         'payments_demo' => true,     // simulateur de paiement tant que Stripe n'est pas configuré
     ],

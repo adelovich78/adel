@@ -29,14 +29,14 @@ final class Mailer
     {
         $b = DB::one('SELECT b.status, u.email, u.first_name, p.name, s.starts_at, payer.email AS payer_email FROM bookings b JOIN users u ON u.id = b.user_id JOIN users payer ON payer.id = b.booked_by JOIN sessions s ON s.id = b.session_id JOIN programs p ON p.id = s.program_id WHERE b.id = ?', [$bookingId]);
         if (!$b) return;
-        $msg = $b['status'] === 'confirmed' ? 'Your seat is <b>confirmed</b>.' : 'A seat is held for you — please complete payment from your dashboard to confirm it.';
-        self::send($b['payer_email'] ?: (string)$b['email'], 'Good news: a seat just opened up', '<p>Hi ' . e($b['first_name']) . ',</p><p>A place opened up in <b>' . e($b['name']) . '</b> on ' . e(fmt_date($b['starts_at'], 'l j F, H:i')) . '. ' . $msg . '</p><p><a href="' . e(full_url('dashboard')) . '">Open my dashboard</a></p>');
+        $msg = $b['status'] === 'confirmed' ? e(__('Your seat is confirmed.')) : e(__('A seat is held for you — please complete payment from your dashboard to confirm it.'));
+        self::send($b['payer_email'] ?: (string)$b['email'], __('Good news: a seat just opened up'), '<p>' . e(__('Hi :name,', ['name' => $b['first_name']])) . '</p><p>' . e(__('A place opened up in :program on :date.', ['program' => $b['name'], 'date' => fmt_date($b['starts_at'], 'l j F, H:i')])) . ' ' . $msg . '</p><p><a href="' . e(full_url('dashboard')) . '">' . e(__('Open my dashboard')) . '</a></p>');
     }
 
     public static function bookingConfirmed(int $bookingId): void
     {
         $b = DB::one('SELECT u.first_name, payer.email, p.name, s.starts_at, t.display_name FROM bookings b JOIN users u ON u.id = b.user_id JOIN users payer ON payer.id = b.booked_by JOIN sessions s ON s.id = b.session_id JOIN programs p ON p.id = s.program_id LEFT JOIN teachers t ON t.id = s.teacher_id WHERE b.id = ?', [$bookingId]);
         if (!$b || !$b['email']) return;
-        self::send($b['email'], 'Your seat is booked ☕', '<p>See you at the café!</p><p><b>' . e($b['name']) . '</b><br>' . e(fmt_date($b['starts_at'], 'l j F · H:i')) . ($b['display_name'] ? '<br>with ' . e($b['display_name']) : '') . '<br>Learner: ' . e($b['first_name']) . '</p>');
+        self::send($b['email'], __('Your seat is booked ☕'), '<p>' . e(__('See you at the café!')) . '</p><p><b>' . e($b['name']) . '</b><br>' . e(fmt_date($b['starts_at'], 'l j F · H:i')) . ($b['display_name'] ? '<br>' . e(__('with :name', ['name' => $b['display_name']])) : '') . '<br>' . e(__('Learner: :name', ['name' => $b['first_name']])) . '</p>');
     }
 }

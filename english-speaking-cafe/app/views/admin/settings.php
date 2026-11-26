@@ -4,7 +4,7 @@
 <form class="panel" method="post" action="<?= url('admin/settings') ?>"><?= csrf_field() ?>
   <div class="admin_form">
     <?php foreach (\App\Controllers\AdminController::SETTINGS as $k => [$label, $def]): ?>
-      <div class="form_field<?= in_array($k, ['hero_subtitle', 'address'], true) ? ' is-wide' : '' ?>"><label class="form_label" for="s-<?= e($k) ?>"><?= e($label) ?></label><input class="form_input" id="s-<?= e($k) ?>" name="<?= e($k) ?>" value="<?= e($vals[$k] ?? $def) ?>"></div>
+      <div class="form_field<?= in_array($k, ['hero_subtitle', 'hero_subtitle_tr', 'address'], true) ? ' is-wide' : '' ?>"><label class="form_label" for="s-<?= e($k) ?>"><?= e($label) ?></label><input class="form_input" id="s-<?= e($k) ?>" name="<?= e($k) ?>" value="<?= e($vals[$k] ?? $def) ?>"></div>
     <?php endforeach; ?>
   </div>
   <button class="button" type="submit">Save settings</button>

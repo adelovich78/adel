@@ -32,7 +32,7 @@ final class AuthController
             redirect('/dashboard');
         }
         keep_old(['email' => input('email')]);
-        flash('error', 'Email or password is incorrect.');
+        flash('error', __('Email or password is incorrect.'));
         redirect('/login');
     }
 
@@ -57,11 +57,11 @@ final class AuthController
         ];
         $pass = (string)($_POST['password'] ?? '');
         $errors = [];
-        if ($d['first_name'] === '') $errors[] = 'First name is required.';
-        if (!filter_var($d['email'], FILTER_VALIDATE_EMAIL)) $errors[] = 'Please enter a valid email.';
-        if (mb_strlen($pass) < 8) $errors[] = 'Password must be at least 8 characters.';
-        if (DB::val('SELECT id FROM users WHERE email = ?', [$d['email']])) $errors[] = 'An account already exists with this email.';
-        if (empty($_POST['terms'])) $errors[] = 'Please accept the terms.';
+        if ($d['first_name'] === '') $errors[] = __('First name is required.');
+        if (!filter_var($d['email'], FILTER_VALIDATE_EMAIL)) $errors[] = __('Please enter a valid email.');
+        if (mb_strlen($pass) < 8) $errors[] = __('Password must be at least 8 characters.');
+        if (DB::val('SELECT id FROM users WHERE email = ?', [$d['email']])) $errors[] = __('An account already exists with this email.');
+        if (empty($_POST['terms'])) $errors[] = __('Please accept the terms.');
         if ($errors) { keep_old($_POST); flash('error', implode(' ', $errors)); redirect('/register'); }
 
         if ($role === 'corporate') {
@@ -74,8 +74,8 @@ final class AuthController
         DB::insert('progress', ['user_id' => $id, 'cefr_level' => $d['cefr_level'], 'speaking' => 20 + cefr_index($d['cefr_level']) * 14, 'listening' => 22 + cefr_index($d['cefr_level']) * 14, 'pronunciation' => 18 + cefr_index($d['cefr_level']) * 13, 'vocabulary' => 20 + cefr_index($d['cefr_level']) * 14, 'confidence' => 15 + cefr_index($d['cefr_level']) * 12, 'source' => 'self', 'notes' => 'Self-assessed at sign-up']);
         Auth::login($id);
         clear_old();
-        Mailer::send($d['email'], 'Welcome to the café ☕', '<p>Hi ' . e($d['first_name']) . ', welcome to XY Academy Speaking Café!</p><p>Your seat at the table is waiting. <a href="' . e(full_url('book')) . '">Book your first session</a>.</p>');
-        flash('success', 'Welcome to the café, ' . $d['first_name'] . '!');
+        Mailer::send($d['email'], __('Welcome to the café ☕'), '<p>' . e(__('Hi :name, welcome to XY Academy Speaking Café!', ['name' => $d['first_name']])) . '</p><p>' . e(__('Your seat at the table is waiting.')) . ' <a href="' . e(full_url('book')) . '">' . e(__('Book your first session')) . '</a>.</p>');
+        flash('success', __('Welcome to the café, :name!', ['name' => $d['first_name']]));
         $to = $_SESSION['_intended'] ?? null;
         unset($_SESSION['_intended']);
         if ($to && str_starts_with($to, '/') && !str_starts_with($to, '//')) { header('Location: ' . $to); exit; }
@@ -99,9 +99,9 @@ final class AuthController
         if ($u) {
             $token = bin2hex(random_bytes(24));
             DB::update('users', ['reset_token' => hash('sha256', $token), 'reset_expires' => date('Y-m-d H:i:s', time() + 3600)], 'id = ?', [$u['id']]);
-            Mailer::send($u['email'], 'Reset your password', '<p>Click to choose a new password (valid 1 hour):</p><p><a href="' . e(full_url('reset/' . $token)) . '">Reset my password</a></p>');
+            Mailer::send($u['email'], __('Reset your password'), '<p>' . e(__('Click to choose a new password (valid 1 hour):')) . '</p><p><a href="' . e(full_url('reset/' . $token)) . '">' . e(__('Reset my password')) . '</a></p>');
         }
-        flash('success', 'If an account exists for this email, a reset link has been sent.');
+        flash('success', __('If an account exists for this email, a reset link has been sent.'));
         redirect('/login');
     }
 
@@ -112,19 +112,19 @@ final class AuthController
 
     public function resetForm(string $token): void
     {
-        if (!$this->userByToken($token)) { flash('error', 'This link has expired.'); redirect('/forgot'); }
+        if (!$this->userByToken($token)) { flash('error', __('This link has expired.')); redirect('/forgot'); }
         View::render('auth/reset', ['title' => 'New password', 'token' => $token], 'auth');
     }
 
     public function reset(string $token): void
     {
         $u = $this->userByToken($token);
-        if (!$u) { flash('error', 'This link has expired.'); redirect('/forgot'); }
+        if (!$u) { flash('error', __('This link has expired.')); redirect('/forgot'); }
         $pass = (string)($_POST['password'] ?? '');
-        if (mb_strlen($pass) < 8) { flash('error', 'Password must be at least 8 characters.'); redirect('/reset/' . $token); }
+        if (mb_strlen($pass) < 8) { flash('error', __('Password must be at least 8 characters.')); redirect('/reset/' . $token); }
         DB::update('users', ['password_hash' => password_hash($pass, PASSWORD_DEFAULT), 'reset_token' => null, 'reset_expires' => null], 'id = ?', [$u['id']]);
         Auth::login((int)$u['id']);
-        flash('success', 'Password updated.');
+        flash('success', __('Password updated.'));
         redirect('/dashboard');
     }
 }

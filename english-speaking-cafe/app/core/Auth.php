@@ -74,10 +74,10 @@ final class Auth
         $u = self::user();
         if (!$u) {
             $_SESSION['_intended'] = $_SERVER['REQUEST_URI'] ?? '/';
-            flash('info', 'Please sign in to continue.');
+            flash('info', __('Please sign in to continue.'));
             redirect('/login');
         }
-        if ($roles && !in_array($u['role'], $roles, true)) abort(403, 'You do not have access to this area.');
+        if ($roles && !in_array($u['role'], $roles, true)) abort(403, __('You do not have access to this area.'));
         return $u;
     }
 

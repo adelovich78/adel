@@ -15,7 +15,7 @@ final class Csrf
     {
         $t = $_POST['_csrf'] ?? $_SERVER['HTTP_X_CSRF_TOKEN'] ?? '';
         if (!is_string($t) || !hash_equals(self::token(), $t)) {
-            abort(419, 'Your session expired. Please go back and try again.');
+            abort(419, __('Your session expired. Please go back and try again.'));
         }
     }
 }

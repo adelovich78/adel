@@ -91,6 +91,7 @@ $r->post('/api/v1/ai/pronunciation', [Api::class, 'aiPronunciation']);
 $r->post('/api/v1/ai/speaking', [Api::class, 'aiSpeaking']);
 
 try {
+    \App\Core\Migrator::run(); // mises à jour de base automatiques (une seule fois)
     $r->dispatch();
 } catch (\PDOException $e) {
     log_line('db.log', $e->getMessage());

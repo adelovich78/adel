@@ -40,6 +40,6 @@ final class Router
             else $h(...array_values($params));
             return;
         }
-        abort(404, 'This page took a coffee break.');
+        abort(404, __('This page took a coffee break.'));
     }
 }

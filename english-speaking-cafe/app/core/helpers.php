@@ -168,7 +168,18 @@ function cefr_index(?string $l): int
 
 function fmt_date(?string $dt, string $fmt = 'D j M'): string
 {
-    return $dt ? date($fmt, strtotime($dt)) : '';
+    if (!$dt) return '';
+    $out = date($fmt, strtotime($dt));
+    if (lang() === 'tr') {
+        // Jours et mois en turc (strtr remplace d'abord les chaînes les plus longues)
+        $out = strtr($out, [
+            'Monday' => 'Pazartesi', 'Tuesday' => 'Salı', 'Wednesday' => 'Çarşamba', 'Thursday' => 'Perşembe', 'Friday' => 'Cuma', 'Saturday' => 'Cumartesi', 'Sunday' => 'Pazar',
+            'Mon' => 'Pzt', 'Tue' => 'Sal', 'Wed' => 'Çar', 'Thu' => 'Per', 'Fri' => 'Cum', 'Sat' => 'Cmt', 'Sun' => 'Paz',
+            'January' => 'Ocak', 'February' => 'Şubat', 'March' => 'Mart', 'April' => 'Nisan', 'May' => 'Mayıs', 'June' => 'Haziran', 'July' => 'Temmuz', 'August' => 'Ağustos', 'September' => 'Eylül', 'October' => 'Ekim', 'November' => 'Kasım', 'December' => 'Aralık',
+            'Jan' => 'Oca', 'Feb' => 'Şub', 'Mar' => 'Mar', 'Apr' => 'Nis', 'Jun' => 'Haz', 'Jul' => 'Tem', 'Aug' => 'Ağu', 'Sep' => 'Eyl', 'Oct' => 'Eki', 'Nov' => 'Kas', 'Dec' => 'Ara',
+        ]);
+    }
+    return $out;
 }
 
 function fmt_time(?string $dt): string
@@ -201,23 +212,23 @@ function status_badge(string $s): string
         'pending' => 'is-amber', 'waitlist' => 'is-amber', 'queued' => 'is-amber',
         'cancelled' => 'is-red', 'failed' => 'is-red', 'no_show' => 'is-red', 'expired' => 'is-red', 'refunded' => 'is-red',
     ];
-    return '<span class="badge ' . ($map[$s] ?? '') . '">' . e(str_replace('_', ' ', $s)) . '</span>';
+    return '<span class="badge ' . ($map[$s] ?? '') . '">' . e(__(str_replace('_', ' ', $s))) . '</span>';
 }
 
 function category_label(string $c): string
 {
-    return [
+    return __([
         'group' => 'Small group', 'one_to_one' => '1-to-1', 'table' => 'Conversation table',
         'business' => 'Business', 'pronunciation' => 'Pronunciation', 'kids' => 'Kids', 'teens' => 'Teens',
-    ][$c] ?? ucfirst($c);
+    ][$c] ?? ucfirst($c));
 }
 
 function event_label(string $t): string
 {
-    return [
+    return __([
         'quiz' => 'Quiz night', 'debate' => 'Debate club', 'movie' => 'Movie night', 'networking' => 'Networking',
         'book_club' => 'Book club', 'karaoke' => 'Karaoke', 'other' => 'Special',
-    ][$t] ?? ucfirst($t);
+    ][$t] ?? ucfirst($t));
 }
 
 /** Upload d'image sécurisé vers /uploads */
@@ -335,4 +346,71 @@ function program_icon(string $category): string
 function event_icon(string $type): string
 {
     return icon(['quiz' => 'quiz', 'debate' => 'scale', 'movie' => 'film', 'networking' => 'handshake', 'book_club' => 'book', 'karaoke' => 'music'][$type] ?? 'sparkles');
+}
+
+/* =========================================================
+   Internationalisation : turc (langue principale) + anglais
+   ========================================================= */
+const LANGS = ['tr' => 'Türkçe', 'en' => 'English'];
+
+/** Langue courante : ?lang= > cookie > config (défaut : turc) */
+function lang(): string
+{
+    static $l = null;
+    if ($l !== null) return $l;
+    $q = $_GET['lang'] ?? null;
+    if (is_string($q) && isset(LANGS[$q])) {
+        $l = $q;
+        if (!headers_sent()) setcookie('lang', $q, ['expires' => time() + 31536000, 'path' => '/', 'samesite' => 'Lax']);
+        return $l;
+    }
+    $c = $_COOKIE['lang'] ?? null;
+    $l = (is_string($c) && isset(LANGS[$c])) ? $c : (string)config('app.locale', 'tr');
+    if (!isset(LANGS[$l])) $l = 'tr';
+    return $l;
+}
+
+/** Traduction : la clé est le texte anglais ; :param remplacés */
+function __(string $text, array $repl = []): string
+{
+    static $dict = null;
+    if (lang() !== 'en') {
+        if ($dict === null) { $f = APP . '/lang/' . lang() . '.php'; $dict = is_file($f) ? require $f : []; }
+        $text = $dict[$text] ?? $text;
+    }
+    foreach ($repl as $k => $v) $text = str_replace(':' . $k, (string)$v, $text);
+    return $text;
+}
+
+/** Champ de contenu traduit (colonne *_tr en base), repli sur l'anglais */
+function tf(?array $row, string $field): string
+{
+    if (!$row) return '';
+    if (lang() === 'tr' && !empty($row[$field . '_tr'])) return (string)$row[$field . '_tr'];
+    return (string)($row[$field] ?? '');
+}
+
+/** URL de la page courante dans une autre langue */
+function lang_url(string $code): string
+{
+    $q = $_GET;
+    $q['lang'] = $code;
+    return strtok($_SERVER['REQUEST_URI'] ?? '/', '?') . '?' . http_build_query($q);
+}
+
+/** Réglage traduisible : clé_tr en turc si renseignée */
+function setting_t(string $key, $default = null)
+{
+    if (lang() === 'tr') { $v = setting($key . '_tr'); if ($v !== null && $v !== '') return $v; }
+    return setting($key, $default);
+}
+
+function cefr_label(string $l): string { return __(CEFR_LABELS[$l] ?? $l); }
+function goal_label(string $k): string { return __(GOALS[$k][0] ?? $k); }
+function goal_desc(string $k): string { return __(GOALS[$k][1] ?? ''); }
+
+/** Traduction échappée pour le HTML */
+function t(string $text, array $repl = []): string
+{
+    return e(__($text, $repl));
 }
