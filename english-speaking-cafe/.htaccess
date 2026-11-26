@@ -1,0 +1,56 @@
+# =========================================================
+# XY Academy — configuration Apache (cPanel)
+# =========================================================
+Options -Indexes
+DirectoryIndex index.php
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  # Si installé dans un sous-dossier, décommenter et adapter :
+  # RewriteBase /sous-dossier/
+
+  # Forcer HTTPS (décommenter une fois le SSL AutoSSL actif dans cPanel)
+  # RewriteCond %{HTTPS} off
+  # RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+  # Bloque l'accès direct aux dossiers internes
+  RewriteRule ^(app|config|database|storage)(/|$) - [F,L]
+  RewriteRule (^|/)\. - [F,L]
+
+  # Fichiers et dossiers réels servis directement (assets, uploads)
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+
+  RewriteRule ^ index.php [QSA,L]
+</IfModule>
+
+<FilesMatch "\.(sql|md|log|ini|lock|json|sh|py)$">
+  Require all denied
+</FilesMatch>
+
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css application/javascript image/svg+xml application/json
+</IfModule>
+
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType text/css "access plus 1 month"
+  ExpiresByType application/javascript "access plus 1 month"
+  ExpiresByType image/jpeg "access plus 6 months"
+  ExpiresByType image/png "access plus 6 months"
+  ExpiresByType image/webp "access plus 6 months"
+  ExpiresByType image/svg+xml "access plus 6 months"
+  ExpiresByType video/mp4 "access plus 6 months"
+  ExpiresByType font/woff2 "access plus 1 year"
+</IfModule>
+
+AddType font/woff2 .woff2
+AddType video/mp4 .mp4
+AddType image/webp .webp
+
+# PHP (cPanel > MultiPHP INI Editor peut aussi être utilisé)
+<IfModule mod_php.c>
+  php_value upload_max_filesize 40M
+  php_value post_max_size 42M
+</IfModule>

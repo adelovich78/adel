@@ -1,0 +1,272 @@
+[
+ {
+  "level": "A1",
+  "title": "First Words at the Caf\u00e9",
+  "category": "Conversation",
+  "color": "#0f4a37",
+  "file": "a1-01-first-words-at-the-caf.pdf",
+  "pages": 7,
+  "units": [
+   "Hello & introductions",
+   "Ordering a coffee",
+   "Numbers, prices & time",
+   "My family",
+   "My day"
+  ]
+ },
+ {
+  "level": "A1",
+  "title": "Picture Dictionary: Everyday Life",
+  "category": "Vocabulary",
+  "color": "#c0923a",
+  "file": "a1-02-picture-dictionary--everyday-life.pdf",
+  "pages": 7,
+  "units": [
+   "At home",
+   "In town",
+   "Food & drink",
+   "Clothes & colours",
+   "Weather"
+  ]
+ },
+ {
+  "level": "A1",
+  "title": "Little Explorers (Kids)",
+  "category": "Kids",
+  "color": "#6b8f71",
+  "file": "a1-03-little-explorers--kids.pdf",
+  "pages": 7,
+  "units": [
+   "Animals",
+   "At school",
+   "My toys",
+   "Let's play!",
+   "Songs & rhymes"
+  ]
+ },
+ {
+  "level": "A2",
+  "title": "Small Talk Made Easy",
+  "category": "Conversation",
+  "color": "#3b2a20",
+  "file": "a2-04-small-talk-made-easy.pdf",
+  "pages": 7,
+  "units": [
+   "Talking about weekends",
+   "Hobbies & free time",
+   "Asking for directions",
+   "At the restaurant",
+   "Making plans"
+  ]
+ },
+ {
+  "level": "A2",
+  "title": "Grammar in Conversation: Past & Future",
+  "category": "Grammar",
+  "color": "#0f4a37",
+  "file": "a2-05-grammar-in-conversation--past---future.pdf",
+  "pages": 7,
+  "units": [
+   "Past simple stories",
+   "Going to vs will",
+   "Comparing things",
+   "Questions that keep talking",
+   "Frequency & routines"
+  ]
+ },
+ {
+  "level": "A2",
+  "title": "The Lighthouse Keeper (Graded Reader)",
+  "category": "Readers",
+  "color": "#4a5a6a",
+  "file": "a2-06-the-lighthouse-keeper--graded-reader.pdf",
+  "pages": 7,
+  "units": [
+   "The storm",
+   "A message in a bottle",
+   "The stranger",
+   "Secrets of the island",
+   "Home again"
+  ]
+ },
+ {
+  "level": "B1",
+  "title": "Speak Your Mind: Opinions & Debates",
+  "category": "Conversation",
+  "color": "#c0923a",
+  "file": "b1-07-speak-your-mind--opinions---debates.pdf",
+  "pages": 7,
+  "units": [
+   "Giving opinions politely",
+   "Agreeing & disagreeing",
+   "Social media",
+   "Cities vs countryside",
+   "Work-life balance"
+  ]
+ },
+ {
+  "level": "B1",
+  "title": "Travel English Survival Kit",
+  "category": "Vocabulary",
+  "color": "#2f5d50",
+  "file": "b1-08-travel-english-survival-kit.pdf",
+  "pages": 7,
+  "units": [
+   "Airports & flights",
+   "Hotels & problems",
+   "Renting & transport",
+   "Emergencies",
+   "Making friends abroad"
+  ]
+ },
+ {
+  "level": "B1",
+  "title": "Pronunciation Lab 1: Sounds of English",
+  "category": "Pronunciation",
+  "color": "#7a3e2e",
+  "file": "b1-09-pronunciation-lab-1--sounds-of-english.pdf",
+  "pages": 7,
+  "units": [
+   "Vowel pairs",
+   "The schwa",
+   "Word stress",
+   "Linking sounds",
+   "Intonation of questions"
+  ]
+ },
+ {
+  "level": "B2",
+  "title": "Business Meetings & Presentations",
+  "category": "Business",
+  "color": "#1f1a17",
+  "file": "b2-10-business-meetings---presentations.pdf",
+  "pages": 7,
+  "units": [
+   "Opening a meeting",
+   "Presenting data",
+   "Handling questions",
+   "Negotiating",
+   "Following up by email"
+  ]
+ },
+ {
+  "level": "B2",
+  "title": "Idioms & Phrasal Verbs in Real Life",
+  "category": "Vocabulary",
+  "color": "#0f4a37",
+  "file": "b2-11-idioms---phrasal-verbs-in-real-life.pdf",
+  "pages": 7,
+  "units": [
+   "Work idioms",
+   "Relationships",
+   "Money talk",
+   "Phrasal verbs with GET",
+   "Phrasal verbs with TAKE"
+  ]
+ },
+ {
+  "level": "B2",
+  "title": "IELTS Speaking Companion",
+  "category": "Exams",
+  "color": "#5b4636",
+  "file": "b2-12-ielts-speaking-companion.pdf",
+  "pages": 7,
+  "units": [
+   "Part 1: Familiar topics",
+   "Part 2: The long turn",
+   "Part 3: Discussion",
+   "Fluency strategies",
+   "Band 7+ vocabulary"
+  ]
+ },
+ {
+  "level": "C1",
+  "title": "Persuasion & Storytelling",
+  "category": "Conversation",
+  "color": "#c0923a",
+  "file": "c1-13-persuasion---storytelling.pdf",
+  "pages": 7,
+  "units": [
+   "The art of the hook",
+   "Structuring an argument",
+   "Rhetorical devices",
+   "Telling a personal story",
+   "Handling objections"
+  ]
+ },
+ {
+  "level": "C1",
+  "title": "Advanced Pronunciation & Accent",
+  "category": "Pronunciation",
+  "color": "#2c3e3a",
+  "file": "c1-14-advanced-pronunciation---accent.pdf",
+  "pages": 7,
+  "units": [
+   "Connected speech",
+   "Weak forms",
+   "Sentence stress & meaning",
+   "British vs American",
+   "Sounding natural"
+  ]
+ },
+ {
+  "level": "C1",
+  "title": "Leadership Communication",
+  "category": "Business",
+  "color": "#1f1a17",
+  "file": "c1-15-leadership-communication.pdf",
+  "pages": 7,
+  "units": [
+   "Giving feedback",
+   "Leading difficult conversations",
+   "Inspiring a team",
+   "Cross-cultural communication",
+   "Executive presence"
+  ]
+ },
+ {
+  "level": "C2",
+  "title": "Nuance: Register, Tone & Style",
+  "category": "Conversation",
+  "color": "#0f4a37",
+  "file": "c2-16-nuance--register--tone---style.pdf",
+  "pages": 7,
+  "units": [
+   "Formal vs informal",
+   "Hedging & softening",
+   "Irony & understatement",
+   "Humour across cultures",
+   "Precision of meaning"
+  ]
+ },
+ {
+  "level": "C2",
+  "title": "Cambridge C2 Proficiency Speaking",
+  "category": "Exams",
+  "color": "#7a3e2e",
+  "file": "c2-17-cambridge-c2-proficiency-speaking.pdf",
+  "pages": 7,
+  "units": [
+   "Collaborative task",
+   "Long turn strategies",
+   "Discussion depth",
+   "Lexical range",
+   "Assessment criteria"
+  ]
+ },
+ {
+  "level": "C2",
+  "title": "Essays from the Caf\u00e9 Table",
+  "category": "Readers",
+  "color": "#4a5a6a",
+  "file": "c2-18-essays-from-the-caf--table.pdf",
+  "pages": 7,
+  "units": [
+   "On languages",
+   "On cities",
+   "On work",
+   "On friendship",
+   "On change"
+  ]
+ }
+]

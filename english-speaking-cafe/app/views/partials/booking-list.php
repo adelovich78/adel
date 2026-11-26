@@ -1,0 +1,22 @@
+<?php /** Liste de réservations : $list, $showLearner, $canCancel */ ?>
+<?php if (!$list): ?><div class="empty_mini"><?= e($empty ?? 'Nothing here yet.') ?></div><?php endif; ?>
+<?php foreach ($list as $b): ?>
+<div class="list_item">
+  <div style="display:flex;gap:1rem;align-items:center;min-width:0">
+    <span class="list_date"><small><?= date('M', strtotime($b['starts_at'])) ?></small><b><?= date('d', strtotime($b['starts_at'])) ?></b></span>
+    <div style="min-width:0">
+      <b><?= e($b['program_name']) ?></b> <?= status_badge($b['status']) ?><?php if ($b['status'] === 'waitlist'): ?> <span class="badge">#<?= (int)$b['waitlist_position'] ?> in line</span><?php endif; ?><br>
+      <span class="text-size-small text-color-muted"><?= e(fmt_date($b['starts_at'], 'D j M · H:i')) ?><?= $b['teacher_name'] ? ' · ' . e($b['teacher_name']) : '' ?><?= !empty($showLearner) ? ' · ' . e($b['learner_first'] . ' ' . $b['learner_last']) : '' ?><?= $b['room'] ? ' · ' . e($b['room']) : '' ?></span>
+      <?php if (!empty($b['teacher_note'])): ?><br><span class="text-size-small">📝 <?= e($b['teacher_note']) ?></span><?php endif; ?>
+    </div>
+  </div>
+  <div class="row_actions">
+    <?php if ($b['status'] === 'pending' && $b['payment_id'] && ($b['pay_status'] ?? '') === 'pending'): ?>
+      <form method="post" action="<?= url('payments/' . (int)$b['payment_id'] . '/pay') ?>"><?= csrf_field() ?><button class="button is-tiny" type="submit">Pay <?= money($b['pay_amount']) ?> to confirm</button></form>
+    <?php elseif (($b['pay_status'] ?? '') === 'pending' && ($b['pay_method'] ?? '') === 'onsite'): ?><span class="badge is-amber">Pay at café · <?= money($b['pay_amount']) ?></span><?php endif; ?>
+    <?php if (!empty($canCancel) && in_array($b['status'], ['pending', 'confirmed', 'waitlist'], true) && strtotime($b['starts_at']) > time()): ?>
+      <form method="post" action="<?= url('bookings/' . (int)$b['id'] . '/cancel') ?>" onsubmit="return confirm('Cancel this booking?')"><?= csrf_field() ?><button class="button is-tiny is-danger" type="submit"><?= $b['status'] === 'waitlist' ? 'Leave waitlist' : 'Cancel' ?></button></form>
+    <?php endif; ?>
+  </div>
+</div>
+<?php endforeach; ?>
