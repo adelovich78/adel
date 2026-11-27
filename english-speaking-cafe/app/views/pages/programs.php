@@ -2,7 +2,7 @@
 $heading = t('Programs made for') . ' <span class="serif-italic">' . t('talking.') . '</span>';
 $eyebrow = __('The menu');
 $aside = t('Every format puts speaking first: max five learners per native teacher, themes that matter, and a warm café setting. Prices, levels and schedules are always up to date.');
-$media = 'people';
+$media = 'programs';
 require APP . '/views/partials/page-hero.php';
 $canDo = ['I can introduce myself and order a coffee.', 'I can talk about my day and my plans.', 'I can share opinions and tell stories.', 'I can debate and work in English.', 'I can express nuance and lead discussions.', 'I speak with precision and ease.'];
 ?>
