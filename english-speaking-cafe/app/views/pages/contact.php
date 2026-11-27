@@ -26,7 +26,7 @@ $topic = old('topic', input('topic', 'General'));
           <div class="feature_item" data-reveal><span class="feature_icon"><?= icon('phone') ?></span><div><b><?= t('Call us') ?></b><p style="margin:.25rem 0 0"><a href="tel:<?= e(preg_replace('/\s+/', '', (string)setting('phone', ''))) ?>"><?= e(setting('phone', '')) ?></a></p></div></div>
           <div class="feature_item" data-reveal><span class="feature_icon"><?= icon('mail') ?></span><div><b><?= t('Email') ?></b><p style="margin:.25rem 0 0"><a href="mailto:<?= e(setting('contact_email', '')) ?>"><?= e(setting('contact_email', '')) ?></a></p></div></div>
         </div>
-        <div class="split_media margin-top margin-medium" style="aspect-ratio:16/10" data-reveal="scale"><video autoplay muted loop playsinline preload="none" poster="<?= asset('img/poster-lamps.jpg') ?>" style="height:100%"><source src="<?= url('assets/video/lamps.mp4') ?>" type="video/mp4"></video></div>
+        <div class="split_media margin-top margin-medium" style="aspect-ratio:16/9" data-reveal="scale"><video autoplay muted loop playsinline preload="none" poster="<?= asset('img/poster-contact.jpg') ?>" style="height:100%"><source src="<?= url('assets/video/contact.mp4') ?>" type="video/mp4"></video></div>
       </div>
     </div>
   </div></div></div>
