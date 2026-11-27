@@ -62,7 +62,7 @@ final class SiteController
 
     public function business(): void
     {
-        View::render('pages/business', ['title' => 'Business English', 'p' => DB::one("SELECT * FROM programs WHERE category = 'business' AND is_active = 1 LIMIT 1")]);
+        View::render('pages/business', ['title' => 'Business English', 'bodyClass' => 'has-dark-hero', 'p' => DB::one("SELECT * FROM programs WHERE category = 'business' AND is_active = 1 LIMIT 1")]);
     }
 
     public function events(): void
