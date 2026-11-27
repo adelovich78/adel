@@ -44,7 +44,8 @@
   function renderTeachers() {
     var html = card('data-teacher="0"', '<span class="choice_title">' + esc(L.anyTeacher) + '</span><span class="choice_desc">' + esc(L.mostAvailability) + '</span>', !state.teacher);
     html += D.teachers.map(function (t, i) {
-      return card('data-teacher="' + t.id + '"', '<span class="quote_avatar mono-bg-' + (i % 6) + '" style="width:2.6rem;height:2.6rem;font-size:.8rem">' + esc(t.initials) + '</span><span class="choice_title">' + esc(t.name) + '</span><span class="choice_desc">' + esc(t.accent) + ' · ' + esc(t.tags) + '</span>', state.teacher === t.id);
+      var face = t.photo ? '<img class="teacher-choice_photo" src="' + esc(t.photo) + '" alt="" loading="lazy">' : '<span class="quote_avatar teacher-choice_photo mono-bg-' + (i % 6) + '">' + esc(t.initials) + '</span>';
+      return card('data-teacher="' + t.id + '"', face + '<span class="choice_title">' + esc(t.name) + '</span><span class="choice_desc">' + esc(t.accent) + ' · ' + esc(t.tags) + '</span>', state.teacher === t.id);
     }).join('');
     $('[data-teachers]').innerHTML = html;
   }
@@ -81,7 +82,7 @@
       var full = s.seats_left <= 0;
       return '<button type="button" class="slot_item' + (state.session && state.session.id === s.id ? ' is-selected' : '') + '" data-session="' + s.id + '">' +
         '<span class="slot_time">' + esc(s.time) + '</span>' +
-        '<span><b>' + esc(s.title || s.program) + '</b><br><span class="text-size-small text-color-muted">' + (s.teacher ? esc(fmt(L.withName, { name: s.teacher })) + ' · ' : '') + (s.level ? esc(s.level) + ' · ' : '') + (s.room ? esc(s.room) : '') + '</span><span class="seat_dots">' + dots + '</span></span>' +
+        '<span>' + (s.teacher_photo ? '<img class="slot_teacher-photo" src="' + esc(s.teacher_photo) + '" alt="" loading="lazy">' : '') + '<b>' + esc(s.title || s.program) + '</b><br><span class="text-size-small text-color-muted">' + (s.teacher ? esc(fmt(L.withName, { name: s.teacher })) + ' · ' : '') + (s.level ? esc(s.level) + ' · ' : '') + (s.room ? esc(s.room) : '') + '</span><span class="seat_dots">' + dots + '</span></span>' +
         '<span style="text-align:right"><b>' + esc(s.price_label) + '</b><br>' + (full ? '<span class="badge is-amber">' + esc(fmt(L.waitlistWaiting, { n: s.waiting })) + '</span>' : '<span class="badge is-green">' + esc(fmt(s.seats_left > 1 ? L.seatsLeft : L.seatLeft, { n: s.seats_left })) + '</span>') + '</span></button>';
     }).join('');
   }

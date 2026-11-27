@@ -75,7 +75,7 @@ final class ApiController
             'id' => (int)$r['id'], 'program' => $r['program_name'], 'program_slug' => $r['program_slug'], 'category' => $r['category'],
             'title' => $r['title'], 'level' => $r['level'], 'starts_at' => $r['starts_at'], 'ends_at' => $r['ends_at'],
             'date' => date('Y-m-d', strtotime($r['starts_at'])), 'day' => fmt_date($r['starts_at'], 'D j M'), 'time' => date('H:i', strtotime($r['starts_at'])),
-            'teacher' => $r['teacher_name'], 'teacher_id' => $r['teacher_id'] ? (int)$r['teacher_id'] : null, 'accent' => $r['teacher_accent'],
+            'teacher' => $r['teacher_name'], 'teacher_photo' => $r['teacher_photo'] ? media_url($r['teacher_photo']) : null, 'teacher_id' => $r['teacher_id'] ? (int)$r['teacher_id'] : null, 'accent' => $r['teacher_accent'],
             'capacity' => (int)$r['capacity'], 'taken' => (int)$r['taken'], 'seats_left' => (int)$r['seats_left'], 'waiting' => (int)$r['waiting'],
             'price' => (float)$r['effective_price'], 'price_label' => money($r['effective_price']), 'room' => $r['room'], 'mode' => $r['mode'],
         ], $rows);

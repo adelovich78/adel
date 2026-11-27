@@ -529,11 +529,9 @@ html:not(.js) .preloader_component, html.is-loaded .preloader_component { displa
 .footer_wordmark { width: 100vw; margin: 3.5rem calc(50% - 50vw) 0; overflow: hidden; font-family: var(--font-display); font-size: clamp(4rem, 13vw, 13rem); line-height: 1.05; letter-spacing: -.03em; font-weight: 500; white-space: nowrap; user-select: none; padding: .05em 0 .12em; }
 .footer_wordmark-track { display: flex; width: max-content; animation: marquee 45s linear infinite; }
 .footer_wordmark-group { display: flex; align-items: center; gap: .35em; padding-right: .35em; }
-.footer_wordmark span { color: transparent; -webkit-text-stroke: 1px rgba(247,243,234,.35); transition: color .5s var(--ease-out), -webkit-text-stroke-color .5s; }
-.footer_wordmark span:hover { color: var(--cream); -webkit-text-stroke-color: transparent; }
+.footer_wordmark span { color: var(--cream); }
 .footer_wordmark em { font-style: italic; color: var(--amber-2); }
 .footer_wordmark i { font-style: normal; font-size: .3em; color: var(--amber-2); }
-.footer_wordmark:hover .footer_wordmark-track { animation-play-state: paused; }
 .footer_bottom { display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; padding: 1.5rem 0; font-size: .82rem; color: rgba(247,243,234,.55); border-top: 1px solid rgba(247,243,234,.12); }
 @media (max-width: 991px) { .footer_top { grid-template-columns: 1fr 1fr; } }
 @media (max-width: 560px) { .footer_top { grid-template-columns: 1fr; } }
@@ -822,3 +820,15 @@ body, [class*="heading-style"], .text-style-serif, .serif-italic { font-variant-
 
 /* Attribut hidden toujours respecté (même sur les boutons) */
 [hidden] { display: none !important; }
+
+/* Section sombre (identique en mode clair et sombre) */
+.section_dark { background: var(--espresso-ink); color: var(--cream); }
+:root[data-theme="dark"] .section_dark { background: #0b0a09; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .section_dark { background: #0b0a09; } }
+
+/* Photos des professeurs dans la réservation */
+.teacher-choice_photo { width: 3.6rem; height: 3.6rem; border-radius: 50%; object-fit: cover; object-position: center 20%; margin-bottom: .4rem; display: grid; place-items: center; font-size: .85rem; font-weight: 800; color: var(--cream); }
+.slot_teacher-photo { float: left; width: 2.6rem; height: 2.6rem; border-radius: 50%; object-fit: cover; object-position: center 20%; margin: .1rem .75rem 0 0; }
+
+/* Bouton fantôme plus lisible sur fond sombre */
+.button.is-ghost-light { --btn-bg: rgba(247,243,234,.12); border-color: rgba(247,243,234,.55); }

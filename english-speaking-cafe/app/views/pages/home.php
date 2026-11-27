@@ -189,7 +189,7 @@ $subtitle = (string)setting_t('hero_subtitle', '');
 </section>
 
 <!-- Split photo : la bibliothèque -->
-<section style="background:var(--color-inverse-bg);color:var(--color-inverse-text)">
+<section class="section_dark">
   <div class="padding-global">
     <div class="container-large">
       <div class="padding-section-large">

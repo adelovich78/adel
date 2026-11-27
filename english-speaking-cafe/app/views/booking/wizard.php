@@ -11,7 +11,7 @@ $data = [
         'min' => cefr_index($p['min_level']), 'max' => cefr_index($p['max_level']), 'goals' => array_values(array_filter(explode(',', (string)$p['goals']))),
         'price' => money($p['price']), 'capacity' => (int)$p['capacity'], 'duration' => (int)$p['duration_min'], 'credit' => (bool)$p['membership_eligible'],
     ], $programs),
-    'teachers' => array_map(fn($t) => ['id' => (int)$t['id'], 'name' => $t['display_name'], 'accent' => __($t['accent']), 'origin' => $t['origin'], 'tags' => implode(', ', array_map('__', array_map('trim', explode(',', (string)$t['specialties'])))), 'initials' => initials($t['display_name'])], $teachers),
+    'teachers' => array_map(fn($t) => ['id' => (int)$t['id'], 'name' => $t['display_name'], 'accent' => __($t['accent']), 'origin' => $t['origin'], 'tags' => implode(', ', array_map('__', array_map('trim', explode(',', (string)$t['specialties'])))), 'initials' => initials($t['display_name']), 'photo' => $t['photo'] ? media_url($t['photo']) : null], $teachers),
     'pre' => array_merge($pre, ['session' => (int)input('session')]),
     'loggedIn' => (bool)$me,
     'hasCredits' => (bool)$membership,
