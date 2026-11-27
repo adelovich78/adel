@@ -740,3 +740,25 @@ body, [class*="heading-style"], .text-style-serif, .serif-italic { font-variant-
 .teachers_grid .teacher-card_visual { aspect-ratio: 4 / 3.4; }
 .teacher-card_founder { position: absolute; right: 1rem; top: 1rem; z-index: 2; background: var(--amber-2); color: var(--espresso-ink); padding: .35rem .75rem; border-radius: var(--radius-round); font-size: .72rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
 @media (max-width: 700px) { .teachers_grid { grid-template-columns: 1fr; } .teachers_grid .teacher-card_visual { aspect-ratio: 4 / 4.2; } }
+
+/* Page Contact : logo animé (suit le thème clair / sombre) */
+.contact-logo_component { position: relative; display: grid; place-items: center; aspect-ratio: 16 / 10; border-radius: var(--radius-large); overflow: hidden; background: radial-gradient(60% 70% at 50% 45%, var(--color-surface) 0%, var(--color-surface-2) 100%); border: 1px solid var(--color-border); }
+.contact-logo_component::before { content: ""; position: absolute; width: 70%; aspect-ratio: 1; border-radius: 50%; background: radial-gradient(circle, var(--amber-soft) 0%, transparent 65%); animation: logoGlow 6s ease-in-out infinite; }
+.contact-logo_svg { position: relative; width: min(78%, 22rem); height: auto; overflow: visible; }
+.contact-logo_svg .logo_steam { stroke-dasharray: 120; animation: logoSteam 3.2s ease-in-out infinite; }
+.contact-logo_svg .logo_steam + .logo_steam { animation-delay: .5s; }
+.contact-logo_svg .logo_bubble { transform-box: fill-box; transform-origin: 20% 90%; animation: logoBubble 3.2s cubic-bezier(.34,1.56,.64,1) infinite; }
+.contact-logo_svg .logo_dots { transform-box: fill-box; transform-origin: center; animation: logoDot 1.2s ease-in-out infinite; }
+.contact-logo_svg .logo_dots:nth-of-type(2) { animation-delay: .15s; }
+.contact-logo_svg .logo_dots:nth-of-type(3) { animation-delay: .3s; }
+.contact-logo_svg .logo_mark { animation: logoFloat 4s ease-in-out infinite; }
+.contact-logo_svg .logo_word, .contact-logo_svg .logo_sub, .contact-logo_svg rect { animation: logoText 1.4s var(--ease-out) both; }
+.contact-logo_svg .logo_sub { animation-delay: .2s; }
+.contact-logo_svg rect { animation-delay: .35s; }
+@keyframes logoSteam { 0% { stroke-dashoffset: 120; opacity: 0; } 15% { opacity: 1; } 55% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: -120; opacity: 0; } }
+@keyframes logoBubble { 0%, 100% { transform: scale(1); } 10% { transform: scale(.85); } 22% { transform: scale(1.06); } 34% { transform: scale(1); } }
+@keyframes logoDot { 0%, 100% { opacity: .35; transform: translateY(0); } 40% { opacity: 1; transform: translateY(-3px); } }
+@keyframes logoFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
+@keyframes logoText { from { opacity: 0; transform: translateY(14px); } }
+@keyframes logoGlow { 0%, 100% { transform: scale(.9); opacity: .7; } 50% { transform: scale(1.05); opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .contact-logo_component *, .contact-logo_component::before { animation: none !important; } }
