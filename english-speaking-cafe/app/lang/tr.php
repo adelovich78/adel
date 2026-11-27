@@ -228,6 +228,32 @@ return [
     'Student' => 'Öğrenci', 'Parent' => 'Veli', 'Corporate' => 'Kurumsal', 'Admin' => 'Yönetici',
     'Speaking' => 'Konuşma', 'Listening' => 'Dinleme',
 
+
+    // --- Test de niveau
+    'English level test' => 'İngilizce seviye testi', 'Your English level' => 'İngilizce seviyeniz', 'What’s your' => 'İngilizce', 'English level?' => 'seviyeniz nedir?',
+    'Free level test' => 'Ücretsiz seviye testi', ':n quick questions, about 8 minutes. Get your CEFR level (A1 → C2), the right table to book and the books for your level.' => ':n kısa soru, yaklaşık 8 dakika. CEFR seviyenizi (A1 → C2), size uygun masayı ve seviyenize uygun kitapları öğrenin.',
+    'questions' => 'soru', 'minutes' => 'dakika', 'CEFR' => 'CEFR',
+    'Answer without a dictionary. If you don’t know, choose “I don’t know” — it gives a more accurate result than guessing.' => 'Sözlük kullanmadan cevaplayın. Bilmiyorsanız “Bilmiyorum”u seçin — tahmin etmekten daha doğru bir sonuç verir.',
+    'Start the test' => 'Teste başla', 'Question :n' => 'Soru :n', 'I don’t know' => 'Bilmiyorum', 'See my result' => 'Sonucumu gör',
+    'Please answer at least a few questions to get your level.' => 'Seviyenizi görmek için lütfen birkaç soruyu cevaplayın.',
+    'Your result' => 'Sonucunuz', 'Score: :score / :total correct answers' => 'Puan: :total soruda :score doğru', 'Our recommendation' => 'Önerimiz',
+    'Save :level as my level' => ':level seviyemi kaydet', 'Create my account at :level' => ':level seviyesiyle hesap oluştur', 'Book a table at :level' => ':level masası ayırt', 'Books for :level' => ':level kitapları',
+    'This test is an estimate. Your native teacher confirms your level at your first table.' => 'Bu test bir tahmindir. Anadili İngilizce öğretmeniniz seviyenizi ilk masanızda onaylar.',
+    'Take the test again' => 'Testi tekrar yap', 'Take the level test' => 'Seviye testine gir', 'Take the free level test' => 'Ücretsiz seviye testine girin', 'Take the test' => 'Testi yap',
+    'Not sure of your level?' => 'Seviyenizden emin değil misiniz?', 'Take our free 24-question test and find the right shelf in 8 minutes.' => '24 soruluk ücretsiz testimizi yapın, 8 dakikada doğru rafı bulun.',
+    'Level test' => 'Seviye testi',
+    'Your level :level has been saved. Your teacher will confirm it at your first table.' => ':level seviyeniz kaydedildi. Öğretmeniniz ilk masanızda onaylayacak.',
+    'Start with our Conversation Tables and the Kids or Teens clubs: simple topics, lots of support, real confidence from the first session.' => 'Sohbet Masalarımızla ve Çocuk ya da Genç kulüpleriyle başlayın: basit konular, bolca destek ve ilk seanstan itibaren gerçek özgüven.',
+    'Small Group Conversation at A2 is perfect for you: everyday topics, five learners, one native teacher.' => 'A2 Küçük Grup Sohbeti tam size göre: günlük konular, beş öğrenci, bir anadili İngilizce öğretmen.',
+    'Join Small Group Conversation at B1 and the Pronunciation Lab — this is where speaking really takes off.' => 'B1 Küçük Grup Sohbeti’ne ve Telaffuz Atölyesi’ne katılın — konuşmanın gerçekten açıldığı yer burası.',
+    'Try B2 groups, Business English and our debate evenings to sound natural and precise.' => 'Doğal ve net konuşmak için B2 gruplarını, İş İngilizcesini ve münazara akşamlarımızı deneyin.',
+    'C1 groups, Business English and 1-to-1 coaching will polish nuance, idioms and leadership language.' => 'C1 grupları, İş İngilizcesi ve birebir koçluk; ince farkları, deyimleri ve liderlik dilini cilalar.',
+    'You speak at mastery level. 1-to-1 coaching, debates and the book club will keep your English sharp.' => 'Ustalık seviyesinde konuşuyorsunuz. Birebir koçluk, münazaralar ve kitap kulübü İngilizcenizi keskin tutar.',
+
+    // --- Fenêtres de confirmation
+    'Are you sure?' => 'Emin misiniz?', 'Yes, continue' => 'Evet, devam et', 'Keep it' => 'Vazgeç', 'Yes, cancel' => 'Evet, iptal et',
+    'Leave the waitlist for this session?' => 'Bu seansın bekleme listesinden çıkılsın mı?', 'Close' => 'Kapat',
+
     // --- Tableaux de bord : commun
     'Overview' => 'Genel bakış', 'Book a session' => 'Seans ayırt', 'My café' => 'Kafem', 'Family' => 'Aile', 'Book for a team member' => 'Ekip üyesi için ayırt',
     'Studio' => 'Stüdyo', 'My schedule' => 'Programım', 'My students' => 'Öğrencilerim',

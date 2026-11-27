@@ -49,7 +49,7 @@ $data = [
 
         <div class="booking_panel is-active" data-panel="0">
           <h2 class="heading-style-h3 margin-bottom margin-small"><?= t('What’s your English level?') ?></h2>
-          <p class="text-color-muted margin-bottom margin-medium"><?= t('Not sure? Pick the one that feels closest — your teacher will confirm it.') ?></p>
+          <p class="text-color-muted margin-bottom margin-medium"><?= t('Not sure? Pick the one that feels closest — your teacher will confirm it.') ?> <a class="text-link" href="<?= url('level-test') ?>"><?= t('Take the free level test') ?></a></p>
           <div class="choice_grid is-levels" data-levels></div>
         </div>
         <div class="booking_panel" data-panel="1">

@@ -19,6 +19,7 @@
             <a class="footer_link" href="<?= url('business') ?>"><?= t('Business English') ?></a>
             <a class="footer_link" href="<?= url('programs/pronunciation-lab') ?>"><?= t('Pronunciation Lab') ?></a>
             <a class="footer_link" href="<?= url('programs/kids-english') ?>"><?= t('Kids & teens') ?></a>
+            <a class="footer_link" href="<?= url('level-test') ?>"><?= t('Level test') ?></a>
           </div>
           <div>
             <div class="footer_title"><?= t('Café') ?></div>

@@ -22,6 +22,7 @@ $maxIdx = $maxLevel ? cefr_index($maxLevel) : -1;
       </div>
       <?php if (!$me): ?><a class="button is-small" href="<?= url('login') ?>"><?= t('Sign in') ?></a><?php else: ?><a class="button is-small is-secondary" href="<?= url('dashboard') ?>"><?= t('My progress') ?></a><?php endif; ?>
     </div>
+    <div class="test_cta margin-bottom margin-large" data-reveal><span class="feature_icon"><?= icon('quiz') ?></span><div><b><?= t('Not sure of your level?') ?></b><br><span class="text-size-small text-color-muted"><?= t('Take our free 24-question test and find the right shelf in 8 minutes.') ?></span></div><a class="button is-small" href="<?= url('level-test') ?>"><?= t('Take the level test') ?></a></div>
     <div class="library_filters" role="tablist">
       <a class="library_filter<?= !$filter ? ' is-active' : '' ?>" href="<?= url('library') ?>"><?= t('All levels') ?></a>
       <?php foreach (CEFR as $l): ?><a class="library_filter<?= $filter === $l ? ' is-active' : '' ?>" href="<?= url('library?level=' . $l) ?>"><?= $l ?><small><?= (int)($counts[$l] ?? 0) ?></small></a><?php endforeach; ?>

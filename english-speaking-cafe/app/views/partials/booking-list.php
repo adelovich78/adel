@@ -15,7 +15,7 @@
       <form method="post" action="<?= url('payments/' . (int)$b['payment_id'] . '/pay') ?>"><?= csrf_field() ?><button class="button is-tiny" type="submit"><?= t('Pay :amount to confirm', ['amount' => money($b['pay_amount'])]) ?></button></form>
     <?php elseif (($b['pay_status'] ?? '') === 'pending' && ($b['pay_method'] ?? '') === 'onsite'): ?><span class="badge is-amber"><?= t('Pay at café') ?> · <?= money($b['pay_amount']) ?></span><?php endif; ?>
     <?php if (!empty($canCancel) && in_array($b['status'], ['pending', 'confirmed', 'waitlist'], true) && strtotime($b['starts_at']) > time()): ?>
-      <form method="post" action="<?= url('bookings/' . (int)$b['id'] . '/cancel') ?>" onsubmit="return confirm('<?= t('Cancel this booking?') ?>')"><?= csrf_field() ?><button class="button is-tiny is-danger" type="submit"><?= $b['status'] === 'waitlist' ? t('Leave waitlist') : t('Cancel') ?></button></form>
+      <form method="post" action="<?= url('bookings/' . (int)$b['id'] . '/cancel') ?>" data-confirm="<?= $b['status'] === 'waitlist' ? t('Leave the waitlist for this session?') : t('Cancel this booking?') ?>" data-confirm-text="<?= e(tf($b, 'program_name')) ?> · <?= e(fmt_date($b['starts_at'], 'D j M · H:i')) ?>" data-confirm-ok="<?= $b['status'] === 'waitlist' ? t('Leave waitlist') : t('Yes, cancel') ?>" data-confirm-danger><?= csrf_field() ?><button class="button is-tiny is-danger" type="submit"><?= $b['status'] === 'waitlist' ? t('Leave waitlist') : t('Cancel') ?></button></form>
     <?php endif; ?>
   </div>
 </div>

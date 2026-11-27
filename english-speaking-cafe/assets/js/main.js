@@ -45,6 +45,71 @@
     });
   }
 
+  /* ---------- Fenêtre de confirmation du site (remplace confirm() du navigateur) ----------
+     Usage : <form data-confirm="Question ?" data-confirm-text="Détail" data-confirm-ok="Oui" data-confirm-danger> */
+  var I18N = window.XY_I18N || { title: 'Are you sure?', ok: 'Yes, continue', cancel: 'Keep it' };
+  function confirmDialog(opts) {
+    return new Promise(function (resolve) {
+      var last = document.activeElement;
+      var wrap = document.createElement('div');
+      wrap.className = 'modal_component';
+      wrap.innerHTML =
+        '<div class="modal_backdrop" data-modal-close></div>' +
+        '<div class="modal_dialog" role="alertdialog" aria-modal="true" aria-labelledby="modal-title" aria-describedby="modal-text">' +
+          '<span class="modal_icon' + (opts.danger ? ' is-danger' : '') + '" aria-hidden="true">' + (opts.danger ? '!' : '?') + '</span>' +
+          '<h2 class="modal_title" id="modal-title"></h2>' +
+          '<p class="modal_text" id="modal-text"></p>' +
+          '<div class="modal_actions">' +
+            '<button type="button" class="button is-secondary" data-modal-cancel></button>' +
+            '<button type="button" class="button' + (opts.danger ? ' is-danger-solid' : '') + '" data-modal-ok></button>' +
+          '</div>' +
+        '</div>';
+      // Textes insérés en textContent (pas d'injection HTML)
+      wrap.querySelector('.modal_title').textContent = opts.question || I18N.title;
+      var txt = wrap.querySelector('.modal_text');
+      if (opts.text) txt.textContent = opts.text; else txt.remove();
+      wrap.querySelector('[data-modal-cancel]').textContent = opts.cancel || I18N.cancel;
+      wrap.querySelector('[data-modal-ok]').textContent = opts.ok || I18N.ok;
+      document.body.appendChild(wrap);
+      if (window.__lenis) window.__lenis.stop();
+      requestAnimationFrame(function () { wrap.classList.add('is-open'); });
+      var okBtn = wrap.querySelector('[data-modal-ok]'), cancelBtn = wrap.querySelector('[data-modal-cancel]');
+      cancelBtn.focus();
+      function close(result) {
+        wrap.classList.remove('is-open');
+        document.removeEventListener('keydown', onKey, true);
+        if (window.__lenis) window.__lenis.start();
+        setTimeout(function () { wrap.remove(); if (last && last.focus) last.focus(); }, 280);
+        resolve(result);
+      }
+      function onKey(e) {
+        if (e.key === 'Escape') { e.preventDefault(); close(false); }
+        if (e.key === 'Tab') { // focus piégé dans la fenêtre
+          e.preventDefault(); (document.activeElement === okBtn ? cancelBtn : okBtn).focus();
+        }
+      }
+      document.addEventListener('keydown', onKey, true);
+      okBtn.addEventListener('click', function () { close(true); });
+      cancelBtn.addEventListener('click', function () { close(false); });
+      wrap.querySelector('[data-modal-close]').addEventListener('click', function () { close(false); });
+    });
+  }
+  window.xyConfirm = confirmDialog;
+  document.addEventListener('submit', function (e) {
+    var f = e.target;
+    if (!f.matches || !f.matches('form[data-confirm]') || f.__confirmed) return;
+    e.preventDefault();
+    confirmDialog({
+      question: f.getAttribute('data-confirm'), text: f.getAttribute('data-confirm-text'),
+      ok: f.getAttribute('data-confirm-ok'), cancel: f.getAttribute('data-confirm-cancel'),
+      danger: f.hasAttribute('data-confirm-danger')
+    }).then(function (yes) {
+      if (!yes) return;
+      f.__confirmed = true;
+      if (f.requestSubmit) f.requestSubmit(); else f.submit();
+    });
+  }, true);
+
   /* ---------- FAQ ---------- */
   $$('[data-faq]').forEach(function (item) {
     var q = $('.faq_question', item);

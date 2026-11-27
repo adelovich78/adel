@@ -15,7 +15,7 @@ $canDo = ['I can introduce myself and order a coffee.', 'I can talk about my day
 </section>
 <section style="background:var(--color-surface-2)">
   <div class="padding-global"><div class="container-large"><div class="padding-section-large">
-    <div class="section-header_component"><div class="max-width-large"><div class="eyebrow margin-bottom margin-small" data-reveal><?= t('Find your level') ?></div><h2 class="heading-style-h2" data-split><?= t('From A1 to C2,') ?> <span class="serif-italic"><?= t('there’s a table for you.') ?></span></h2></div></div>
+    <div class="section-header_component"><div class="max-width-large"><div class="eyebrow margin-bottom margin-small" data-reveal><?= t('Find your level') ?></div><h2 class="heading-style-h2" data-split><?= t('From A1 to C2,') ?> <span class="serif-italic"><?= t('there’s a table for you.') ?></span></h2></div><a class="button is-secondary" href="<?= url('level-test') ?>" data-reveal><?= t('Take the level test') ?> <?= icon('arrow', 'button_arrow') ?></a></div>
     <div class="grid-3">
       <?php foreach (CEFR as $k => $l): ?>
       <a class="card" href="<?= url('book?level=' . $l) ?>" data-reveal style="display:flex;gap:1.25rem;align-items:center">

@@ -8,7 +8,7 @@ declare(strict_types=1);
 require __DIR__ . '/app/bootstrap.php';
 
 use App\Core\Router;
-use App\Controllers\{SiteController as Site, AuthController as AuthC, BookingController as Book, DashboardController as Dash, AdminController as Admin, ApiController as Api};
+use App\Controllers\{SiteController as Site, AuthController as AuthC, BookingController as Book, DashboardController as Dash, AdminController as Admin, ApiController as Api, PlacementController as Test};
 
 $r = new Router();
 
@@ -27,6 +27,10 @@ $r->post('/contact', [Site::class, 'contactSend']);
 $r->get('/library', [Site::class, 'library']);
 $r->get('/library/download/{id}', [Site::class, 'download']);
 $r->get('/legal', [Site::class, 'legal']);
+$r->get('/level-test', [Test::class, 'show']);
+$r->post('/level-test', [Test::class, 'submit']);
+$r->get('/level-test/result', [Test::class, 'result']);
+$r->post('/level-test/save', [Test::class, 'save']);
 
 // --- Authentification
 $r->get('/login', [AuthC::class, 'loginForm']);

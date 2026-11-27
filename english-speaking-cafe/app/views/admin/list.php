@@ -40,7 +40,7 @@ $qs = function (array $extra) { return '?' . http_build_query(array_merge($_GET,
             <?php endforeach; ?>
           <?php endif; ?>
           <a class="button is-tiny is-secondary" href="<?= url('admin/' . $e['key'] . '/' . (int)$row['id'] . '/edit') ?>"><?= $e['key'] === 'messages' ? 'Read' : 'Edit' ?></a>
-          <form method="post" action="<?= url('admin/' . $e['key'] . '/' . (int)$row['id'] . '/delete') ?>" onsubmit="return confirm('<?= $e['key'] === 'bookings' ? 'Cancel this booking?' : 'Delete permanently?' ?>')"><?= csrf_field() ?><button class="button is-tiny is-danger" type="submit"><?= $e['key'] === 'bookings' ? 'Cancel' : icon('x') ?></button></form>
+          <form method="post" action="<?= url('admin/' . $e['key'] . '/' . (int)$row['id'] . '/delete') ?>" data-confirm="<?= $e['key'] === 'bookings' ? 'Cancel this booking?' : 'Delete permanently?' ?>" data-confirm-text="<?= $e['key'] === 'bookings' ? 'Seat is released and the waitlist moves up.' : 'This cannot be undone.' ?>" data-confirm-ok="<?= $e['key'] === 'bookings' ? 'Yes, cancel' : 'Delete' ?>" data-confirm-cancel="Keep it" data-confirm-title="Are you sure?" data-confirm-danger><?= csrf_field() ?><button class="button is-tiny is-danger" type="submit"><?= $e['key'] === 'bookings' ? 'Cancel' : icon('x') ?></button></form>
         </div></td>
       </tr>
     <?php endforeach; ?>

@@ -54,7 +54,7 @@ $val = function (string $name) use ($row) {
   <div class="roster">
   <?php foreach ($extra['roster'] as $r): ?>
     <div class="roster_row"><span><b><?= e($r['first_name'] . ' ' . $r['last_name']) ?></b> <span class="level-pill"><?= e($r['cefr_level']) ?></span> <?= status_badge($r['status']) ?><?= $r['status'] === 'waitlist' ? ' #' . (int)$r['waitlist_position'] : '' ?></span>
-      <span class="row_actions"><?php if (!in_array($r['status'], ['cancelled'], true)): ?><form method="post" action="<?= url('admin/bookings/' . (int)$r['id'] . '/status') ?>" onsubmit="return confirm('Cancel?')"><?= csrf_field() ?><input type="hidden" name="status" value="cancelled"><button class="button is-tiny is-danger" type="submit"><?= icon('x') ?></button></form><?php endif; ?></span></div>
+      <span class="row_actions"><?php if (!in_array($r['status'], ['cancelled'], true)): ?><form method="post" action="<?= url('admin/bookings/' . (int)$r['id'] . '/status') ?>" data-confirm="Cancel this learner’s booking?" data-confirm-text="Seat is released and the waitlist moves up." data-confirm-ok="Yes, cancel" data-confirm-cancel="Keep it" data-confirm-title="Are you sure?" data-confirm-danger><?= csrf_field() ?><input type="hidden" name="status" value="cancelled"><button class="button is-tiny is-danger" type="submit"><?= icon('x') ?></button></form><?php endif; ?></span></div>
   <?php endforeach; ?>
   </div>
 </div>

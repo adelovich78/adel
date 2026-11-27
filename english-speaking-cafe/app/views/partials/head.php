@@ -18,4 +18,5 @@
     try { if (sessionStorage.getItem('xy-loaded')) d.classList.add('is-loaded'); } catch (e) { d.classList.add('is-loaded'); }
   })();
 </script>
+<script>window.XY_I18N = <?= json_encode(['title' => __('Are you sure?'), 'ok' => __('Yes, continue'), 'cancel' => __('Keep it')], JSON_UNESCAPED_UNICODE | JSON_HEX_TAG) ?>;</script>
 <link rel="stylesheet" href="<?= asset('css/main.css') ?>">
