@@ -1,0 +1,78 @@
+/* ==========================================================================
+   /cowork — espace de travail technique partagé.
+   Complète webina.css et admin.css (mêmes couleurs, mêmes composants).
+   ========================================================================== */
+
+/* Présence : qui est connecté en ce moment */
+.cw_presence { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 4px 12px; }
+.cw_who { display: inline-flex; align-items: center; gap: 6px; font-size: 0.8125rem; color: var(--color-text-muted); }
+.cw_dot { width: 8px; height: 8px; border-radius: 50%; background-color: #c9cec8; }
+.cw_who.is-on { color: var(--color-ink); }
+.cw_who.is-on .cw_dot { background-color: #2E8B2E; box-shadow: 0 0 0 3px color-mix(in srgb, #2E8B2E 22%, transparent); }
+
+/* Barre d'ajout (tâche, mise en ligne) */
+.cw_newtask { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
+.cw_newtask .form_input { flex: 1 1 180px; min-width: 0; }
+.cw_newtask .form_input.is-select { flex: 0 1 220px; }
+.cw_newtask input[type="date"] { flex: 0 1 160px; }
+.cw_newtask .button { flex: none; }
+
+/* Tableau des tâches */
+.cw_board { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; align-items: start; }
+.cw_col { background-color: var(--color-surface); border: 1px solid var(--color-hairline); border-radius: 14px; padding: 12px; min-height: 140px; }
+.cw_col.is-over { border-color: var(--color-accent); background-color: color-mix(in srgb, var(--color-accent) 7%, var(--color-surface)); }
+.cw_col-head { display: flex; justify-content: space-between; align-items: center; font-weight: 600; font-size: 0.875rem; margin-bottom: 10px; }
+.cw_col-head span { color: var(--color-text-muted); font-weight: 400; }
+.cw_col-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.cw_task { background-color: var(--color-bg); border: 1px solid var(--color-hairline); border-radius: 10px; padding: 10px 12px; cursor: grab; }
+.cw_task.is-drag { opacity: 0.45; }
+.cw_task-title { margin: 0; font-weight: 600; overflow-wrap: anywhere; }
+.cw_task-detail { margin: 4px 0 0; font-size: 0.8125rem; color: var(--color-text-secondary); white-space: pre-wrap; }
+.cw_task-meta { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0 0; }
+.cw_tag { font-size: 0.75rem; padding: 2px 8px; border-radius: 99px; background-color: var(--color-surface); color: var(--color-text-secondary); box-shadow: inset 0 0 0 1px var(--color-hairline); }
+.cw_tag.is-who { background-color: color-mix(in srgb, var(--color-accent) 12%, transparent); color: var(--color-accent-ink); box-shadow: none; }
+.cw_tag.is-late { background-color: #fdeaea; color: #b3261e; box-shadow: none; }
+.cw_task-acts { display: flex; align-items: center; gap: 6px; margin-top: 10px; }
+.cw_mini { height: 32px; padding: 0 26px 0 8px; font-size: 0.8125rem; flex: 1; }
+
+/* Fiches techniques des sites */
+.cw_sites { display: grid; gap: 16px; }
+.cw_site-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 14px; }
+.cw_site-head h2 { margin: 0 0 2px; }
+.cw_site-head p { margin: 0; }
+.cw_site-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px 16px; margin-bottom: 12px; }
+.cw_domlist { list-style: none; margin: 0 0 12px; padding: 10px 12px; display: grid; gap: 6px; background-color: var(--color-surface); border-radius: 10px; }
+.cw_domlist li { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; font-size: 0.875rem; }
+.cw_domlist b { font-weight: 600; overflow-wrap: anywhere; }
+.cw_warn { color: #b3261e; font-weight: 600; }
+
+/* Bloc-notes commun */
+.cw_notes-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start; gap: 10px; margin-bottom: 12px; }
+.cw_notes-head h2 { margin: 0 0 2px; }
+.cw_notes-head p { margin: 0; }
+.cw_saved { font-size: 0.8125rem; color: var(--color-text-muted); }
+.cw_notes-area { width: 100%; font-family: var(--font-mono, ui-monospace, monospace); font-size: 0.9375rem; line-height: 1.6; resize: vertical; min-height: 380px; }
+
+/* Messagerie */
+.cw_chat { display: flex; flex-direction: column; gap: 12px; }
+.cw_msgs { list-style: none; margin: 0; padding: 4px; display: grid; gap: 10px; max-height: min(60vh, 560px); overflow: auto; overscroll-behavior: contain; }
+.cw_msg { max-width: 80%; justify-self: start; padding: 9px 13px; border-radius: 14px; background-color: var(--color-surface); border: 1px solid var(--color-hairline); }
+.cw_msg.is-me { justify-self: end; background-color: color-mix(in srgb, var(--color-accent) 10%, var(--color-surface)); }
+.cw_msg-meta { margin: 0 0 4px; font-size: 0.75rem; color: var(--color-text-muted); }
+.cw_msg-body { margin: 0; white-space: pre-wrap; overflow-wrap: anywhere; }
+.cw_msg-img img { display: block; max-width: min(320px, 100%); max-height: 240px; margin-top: 8px; border-radius: 10px; border: 1px solid var(--color-hairline); object-fit: contain; background: #fff; }
+.cw_msg-file { display: inline-flex; align-items: center; gap: 6px; margin-top: 8px; font-weight: 600; color: var(--color-accent-ink); overflow-wrap: anywhere; }
+.cw_msg-file span { font-weight: 400; color: var(--color-text-muted); }
+.cw_chat-form { display: flex; align-items: flex-end; gap: 8px; }
+.cw_chat-input { flex: 1; min-height: 44px; max-height: 160px; resize: vertical; }
+.cw_attach { position: relative; display: inline-flex; align-items: center; justify-content: center; width: 42px; height: 42px; flex: none; border-radius: 10px; cursor: pointer; box-shadow: inset 0 0 0 1px var(--color-hairline); color: var(--color-text-secondary); }
+.cw_attach:hover { color: var(--color-ink); box-shadow: inset 0 0 0 1px var(--color-hairline-strong, var(--color-hairline)); }
+.cw_attach input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+.cw_attach:focus-within { outline: 2px solid var(--color-accent); outline-offset: 2px; }
+
+@media (max-width: 1100px) { .cw_board { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 640px) {
+  .cw_board { grid-template-columns: 1fr; }
+  .cw_msg { max-width: 92%; }
+  .cw_newtask .form_input, .cw_newtask .form_input.is-select, .cw_newtask input[type="date"] { flex: 1 1 100%; }
+}

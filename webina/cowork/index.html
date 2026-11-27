@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="fr" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Cowork — Webina</title>
+  <link rel="icon" type="image/png" href="/images/favicon.png">
+  <link rel="preload" href="/fonts/schibsted-grotesk-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/css/webina.css?v=f0a084e1f1">
+  <link rel="stylesheet" href="/css/admin.css?v=e1348deb4a">
+  <link rel="stylesheet" href="/css/cowork.css?v=f5bcaeeed1">
+  <script>
+    (function () {
+      try { var th = localStorage.getItem('webina-theme'); if (th) document.documentElement.setAttribute('data-theme', th); } catch (e) {}
+    })();
+  </script>
+</head>
+<body class="admin-body">
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M7 17 17 7M7 7h10v10"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M5 12h14M12 5v14"/></symbol>
+    <symbol id="i-trash" viewBox="0 0 24 24"><path d="M3 6h18M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></symbol>
+    <symbol id="i-send" viewBox="0 0 24 24"><path d="M14.54 21.69a.5.5 0 0 0 .94-.03l6.5-19a.5.5 0 0 0-.64-.64l-19 6.5a.5.5 0 0 0-.03.94l7.93 3.18a2 2 0 0 1 1.11 1.11zM21.85 2.15 10.91 13.09"/></symbol>
+    <symbol id="i-paperclip" viewBox="0 0 24 24"><path d="M21.44 11.05 12.25 20.24a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/></symbol>
+    <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></symbol>
+    <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></symbol>
+    <symbol id="i-check-square" viewBox="0 0 24 24"><path d="m9 11 3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></symbol>
+    <symbol id="i-folder" viewBox="0 0 24 24"><path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13c0 1.1.9 2 2 2Z"/></symbol>
+    <symbol id="i-note" viewBox="0 0 24 24"><path d="M14 3v4a1 1 0 0 0 1 1h4"/><path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2Z"/><path d="M9 9h1M9 13h6M9 17h6"/></symbol>
+    <symbol id="i-chat" viewBox="0 0 24 24"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></symbol>
+    <symbol id="i-rocket" viewBox="0 0 24 24"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></symbol>
+    <symbol id="i-out" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></symbol>
+    <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></symbol>
+    <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M3 12a9 9 0 0 1 15-6.7L21 8M21 3v5h-5M21 12a9 9 0 0 1-15 6.7L3 16M3 21v-5h5"/></symbol>
+  </svg>
+
+  <header class="admin_header">
+    <div class="admin_header-inner">
+      <a href="/cowork/" class="nav_brand" aria-label="Webina Cowork">
+        <img src="/images/webina-logo-light.png" alt="" width="36" height="36" class="nav_logo is-light">
+        <img src="/images/webina-logo-dark.png" alt="" width="36" height="36" class="nav_logo is-dark">
+        <span class="nav_brand-name">Webina <span class="text-color-muted">· Cowork</span></span>
+      </a>
+      <div class="admin_header-actions">
+        <div class="cw_presence" data-presence></div>
+        <button type="button" class="icon-button" data-theme-toggle aria-label="Changer de thème">
+          <svg class="icon is-sun" aria-hidden="true"><use href="#i-sun"/></svg>
+          <svg class="icon is-moon" aria-hidden="true"><use href="#i-moon"/></svg>
+        </button>
+        <span class="admin_user text-size-small text-color-secondary" data-user hidden></span>
+        <button type="button" class="button is-small is-secondary" data-logout hidden>Déconnexion</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="admin_main">
+    <!-- Connexion -->
+    <section class="admin_auth" data-view="auth" hidden>
+      <form class="form_card admin_auth-card" data-auth-form novalidate>
+        <h1 class="heading-style-h5">Espace technique</h1>
+        <p class="text-size-small text-color-secondary" data-auth-title>Connectez-vous avec le compte que Webina vous a transmis.</p>
+        <div class="form_field">
+          <label class="form_label" for="c-email">E-mail</label>
+          <input class="form_input" id="c-email" name="email" type="email" autocomplete="username" required>
+        </div>
+        <div class="form_field">
+          <label class="form_label" for="c-pass">Mot de passe</label>
+          <input class="form_input" id="c-pass" name="password" type="password" autocomplete="current-password" required>
+        </div>
+        <p class="form_error text-size-small" role="alert" data-auth-error></p>
+        <button type="submit" class="button is-large is-block" data-auth-submit>Se connecter</button>
+      </form>
+    </section>
+
+    <!-- Espace de travail -->
+    <div data-view="app" hidden>
+      <nav class="admin_tabs" aria-label="Sections">
+        <button type="button" class="admin_tab" aria-selected="true" data-tab="board"><svg class="icon" aria-hidden="true"><use href="#i-check-square"/></svg>Tâches<span class="admin_count" data-count="tasks"></span></button>
+        <button type="button" class="admin_tab" aria-selected="false" data-tab="sites"><svg class="icon" aria-hidden="true"><use href="#i-folder"/></svg>Sites</button>
+        <button type="button" class="admin_tab" aria-selected="false" data-tab="notes"><svg class="icon" aria-hidden="true"><use href="#i-note"/></svg>Bloc-notes</button>
+        <button type="button" class="admin_tab" aria-selected="false" data-tab="chat"><svg class="icon" aria-hidden="true"><use href="#i-chat"/></svg>Messages<span class="admin_count" data-count="chat"></span></button>
+        <button type="button" class="admin_tab" aria-selected="false" data-tab="deploys"><svg class="icon" aria-hidden="true"><use href="#i-rocket"/></svg>Mises en ligne</button>
+      </nav>
+
+      <div class="admin_content">
+        <!-- Tâches -->
+        <section class="admin_panel" data-panel="board">
+          <form class="cw_newtask" data-task-form>
+            <input class="form_input" name="title" placeholder="Nouvelle tâche technique…" required aria-label="Titre de la tâche">
+            <select class="form_input is-select" name="project_id" aria-label="Site" data-project-select><option value="">Sans site</option></select>
+            <select class="form_input is-select" name="assignee" aria-label="Pour qui" data-assignee-select><option value="">Non assignée</option></select>
+            <input class="form_input" name="due_on" type="date" aria-label="Échéance">
+            <button type="submit" class="button is-small"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg>Ajouter</button>
+          </form>
+          <div class="cw_board" data-board></div>
+        </section>
+
+        <!-- Fiches techniques -->
+        <section class="admin_panel" data-panel="sites" hidden>
+          <div class="cw_sites" data-sites></div>
+        </section>
+
+        <!-- Bloc-notes -->
+        <section class="admin_panel" data-panel="notes" hidden>
+          <div class="admin_card cw_notes">
+            <div class="cw_notes-head">
+              <div>
+                <h2 class="heading-style-h5">Bloc-notes commun</h2>
+                <p class="text-size-small text-color-secondary" data-notes-meta>Partagé entre vous deux, enregistré automatiquement.</p>
+              </div>
+              <span class="cw_saved" data-notes-state></span>
+            </div>
+            <textarea class="form_input is-area cw_notes-area" data-notes rows="22" spellcheck="false" placeholder="Accès, commandes, idées, choses à ne pas oublier…"></textarea>
+          </div>
+        </section>
+
+        <!-- Messages -->
+        <section class="admin_panel" data-panel="chat" hidden>
+          <div class="admin_card cw_chat">
+            <ol class="cw_msgs" role="list" data-msgs></ol>
+            <form class="cw_chat-form" data-chat-form>
+              <label class="cw_attach" title="Joindre un fichier">
+                <input type="file" data-chat-file>
+                <svg class="icon" aria-hidden="true"><use href="#i-paperclip"/></svg>
+                <span data-chat-fname class="sr-only">Joindre un fichier</span>
+              </label>
+              <textarea class="form_input cw_chat-input" name="body" rows="1" placeholder="Écrire un message… (Entrée pour envoyer)" aria-label="Message"></textarea>
+              <button type="submit" class="button is-small"><svg class="icon" aria-hidden="true"><use href="#i-send"/></svg>Envoyer</button>
+            </form>
+            <p class="text-size-small text-color-muted" data-chat-file-name hidden></p>
+          </div>
+        </section>
+
+        <!-- Mises en ligne -->
+        <section class="admin_panel" data-panel="deploys" hidden>
+          <form class="cw_newtask" data-deploy-form>
+            <input class="form_input" name="label" placeholder="Ce qui a été mis en ligne…" required aria-label="Mise en ligne">
+            <select class="form_input is-select" name="project_id" aria-label="Site" data-project-select><option value="">Sans site</option></select>
+            <select class="form_input is-select" name="env" aria-label="Environnement"><option value="prod">Production</option><option value="test">Test</option></select>
+            <input class="form_input" name="note" placeholder="Note (facultatif)" aria-label="Note">
+            <button type="submit" class="button is-small"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg>Enregistrer</button>
+          </form>
+          <div class="admin_table-wrap">
+            <table class="admin_table">
+              <thead><tr><th>Quand</th><th>Site</th><th>Mise en ligne</th><th>Où</th><th>Par</th></tr></thead>
+              <tbody data-deploy-rows></tbody>
+            </table>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <div class="admin_toast" data-toast role="status" aria-live="polite"></div>
+  <script src="/js/cowork.js?v=553165e571" defer></script>
+</body>
+</html>

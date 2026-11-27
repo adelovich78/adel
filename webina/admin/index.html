@@ -104,6 +104,7 @@
           <button type="button" class="admin_tab" aria-selected="false" data-tab="promo"><svg class="icon" aria-hidden="true"><use href="#i-tag"/></svg>Codes de réduction</button>
           <button type="button" class="admin_tab" aria-selected="false" data-tab="pricing"><svg class="icon" aria-hidden="true"><use href="#i-coins"/></svg>Tarifs</button>
           <button type="button" class="admin_tab" aria-selected="false" data-tab="link"><svg class="icon" aria-hidden="true"><use href="#i-link"/></svg>Lien de devis</button>
+          <button type="button" class="admin_tab" aria-selected="false" data-tab="team"><svg class="icon" aria-hidden="true"><use href="#i-users"/></svg>Équipe</button>
           <button type="button" class="admin_tab" aria-selected="false" data-tab="newsletter"><svg class="icon" aria-hidden="true"><use href="#i-mail"/></svg>Newsletter</button>
         </nav>
         <div class="admin_content">
@@ -444,6 +445,34 @@
       </div>
 
       <!-- Newsletter -->
+      <div class="admin_panel" data-panel="team" hidden>
+        <div class="admin_card">
+          <h2 class="heading-style-h5">Espace de travail technique</h2>
+          <p class="text-size-small text-color-secondary">Un compte développeur ouvre l'accès à <a href="/cowork/" target="_blank" rel="noopener">/cowork</a> : projets, tâches, fiches techniques, bloc-notes et messagerie. Il n'entre jamais dans cette page d'administration et ne voit aucun montant, devis ni facture.</p>
+        </div>
+        <div class="admin_table-wrap">
+          <table class="admin_table">
+            <thead><tr><th>Compte</th><th>Rôle</th><th>Dernière activité</th><th>État</th><th class="is-actions"><span class="sr-only">Actions</span></th></tr></thead>
+            <tbody data-team-rows></tbody>
+          </table>
+        </div>
+        <form class="admin_card admin_link" data-team-form>
+          <div>
+            <h2 class="heading-style-h5">Nouveau compte développeur</h2>
+            <p class="text-size-small text-color-secondary">Transmettez-lui l'adresse et le mot de passe en main propre ou par WhatsApp, pas par e-mail en clair. Il pourra se connecter sur /cowork.</p>
+          </div>
+          <div class="form_grid">
+            <div class="form_field"><label class="form_label" for="t-name">Nom</label><input class="form_input" id="t-name" name="name" placeholder="Prénom Nom"></div>
+            <div class="form_field"><label class="form_label" for="t-email">E-mail</label><input class="form_input" id="t-email" name="email" type="email" required autocomplete="off"></div>
+            <div class="form_field"><label class="form_label" for="t-pass">Mot de passe (10 caractères minimum)</label><input class="form_input" id="t-pass" name="password" type="text" minlength="10" required autocomplete="new-password"></div>
+          </div>
+          <div class="admin_link-out">
+            <button type="submit" class="button"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg>Créer le compte</button>
+            <button type="button" class="button is-secondary" data-team-gen><svg class="icon" aria-hidden="true"><use href="#i-refresh"/></svg>Mot de passe au hasard</button>
+          </div>
+          <p class="form_error text-size-small" role="alert" data-team-error></p>
+        </form>
+      </div>
       <div class="admin_panel" data-panel="newsletter" hidden>
         <div class="admin_toolbar">
           <p class="text-size-small text-color-secondary" data-sub-count></p>
@@ -497,7 +526,7 @@
   <div class="admin_toast" role="status" aria-live="polite" data-toast></div>
 
   <script src="/js/i18n.js?v=d96b808849" defer></script>
-  <script src="/js/admin.js?v=61d91f4b29" defer></script>
+  <script src="/js/admin.js?v=c1204f1388" defer></script>
   <script src="/js/crm.js?v=8b9eef279c" defer></script>
   <script src="/js/tr-districts.js?v=f51a4b706e" defer></script>
   <script src="/js/prospect.js?v=efc115e364" defer></script>

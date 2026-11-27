@@ -128,7 +128,8 @@
       api('submissions.php').then(function (d) { state.submissions = d.items || []; }).catch(function () {}),
       api('subscribers.php').then(function (d) { state.subscribers = d.items || []; }).catch(function () {}),
       api('promo.php').then(function (d) { state.codes = d.items || []; }).catch(function () {}),
-      api('pricing.php').then(function (d) { state.pricing = d.pricing; }).catch(function () {})
+      api('pricing.php').then(function (d) { state.pricing = d.pricing; }).catch(function () {}),
+      loadTeam().catch(function () {})
     ]).then(renderAll);
   }
   function renderAll() {
@@ -309,6 +310,68 @@
       syncSubmission(item, item.dataset.id, stage);
       toast(stage === 'won' ? 'Client réel : projet créé dans le CRM' : stage === 'lost' ? 'Marqué abandonné' : 'Étape : ' + DSTAGES.filter(function (s) { return s[0] === stage; })[0][1]);
     }).catch(function (ex) { toast(ex.message); });
+  });
+
+  /* ---------- Équipe : comptes développeurs pour /cowork ---------- */
+  var ROLE = { admin: 'Administrateur', dev: 'Développeur' };
+  function loadTeam() {
+    return api('team.php').then(function (x) {
+      var rows = $('[data-team-rows]');
+      rows.innerHTML = x.items.map(function (u) {
+        var seen = u.last_seen ? date(u.last_seen, true) : 'jamais connecté';
+        var state = !u.active ? '<span class="admin_badge is-done">Désactivé</span>'
+          : (u.online ? '<span class="admin_badge is-new">En ligne</span>' : '<span class="admin_badge">Actif</span>');
+        var acts = u.role === 'admin' ? '<span class="is-muted text-size-small">vous</span>' :
+          '<div class="button-group">' +
+            '<button type="button" class="button is-small is-secondary" data-team-pass="' + esc(u.id) + '">Mot de passe</button>' +
+            '<button type="button" class="button is-small is-secondary" data-team-active="' + esc(u.id) + '" data-v="' + (u.active ? 0 : 1) + '">' + (u.active ? 'Désactiver' : 'Réactiver') + '</button>' +
+            '<button type="button" class="icon-button is-danger" data-team-del="' + esc(u.id) + '" aria-label="Supprimer le compte"><svg class="icon" aria-hidden="true"><use href="#i-trash"/></svg></button>' +
+          '</div>';
+        return '<tr><td><b>' + esc(u.name || '—') + '</b><span class="admin_sub">' + esc(u.email) + '</span></td>' +
+          '<td>' + esc(ROLE[u.role] || u.role) + '</td><td class="is-muted">' + esc(seen) + '</td><td>' + state + '</td>' +
+          '<td class="is-actions">' + acts + '</td></tr>';
+      }).join('') || '<tr><td colspan="5" class="admin_empty">Aucun compte.</td></tr>';
+    });
+  }
+  function randomPass() {
+    var a = 'abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ23456789!@#%';
+    var out = '', v = new Uint32Array(14);
+    (window.crypto || window.msCrypto).getRandomValues(v);
+    for (var i = 0; i < v.length; i++) out += a[v[i] % a.length];
+    return out;
+  }
+  $('[data-team-gen]').addEventListener('click', function () {
+    var f = $('[data-team-form]');
+    f.password.value = randomPass();
+    copy(f.password.value).then(function () { toast('Mot de passe copié'); }, function () {});
+  });
+  $('[data-team-form]').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var f = e.target, err = $('[data-team-error]');
+    err.textContent = '';
+    api('team.php', { method: 'POST', body: { name: f.name.value, email: f.email.value, password: f.password.value } })
+      .then(function () { toast('Compte créé : il peut se connecter sur /cowork'); f.reset(); return loadTeam(); })
+      .catch(function (ex) { err.textContent = ex.message; });
+  });
+  $('[data-team-rows]').addEventListener('click', function (e) {
+    var el = e.target.closest('[data-team-pass],[data-team-active],[data-team-del]');
+    if (!el) return;
+    if (el.dataset.teamPass) {
+      var np = window.prompt('Nouveau mot de passe (10 caractères minimum) :', randomPass());
+      if (!np) return;
+      api('team.php?id=' + encodeURIComponent(el.dataset.teamPass), { method: 'PATCH', body: { password: np } })
+        .then(function () { copy(np).catch(function () {}); toast('Mot de passe changé et copié'); })
+        .catch(function (ex) { toast(ex.message); });
+    } else if (el.dataset.teamActive) {
+      api('team.php?id=' + encodeURIComponent(el.dataset.teamActive), { method: 'PATCH', body: { active: el.dataset.v === '1' } })
+        .then(function () { toast(el.dataset.v === '1' ? 'Compte réactivé' : 'Accès retiré'); return loadTeam(); })
+        .catch(function (ex) { toast(ex.message); });
+    } else {
+      if (!confirmAction('Supprimer définitivement ce compte ? Son accès à /cowork sera coupé.')) return;
+      api('team.php?id=' + encodeURIComponent(el.dataset.teamDel), { method: 'DELETE' })
+        .then(function () { toast('Compte supprimé'); return loadTeam(); })
+        .catch(function (ex) { toast(ex.message); });
+    }
   });
 
   /* ---------- Codes de réduction ---------- */
