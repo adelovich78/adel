@@ -121,7 +121,7 @@ V2 = {
 # ==========================================================================
 # Dictionnaire des 4 langues : textes conservés + nouvelle structure (content.py)
 # ==========================================================================
-CLIENT_CATS = ['design', 'press', 'lawacc', 'media', 'trade', 'consult', 'accounting']
+CLIENT_CATS = ['design', 'press', 'lawacc', 'media', 'trade', 'consult', 'accounting', 'education', 'ecommerce']
 DICT = {}
 for l in LANGS:
     b = base[l]
@@ -146,6 +146,7 @@ for l in LANGS:
         'details': {'ui': det['ui'], 'roles': det['roles']},
         'groups': c['groups'], 'sec': c['sec'], 'sp': c['sp'], 'sol': c['sol'], 'price': c['price'],
         'about': c['about'], 'demos': c['demos'], 'meta': c['meta'], 'sectorsPage': c['sectorsPage'], 'social': c['social'], 'legal': c['legal'],
+        'partner': b['partner'],
         **V2[l],
     }
 TR = DICT['tr']
@@ -189,12 +190,14 @@ CLIENTS = [
     {'title': 'Ola Andalusia', 'cat': 'consult', 'img': 'w-ola-DcZDCr04.webp', 'url': 'https://olaandalusia.com/'},
     {'title': 'Audexa', 'cat': 'accounting', 'img': 'w-audexa-yDxpiSMP.webp', 'url': 'https://audexa.com/'},
     {'title': 'New TR LIVE', 'cat': 'press', 'img': 'w-newtrlive-C2LJbWvW.webp', 'url': 'https://www.newtr.live/'},
+    {'title': 'XY Academy Speaking Café', 'cat': 'education', 'img': 'w-xyacademy.webp', 'url': 'https://xy-academy.net/'},
+    {'title': 'J AND J Global Store', 'cat': 'ecommerce', 'img': 'w-jjstore.webp', 'url': 'https://store.jandjglobal.net/'},
 ]
 for p in CLIENTS:
     p['host'] = re.sub(r'^https?://(www\.)?|/$', '', p['url'])
 
 # Scène du héro : les vrais sites clients (même ordre que home.rotate) ; les démos ont leur propre page
-HERO = [CLIENTS[i] for i in [0, 2, 1, 5, 4, 6, 3]]
+HERO = [CLIENTS[i] for i in [8, 2, 1, 9, 4, 6, 3]]
 HIRES = {p['img'] for p in HERO if os.path.exists(os.path.join(IMG, p['img'][:-5] + '-1024.webp'))}   # captures aussi en 1024 px (écrans haute densité)
 def hero_srcset(img):
     stem = img[:-5]
@@ -397,7 +400,7 @@ def solutions_fragments():
                 </article>''' for i, s in enumerate(C.SOLUTIONS))
     extras = ''.join(f'''
                 <li class="extras_item" data-reveal style="--d:{n % 3}">{tx(f"services.{i}.title", 'h3', 'heading-style-h6')}{tx(f"services.{i}.text", 'p', 'text-size-small text-color-secondary')}</li>''' for n, i in enumerate(C.EXTRAS))
-    return {'SOLUTION_BLOCKS': blocks, 'EXTRAS': extras}
+    return {'SOLUTION_BLOCKS': blocks, 'EXTRAS': extras, 'PARTNER': partner_block()}
 
 def social_fragments():
     # 3 formules mensuelles ; prix dynamiques via data-amount (socialBasic/Pro/Premium)
@@ -438,6 +441,24 @@ def legal_fragments(key):
             out.append(f'\n                <ul class="legal_list" role="list">{items}</ul>')
     out.append(f'\n                <div class="legal_contact"><h2 class="heading-style-h5">{tx("legal.contactT")}</h2>{tx("legal.contactP", "p")}</div>')
     return {'LEGAL_BODY': ''.join(out)}
+
+def partner_block():
+    """Bande « notre partenaire d'hébergement » : logo Turkticaret.Net et faits vérifiés sur leur site."""
+    pts = ''.join(f'<li>{icon("i-check")}{tx(f"partner.points.{j}")}</li>' for j in range(len(TR['partner']['points'])))
+    return f'''
+              <aside class="partner_band" data-reveal>
+                <div class="partner_brand">
+                  <img src="/images/turkticaret-light.png" alt="Turkticaret.Net" width="260" height="66" class="partner_logo is-light" loading="lazy" decoding="async">
+                  <img src="/images/turkticaret-dark.png" alt="Turkticaret.Net" width="260" height="66" class="partner_logo is-dark" loading="lazy" decoding="async">
+                  {tx("partner.eyebrow", 'p', 'text-style-mono text-color-muted')}
+                </div>
+                <div class="partner_body">
+                  {tx("partner.t", 'h2', 'heading-style-h4')}
+                  {tx("partner.p", 'p', 'text-color-secondary')}
+                  <ul class="check_list is-2 partner_points" role="list">{pts}</ul>
+                  <a href="https://www.turkticaret.net/" target="_blank" rel="noopener" class="partner_link">turkticaret.net{icon("i-arrow")}</a>
+                </div>
+              </aside>'''
 
 def sectors_fragments():
     out = []

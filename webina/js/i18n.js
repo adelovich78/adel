@@ -267,7 +267,9 @@ window.WEBINA_I18N = {
    "media": "Medya & Yayın",
    "trade": "İthalat / İhracat",
    "consult": "Danışmanlık",
-   "accounting": "Mali müşavirlik"
+   "accounting": "Mali müşavirlik",
+   "education": "Eğitim & Okul",
+   "ecommerce": "E-ticaret"
   },
   "demo": {
    "items": {
@@ -1367,6 +1369,19 @@ window.WEBINA_I18N = {
     }
    }
   },
+  "partner": {
+   "eyebrow": "Altyapı ortağımız",
+   "t": "Siteniz Turkticaret.Net sunucularında",
+   "p": "Alan adı ve hosting hizmetlerini, 1999’dan beri Türkiye’nin köklü sağlayıcılarından Turkticaret.Net üzerinden sunuyoruz. Siteniz ICANN akreditasyonuna sahip, Türkiye’de barındırılan sunucularda çalışır; biz kurulumu, yenilemeleri ve teknik takibi sizin yerinize yaparız.",
+   "points": [
+    "1999’dan beri hizmette, ICANN akreditasyonlu alan adı sağlayıcısı",
+    "Sunucular ve verileriniz Türkiye’de",
+    "NVMe disk, LiteSpeed ve CloudLinux ile hızlı altyapı",
+    "Ömür boyu ücretsiz SSL sertifikası",
+    "7/24 teknik destek ekibi",
+    "Cumhurbaşkanlığı, TRT, Türk Telekom ve Acıbadem gibi kurumların da tercihi"
+   ]
+  },
   "stage": {
    "aria": "Öne çıkan projeler",
    "prev": "Önceki proje",
@@ -1658,7 +1673,9 @@ window.WEBINA_I18N = {
    "media": "Media & Broadcast",
    "trade": "Import / Export",
    "consult": "Consulting",
-   "accounting": "Accounting firm"
+   "accounting": "Accounting firm",
+   "education": "Education & Schools",
+   "ecommerce": "E-commerce"
   },
   "demo": {
    "items": {
@@ -2758,6 +2775,19 @@ window.WEBINA_I18N = {
     }
    }
   },
+  "partner": {
+   "eyebrow": "Our infrastructure partner",
+   "t": "Your site runs on Turkticaret.Net servers",
+   "p": "We provide domain names and hosting through Turkticaret.Net, one of Turkey’s long-standing providers since 1999. Your site runs on ICANN-accredited infrastructure hosted in Turkey, and we handle the setup, renewals and technical follow-up for you.",
+   "points": [
+    "In business since 1999, ICANN-accredited domain registrar",
+    "Servers and your data stay in Turkey",
+    "Fast infrastructure: NVMe disks, LiteSpeed and CloudLinux",
+    "Free SSL certificate for life",
+    "24/7 technical support team",
+    "Also chosen by the Turkish Presidency, TRT, Türk Telekom and Acıbadem"
+   ]
+  },
   "stage": {
    "aria": "Featured projects",
    "prev": "Previous project",
@@ -3049,7 +3079,9 @@ window.WEBINA_I18N = {
    "media": "Médias & Broadcast",
    "trade": "Import / Export",
    "consult": "Conseil & Services",
-   "accounting": "Expertise comptable"
+   "accounting": "Expertise comptable",
+   "education": "Éducation & Écoles",
+   "ecommerce": "E-commerce"
   },
   "demo": {
    "items": {
@@ -4149,6 +4181,19 @@ window.WEBINA_I18N = {
     }
    }
   },
+  "partner": {
+   "eyebrow": "Notre partenaire d’infrastructure",
+   "t": "Votre site tourne sur les serveurs de Turkticaret.Net",
+   "p": "Nous fournissons les noms de domaine et l’hébergement via Turkticaret.Net, l’un des acteurs installés en Turquie depuis 1999. Votre site tourne sur une infrastructure accréditée ICANN, hébergée en Turquie, et nous nous chargeons de l’installation, des renouvellements et du suivi technique à votre place.",
+   "points": [
+    "En activité depuis 1999, bureau d’enregistrement accrédité ICANN",
+    "Serveurs et données conservés en Turquie",
+    "Infrastructure rapide : disques NVMe, LiteSpeed et CloudLinux",
+    "Certificat SSL gratuit à vie",
+    "Équipe d’assistance technique 24h/24, 7j/7",
+    "Également choisi par la Présidence turque, TRT, Türk Telekom et Acıbadem"
+   ]
+  },
   "stage": {
    "aria": "Projets à la une",
    "prev": "Projet précédent",
@@ -4440,7 +4485,9 @@ window.WEBINA_I18N = {
    "media": "إعلام وبث",
    "trade": "استيراد / تصدير",
    "consult": "استشارات وخدمات",
-   "accounting": "خبرة محاسبية"
+   "accounting": "خبرة محاسبية",
+   "education": "تعليم ومدارس",
+   "ecommerce": "التجارة الإلكترونية"
   },
   "demo": {
    "items": {
@@ -5539,6 +5586,19 @@ window.WEBINA_I18N = {
      ]
     }
    }
+  },
+  "partner": {
+   "eyebrow": "شريكنا في البنية التحتية",
+   "t": "موقعك يعمل على خوادم Turkticaret.Net",
+   "p": "نوفّر أسماء النطاقات والاستضافة عبر Turkticaret.Net، أحد أعرق مزوّدي الخدمة في تركيا منذ عام 1999. يعمل موقعك على بنية معتمدة من ICANN ومستضافة في تركيا، ونتولّى نحن الإعداد والتجديدات والمتابعة التقنية نيابةً عنك.",
+   "points": [
+    "تعمل منذ 1999 وهي جهة تسجيل نطاقات معتمدة من ICANN",
+    "الخوادم وبياناتك تبقى داخل تركيا",
+    "بنية سريعة: أقراص NVMe و LiteSpeed و CloudLinux",
+    "شهادة SSL مجانية مدى الحياة",
+    "فريق دعم تقني على مدار الساعة",
+    "تعتمد عليها أيضاً الرئاسة التركية وTRT وTürk Telekom وAcıbadem"
+   ]
   },
   "stage": {
    "aria": "مشاريع مختارة",
